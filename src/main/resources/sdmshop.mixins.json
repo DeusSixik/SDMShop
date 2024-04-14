@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.sdm.sdmshop.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "SDMShopR.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,15 @@
+Java Launcher: C:\Users\sixik\.jdks\azul-17.0.10\bin\java.exe
+Arguments: '--task, SRG_TO_MCP, --input, C:\Users\sixik\.gradle\caches\modules-2\files-2.1\curse.maven\ftb-quests-forge-289412\5192381\63fd30c0fb2d7a3e760f4e9a554916df87811bfe\ftb-quests-forge-289412-5192381.jar, --output, C:\Users\sixik\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\ftb-quests-forge-289412\5192381_mapped_official_1.20.1\ftb-quests-forge-289412-5192381_mapped_official_1.20.1.jar, --mcp, C:\Users\sixik\.gradle\caches\forge_gradle\mcp_repo\net\minecraft\mapping\1.20.1\mapping-1.20.1-mapping.zip, --strip-signatures'
+Classpath:
+ - C:\Users\sixik\.gradle\caches\forge_gradle\maven_downloader\net\minecraftforge\installertools\1.3.2\installertools-1.3.2-fatjar.jar
+Working directory: F:\_Minecraft Projects\SDM Shop R\build\_RenameSrg2Mcp_-1682847855
+Main class: net.minecraftforge.installertools.ConsoleTool
+====================================
+Task: SRG_TO_MCP
+Input:  C:\Users\sixik\.gradle\caches\modules-2\files-2.1\curse.maven\ftb-quests-forge-289412\5192381\63fd30c0fb2d7a3e760f4e9a554916df87811bfe\ftb-quests-forge-289412-5192381.jar
+Output: C:\Users\sixik\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\ftb-quests-forge-289412\5192381_mapped_official_1.20.1\ftb-quests-forge-289412-5192381_mapped_official_1.20.1.jar
+MCP:    C:\Users\sixik\.gradle\caches\forge_gradle\mcp_repo\net\minecraft\mapping\1.20.1\mapping-1.20.1-mapping.zip
+Loading MCP Data
+Processing ZIP file
+Stripped Manifest of sha digests
+Process complete

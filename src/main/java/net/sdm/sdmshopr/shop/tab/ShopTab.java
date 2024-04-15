@@ -35,7 +35,7 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
     public int lock = 0;
     public List<ShopEntry<?>> shopEntryList = new ArrayList<>();
 
-    protected final List<String> gameStages = new ArrayList<>();
+    public final List<String> gameStages = new ArrayList<>();
     protected final List<String> questID = new ArrayList<>();
 
     public ShopTab(Shop shop){

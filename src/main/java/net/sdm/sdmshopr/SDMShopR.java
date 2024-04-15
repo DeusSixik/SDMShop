@@ -1,16 +1,21 @@
 package net.sdm.sdmshopr;
 
 import com.mojang.logging.LogUtils;
+import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftbteams.FTBTeamsAPI;
 import dev.ftb.mods.ftbteams.data.ClientTeamManager;
 import dev.ftb.mods.ftbteams.data.KnownClientPlayer;
 import dev.ftb.mods.ftbteams.data.Team;
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -21,10 +26,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.sdm.sdmshopr.events.ModEvents;
+import net.sdm.sdmshopr.converter.ConverterOldShopData;
 import net.sdm.sdmshopr.network.SDMShopNetwork;
+import net.sdm.sdmshopr.network.SyncShop;
 import net.sdm.sdmshopr.network.UpdateEditMode;
 import net.sdm.sdmshopr.network.UpdateMoney;
+import net.sdm.sdmshopr.shop.Shop;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
@@ -53,11 +60,49 @@ public class SDMShopR {
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(SDMShopRClient.class);
-        MinecraftForge.EVENT_BUS.register(ModEvents.class);
         MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
     }
 
+
+    @SubscribeEvent
+    public void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event){
+        if(event.getEntity().level.isClientSide) return;
+
+        if(event.getEntity() instanceof ServerPlayer player && Shop.SERVER != null) {
+            new SyncShop(Shop.SERVER.serializeNBT()).sendTo(player);
+        }
+    }
+
+    @SubscribeEvent
+    public void onLevelSavedEvent(LevelEvent.Save event){
+        if(event.getLevel() instanceof Level && Shop.SERVER != null && Shop.SERVER.needSave && !event.getLevel().isClientSide() && ((Level) event.getLevel()).dimension() == Level.OVERWORLD){
+            Shop.SERVER.needSave = false;
+            SNBT.write(getFile(), Shop.SERVER.serializeNBT());
+        }
+    }
+
+    @SubscribeEvent
+    public void onWorldLoaded(LevelEvent.Load event) {
+        if (event.getLevel() instanceof Level && !event.getLevel().isClientSide() && ((Level) event.getLevel()).dimension() == Level.OVERWORLD) {
+            Shop.SERVER = new Shop();
+            Shop.SERVER.needSave();
+
+            CompoundTag nbt = SNBT.read(getFile());
+
+            CompoundTag data =  ConverterOldShopData.convertToNewData();
+            if(data != null) {
+                Shop.SERVER.deserializeNBT(data);
+                Shop.SERVER.needSave();
+                return;
+            }
+
+
+            if (nbt != null) {
+                Shop.SERVER.deserializeNBT(nbt);
+            }
+        }
+    }
 
 
     private void registerCommands(RegisterCommandsEvent event) {

@@ -35,7 +35,7 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
 
     public T type;
 
-    protected final List<String> gameStages = new ArrayList<>();
+    public final List<String> gameStages = new ArrayList<>();
     protected final List<String> questID = new ArrayList<>();
 
     public ShopEntry(){}

@@ -1,27 +1,19 @@
 package net.sdm.sdmshopr.shop.entry;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
-import dev.ftb.mods.ftblibrary.config.ConfigValue;
-import dev.ftb.mods.ftblibrary.config.ListConfig;
 import dev.ftb.mods.ftblibrary.config.StringConfig;
-import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
-import dev.ftb.mods.ftblibrary.util.TooltipList;
+import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.Quest;
-import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
 import dev.ftb.mods.ftbquests.quest.TeamData;
-import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
 import net.darkhax.gamestages.GameStageHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -127,7 +119,7 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         if(SDMShopRIntegration.GameStagesLoaded) config.addList("gameStages", gameStages, new StringConfig(null), "");
         if(type.isSellable()) config.addBool("isSell", isSell, v -> isSell = v, false);
 
-        ConfigGroup type = config.getOrCreateSubgroup("type");
+        ConfigGroup type = config.getGroup("type");
         this.type.getConfig(type);
     }
 
@@ -160,7 +152,7 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         if(SDMShopRIntegration.FTBQuestLoaded){
             TeamData data = TeamData.get(Minecraft.getInstance().player);
             for (String s : questID) {
-                Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
+                Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
                 if(quest != null){
                     if(!data.isCompleted(quest)) return true;
                 }

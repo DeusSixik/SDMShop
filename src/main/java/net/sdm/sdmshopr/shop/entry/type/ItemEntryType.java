@@ -105,7 +105,7 @@ public class ItemEntryType implements IEntryType{
         List<ItemStack> stackList = new ArrayList<>();
 
         for (int index = 0; index < player.getInventory().getContainerSize(); index++) {
-            if(ItemStack.matches(player.getInventory().getItem(index), (stack.copy())) || ItemStack.isSameItem(player.getInventory().getItem(index), (stack.copy()))){
+            if(ItemStack.matches(player.getInventory().getItem(index), (stack.copy())) || ItemStack.isSameItemSameTags(player.getInventory().getItem(index), (stack.copy()))){
                 stackList.add(player.getInventory().getItem(index));
             }
         }
@@ -171,7 +171,7 @@ public class ItemEntryType implements IEntryType{
                 /*весь ItemStack можно описать тремя параметрами. item.getData, item.getItemMeta и item.getAmmaount.
                  *При item.equas(item2)ammount тоже сравнивается, поэтому видим такое сравнение
                  */
-                if (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
+                if (ItemStack.isSameItemSameTags(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
                     totalamm += p.getInventory().getItem(a).getCount();
                 }
             }
@@ -186,7 +186,7 @@ public class ItemEntryType implements IEntryType{
         for (int a = 0; a<p.getInventory().getContainerSize(); a++) {
             if (ammountleft==0){return true;}
             if (p.getInventory().getItem(a)==null) continue;
-            if (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)) {
+            if (ItemStack.isSameItemSameTags(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)) {
                 if (p.getInventory().getItem(a).getCount()<ammountleft) {
                     ammountleft-=p.getInventory().getItem(a).getCount();
                     p.getInventory().setItem(a, ItemStack.EMPTY);

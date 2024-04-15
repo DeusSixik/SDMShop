@@ -59,13 +59,13 @@ public class SDMShopCommands {
     private static int editMode(CommandSourceStack source){
         if(source.getPlayer() != null) {
             SDMShopR.setEditMode(source.getPlayer(), !SDMShopR.isEditMode(source.getPlayer()));
-            source.sendSuccess(() -> Component.literal("Edit mode is " + SDMShopR.isEditMode(source.getPlayer())), false);
+            source.sendSuccess(Component.literal("Edit mode is " + SDMShopR.isEditMode(source.getPlayer())), false);
         }
         return 1;
     }
 
     private static int balance(CommandSourceStack source, ServerPlayer profiles) {
-        source.sendSuccess(() -> Component.literal(SDMShopR.moneyString(SDMShopR.getMoney(profiles))), false);
+        source.sendSuccess(Component.literal(SDMShopR.moneyString(SDMShopR.getMoney(profiles))), false);
         return 1;
     }
 
@@ -87,7 +87,7 @@ public class SDMShopCommands {
 
     private static int set(CommandSourceStack source, Collection<ServerPlayer> players, long money) {
         for (ServerPlayer player : players) {
-            source.sendSuccess(() -> Component.literal(player.getScoreboardName() + ": ").append(SDMShopR.moneyString(money)), false);
+            source.sendSuccess(Component.literal(player.getScoreboardName() + ": ").append(SDMShopR.moneyString(money)), false);
             SDMShopR.setMoney(player, money);
         }
 
@@ -100,7 +100,7 @@ public class SDMShopCommands {
         }
 
         for (ServerPlayer player : players) {
-            source.sendSuccess(() -> Component.literal(player.getScoreboardName() + (money > 0L ? ": +" : ": -")).append(SDMShopR.moneyString(Math.abs(money))), false);
+            source.sendSuccess(Component.literal(player.getScoreboardName() + (money > 0L ? ": +" : ": -")).append(SDMShopR.moneyString(Math.abs(money))), false);
             SDMShopR.addMoney(player, money);
         }
 

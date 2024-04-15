@@ -22,8 +22,8 @@ public class MoneyReward extends Reward {
     public long value = 1L;
     public int randomBonus = 0;
 
-    public MoneyReward(long id, Quest q) {
-        super(id, q);
+    public MoneyReward( Quest q) {
+        super(q);
     }
 
 //    public MoneyReward(Quest quest) {
@@ -65,19 +65,19 @@ public class MoneyReward extends Reward {
     }
 
 
-
-    @Override
     @OnlyIn(Dist.CLIENT)
-    public void fillConfigGroup(ConfigGroup config) {
-        super.fillConfigGroup(config);
+    @Override
+    public void getConfig(ConfigGroup config) {
+        super.getConfig(config);
         config.addLong("value", value, v -> value = v, 1L, 1L, Long.MAX_VALUE).setNameKey("ftbquests.reward.sdmshop.money");
         config.addInt("random_bonus", randomBonus, v -> randomBonus = v, 0, 0, Integer.MAX_VALUE).setNameKey("ftbquests.reward.random_bonus");
     }
 
+
     @Override
     public void claim(ServerPlayer player, boolean notify) {
         long money = SDMShopR.getMoney(player);
-        long added = value + player.serverLevel().random.nextInt(randomBonus + 1);
+        long added = value + player.getLevel().random.nextInt(randomBonus + 1);
         SDMShopR.setMoney(player, money + added);
 
         if (notify) {

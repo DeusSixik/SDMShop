@@ -1,8 +1,8 @@
 package net.sdm.sdmshopr.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.ui.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
@@ -11,7 +11,7 @@ import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 
 public class MainShopScreen extends BaseScreen {
-    @Override public boolean drawDefaultBackground(GuiGraphics graphics) {return false;}
+    @Override public boolean drawDefaultBackground(PoseStack graphics) {return false;}
 
     public ShopTab selectedTab;
 
@@ -64,13 +64,13 @@ public class MainShopScreen extends BaseScreen {
 
 
     @Override
-    public void drawOffsetBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawOffsetBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         theme.drawString(graphics, I18n.get("sdm.shop.money"), (int) (x + (Minecraft.getInstance().font.getSplitter().stringWidth(I18n.get("sdm.shop.money")) / 2)), y + 2);
 //        theme.drawString(graphics, SDMShopR.moneyString(SDMShopR.getClientMoney()), x + 2, y + 2 + Minecraft.getInstance().font.lineHeight);
     }
 
     @Override
-    public void drawBackground(GuiGraphics matrixStack, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack matrixStack, Theme theme, int x, int y, int w, int h) {
         SDMShopRClient.shopTheme.getShadow().draw(matrixStack, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);

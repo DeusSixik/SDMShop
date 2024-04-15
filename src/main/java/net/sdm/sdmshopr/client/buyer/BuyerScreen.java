@@ -1,10 +1,11 @@
 package net.sdm.sdmshopr.client.buyer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
@@ -147,8 +148,9 @@ public class BuyerScreen extends BaseScreen {
     public void alignWidgets() {
     }
 
+
     @Override
-    public void drawBackground(GuiGraphics matrixStack, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack matrixStack, Theme theme, int x, int y, int w, int h) {
         SDMShopRClient.shopTheme.getShadow().draw(matrixStack, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
@@ -191,7 +193,7 @@ public class BuyerScreen extends BaseScreen {
     protected class CancelButton extends SimpleTextButton{
 
         public CancelButton(Panel panel) {
-            super(panel, Component.translatable("sdm.shop.buyer.button.cancel"), Icon.empty());
+            super(panel, Component.translatable("sdm.shop.buyer.button.cancel"), Color4I.EMPTY);
         }
 
         @Override
@@ -210,7 +212,7 @@ public class BuyerScreen extends BaseScreen {
         }
 
         @Override
-        public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+        public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
             SDMShopRClient.shopTheme.getShadow().draw(graphics, x, y, w, h + 4);
             SDMShopRClient.shopTheme.getBackground().draw(graphics, x + 1, y + 1, w - 2, h - 2);
             GuiHelper.drawHollowRect(graphics, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
@@ -221,7 +223,7 @@ public class BuyerScreen extends BaseScreen {
     protected class BuyButton extends SimpleTextButton{
 
         public BuyButton(Panel panel) {
-            super(panel, Component.translatable("sdm.shop.buyer.button.accept"), Icon.empty());
+            super(panel, Component.translatable("sdm.shop.buyer.button.accept"), Color4I.EMPTY);
         }
 
         @Override
@@ -241,7 +243,7 @@ public class BuyerScreen extends BaseScreen {
         }
 
         @Override
-        public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+        public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
             SDMShopRClient.shopTheme.getShadow().draw(graphics, x, y, w, h + 4);
             SDMShopRClient.shopTheme.getBackground().draw(graphics, x + 1, y + 1, w - 2, h - 2);
             GuiHelper.drawHollowRect(graphics, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);

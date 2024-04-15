@@ -1,25 +1,22 @@
 package net.sdm.sdmshopr.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.ui.EditConfigScreen;
 import dev.ftb.mods.ftblibrary.icon.Icons;
-import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
 import net.sdm.sdmshopr.client.buyer.BuyerScreen;
 import net.sdm.sdmshopr.network.EditShopEntry;
 import net.sdm.sdmshopr.network.MoveShopEntry;
-import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 import net.sdm.sdmshopr.utils.NBTUtils;
@@ -36,7 +33,7 @@ public class EntryButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawIcon(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {return;}
+    public void drawIcon(PoseStack graphics, Theme theme, int x, int y, int w, int h) {return;}
 
     @Override
     public void onClicked(MouseButton mouseButton) {
@@ -51,17 +48,17 @@ public class EntryButton extends SimpleTextButton {
             List<ContextMenuItem> contextMenu = new ArrayList<>();
 
             contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.edit"), Icons.SETTINGS, () -> {
-                ConfigGroup group = new ConfigGroup("sdmr", b -> {
+                ConfigGroup group = new ConfigGroup("sdmr").setNameKey("sidebar_button.sdmr.shop");
+                ConfigGroup g = group.getGroup("shop").getGroup("entry");
+                entry.getConfig(g);
+                g.savedCallback = b -> {
                     openGui();
 
                     if(b){
                         new EditShopEntry(entry, false).sendToServer();
                     }
-                }).setNameKey("sidebar_button.sdmr.shop");
+                };
 
-
-                ConfigGroup g = group.getOrCreateSubgroup("shop").getOrCreateSubgroup("entry");
-                entry.getConfig(g);
                 new EditConfigScreen(group).openGui();
                 screen.refreshWidgets();
             }));
@@ -106,7 +103,7 @@ public class EntryButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         Font font = Minecraft.getInstance().font;
         SDMShopRClient.shopTheme.getShadow().draw(graphics, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(graphics, x + 1, y + 1, w - 2, h - 2);

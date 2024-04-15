@@ -41,8 +41,10 @@ public class SDMShopRIntegration {
         FTBQuestLoaded = true;
 
         try {
-            MoneyTask.TYPE = TaskTypes.register(new ResourceLocation(MODID, "money"), MoneyTask::new, () -> Icon.getIcon("sdmshop:textures/icon.png"));
-            MoneyReward.TYPE = RewardTypes.register(new ResourceLocation(MODID, "money"), MoneyReward::new, () -> Icon.getIcon("sdmshop:textures/icon.png"));
+            MoneyTask.TYPE = TaskTypes.register(new ResourceLocation(MODID, "money"), MoneyTask::new,
+                    () -> Icon.getIcon("sdmshop:textures/icon.png"));
+            MoneyReward.TYPE = RewardTypes.register(new ResourceLocation(MODID, "money"), MoneyReward::new,
+                    () -> Icon.getIcon("sdmshop:textures/icon.png"));
 
 //            MoneyReward.TYPE.setGuiProvider(new RewardType.GuiProvider() {
 //                @Override

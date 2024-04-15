@@ -3,6 +3,7 @@ package net.sdm.sdmshopr.shop.tab;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.StringConfig;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
+import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.Quest;
@@ -18,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.fml.ModList;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRIntegration;
 import net.sdm.sdmshopr.shop.Shop;
@@ -148,7 +148,7 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
         if (SDMShopRIntegration.FTBQuestLoaded) {
             TeamData data = TeamData.get(Minecraft.getInstance().player);
             for (String s : questID) {
-                Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
+                Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
                 if (quest != null) {
                     if (!data.isCompleted(quest)) return true;
                 }

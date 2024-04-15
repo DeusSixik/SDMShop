@@ -25,7 +25,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event){
-        if(event.getEntity().level().isClientSide) return;
+        if(event.getEntity().level.isClientSide) return;
 
         if(event.getEntity() instanceof ServerPlayer player && Shop.SERVER != null) {
             new SyncShop(Shop.SERVER.serializeNBT()).sendTo(player);

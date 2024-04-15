@@ -25,7 +25,7 @@ displayName="${mod_name}" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="sdmshop.png" #optional
+#logoFile="sdmshopr.png" #optional
 # A text field displayed in the mod UI
 #credits="Thanks for this example mod goes to Java" #optional
 # A text field displayed in the mod UI
@@ -65,27 +65,27 @@ description='''${mod_description}'''
 [[dependencies.${mod_id}]]
 modId = "architectury"
 mandatory = true
-versionRange = "[9.0.8,)"
+versionRange = "[6.6.92,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "ftblibrary"
 mandatory = true
-versionRange = "[2001.1.4,2001.2.0)"
+versionRange = "[1902.4.1,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "ftbteams"
 mandatory = true
-versionRange = "[2001.1.4,)"
+versionRange = "[1902.2.14,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "ftbquests"
 mandatory = true
-versionRange = "[2001.3.5,)"
+versionRange = "[1902.5.8,)"
 ordering = "AFTER"
 side = "BOTH"

@@ -4,6 +4,7 @@ import dev.ftb.mods.ftblibrary.ui.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
 import net.sdm.sdmshopr.shop.Shop;
@@ -17,13 +18,20 @@ public class MainShopScreen extends BaseScreen {
     public TabsPanel tabsPanel;
     public EntryPanel entryPanel;
     public TextField moneyInfo;
-    public MainShopScreen(){
-        selectedTab = Shop.CLIENT.shopTabs.isEmpty() ? null : Shop.CLIENT.shopTabs.get(0);
-    }
 
-//    public static void refreshIsOpen(){
-//
-//    }
+    public MainShopScreen(){
+
+        if(Shop.CLIENT.shopTabs.isEmpty()) selectedTab = null;
+        else {
+            selectedTab = null;
+            for (ShopTab shopTab : Shop.CLIENT.shopTabs) {
+                if(!shopTab.isLocked()) {
+                    selectedTab = shopTab;
+                    break;
+                }
+            }
+        }
+    }
 
     @Override
     public boolean onInit() {
@@ -40,16 +48,16 @@ public class MainShopScreen extends BaseScreen {
         add(moneyInfo = new TextField(this));
 
         moneyInfo.setScale(0.8f);
-        moneyInfo.setText(SDMShopR.moneyString(SDMShopR.getClientMoney()));
+        moneyInfo.setText(Component.literal(SDMShopR.moneyString(SDMShopR.getClientMoney())).withStyle(SDMShopRClient.getTheme().getMoneyTextColor().toStyle()));
 
-        add(tabsPanel = new TabsPanel(this, 60, height - 20));
-        add(entryPanel = new EntryPanel(this, this.width - 60, height));
+        add(tabsPanel = new TabsPanel(this, 80, height - 20));
+        add(entryPanel = new EntryPanel(this, this.width - 80, height));
     }
 
     @Override
     public void alignWidgets() {
-        moneyInfo.setSize(60, 20);
-        moneyInfo.setPos(2,2 + Minecraft.getInstance().font.lineHeight);
+        moneyInfo.setSize(80, 20);
+        moneyInfo.setPos(2,3 + Minecraft.getInstance().font.lineHeight);
         tabsPanel.setPos(0,20);
         entryPanel.setPos(tabsPanel.width,0);
     }
@@ -67,5 +75,11 @@ public class MainShopScreen extends BaseScreen {
         SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
         GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, SDMShopRClient.shopTheme.getStoke(), false);
+    }
+
+    public static void refreshIfOpen() {
+        if (Minecraft.getInstance().screen instanceof ScreenWrapper w && w.getGui() instanceof MainShopScreen mts) {
+            mts.refreshWidgets();
+        }
     }
 }

@@ -40,20 +40,10 @@ public class ModEvents {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.LOW)
+    @SubscribeEvent
     public static void onWorldLoaded(LevelEvent.Load event) {
         if (event.getLevel() instanceof Level && !event.getLevel().isClientSide() && ((Level) event.getLevel()).dimension() == Level.OVERWORLD) {
             Shop.SERVER = new Shop();
-
-//            ShopTab tab = new ShopTab(Shop.SERVER);
-//            tab.shopEntryList.add(new ShopEntry<>(tab,
-//                    ItemEntryType.of(Items.ACACIA_DOOR.getDefaultInstance()), 10,10,true));
-//            tab.shopEntryList.add(new ShopEntry<>(tab,
-//                    ItemEntryType.of(Items.ITEM_FRAME.getDefaultInstance()), 10,10,true));
-//            Shop.SERVER.shopTabs.add(tab);
-//            tab = new ShopTab(Shop.SERVER);
-//            Shop.SERVER.shopTabs.add(tab);
-
             Shop.SERVER.needSave();
 
             CompoundTag nbt = SNBT.read(getFile());

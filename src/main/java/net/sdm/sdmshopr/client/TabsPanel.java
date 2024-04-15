@@ -18,15 +18,17 @@ public class TabsPanel extends Panel {
     public void addWidgets() {
         int y = 2;
         for (int i = 0; i < Shop.CLIENT.shopTabs.size(); i++) {
-            TabButton tab = new TabButton(this, Shop.CLIENT.shopTabs.get(i));
-            tab.setSize(this.width - 4, 14);
-            if(i > 0) {
-                y += 14 + 6;
-                tab.setPos(2, y);
-            } else {
-                tab.setPos(2,y);
+            if(!Shop.CLIENT.shopTabs.get(i).isLocked()) {
+                TabButton tab = new TabButton(this, Shop.CLIENT.shopTabs.get(i));
+                tab.setSize(this.width - 4, 14);
+                if (i > 0) {
+                    y += 14 + 6;
+                    tab.setPos(2, y);
+                } else {
+                    tab.setPos(2, y);
+                }
+                add(tab);
             }
-            add(tab);
         }
 
         if(SDMShopR.isEditModeClient()){

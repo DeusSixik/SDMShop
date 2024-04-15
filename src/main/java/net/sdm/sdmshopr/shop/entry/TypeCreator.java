@@ -8,10 +8,14 @@ import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.network.CreateShopEntry;
 import net.sdm.sdmshopr.shop.entry.type.CommandEntryType;
 import net.sdm.sdmshopr.shop.entry.type.ItemEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.GameStagesEntryType;
 import net.sdm.sdmshopr.shop.entry.type.integration.QuestEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.SkillTreeEntryType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.sdm.sdmshopr.SDMShopRIntegration.GameStagesLoaded;
 
 public class TypeCreator {
 
@@ -46,7 +50,20 @@ public class TypeCreator {
             }));
         }
         if(SDMShopRIntegration.GameStagesLoaded){
-
+            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.add.context.integration.gamestage"), new GameStagesEntryType("").getCreativeIcon(), () -> {
+                ShopEntry<GameStagesEntryType> create = new ShopEntry<>(screen.selectedTab, new GameStagesEntryType(""), 1,1,false);
+                screen.selectedTab.shopEntryList.add(create);
+                screen.refreshWidgets();
+                new CreateShopEntry(create).sendToServer();
+            }));
+        }
+        if(SDMShopRIntegration.PSTLoaded){
+            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.add.context.integration.passiveskilltree"), new SkillTreeEntryType().getCreativeIcon(), () -> {
+                ShopEntry<SkillTreeEntryType> create = new ShopEntry<>(screen.selectedTab, new SkillTreeEntryType(), 1,1,false);
+                screen.selectedTab.shopEntryList.add(create);
+                screen.refreshWidgets();
+                new CreateShopEntry(create).sendToServer();
+            }));
         }
     }
 }

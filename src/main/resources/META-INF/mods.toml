@@ -61,3 +61,31 @@ description='''${mod_description}'''
    versionRange="${minecraft_version_range}"
    ordering="NONE"
    side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "architectury"
+mandatory = true
+versionRange = "[9.0.8,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "ftblibrary"
+mandatory = true
+versionRange = "[2001.1.4,2001.2.0)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "ftbteams"
+mandatory = true
+versionRange = "[2001.1.4,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "ftbquests"
+mandatory = true
+versionRange = "[2001.3.5,)"
+ordering = "AFTER"
+side = "BOTH"

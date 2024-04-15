@@ -1,40 +1,31 @@
-package net.sdm.sdmshopr.shop.entry.type;
+package net.sdm.sdmshopr.shop.entry.type.integration;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
-import net.minecraft.commands.CommandSourceStack;
+import net.darkhax.gamestages.GameStageHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
+import net.sdm.sdmshopr.shop.entry.type.IEntryType;
 
-import java.util.regex.Pattern;
-
-public class CommandEntryType implements IEntryType{
-
+public class GameStagesEntryType implements IEntryType {
+    public String gameStage;
     private String iconPath = "minecraft:item/barrier";
-    public String command = "";
-    public boolean elevatePerms;
-    public boolean silent;
-
-    public CommandEntryType(String command, String iconPath){
-        this.command = command;
-        this.iconPath = iconPath;
-    }
-
-    public static CommandEntryType of(String command, String iconPath){
-        return new CommandEntryType(command, iconPath);
+    public GameStagesEntryType(String gameStage){
+        this.gameStage = gameStage;
     }
 
     @Override
     public boolean isSellable() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCountable() {
-        return true;
+        return false;
     }
 
     @Override
@@ -51,49 +42,55 @@ public class CommandEntryType implements IEntryType{
 
     @Override
     public void getConfig(ConfigGroup group) {
+        group.addString("gameStage", gameStage, v -> gameStage = v, "");
         group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
-        group.addString("command", command, v -> command = v, "/time set day", Pattern.compile("^/.*"));
-        group.addBool("elevatePerms", elevatePerms, v -> elevatePerms = v, false);
-        group.addBool("silent", silent, v -> silent = v, false);
     }
 
     @Override
     public Icon getCreativeIcon() {
-        return Icons.BOOK;
+        return Icons.CONTROLLER;
     }
 
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        nbt.putString("type", "commandType");
+        nbt.putString("type", "stageType");
+        nbt.putString("gameStage", gameStage);
         nbt.putString("iconPath", iconPath);
-        nbt.putString("command", command);
-        nbt.putBoolean("elevatePerms", elevatePerms);
-        nbt.putBoolean("silent", silent);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
+        gameStage = nbt.getString("gameStage");
         iconPath = nbt.getString("iconPath");
-        command = nbt.getString("command");
-        elevatePerms = nbt.getBoolean("elevatePerms");
-        silent = nbt.getBoolean("silent");
+    }
+
+    @Override
+    public void sell(ServerPlayer player, int countSell, ShopEntry<?> entry) {
+
+        long playerMoney = SDMShopR.getMoney(player);
+        if(!GameStageHelper.hasStage(player, gameStage)) return;
+
+        GameStageHelper.removeStage(player, gameStage);
+        SDMShopR.setMoney(player, playerMoney + (entry.price));
+
     }
 
     @Override
     public void buy(ServerPlayer player, int countBuy, ShopEntry<?> entry) {
+        long playerMoney = SDMShopR.getMoney(player);
 
-        if(command.isEmpty()) return;
-        CommandSourceStack source = player.server.createCommandSourceStack();
-        if (elevatePerms) source = source.withPermission(2);
-        if (silent) source = source.withSuppressedOutput();
+        if(playerMoney < entry.price) return;
 
-        player.server.getCommands().performPrefixedCommand(source, command);
+        GameStageHelper.addStage(player, gameStage);
+        SDMShopR.setMoney(player, playerMoney - (entry.price));
     }
+
 
     @Override
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
+        if(GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return false;
         long playerMoney = SDMShopR.getClientMoney();
         int needMoney = entry.price * countSell;
         if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
@@ -102,6 +99,8 @@ public class CommandEntryType implements IEntryType{
 
     @Override
     public int howMany(boolean isSell, ShopEntry<?> entry) {
+        if(GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return 0;
+
         long playerMoney = SDMShopR.getClientMoney();
         return (int) (playerMoney / entry.price) > 1 ? 1 : 0;
     }

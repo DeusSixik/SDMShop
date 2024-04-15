@@ -40,7 +40,7 @@ public class TabButton extends SimpleTextButton {
             d1.selectedTab = tab;
             d1.refreshWidgets();
         }
-        if(mouseButton.isRight()){
+        if(mouseButton.isRight() && SDMShopR.isEditModeClient()){
             MainShopScreen screen = (MainShopScreen) getGui();
             List<ContextMenuItem> contextMenu = new ArrayList<>();
 

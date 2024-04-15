@@ -2,6 +2,7 @@ package net.sdm.sdmshopr;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.sun.jna.WString;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -42,10 +43,12 @@ public class Config
     public static final ForgeConfigSpec.ConfigValue<String> SHADOW;
     public static final ForgeConfigSpec.ConfigValue<String> REACT;
     public static final ForgeConfigSpec.ConfigValue<String> STOKE;
+    public static final ForgeConfigSpec.ConfigValue<String> TEXTCOLOR;
     public static String defaultBackground = "#5555FF";
     public static String defaultShadow = "#5555FF";
     public static String defaultReact = "#5555FF";
     public static String defaultStoke = "#5555FF";
+    public static String defaultTextColor = "#5555FF";
 
 
 
@@ -62,6 +65,7 @@ public class Config
         SHADOW = BUILDER.define("shadow", defaultShadow);
         REACT = BUILDER.define("react", defaultReact);
         STOKE = BUILDER.define("stoke", defaultStoke);
+        TEXTCOLOR = BUILDER.define("moneyTextColor", defaultTextColor);
 
         BUILDER.pop();
     }

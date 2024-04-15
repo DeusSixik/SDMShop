@@ -1,21 +1,20 @@
 package net.sdm.sdmshopr.utils;
 
-import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.sdm.sdmshopr.shop.entry.ShopEntry;
+import net.sdm.sdmshopr.SDMShopRIntegration;
 import net.sdm.sdmshopr.shop.entry.type.CommandEntryType;
 import net.sdm.sdmshopr.shop.entry.type.IEntryType;
 import net.sdm.sdmshopr.shop.entry.type.ItemEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.GameStagesEntryType;
 import net.sdm.sdmshopr.shop.entry.type.integration.QuestEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.SkillTreeEntryType;
 import org.jetbrains.annotations.Nullable;
 
 public class NBTUtils {
@@ -37,10 +36,22 @@ public class NBTUtils {
                 return (T) commandEntryType;
             }
 
-            if(type.equals("questType")){
+            if(SDMShopRIntegration.FTBQuestLoaded && type.equals("questType")){
                 QuestEntryType questEntryType = QuestEntryType.of("");
                 questEntryType.deserializeNBT(nbt);
                 return (T) questEntryType;
+            }
+
+            if(SDMShopRIntegration.GameStagesLoaded && type.equals("stageType")){
+                GameStagesEntryType stagesEntryType = new GameStagesEntryType("");
+                stagesEntryType.deserializeNBT(nbt);
+                return (T) stagesEntryType;
+            }
+
+            if(SDMShopRIntegration.PSTLoaded && type.equals("pstType")){
+                SkillTreeEntryType entryType = new SkillTreeEntryType();
+                entryType.deserializeNBT(nbt);
+                return (T) entryType;
             }
         }
 

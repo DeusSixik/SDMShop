@@ -16,6 +16,7 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
+import net.sdm.sdmshopr.client.buyer.BuyerScreen;
 import net.sdm.sdmshopr.network.EditShopEntry;
 import net.sdm.sdmshopr.network.MoveShopEntry;
 import net.sdm.sdmshopr.shop.Shop;
@@ -43,7 +44,7 @@ public class EntryButton extends SimpleTextButton {
         MainShopScreen screen = (MainShopScreen) getGui();
 
         if(mouseButton.isLeft()){
-
+            new BuyerScreen(entry).openGui();
         }
 
         if(mouseButton.isRight() && SDMShopR.isEditModeClient()){
@@ -115,7 +116,7 @@ public class EntryButton extends SimpleTextButton {
         GuiHelper.drawHollowRect(graphics, x, y, 18, 20, SDMShopRClient.shopTheme.getReact(), false);
 
         icon.draw(graphics, x + 1,y + 1, 16,16);
-        theme.drawString(graphics, entry.count, x + 20, y + 6);
+        theme.drawString(graphics, I18n.get("sdm.shop.entry.render.count", entry.count), x + 18, y + 6);
         theme.drawString(graphics, SDMShopR.moneyString(entry.price), x + 2, y + (this.height - font.lineHeight * 2 - 1));
 
         SDMShopRClient.shopTheme.getReact().draw(graphics, x, y + (this.height - font.lineHeight - 2), this.width, 1);

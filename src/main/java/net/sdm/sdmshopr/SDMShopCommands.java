@@ -71,7 +71,17 @@ public class SDMShopCommands {
 
 
     private static int pay(CommandSourceStack source, ServerPlayer from, ServerPlayer to, long money) {
-        source.sendFailure(Component.literal("WIP!"));
+        if(from.getUUID().equals(to.getUUID())) {
+            source.sendFailure(Component.literal("Not enough money"));
+            return 1;
+        }
+        if(SDMShopR.getMoney(from) >= money){
+            SDMShopR.setMoney(from, SDMShopR.getMoney(from) - money);
+            SDMShopR.setMoney(to, SDMShopR.getMoney(to) + money);
+            source.sendFailure(Component.literal("Money sended !"));
+            return 0;
+        }
+        source.sendFailure(Component.literal("Not enough money"));
         return 1;
     }
 

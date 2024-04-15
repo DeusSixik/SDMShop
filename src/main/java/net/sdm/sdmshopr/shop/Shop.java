@@ -27,6 +27,7 @@ public class Shop implements INBTSerializable<CompoundTag> {
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
+        nbt.putString("sdmversion", "0.0.1");
 
         ListTag tabs = new ListTag();
 

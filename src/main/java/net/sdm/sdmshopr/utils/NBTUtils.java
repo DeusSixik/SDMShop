@@ -7,15 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.sdm.sdmshopr.SDMShopRIntegration;
-import net.sdm.sdmshopr.shop.entry.type.CommandEntryType;
-import net.sdm.sdmshopr.shop.entry.type.IEntryType;
-import net.sdm.sdmshopr.shop.entry.type.ItemEntryType;
-import net.sdm.sdmshopr.shop.entry.type.integration.GameStagesEntryType;
-import net.sdm.sdmshopr.shop.entry.type.integration.QuestEntryType;
-import net.sdm.sdmshopr.shop.entry.type.integration.SkillTreeEntryType;
+import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.IEntryType;
 import org.jetbrains.annotations.Nullable;
+import org.openjdk.nashorn.internal.ir.BreakableNode;
 
 public class NBTUtils {
 
@@ -24,34 +21,12 @@ public class NBTUtils {
         if(nbt.contains("type")) {
             String type = nbt.getString("type");
 
-            if (type.equals("itemType")) {
-                ItemEntryType itemEntryType = ItemEntryType.of(ItemStack.EMPTY);
-                itemEntryType.deserializeNBT(nbt);
-                return (T) itemEntryType;
-            }
-
-            if(type.equals("commandType")){
-                CommandEntryType commandEntryType = CommandEntryType.of("","");
-                commandEntryType.deserializeNBT(nbt);
-                return (T) commandEntryType;
-            }
-
-            if(SDMShopRIntegration.FTBQuestLoaded && type.equals("questType")){
-                QuestEntryType questEntryType = QuestEntryType.of("");
-                questEntryType.deserializeNBT(nbt);
-                return (T) questEntryType;
-            }
-
-            if(SDMShopRIntegration.GameStagesLoaded && type.equals("stageType")){
-                GameStagesEntryType stagesEntryType = new GameStagesEntryType("");
-                stagesEntryType.deserializeNBT(nbt);
-                return (T) stagesEntryType;
-            }
-
-            if(SDMShopRIntegration.PSTLoaded && type.equals("pstType")){
-                SkillTreeEntryType entryType = new SkillTreeEntryType();
-                entryType.deserializeNBT(nbt);
-                return (T) entryType;
+            if(EntryTypeRegister.TYPES.containsKey(type)){
+                IEntryType entryType = EntryTypeRegister.TYPES.get(type).copy();
+                if(ModList.get().isLoaded(entryType.getModID())) {
+                    entryType.deserializeNBT(nbt);
+                    return (T) entryType;
+                } else return null;
             }
         }
 

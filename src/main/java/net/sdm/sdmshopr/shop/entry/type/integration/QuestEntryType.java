@@ -10,11 +10,11 @@ import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
-import net.sdm.sdmshopr.shop.entry.type.IEntryType;
-import org.apache.logging.log4j.spi.CopyOnWrite;
+import net.sdm.sdmshopr.api.IEntryType;
 
 import java.util.Date;
 
@@ -26,6 +26,11 @@ public class QuestEntryType implements IEntryType {
 
     public QuestEntryType(String questID){
         this.questID = questID;
+    }
+
+    @Override
+    public Component getTranslatableForContextMenu() {
+        return Component.translatable("sdm.shop.entry.add.context.integration.quest");
     }
 
     public static QuestEntryType of(String questID){
@@ -69,10 +74,26 @@ public class QuestEntryType implements IEntryType {
         return Icon.getIcon("ftbquests:textures/item/book.png");
     }
 
+
+    @Override
+    public String getModID() {
+        return "ftbquests";
+    }
+
+    @Override
+    public IEntryType copy() {
+        return new QuestEntryType(questID);
+    }
+
+    @Override
+    public String getID() {
+        return "questType";
+    }
+
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        nbt.putString("type", "questType");
+        nbt.putString("type", getID());
         nbt.putString("questID", questID);
         nbt.putString("iconPath", iconPath);
         nbt.putBoolean("useIconFromQuest", useIconFromQuest);

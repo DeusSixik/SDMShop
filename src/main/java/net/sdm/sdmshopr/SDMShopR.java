@@ -8,7 +8,6 @@ import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
 import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -28,13 +27,16 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.sdm.sdmshopr.api.ConditionRegister;
 import net.sdm.sdmshopr.converter.ConverterOldShopData;
 import net.sdm.sdmshopr.network.SDMShopNetwork;
 import net.sdm.sdmshopr.network.SyncShop;
 import net.sdm.sdmshopr.network.UpdateEditMode;
 import net.sdm.sdmshopr.network.UpdateMoney;
+import net.sdm.sdmshopr.api.EntryTypeRegister;
 import net.sdm.sdmshopr.shop.Shop;
 import org.slf4j.Logger;
+
 
 import java.nio.file.Path;
 
@@ -53,6 +55,8 @@ public class SDMShopR {
     public SDMShopR() {
         SDMShopNetwork.init();
         SDMShopRIntegration.init();
+        EntryTypeRegister.init();
+        ConditionRegister.init();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         Config.init(FMLPaths.CONFIGDIR.get().resolve(SDMShopR.MODID + "-client.toml"));
@@ -120,9 +124,6 @@ public class SDMShopR {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
 

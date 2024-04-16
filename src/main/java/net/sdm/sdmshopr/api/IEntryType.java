@@ -1,12 +1,11 @@
-package net.sdm.sdmshopr.shop.entry.type;
+package net.sdm.sdmshopr.api;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
-import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -14,19 +13,67 @@ import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
 public interface IEntryType extends INBTSerializable<CompoundTag> {
 
+    /*
+        Can the product be sold
+     */
     boolean isSellable();
+
+    /*
+        If the product has a quantity, an example of this is item
+    */
     boolean isCountable();
+
+    /*
+        Checks if the item is hidden, it will not be shown
+     */
     default boolean isLocked(){
         return false;
     }
 
+    /*
+        The icon that will be displayed in the store
+     */
     Icon getIcon();
 
-    CompoundTag getIconNBT();
 
+    /*
+        NBT Icon need only if icon is item
+     */
+    default CompoundTag getIconNBT(){
+        return new CompoundTag();
+    }
+
+    /*
+        Config menu from FTB Library
+     */
     void getConfig(ConfigGroup group);
 
+    /*
+    The icon that will be displayed in the context menu when adding the product
+     */
     Icon getCreativeIcon();
+
+    String getID();
+
+    IEntryType copy();
+
+
+    Component getTranslatableForContextMenu();
+
+    /*
+        ID is the mod in which the product will become available
+     */
+    default String getModID(){
+        return "minecraft";
+    }
+
+    @Override
+    default CompoundTag serializeNBT(){
+        CompoundTag nbt = new CompoundTag();
+        nbt.putString("type", getID());
+        return nbt;
+    }
+
     default Icon getPreviewIcon(){
         if(getCreativeIcon().isEmpty()) return Icons.BARRIER;
         else return getCreativeIcon();

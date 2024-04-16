@@ -21,12 +21,15 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fml.ModList;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRIntegration;
+import net.sdm.sdmshopr.api.ConditionRegister;
+import net.sdm.sdmshopr.api.IShopCondition;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ShopTab implements INBTSerializable<CompoundTag> {
     public Shop shop;
@@ -35,11 +38,19 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
     public int lock = 0;
     public List<ShopEntry<?>> shopEntryList = new ArrayList<>();
 
+
+    public final List<IShopCondition> conditions = new ArrayList<>();
+
     public final List<String> gameStages = new ArrayList<>();
-    protected final List<String> questID = new ArrayList<>();
 
     public ShopTab(Shop shop){
         this.shop = shop;
+
+        for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
+            if(ModList.get().isLoaded(d1.getValue().getModID())){
+                conditions.add(d1.getValue().create());
+            }
+        }
     }
 
 
@@ -48,21 +59,13 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
         nbt.putString("title", title.getString());
         NBTUtils.putItemStack(nbt, "icon", icon);
 
-        if(SDMShopRIntegration.FTBQuestLoaded && !questID.isEmpty()){
-            ListTag d1 = new ListTag();
-            for (String gameStage : questID) {
-                d1.add(StringTag.valueOf(gameStage));
+        for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
+            if(ModList.get().isLoaded(d1.getValue().getModID())) {
+                IShopCondition condition = d1.getValue().create();
+                condition.deserializeNBT(nbt);
+                conditions.add(condition);
             }
-            nbt.put("questID", d1);
         }
-        if(SDMShopRIntegration.GameStagesLoaded && !gameStages.isEmpty()){
-            ListTag d1 = new ListTag();
-            for (String gameStage : gameStages) {
-                d1.add(StringTag.valueOf(gameStage));
-            }
-            nbt.put("gameStages", d1);
-        }
-
 
         return nbt;
     }
@@ -84,21 +87,11 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
         title = Component.translatable(nbt.getString("title"));
         icon = NBTUtils.getItemStack(nbt, "icon");
 
-        if(SDMShopRIntegration.GameStagesLoaded && nbt.contains("gameStages")){
-            gameStages.clear();
-            ListTag d1 = (ListTag) nbt.get("gameStages");
-            for (Tag tag : d1) {
-                StringTag f1 = (StringTag) tag;
-                gameStages.add(f1.getAsString());
-            }
-        }
-
-        if(SDMShopRIntegration.FTBQuestLoaded && nbt.contains("questID")) {
-            questID.clear();
-            ListTag d1 = (ListTag) nbt.get("questID");
-            for (Tag tag : d1) {
-                StringTag f1 = (StringTag) tag;
-                questID.add(f1.getAsString());
+        for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
+            if(ModList.get().isLoaded(d1.getValue().getModID())) {
+                IShopCondition condition = d1.getValue().create();
+                condition.deserializeNBT(nbt);
+                conditions.add(condition);
             }
         }
 
@@ -130,30 +123,21 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
 
         config.addItemStack("icon", icon, v -> icon = v, ItemStack.EMPTY, true, true);
 
+        ConfigGroup group = config.getOrCreateSubgroup("dependencies");
 
-        if(SDMShopRIntegration.FTBQuestLoaded) config.addList("questID", questID, new StringConfig(null), "");
-
-        if(SDMShopRIntegration.GameStagesLoaded) config.addList("gameStages", gameStages, new StringConfig(null), "");
+        for (IShopCondition condition : conditions) {
+            condition.getConfig(group);
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
     public boolean isLocked() {
         if (SDMShopR.isEditModeClient()) return false;
 
-        if (SDMShopRIntegration.GameStagesLoaded) {
-            for (String gameStage : gameStages) {
-                if (!GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return true;
-            }
+        for (IShopCondition condition : conditions) {
+            if(condition.isLocked()) return true;
         }
-        if (SDMShopRIntegration.FTBQuestLoaded) {
-            TeamData data = TeamData.get(Minecraft.getInstance().player);
-            for (String s : questID) {
-                Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
-                if (quest != null) {
-                    if (!data.isCompleted(quest)) return true;
-                }
-            }
-        }
+
         return false;
     }
 }

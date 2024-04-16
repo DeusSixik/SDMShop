@@ -7,21 +7,20 @@ import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.sdm.sdmshopr.SDMShopR;
-import net.sdm.sdmshopr.network.UpdateMoney;
+import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class ItemEntryType implements IEntryType{
@@ -32,6 +31,11 @@ public class ItemEntryType implements IEntryType{
 
     public static ItemEntryType of(ItemStack itemStack){
         return new ItemEntryType(itemStack);
+    }
+
+    @Override
+    public Component getTranslatableForContextMenu() {
+        return Component.translatable("sdm.shop.entry.add.context.item");
     }
 
     @Override
@@ -63,6 +67,16 @@ public class ItemEntryType implements IEntryType{
     }
 
     @Override
+    public String getID() {
+        return "itemType";
+    }
+
+    @Override
+    public IEntryType copy() {
+        return new ItemEntryType(itemStack);
+    }
+
+    @Override
     public Icon getCreativeIcon() {
         return Icons.DIAMOND;
     }
@@ -70,7 +84,7 @@ public class ItemEntryType implements IEntryType{
     @Override
     public CompoundTag serializeNBT() {
         SNBTCompoundTag nbt = new SNBTCompoundTag();
-        nbt.putString("type", "itemType");
+        nbt.putString("type", getID());
         NBTUtils.putItemStack(nbt, "item", itemStack);
         return nbt;
     }

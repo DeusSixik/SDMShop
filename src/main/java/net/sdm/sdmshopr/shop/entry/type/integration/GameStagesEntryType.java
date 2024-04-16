@@ -6,10 +6,11 @@ import dev.ftb.mods.ftblibrary.icon.Icons;
 import net.darkhax.gamestages.GameStageHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
-import net.sdm.sdmshopr.shop.entry.type.IEntryType;
+import net.sdm.sdmshopr.api.IEntryType;
 
 public class GameStagesEntryType implements IEntryType {
     public String gameStage;
@@ -26,6 +27,11 @@ public class GameStagesEntryType implements IEntryType {
     @Override
     public boolean isCountable() {
         return false;
+    }
+
+    @Override
+    public Component getTranslatableForContextMenu() {
+        return Component.translatable("sdm.shop.entry.add.context.integration.gamestage");
     }
 
     @Override
@@ -47,14 +53,29 @@ public class GameStagesEntryType implements IEntryType {
     }
 
     @Override
+    public String getModID() {
+        return "gamestages";
+    }
+
+    @Override
+    public IEntryType copy() {
+        return new GameStagesEntryType(gameStage);
+    }
+
+    @Override
     public Icon getCreativeIcon() {
         return Icons.CONTROLLER;
     }
 
     @Override
+    public String getID() {
+        return "stageType";
+    }
+
+    @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        nbt.putString("type", "stageType");
+        nbt.putString("type", getID());
         nbt.putString("gameStage", gameStage);
         nbt.putString("iconPath", iconPath);
         return nbt;

@@ -116,7 +116,8 @@ public class EntryButton extends SimpleTextButton {
         GuiHelper.drawHollowRect(graphics, x, y, 18, 20, SDMShopRClient.shopTheme.getReact(), false);
 
         icon.draw(graphics, x + 1,y + 1, 16,16);
-        theme.drawString(graphics, I18n.get("sdm.shop.entry.render.count", entry.count), x + 18, y + 6);
+        theme.drawString(graphics, entry.count, x + 19, y + 2);
+        theme.drawString(graphics, Component.translatable("sdm.shop.entry.render.count"), x + 19, y + 11);
         theme.drawString(graphics, SDMShopR.moneyString(entry.price), x + 2, y + (this.height - font.lineHeight * 2 - 1));
 
         SDMShopRClient.shopTheme.getReact().draw(graphics, x, y + (this.height - font.lineHeight - 2), this.width, 1);

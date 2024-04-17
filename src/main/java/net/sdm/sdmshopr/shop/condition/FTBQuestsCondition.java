@@ -11,6 +11,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.api.IShopCondition;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class FTBQuestsCondition implements IShopCondition {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean isLocked() {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
         for (String s : questID) {

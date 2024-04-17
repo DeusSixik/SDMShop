@@ -109,5 +109,26 @@
   "sdmr.shop.entry.type.mnalevel.tooltip" : "The player's Magic Level",
   "sdmr.shop.entry.type.mnaresetProgression.tooltip" : "If enabled, when selling a shooting gallery, the player resets completed tasks of the level that he sold and the level to which he switched",
 
+  "sdmr.shop.entry.creator.require" : "Need a mod: ",
+  "sdmr.shop.entry.creator.type.canbuy" : "Can be put up for purchase: %s",
+  "sdmr.shop.entry.creator.type.cansell" : "Can be put up for sale: %s",
+  "sdmr.shop.entry.creator.type.itemType.description" : "Allows you to create an item as a product. It is useful if you want to create a store where items will be sold or bought",
+  "sdmr.shop.entry.creator.type.commandType.description" : "It will allow you to put the team up for sale. To execute from the server side and not from the player, use /execute",
+  "sdmr.shop.entry.creator.type.pstType.description" : "It will allow you to put up for sale or purchase leveling points",
+  "sdmr.shop.entry.creator.type.questType.description" : "It will allow you to create a quest as a product.",
+  "sdmr.shop.entry.creator.type.questType.description_1" : "I don't know why, but why not :D",
+  "sdmr.shop.entry.creator.type.stageType.description" : "It will allow you to put stages up for sale.",
+  "sdmr.shop.entry.creator.type.mnaFactionType.description" : "It will allow the use of fractions as a product",
+  "sdmr.shop.entry.creator.type.mnaLevelType.description" : "Will allow you to put up for sale or purchase a mage level",
+  "sdmr.shop.entry.creator.type.mnaProgressionType.description" : "It will allow you to submit tasks from oculus for purchase",
+  "sdmr.shop.entry.creator.type.mnaTierType.description" : "It will allow you to put up for sale or purchase the level of a magician from oculus",
+
+  "sdm.shop.entry.creator.contextmenu.info" : "More...",
+  "sdm.shop.entry.creator.info" : "Show hidden",
+  "sdm.shop.entry.creator.back" : "Back",
+  "sdm.shop.entry.creator.addfavorite" : "Add Favorite",
+  "sdm.shop.entry.creator.removefavorite" : "Remove Favorite",
+  "sdm.shop.entry.creator.keyinfo" : "Click the right mouse button and you can add the button to the quick menu",
+
   "sdm.shop.money" : "Money"
 }

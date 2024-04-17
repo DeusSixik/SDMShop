@@ -39,6 +39,17 @@ public class ItemEntryType implements IEntryType{
     }
 
     @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.itemType.description"));
+        return list;
+    }
+
+
+
+
+
+    @Override
     public boolean isSellable() {
         return true;
     }

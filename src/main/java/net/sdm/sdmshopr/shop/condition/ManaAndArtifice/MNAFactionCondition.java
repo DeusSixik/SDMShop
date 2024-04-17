@@ -12,6 +12,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.sdm.sdmshopr.api.IShopCondition;
 
@@ -40,6 +42,7 @@ public class MNAFactionCondition implements IShopCondition {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean isLocked() {
         for (String s : factionID) {
             IFaction faction = (IFaction) ((IForgeRegistry<?>) Registries.Factions.get()).getValue(new ResourceLocation(s));

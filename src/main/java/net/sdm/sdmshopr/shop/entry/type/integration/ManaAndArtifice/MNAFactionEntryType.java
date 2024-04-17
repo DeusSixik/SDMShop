@@ -12,10 +12,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MNAFactionEntryType implements IEntryType {
     public String factionID;
@@ -102,6 +107,7 @@ public class MNAFactionEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         try {
             IFaction faction = (IFaction) ((IForgeRegistry<?>) Registries.Factions.get()).getValue(new ResourceLocation(factionID));
@@ -126,6 +132,7 @@ public class MNAFactionEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         IFaction faction = (IFaction)((IForgeRegistry)Registries.Factions.get()).getValue(new ResourceLocation(factionID));
         IPlayerProgression progression = (IPlayerProgression) Minecraft.getInstance().player.getCapability(PlayerProgressionProvider.PROGRESSION).orElse((IPlayerProgression) null);
@@ -153,6 +160,11 @@ public class MNAFactionEntryType implements IEntryType {
         long playerMoney = SDMShopR.getMoney(player);
         SDMShopR.setMoney(player, playerMoney - entry.price);
 
+    }
+
+    @Override
+    public String getModNameForContextMenu() {
+        return "Mana And Artifice";
     }
 
     @Override

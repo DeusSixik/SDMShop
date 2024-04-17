@@ -11,8 +11,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface IEntryType extends INBTSerializable<CompoundTag> {
 
+    default boolean isCanBuy(){
+        return true;
+    }
     /*
         Can the product be sold
      */
@@ -59,6 +65,14 @@ public interface IEntryType extends INBTSerializable<CompoundTag> {
 
 
     Component getTranslatableForContextMenu();
+
+    default List<Component> getDescriptionForContextMenu(){
+
+        return List.of(Component.translatable("sdmr.shop.entry.creator.type." + getID() + ".description"));
+    }
+    default String getModNameForContextMenu(){
+        return "";
+    }
 
     /*
         ID is the mod in which the product will become available

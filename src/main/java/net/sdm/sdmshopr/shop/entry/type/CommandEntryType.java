@@ -11,6 +11,8 @@ import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class CommandEntryType implements IEntryType{
@@ -62,6 +64,13 @@ public class CommandEntryType implements IEntryType{
         group.addString("command", command, v -> command = v, "/time set day", Pattern.compile("^/.*"));
         group.addBool("elevatePerms", elevatePerms, v -> elevatePerms = v, false);
         group.addBool("silent", silent, v -> silent = v, false);
+    }
+
+    @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.commandType.description"));
+        return list;
     }
 
     @Override

@@ -9,6 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
@@ -92,6 +94,7 @@ public class MNALevelEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         IPlayerMagic playerMagic = (IPlayerMagic) Minecraft.getInstance().player.getCapability(PlayerMagicProvider.MAGIC).resolve().get();
         if(playerMagic != null) {
@@ -105,6 +108,11 @@ public class MNALevelEntryType implements IEntryType {
             return count;
         }
         return 0;
+    }
+
+    @Override
+    public String getModNameForContextMenu() {
+        return "Mana And Artifice";
     }
 
     @Override

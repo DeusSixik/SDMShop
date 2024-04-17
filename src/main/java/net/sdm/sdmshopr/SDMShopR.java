@@ -2,6 +2,7 @@ package net.sdm.sdmshopr;
 
 import com.mojang.logging.LogUtils;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
+import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
 import dev.ftb.mods.ftbteams.api.Team;
 import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
@@ -28,6 +29,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.sdm.sdmshopr.api.ConditionRegister;
+import net.sdm.sdmshopr.config.ClientShopData;
 import net.sdm.sdmshopr.converter.ConverterOldShopData;
 import net.sdm.sdmshopr.network.SDMShopNetwork;
 import net.sdm.sdmshopr.network.SyncShop;
@@ -49,6 +51,9 @@ public class SDMShopR {
 
     public static Path getFile() {
         return FMLPaths.CONFIGDIR.get().resolve("sdmshop.snbt");
+    }
+    public static Path getFileClient() {
+        return FMLPaths.CONFIGDIR.get().resolve("sdmshop-data-client.snbt");
     }
 
 
@@ -120,10 +125,15 @@ public class SDMShopR {
     @OnlyIn(Dist.CLIENT)
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
-
+        public static ClientShopData creator;
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            creator = new ClientShopData(getFileClient());
+            SNBTCompoundTag d1 = SNBT.read(getFileClient());
+            if(d1 != null) {
+                creator.deserializeNBT(d1);
+            }
         }
     }
 

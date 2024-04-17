@@ -5,6 +5,8 @@ import com.mna.capabilities.playerdata.magic.PlayerMagicProvider;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.api.IShopCondition;
 
 public class MNALevelCondition implements IShopCondition {
@@ -34,6 +36,7 @@ public class MNALevelCondition implements IShopCondition {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean isLocked() {
         if(useLevelCondition) {
             IPlayerMagic playerMagic = (IPlayerMagic) Minecraft.getInstance().player.getCapability(PlayerMagicProvider.MAGIC).resolve().get();

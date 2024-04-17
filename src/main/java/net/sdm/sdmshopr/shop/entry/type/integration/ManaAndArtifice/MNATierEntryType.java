@@ -12,6 +12,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
@@ -110,6 +112,7 @@ public class MNATierEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         if(isSell){
             IPlayerProgression progression = (IPlayerProgression) Minecraft.getInstance().player.getCapability(PlayerProgressionProvider.PROGRESSION).orElse((IPlayerProgression) null);
@@ -123,6 +126,12 @@ public class MNATierEntryType implements IEntryType {
     }
 
     @Override
+    public String getModNameForContextMenu() {
+        return "Mana And Artifice";
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         IPlayerProgression progression = (IPlayerProgression) Minecraft.getInstance().player.getCapability(PlayerProgressionProvider.PROGRESSION).orElse((IPlayerProgression) null);
 

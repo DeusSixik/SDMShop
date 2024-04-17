@@ -12,11 +12,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class QuestEntryType implements IEntryType {
 
@@ -31,6 +35,11 @@ public class QuestEntryType implements IEntryType {
     @Override
     public Component getTranslatableForContextMenu() {
         return Component.translatable("sdm.shop.entry.add.context.integration.quest");
+    }
+
+    @Override
+    public String getModNameForContextMenu() {
+        return "FTB Quests";
     }
 
     public static QuestEntryType of(String questID){
@@ -55,6 +64,14 @@ public class QuestEntryType implements IEntryType {
         Icon getted = Icon.getIcon(iconPath);
         if(getted.isEmpty()) return Icons.BARRIER;
         return getted;
+    }
+
+    @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.questType.description"));
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.questType.description_1"));
+        return list;
     }
 
     @Override
@@ -132,6 +149,7 @@ public class QuestEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
         Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
@@ -146,6 +164,7 @@ public class QuestEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
         Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));

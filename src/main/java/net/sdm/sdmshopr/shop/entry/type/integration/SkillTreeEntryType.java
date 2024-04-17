@@ -10,10 +10,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SkillTreeEntryType implements IEntryType {
 
@@ -26,6 +31,18 @@ public class SkillTreeEntryType implements IEntryType {
     @Override
     public Component getTranslatableForContextMenu() {
         return Component.translatable("sdm.shop.entry.add.context.integration.passiveskilltree");
+    }
+
+    @Override
+    public String getModNameForContextMenu() {
+        return "Passive Skill Tree";
+    }
+
+    @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.pstType.description"));
+        return list;
     }
 
     @Override
@@ -111,6 +128,7 @@ public class SkillTreeEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         if(isSell){
             if(PlayerSkillsProvider.get(Minecraft.getInstance().player).getSkillPoints() >= entry.count * countSell){
@@ -125,6 +143,7 @@ public class SkillTreeEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         if(isSell) {
             return PlayerSkillsProvider.get(Minecraft.getInstance().player).getSkillPoints() / entry.count;

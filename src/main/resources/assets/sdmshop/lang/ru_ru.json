@@ -109,5 +109,26 @@
   "sdmr.shop.entry.type.mnalevel.tooltip": "Уровень магии игрока",
   "sdmr.shop.entry.type.mnaresetProgression.tooltip": "Если включено при продаже тира игрок обнулить выполненные задания уровня который продал и уровня на который перешёл",
 
+  "sdmr.shop.entry.creator.require": "Нужен мод: ",
+  "sdmr.shop.entry.creator.type.canbuy": "Может быть выставлен на покупку: %s",
+  "sdmr.shop.entry.creator.type.cansell": "Может быть выставлен на продажу: %s ",
+  "sdmr.shop.entry.creator.type.itemType.description": "Позволяет создать предмет как товар. Полезно если вы хотите создать магазин в котором будут продаваться или покупаться предметы",
+  "sdmr.shop.entry.creator.type.commandType.description": "Позволит вам выставить на продажу команду. Для выполнения со стороны сервера а не игрока используйте /execute",
+  "sdmr.shop.entry.creator.type.pstType.description": "Позволит вам выставить на продажу или покупку очки прокачки",
+  "sdmr.shop.entry.creator.type.questType.description": "Позволит создать квест как товар.",
+  "sdmr.shop.entry.creator.type.questType.description_1": "Не знаю зачем но почему бы и нет :D",
+  "sdmr.shop.entry.creator.type.stageType.description": "Это позволит вам выставлять этапы на продажу.",
+  "sdmr.shop.entry.creator.type.mnaFactionType.description": "Позволит вам выставить на продажу или покупку фракции",
+  "sdmr.shop.entry.creator.type.mnaLevelType.description": "Позволит вам выставить на продажу или покупку уровень мага",
+  "sdmr.shop.entry.creator.type.mnaProgressionType.description": "Позволит вам выставить на  покупку задания из окулуса",
+  "sdmr.shop.entry.creator.type.mnaTierType.description": "Позволит вам выставить на продажу или покупку уровень мага из окулуса",
+
+  "sdm.shop.entry.creator.contextmenu.info": "Ещё...",
+  "sdm.shop.entry.creator.info": "Показывать скрытые",
+  "sdm.shop.entry.creator.back": "Назад",
+  "sdm.shop.entry.creator.addfavorite": "Добавить в избранное",
+  "sdm.shop.entry.creator.removefavorite": "Удалить из избранного",
+  "sdm.shop.entry.creator.keyinfo": "Нажмите правую кнопку мыши и вы можете добавить кнопку в быстрое меню",
+
   "sdm.shop.money": "Деньги"
 }

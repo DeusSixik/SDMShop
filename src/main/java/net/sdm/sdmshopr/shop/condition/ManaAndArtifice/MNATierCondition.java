@@ -8,6 +8,8 @@ import com.mna.capabilities.playerdata.progression.PlayerProgressionProvider;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.api.IShopCondition;
 
 import javax.print.DocFlavor;
@@ -38,6 +40,7 @@ public class MNATierCondition implements IShopCondition {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean isLocked() {
         if(useTierCondition) {
             IPlayerProgression progression = (IPlayerProgression) Minecraft.getInstance().player.getCapability(PlayerProgressionProvider.PROGRESSION).orElse((IPlayerProgression) null);

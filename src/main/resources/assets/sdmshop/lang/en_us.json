@@ -59,6 +59,7 @@
   "sdmr.shop.tab.dependencies.mnalevel" : "MNA Magic Level",
   "sdmr.shop.tab.dependencies.mnatier" : "MNA Magic Tier",
 
+  "sdmr.shop.entry.tags" : "Tags",
   "sdmr.shop.entry.tittle" : "Title",
   "sdmr.shop.entry.price" : "Price",
   "sdmr.shop.entry.count" : "Count",

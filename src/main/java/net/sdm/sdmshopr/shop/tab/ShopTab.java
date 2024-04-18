@@ -37,6 +37,7 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
     public ItemStack icon = ItemStack.EMPTY;
     public int lock = 0;
     public List<ShopEntry<?>> shopEntryList = new ArrayList<>();
+    public List<String> TAGS = new ArrayList<>();
 
 
     public final List<IShopCondition> conditions = new ArrayList<>();
@@ -67,6 +68,12 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
             }
         }
 
+        ListTag f1 = new ListTag();
+        for (String tag : TAGS) {
+            f1.add(StringTag.valueOf(tag));
+        }
+        nbt.put("tags", f1);
+
         return nbt;
     }
 
@@ -92,6 +99,14 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
                 IShopCondition condition = d1.getValue().create();
                 condition.deserializeNBT(nbt);
                 conditions.add(condition);
+            }
+        }
+
+        if(nbt.contains("tags")) {
+            TAGS.clear();
+            ListTag f1 = (ListTag) nbt.get("tags");
+            for (Tag tag : f1) {
+                TAGS.add(tag.getAsString());
             }
         }
 
@@ -122,6 +137,9 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
         config.addString("title", title.getString(), v -> title = Component.translatable(v), "");
 
         config.addItemStack("icon", icon, v -> icon = v, ItemStack.EMPTY, true, true);
+
+        config.addList("tags", TAGS, new StringConfig(null), "");
+
 
         ConfigGroup group = config.getOrCreateSubgroup("dependencies");
 

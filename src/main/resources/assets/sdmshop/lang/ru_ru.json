@@ -59,6 +59,7 @@
   "sdmr.shop.tab.dependencies.mnalevel": "MNA Магический Уровень",
   "sdmr.shop.tab.dependencies.mnatier": "MNA Магический Тир",
 
+  "sdmr.shop.entry.tags": "Тэги",
   "sdmr.shop.entry.tittle": "Заголовок",
   "sdmr.shop.entry.price": "Цена",
   "sdmr.shop.entry.count": "Количество",

@@ -14,6 +14,7 @@ public interface SDMShopNetwork {
 
     MessageType EDIT_SHOP_TAB = NET.registerC2S("edit_shop_tab", EditShopTab::new);
     MessageType EDIT_SHOP_ENTRY = NET.registerC2S("edit_shop_entry", EditShopEntry::new);
+    MessageType RELOAD_CLIENT = NET.registerS2C("reload_client", ReloadClientData::new);
 
     MessageType CREATE_SHOP_ENTRY = NET.registerC2S("create_shop_entry", CreateShopEntry::new);
     MessageType CREATE_SHOP_TAB = NET.registerC2S("create_shop_tab", CreateShopTab::new);

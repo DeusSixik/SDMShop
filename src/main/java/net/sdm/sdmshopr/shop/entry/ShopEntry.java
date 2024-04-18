@@ -43,6 +43,8 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
 
     public final List<String> gameStages = new ArrayList<>();
 
+    public List<String> TAGS = new ArrayList<>();
+
 
     public ShopEntry(){}
     public ShopEntry(ShopTab tab){
@@ -75,9 +77,16 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         if(type != null)
             nbt.put("type", type.serializeNBT());
 
+        ListTag f1 = new ListTag();
+        for (String tag : TAGS) {
+            f1.add(StringTag.valueOf(tag));
+        }
+        nbt.put("tags", f1);
+
         for (IShopCondition condition : conditions) {
             condition.serializeNBT(nbt);
         }
+
 
         return nbt;
     }
@@ -93,6 +102,14 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         isSell = nbt.getBoolean("isSell");
         tittle = nbt.getString("tittle");
         type = NBTUtils.getEntryType(nbt.getCompound("type"));
+
+        if(nbt.contains("tags")) {
+            TAGS.clear();
+            ListTag f1 = (ListTag) nbt.get("tags");
+            for (Tag tag : f1) {
+                TAGS.add(tag.getAsString());
+            }
+        }
 
         for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
             if(ModList.get().isLoaded(d1.getValue().getModID())) {
@@ -112,6 +129,7 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
 
         if(type.isSellable()) config.addBool("isSell", isSell, v -> isSell = v, false);
 
+        config.addList("tags", TAGS, new StringConfig(null), "");
 
 
         ConfigGroup type = config.getOrCreateSubgroup("type");

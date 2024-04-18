@@ -17,7 +17,7 @@ public class CreateShopTab extends BaseC2SMessage {
         this.nbt = nbt;
     }
     public CreateShopTab(FriendlyByteBuf buf) {
-        this.nbt = buf.readAnySizeNbt();
+        this.nbt = buf.readNbt();
     }
 
     @Override

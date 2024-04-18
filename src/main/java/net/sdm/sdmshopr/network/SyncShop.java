@@ -18,7 +18,7 @@ public class SyncShop extends BaseS2CMessage {
     }
 
     public SyncShop(FriendlyByteBuf buf){
-        this.shopData = buf.readAnySizeNbt();
+        this.shopData = buf.readNbt();
     }
 
     @Override

@@ -3,10 +3,10 @@ package net.sdm.sdmshopr;
 import com.mojang.logging.LogUtils;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
-import dev.ftb.mods.ftbteams.FTBTeamsAPI;
-import dev.ftb.mods.ftbteams.data.ClientTeamManager;
-import dev.ftb.mods.ftbteams.data.KnownClientPlayer;
-import dev.ftb.mods.ftbteams.data.Team;
+import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
+import dev.ftb.mods.ftbteams.api.Team;
+import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
+import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,7 +29,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.sdm.sdmshopr.api.ConditionRegister;
-import net.sdm.sdmshopr.api.EntryTypeRegister;
 import net.sdm.sdmshopr.api.tags.ITag;
 import net.sdm.sdmshopr.config.ClientShopData;
 import net.sdm.sdmshopr.converter.ConverterOldShopData;
@@ -38,9 +37,11 @@ import net.sdm.sdmshopr.network.SDMShopNetwork;
 import net.sdm.sdmshopr.network.SyncShop;
 import net.sdm.sdmshopr.network.UpdateEditMode;
 import net.sdm.sdmshopr.network.UpdateMoney;
+import net.sdm.sdmshopr.api.EntryTypeRegister;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.tags.TagFileParser;
 import org.slf4j.Logger;
+
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -115,7 +116,7 @@ public class SDMShopR {
 
     @SubscribeEvent
     public void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event){
-        if(event.getEntity().level.isClientSide) return;
+        if(event.getEntity().level().isClientSide) return;
 
         if(event.getEntity() instanceof ServerPlayer player && Shop.SERVER != null) {
             new SyncShop(Shop.SERVER.serializeNBT()).sendTo(player);
@@ -190,14 +191,14 @@ public class SDMShopR {
     }
 
     public static long getMoney(Player player) {
-        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
+        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
         if(team != null)
             return team.getExtraData().getLong("Money");
         return 0;
     }
 
     public static void setMoney(ServerPlayer player, long money) {
-        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
+        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
         if(team != null) {
             if (money != team.getExtraData().getLong("Money")) {
                 SDMPlayerEvents.SetMoneyEvent giveMoneyEvent = new SDMPlayerEvents.SetMoneyEvent(player, money, getMoney(player));
@@ -206,7 +207,7 @@ public class SDMShopR {
                 if(!giveMoneyEvent.isCanceled()) {
 
                     team.getExtraData().putLong("Money", giveMoneyEvent.getCountMoney());
-                    team.save();
+                    team.markDirty();
                     new UpdateMoney(player.getUUID(), giveMoneyEvent.getCountMoney()).sendToAll(player.server);
                 }
             }
@@ -214,7 +215,7 @@ public class SDMShopR {
     }
 
     public static void addMoney(ServerPlayer player, long money) {
-        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
+        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
         if(team != null) {
             long balance = team.getExtraData().getLong("Money");
 
@@ -224,46 +225,46 @@ public class SDMShopR {
             if(!event.isCanceled()) {
                 long current = event.playerMoney + event.countMoney;
                 team.getExtraData().putLong("Money", current);
-                team.save();
+                team.markDirty();
                 new UpdateMoney(player.getUUID(), current).sendToAll(player.server);
             }
         }
     }
 
     public static void setEditMode(KnownClientPlayer player, boolean value){
-        player.getExtraData().putBoolean("sdm_edit_mobe", value);
+        player.extraData().putBoolean("sdm_edit_mobe", value);
     }
     public static void setEditMode(ServerPlayer player, boolean value){
-        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
+        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
         if(team != null){
             team.getExtraData().putBoolean("sdm_edit_mobe", value);
-            team.save();
+            team.markDirty();
             new UpdateEditMode(player.getUUID(), value).sendToAll(player.server);
         }
     }
 
     public static long getMoney(KnownClientPlayer player) {
-        return player.getExtraData().getLong("Money");
+        return player.extraData().getLong("Money");
     }
 
     public static void setMoney(KnownClientPlayer player, long money) {
-        player.getExtraData().putLong("Money", money);
+        player.extraData().putLong("Money", money);
     }
 
     public static void addMoney(KnownClientPlayer player, long money) {
-        player.getExtraData().putLong("Money", player.getExtraData().getLong("Money") + money);
+        player.extraData().putLong("Money", player.extraData().getLong("Money") + money);
     }
 
     public static long getClientMoney() {
-        return ClientTeamManager.INSTANCE.getKnownPlayer(Minecraft.getInstance().player.getUUID()).getExtraData().getLong("Money");
+        return ClientTeamManagerImpl.getInstance().getKnownPlayer(Minecraft.getInstance().player.getUUID()).get().extraData().getLong("Money");
     }
 
     public static boolean isEditModeClient(){
-        return ClientTeamManager.INSTANCE.getKnownPlayer(Minecraft.getInstance().player.getUUID()).getExtraData().getBoolean("sdm_edit_mobe");
+        return ClientTeamManagerImpl.getInstance().getKnownPlayer(Minecraft.getInstance().player.getUUID()).get().extraData().getBoolean("sdm_edit_mobe");
     }
 
     public static boolean isEditMode(Player player) {
-        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
+        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
         if(team != null)
             return team.getExtraData().getBoolean("sdm_edit_mobe");
         return false;

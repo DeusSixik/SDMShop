@@ -25,7 +25,7 @@ public class EditShopEntry extends BaseC2SMessage {
     public EditShopEntry(FriendlyByteBuf buf) {
         tab = buf.readVarInt();
         id = buf.readVarInt();
-        nbt = buf.readAnySizeNbt();
+        nbt = buf.readNbt();
     }
 
 

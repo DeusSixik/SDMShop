@@ -20,7 +20,7 @@ public class EditShopTab extends BaseC2SMessage {
 
     public EditShopTab(FriendlyByteBuf buf) {
         tab = buf.readVarInt();
-        nbt = buf.readAnySizeNbt();
+        nbt = buf.readNbt();
     }
 
 

@@ -124,10 +124,10 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         config.addList("tags", TAGS, new StringConfig(null), "");
 
 
-        ConfigGroup type = config.getGroup("type");
+        ConfigGroup type = config.getOrCreateSubgroup("type");
         this.type.getConfig(type);
 
-        ConfigGroup group = config.getGroup("dependencies");
+        ConfigGroup group = config.getOrCreateSubgroup("dependencies");
 
         for (IShopCondition condition : conditions) {
             condition.getConfig(group);

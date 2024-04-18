@@ -22,7 +22,7 @@ public class TypeCreator {
 
         for (Map.Entry<String, IEntryType> d1 : EntryTypeRegister.TYPES.entrySet()) {
             if(ModList.get().isLoaded(d1.getValue().getModID()) && SDMShopR.ClientModEvents.creator.favoriteCreator.contains(d1.getValue().getID())){
-                contextMenu.add(new ContextMenuItem(d1.getValue().getTranslatableForContextMenu(), d1.getValue().getCreativeIcon(), () -> {
+                contextMenu.add(new ContextMenuItem(d1.getValue().getTranslatableForContextMenu(), d1.getValue().getCreativeIcon(), (button) -> {
                     ShopEntry<IEntryType> create = new ShopEntry<>(screen.selectedTab, d1.getValue().copy(), 1,1,false);
                     screen.selectedTab.shopEntryList.add(create);
                     screen.refreshWidgets();
@@ -31,7 +31,7 @@ public class TypeCreator {
             }
         }
 
-        contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.contextmenu.info"), Icons.BOOK, () -> {
+        contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.contextmenu.info"), Icons.BOOK, (button) -> {
             new CreateEntryScreen(screen).openGui();
         }));
         return contextMenu;

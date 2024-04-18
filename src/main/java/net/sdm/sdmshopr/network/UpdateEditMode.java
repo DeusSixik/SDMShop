@@ -3,8 +3,8 @@ package net.sdm.sdmshopr.network;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.simple.BaseS2CMessage;
 import dev.architectury.networking.simple.MessageType;
-import dev.ftb.mods.ftbteams.data.ClientTeamManager;
-import dev.ftb.mods.ftbteams.data.KnownClientPlayer;
+import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
+import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sdm.sdmshopr.SDMShopR;
 
@@ -39,10 +39,10 @@ public class UpdateEditMode extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         if(packetContext.getEnv().isClient()){
-            KnownClientPlayer team = ClientTeamManager.INSTANCE.getKnownPlayer(playerId);
+            Optional<KnownClientPlayer> team = ClientTeamManagerImpl.getInstance().getKnownPlayer(playerId);
 
             if (team != null) {
-                SDMShopR.setEditMode(team, value);
+                SDMShopR.setEditMode(team.get(), value);
             }
         }
     }

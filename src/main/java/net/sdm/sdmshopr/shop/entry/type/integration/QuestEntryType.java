@@ -3,7 +3,6 @@ package net.sdm.sdmshopr.shop.entry.type.integration;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
-import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObject;
@@ -58,7 +57,7 @@ public class QuestEntryType implements IEntryType {
     @Override
     public Icon getIcon() {
         if(useIconFromQuest) {
-            QuestObject quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+            QuestObject quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
             if (quest == null) return Icons.BARRIER;
             return quest.getIcon();
         }
@@ -128,7 +127,7 @@ public class QuestEntryType implements IEntryType {
     @Override
     public void sell(ServerPlayer player, int countSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(player);
-        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
 
         if(quest == null) return;
         if(data.isCompleted(quest)){
@@ -140,7 +139,7 @@ public class QuestEntryType implements IEntryType {
     @Override
     public void buy(ServerPlayer player, int countBuy, ShopEntry<?> entry) {
         TeamData data = TeamData.get(player);
-        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
 
         if(quest == null) return;
         if(!data.isCompleted(quest)){
@@ -153,7 +152,7 @@ public class QuestEntryType implements IEntryType {
     @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
-        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
         if(quest != null){
             if(data.isCompleted(quest)) return false;
         }
@@ -168,7 +167,7 @@ public class QuestEntryType implements IEntryType {
     @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
-        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
         if (quest == null) return 0;
         if (isSell) {
             if (!data.isCompleted(quest)) {

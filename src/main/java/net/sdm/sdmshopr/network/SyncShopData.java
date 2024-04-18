@@ -14,7 +14,7 @@ public class SyncShopData extends BaseS2CMessage {
     }
 
     public SyncShopData(FriendlyByteBuf buf){
-        nbt = buf.readAnySizeNbt();
+        nbt = buf.readNbt();
     }
 
     @Override

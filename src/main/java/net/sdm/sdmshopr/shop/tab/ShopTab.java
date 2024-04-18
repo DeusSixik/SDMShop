@@ -134,7 +134,7 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
         config.addList("tags", TAGS, new StringConfig(null), "");
 
 
-        ConfigGroup group = config.getGroup("dependencies");
+        ConfigGroup group = config.getOrCreateSubgroup("dependencies");
 
         for (IShopCondition condition : conditions) {
             condition.getConfig(group);

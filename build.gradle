@@ -143,15 +143,24 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("curse.maven:architectury-api-419699:5137942")
-    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4661834")
-    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:5060506")
-    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4611938")
+    implementation fg.deobf("curse.maven:ftb-library-forge-404465:5269468")
+    implementation fg.deobf("curse.maven:architectury-api-419699:5173989")
+    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:5202950")
+    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:5214946")
+    // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
+    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
-    compileOnly fg.deobf("curse.maven:game-stages-268655:4396244")
-    compileOnly fg.deobf("curse.maven:passive-skill-tree-850298:5182798")
+    // Example mod dependency using a mod jar from ./libs with a flat dir repository
+    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
+    // The group id is ignored when searching -- in this case, it is "blank"
+    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
-    compileOnly fg.deobf("curse.maven:mana-and-artifice-406360:5000778")
+    // For more info:
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

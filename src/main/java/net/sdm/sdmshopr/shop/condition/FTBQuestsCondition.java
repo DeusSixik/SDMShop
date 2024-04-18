@@ -2,7 +2,6 @@ package net.sdm.sdmshopr.shop.condition;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.StringConfig;
-import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.Quest;
@@ -39,7 +38,7 @@ public class FTBQuestsCondition implements IShopCondition {
     public boolean isLocked() {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
         for (String s : questID) {
-            Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
+            Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
             if (quest != null) {
                 return !data.isCompleted(quest);
             } else return false;

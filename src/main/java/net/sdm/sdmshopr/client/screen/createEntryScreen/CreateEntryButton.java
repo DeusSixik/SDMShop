@@ -1,11 +1,11 @@
 package net.sdm.sdmshopr.client.screen.createEntryScreen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.IEntryType;
@@ -43,12 +43,12 @@ public class CreateEntryButton extends SimpleTextButton {
         if(mouseButton.isRight()){
             List<ContextMenuItem> contextMenu = new ArrayList<>();
             if(!SDMShopR.ClientModEvents.creator.favoriteCreator.contains(entryType.getID())) {
-                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.addfavorite"), Icons.ADD, () -> {
+                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.addfavorite"), Icons.ADD, (button) -> {
                     SDMShopR.ClientModEvents.creator.favoriteCreator.add(entryType.getID());
                     SNBT.write(SDMShopR.getFileClient(), SDMShopR.ClientModEvents.creator.serializeNBT());
                 }));
             } else {
-                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.removefavorite"), Icons.REMOVE, () -> {
+                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.removefavorite"), Icons.REMOVE, (button) -> {
                     SDMShopR.ClientModEvents.creator.favoriteCreator.remove(entryType.getID());
                     SNBT.write(SDMShopR.getFileClient(), SDMShopR.ClientModEvents.creator.serializeNBT());
                 }));
@@ -58,12 +58,12 @@ public class CreateEntryButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawIcon(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawIcon(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
 
     }
 
     @Override
-    public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
 
     }
 }

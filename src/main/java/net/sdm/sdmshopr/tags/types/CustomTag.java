@@ -1,10 +1,12 @@
 package net.sdm.sdmshopr.tags.types;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.api.tags.ITag;
 import net.sdm.sdmshopr.themes.ShopTheme;
+import org.jetbrains.annotations.Nullable;
 
 public class CustomTag implements ITag {
 
@@ -33,7 +35,7 @@ public class CustomTag implements ITag {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void executeClient(PoseStack graphics, ShopTheme theme, int x, int y, int w, int h) {
+    public void executeClient(GuiGraphics graphics, ShopTheme theme, int x, int y, int w, int h) {
 
     }
 

@@ -1,10 +1,11 @@
 package net.sdm.sdmshopr.tags.types;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
+import net.minecraft.client.gui.GuiGraphics;
 import net.sdm.sdmshopr.api.tags.ITag;
 import net.sdm.sdmshopr.themes.ShopTheme;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,9 @@ public class CustomizationTag implements ITag {
             this.isReact = isReact;
         }
 
-        public void executeClient(PoseStack graphics, ShopTheme theme, int x, int y, int w, int h) {
+        public void executeClient(GuiGraphics graphics, ShopTheme theme, int x, int y, int w, int h) {
            Color4I d1 = Color4I.fromString(color);
-           if(d1 != Color4I.EMPTY){
+           if(d1 != Color4I.empty()){
                if(isReact) {
                    GuiHelper.drawHollowRect(graphics,x + posX, y + posY, width, height, d1, false);
                } else {
@@ -77,7 +78,7 @@ public class CustomizationTag implements ITag {
     }
 
     @Override
-    public void executeClient(PoseStack graphics, ShopTheme theme, int x, int y, int w, int h) {
+    public void executeClient(GuiGraphics graphics, ShopTheme theme, int x, int y, int w, int h) {
         for (Drawable drawable : drawables) {
             drawable.executeClient(graphics, theme, x, y, w, h);
         }

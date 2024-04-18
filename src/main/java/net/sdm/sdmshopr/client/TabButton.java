@@ -11,12 +11,9 @@ import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
-import net.sdm.sdmshopr.network.EditShopEntry;
 import net.sdm.sdmshopr.network.EditShopTab;
-import net.sdm.sdmshopr.network.MoveShopEntry;
 import net.sdm.sdmshopr.network.MoveShopTab;
 import net.sdm.sdmshopr.shop.Shop;
-import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 
 import java.util.ArrayList;
@@ -44,15 +41,17 @@ public class TabButton extends SimpleTextButton {
 
             contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.edit"), Icons.SETTINGS, () -> {
                 ConfigGroup group = new ConfigGroup("sdmr").setNameKey("sidebar_button.sdmr.shop");
-                ConfigGroup g = group.getGroup("shop").getGroup("tab");
-                tab.getConfig(g);
-                g.savedCallback = b -> {
+
+                group.savedCallback = b -> {
                     openGui();
+
                     if(b){
                         new EditShopTab(tab, false).sendToServer();
                     }
                 };
 
+                ConfigGroup g = group.getGroup("shop").getGroup("tab");
+                tab.getConfig(g);
                 new EditConfigScreen(group).openGui();
                 screen.refreshWidgets();
             }));
@@ -109,6 +108,12 @@ public class TabButton extends SimpleTextButton {
         SDMShopRClient.shopTheme.getShadow().draw(matrixStack, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
+
+        for (String tag : tab.TAGS) {
+            if(SDMShopR.ClientModEvents.tags.containsKey(tag)){
+                SDMShopR.ClientModEvents.tags.get(tag).executeClient(matrixStack,SDMShopRClient.shopTheme,x,y,w,h);
+            }
+        }
 
         if(isMouseOver || ((MainShopScreen)parent.parent).selectedTab == tab)
             GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, Color4I.WHITE, false);

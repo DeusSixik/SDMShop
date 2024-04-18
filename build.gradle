@@ -151,6 +151,8 @@ dependencies {
     compileOnly fg.deobf("curse.maven:game-stages-268655:4396244")
     compileOnly fg.deobf("curse.maven:passive-skill-tree-850298:5182798")
 
+    compileOnly fg.deobf("curse.maven:mana-and-artifice-406360:5000778")
+
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

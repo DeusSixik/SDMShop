@@ -48,6 +48,7 @@ public class EntryPanel extends Panel {
             int y = 2;
             for (int i = 0; i < shopScreen.selectedTab.shopEntryList.size(); i++) {
                 ShopEntry<?> entry = shopScreen.selectedTab.shopEntryList.get(i);
+                if(entry.type == null) continue;
                 if(!entry.isLocked()) {
                     EntryButton entryButton = new EntryButton(this, entry);
                     entryButton.setSize(sizeButtonX, sizeButtonY);

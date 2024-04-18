@@ -82,4 +82,21 @@ public class MainShopScreen extends BaseScreen {
             mts.refreshWidgets();
         }
     }
+
+    public static void closeIsOpen(){
+        if (Minecraft.getInstance().screen instanceof ScreenWrapper w && w.getGui() instanceof MainShopScreen mts) {
+            mts.closeGui();
+        }
+    }
+
+    public static void openScreen(){
+        if (Minecraft.getInstance().screen instanceof ScreenWrapper w && w.getGui() instanceof MainShopScreen mts) {
+            mts.closeGui();
+        }
+        new MainShopScreen().openGui();
+    }
+
+    public static boolean isOpen(){
+        return Minecraft.getInstance().screen instanceof ScreenWrapper w && w.getGui() instanceof MainShopScreen;
+    }
 }

@@ -22,7 +22,7 @@ public class MoneyReward extends Reward {
     public long value = 1L;
     public int randomBonus = 0;
 
-    public MoneyReward( Quest q) {
+    public MoneyReward(Quest q) {
         super(q);
     }
 
@@ -65,8 +65,8 @@ public class MoneyReward extends Reward {
     }
 
 
-    @OnlyIn(Dist.CLIENT)
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void getConfig(ConfigGroup config) {
         super.getConfig(config);
         config.addLong("value", value, v -> value = v, 1L, 1L, Long.MAX_VALUE).setNameKey("ftbquests.reward.sdmshop.money");

@@ -5,10 +5,14 @@ import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.sdm.sdmshopr.SDMShopR;
+import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class CommandEntryType implements IEntryType{
@@ -25,6 +29,11 @@ public class CommandEntryType implements IEntryType{
 
     public static CommandEntryType of(String command, String iconPath){
         return new CommandEntryType(command, iconPath);
+    }
+
+    @Override
+    public Component getTranslatableForContextMenu() {
+        return Component.translatable("sdm.shop.entry.add.context.command");
     }
 
     @Override
@@ -58,14 +67,31 @@ public class CommandEntryType implements IEntryType{
     }
 
     @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.commandType.description"));
+        return list;
+    }
+
+    @Override
     public Icon getCreativeIcon() {
         return Icons.BOOK;
     }
 
     @Override
+    public IEntryType copy() {
+        return new CommandEntryType(command,iconPath);
+    }
+
+    @Override
+    public String getID() {
+        return "commandType";
+    }
+
+    @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        nbt.putString("type", "commandType");
+        nbt.putString("type", getID());
         nbt.putString("iconPath", iconPath);
         nbt.putString("command", command);
         nbt.putBoolean("elevatePerms", elevatePerms);

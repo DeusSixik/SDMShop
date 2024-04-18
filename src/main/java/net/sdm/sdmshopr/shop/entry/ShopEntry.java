@@ -2,13 +2,6 @@ package net.sdm.sdmshopr.shop.entry;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.StringConfig;
-import dev.ftb.mods.ftbquests.FTBQuests;
-import dev.ftb.mods.ftbquests.client.ClientQuestFile;
-import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
-import dev.ftb.mods.ftbquests.quest.Quest;
-import dev.ftb.mods.ftbquests.quest.TeamData;
-import net.darkhax.gamestages.GameStageHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -17,14 +10,17 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fml.ModList;
 import net.sdm.sdmshopr.SDMShopR;
-import net.sdm.sdmshopr.SDMShopRIntegration;
-import net.sdm.sdmshopr.shop.entry.type.IEntryType;
+import net.sdm.sdmshopr.api.ConditionRegister;
+import net.sdm.sdmshopr.api.IEntryType;
+import net.sdm.sdmshopr.api.IShopCondition;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ShopEntry<T extends IEntryType> implements INBTSerializable<CompoundTag> {
     public ShopTab tab;
@@ -35,8 +31,12 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
 
     public T type;
 
+    public final List<IShopCondition> conditions = new ArrayList<>();
+
     public final List<String> gameStages = new ArrayList<>();
-    protected final List<String> questID = new ArrayList<>();
+
+    public List<String> TAGS = new ArrayList<>();
+
 
     public ShopEntry(){}
     public ShopEntry(ShopTab tab){
@@ -50,6 +50,12 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         this.isSell = isSell;
         this.tab = tab;
         this.tittle = "";
+
+        for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
+            if(ModList.get().isLoaded(d1.getValue().getModID())){
+                conditions.add(d1.getValue().create());
+            }
+        }
     }
 
 
@@ -60,22 +66,19 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         nbt.putInt("price", price);
         nbt.putBoolean("isSell", isSell);
         nbt.putString("tittle", tittle);
-        nbt.put("type", type.serializeNBT());
+        if(type != null)
+            nbt.put("type", type.serializeNBT());
 
-        if(!questID.isEmpty()){
-            ListTag d1 = new ListTag();
-            for (String gameStage : questID) {
-                d1.add(StringTag.valueOf(gameStage));
-            }
-            nbt.put("questID", d1);
+        ListTag f1 = new ListTag();
+        for (String tag : TAGS) {
+            f1.add(StringTag.valueOf(tag));
         }
-        if(!gameStages.isEmpty()){
-            ListTag d1 = new ListTag();
-            for (String gameStage : gameStages) {
-                d1.add(StringTag.valueOf(gameStage));
-            }
-            nbt.put("gameStages", d1);
+        nbt.put("tags", f1);
+
+        for (IShopCondition condition : conditions) {
+            condition.serializeNBT(nbt);
         }
+
 
         return nbt;
     }
@@ -92,35 +95,43 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         tittle = nbt.getString("tittle");
         type = NBTUtils.getEntryType(nbt.getCompound("type"));
 
-        if(nbt.contains("gameStages")){
-            gameStages.clear();
-            ListTag d1 = (ListTag) nbt.get("gameStages");
-            for (Tag tag : d1) {
-                StringTag f1 = (StringTag) tag;
-                gameStages.add(f1.getAsString());
+        if(nbt.contains("tags")) {
+            TAGS.clear();
+            ListTag f1 = (ListTag) nbt.get("tags");
+            for (Tag tag : f1) {
+                TAGS.add(tag.getAsString());
             }
         }
 
-        if(nbt.contains("questID")){
-            questID.clear();
-            ListTag d1 = (ListTag) nbt.get("questID");
-            for (Tag tag : d1) {
-                StringTag f1 = (StringTag) tag;
-                questID.add(f1.getAsString());
+        for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
+            if(ModList.get().isLoaded(d1.getValue().getModID())) {
+                IShopCondition condition = d1.getValue().create();
+                condition.deserializeNBT(nbt);
+                conditions.add(condition);
             }
         }
     }
 
     public void getConfig(ConfigGroup config){
+
         config.addString("tittle", tittle, v -> tittle = v, "");
         if(type.isCountable()) config.addInt("count", count, v -> count = v, 1, 1, Integer.MAX_VALUE);
         config.addInt("price", price, v -> price = v, 1, 0, Integer.MAX_VALUE);
-        if(SDMShopRIntegration.FTBQuestLoaded) config.addList("questID", questID, new StringConfig(null), "");
-        if(SDMShopRIntegration.GameStagesLoaded) config.addList("gameStages", gameStages, new StringConfig(null), "");
+
+
         if(type.isSellable()) config.addBool("isSell", isSell, v -> isSell = v, false);
+
+        config.addList("tags", TAGS, new StringConfig(null), "");
+
 
         ConfigGroup type = config.getGroup("type");
         this.type.getConfig(type);
+
+        ConfigGroup group = config.getGroup("dependencies");
+
+        for (IShopCondition condition : conditions) {
+            condition.getConfig(group);
+        }
     }
 
 
@@ -144,20 +155,10 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
     public boolean isLocked(){
         if(SDMShopR.isEditModeClient()) return false;
 
-        if(SDMShopRIntegration.GameStagesLoaded){
-            for (String gameStage : gameStages) {
-                if(!GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return true;
-            }
+        for (IShopCondition condition : conditions) {
+            if(condition.isLocked()) return true;
         }
-        if(SDMShopRIntegration.FTBQuestLoaded){
-            TeamData data = TeamData.get(Minecraft.getInstance().player);
-            for (String s : questID) {
-                Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(ClientQuestFile.parseCodeString(s));
-                if(quest != null){
-                    if(!data.isCompleted(quest)) return true;
-                }
-            }
-        }
+
         return type.isLocked();
     }
 }

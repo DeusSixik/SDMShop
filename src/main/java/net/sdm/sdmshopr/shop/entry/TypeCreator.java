@@ -1,69 +1,39 @@
 package net.sdm.sdmshopr.shop.entry;
 
+import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.ContextMenuItem;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.sdm.sdmshopr.SDMShopRIntegration;
+import net.minecraftforge.fml.ModList;
+import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.client.MainShopScreen;
+import net.sdm.sdmshopr.client.screen.createEntryScreen.CreateEntryScreen;
 import net.sdm.sdmshopr.network.CreateShopEntry;
-import net.sdm.sdmshopr.shop.entry.type.CommandEntryType;
-import net.sdm.sdmshopr.shop.entry.type.ItemEntryType;
-import net.sdm.sdmshopr.shop.entry.type.integration.GameStagesEntryType;
-import net.sdm.sdmshopr.shop.entry.type.integration.QuestEntryType;
-import net.sdm.sdmshopr.shop.entry.type.integration.SkillTreeEntryType;
+import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.IEntryType;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.sdm.sdmshopr.SDMShopRIntegration.GameStagesLoaded;
+import java.util.Map;
 
 public class TypeCreator {
 
     public static List<ContextMenuItem> createContext(MainShopScreen screen){
         List<ContextMenuItem> contextMenu = new ArrayList<>();
 
-        contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.add.context.item"), ItemEntryType.of(ItemStack.EMPTY).getCreativeIcon(), () -> {
-            ShopEntry<ItemEntryType> create = new ShopEntry<>(screen.selectedTab, ItemEntryType.of(ItemStack.EMPTY), 1,1,false);
-            screen.selectedTab.shopEntryList.add(create);
-            screen.refreshWidgets();
-            new CreateShopEntry(create).sendToServer();
-        }));
-        contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.add.context.command"), CommandEntryType.of("","").getCreativeIcon(), () -> {
-            ShopEntry<CommandEntryType> create = new ShopEntry<>(screen.selectedTab, CommandEntryType.of("", ""), 1,1,false);
-            screen.selectedTab.shopEntryList.add(create);
-            screen.refreshWidgets();
-            new CreateShopEntry(create).sendToServer();
-        }));
+        for (Map.Entry<String, IEntryType> d1 : EntryTypeRegister.TYPES.entrySet()) {
+            if(ModList.get().isLoaded(d1.getValue().getModID()) && SDMShopR.ClientModEvents.creator.favoriteCreator.contains(d1.getValue().getID())){
+                contextMenu.add(new ContextMenuItem(d1.getValue().getTranslatableForContextMenu(), d1.getValue().getCreativeIcon(), () -> {
+                    ShopEntry<IEntryType> create = new ShopEntry<>(screen.selectedTab, d1.getValue().copy(), 1,1,false);
+                    screen.selectedTab.shopEntryList.add(create);
+                    screen.refreshWidgets();
+                    new CreateShopEntry(create).sendToServer();
+                }));
+            }
+        }
 
-        createContextIntegration(screen, contextMenu);
-
+        contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.contextmenu.info"), Icons.BOOK, () -> {
+            new CreateEntryScreen(screen).openGui();
+        }));
         return contextMenu;
-    }
-
-    public static void createContextIntegration(MainShopScreen screen, List<ContextMenuItem> contextMenu){
-        if(SDMShopRIntegration.FTBQuestLoaded){
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.add.context.integration.quest"), QuestEntryType.of("").getCreativeIcon(), () -> {
-                ShopEntry<QuestEntryType> create = new ShopEntry<>(screen.selectedTab, QuestEntryType.of(""), 1,1,false);
-                screen.selectedTab.shopEntryList.add(create);
-                screen.refreshWidgets();
-                new CreateShopEntry(create).sendToServer();
-            }));
-        }
-        if(SDMShopRIntegration.GameStagesLoaded){
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.add.context.integration.gamestage"), new GameStagesEntryType("").getCreativeIcon(), () -> {
-                ShopEntry<GameStagesEntryType> create = new ShopEntry<>(screen.selectedTab, new GameStagesEntryType(""), 1,1,false);
-                screen.selectedTab.shopEntryList.add(create);
-                screen.refreshWidgets();
-                new CreateShopEntry(create).sendToServer();
-            }));
-        }
-        if(SDMShopRIntegration.PSTLoaded){
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.add.context.integration.passiveskilltree"), new SkillTreeEntryType().getCreativeIcon(), () -> {
-                ShopEntry<SkillTreeEntryType> create = new ShopEntry<>(screen.selectedTab, new SkillTreeEntryType(), 1,1,false);
-                screen.selectedTab.shopEntryList.add(create);
-                screen.refreshWidgets();
-                new CreateShopEntry(create).sendToServer();
-            }));
-        }
     }
 }

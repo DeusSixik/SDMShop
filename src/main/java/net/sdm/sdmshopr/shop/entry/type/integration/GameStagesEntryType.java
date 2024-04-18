@@ -6,10 +6,16 @@ import dev.ftb.mods.ftblibrary.icon.Icons;
 import net.darkhax.gamestages.GameStageHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
-import net.sdm.sdmshopr.shop.entry.type.IEntryType;
+import net.sdm.sdmshopr.api.IEntryType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameStagesEntryType implements IEntryType {
     public String gameStage;
@@ -26,6 +32,11 @@ public class GameStagesEntryType implements IEntryType {
     @Override
     public boolean isCountable() {
         return false;
+    }
+
+    @Override
+    public Component getTranslatableForContextMenu() {
+        return Component.translatable("sdm.shop.entry.add.context.integration.gamestage");
     }
 
     @Override
@@ -47,14 +58,41 @@ public class GameStagesEntryType implements IEntryType {
     }
 
     @Override
+    public String getModID() {
+        return "gamestages";
+    }
+
+    @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.stageType.description"));
+        return list;
+    }
+
+    @Override
+    public String getModNameForContextMenu() {
+        return "Game Stages";
+    }
+
+    @Override
+    public IEntryType copy() {
+        return new GameStagesEntryType(gameStage);
+    }
+
+    @Override
     public Icon getCreativeIcon() {
         return Icons.CONTROLLER;
     }
 
     @Override
+    public String getID() {
+        return "stageType";
+    }
+
+    @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        nbt.putString("type", "stageType");
+        nbt.putString("type", getID());
         nbt.putString("gameStage", gameStage);
         nbt.putString("iconPath", iconPath);
         return nbt;
@@ -88,6 +126,7 @@ public class GameStagesEntryType implements IEntryType {
     }
 
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         if(GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return false;
@@ -97,6 +136,7 @@ public class GameStagesEntryType implements IEntryType {
         return true;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         if(GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return 0;

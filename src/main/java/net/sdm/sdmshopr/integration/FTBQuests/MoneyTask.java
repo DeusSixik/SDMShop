@@ -22,7 +22,7 @@ public class MoneyTask extends Task implements ISingleLongValueTask {
 
     public long value = 1L;
 
-    public MoneyTask( Quest quest) {
+    public MoneyTask(Quest quest) {
         super(quest);
     }
 
@@ -81,10 +81,7 @@ public class MoneyTask extends Task implements ISingleLongValueTask {
     public void getConfig(ConfigGroup config) {
         super.getConfig(config);
         config.addLong("value", value, v -> value = v, 1L, 1L, Long.MAX_VALUE).setNameKey("ftbquests.task.sdmshop");
-
     }
-
-
 
     @Override
     @OnlyIn(Dist.CLIENT)

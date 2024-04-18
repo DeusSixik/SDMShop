@@ -7,21 +7,20 @@ import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.sdm.sdmshopr.SDMShopR;
-import net.sdm.sdmshopr.network.UpdateMoney;
+import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class ItemEntryType implements IEntryType{
@@ -33,6 +32,22 @@ public class ItemEntryType implements IEntryType{
     public static ItemEntryType of(ItemStack itemStack){
         return new ItemEntryType(itemStack);
     }
+
+    @Override
+    public Component getTranslatableForContextMenu() {
+        return Component.translatable("sdm.shop.entry.add.context.item");
+    }
+
+    @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.itemType.description"));
+        return list;
+    }
+
+
+
+
 
     @Override
     public boolean isSellable() {
@@ -63,6 +78,16 @@ public class ItemEntryType implements IEntryType{
     }
 
     @Override
+    public String getID() {
+        return "itemType";
+    }
+
+    @Override
+    public IEntryType copy() {
+        return new ItemEntryType(itemStack);
+    }
+
+    @Override
     public Icon getCreativeIcon() {
         return Icons.DIAMOND;
     }
@@ -70,7 +95,7 @@ public class ItemEntryType implements IEntryType{
     @Override
     public CompoundTag serializeNBT() {
         SNBTCompoundTag nbt = new SNBTCompoundTag();
-        nbt.putString("type", "itemType");
+        nbt.putString("type", getID());
         NBTUtils.putItemStack(nbt, "item", itemStack);
         return nbt;
     }
@@ -171,7 +196,7 @@ public class ItemEntryType implements IEntryType{
                 /*весь ItemStack можно описать тремя параметрами. item.getData, item.getItemMeta и item.getAmmaount.
                  *При item.equas(item2)ammount тоже сравнивается, поэтому видим такое сравнение
                  */
-                if (ItemStack.isSameItemSameTags(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
+                if (ItemStack.isSame(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
                     totalamm += p.getInventory().getItem(a).getCount();
                 }
             }
@@ -186,7 +211,7 @@ public class ItemEntryType implements IEntryType{
         for (int a = 0; a<p.getInventory().getContainerSize(); a++) {
             if (ammountleft==0){return true;}
             if (p.getInventory().getItem(a)==null) continue;
-            if (ItemStack.isSameItemSameTags(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)) {
+            if (ItemStack.isSame(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)) {
                 if (p.getInventory().getItem(a).getCount()<ammountleft) {
                     ammountleft-=p.getInventory().getItem(a).getCount();
                     p.getInventory().setItem(a, ItemStack.EMPTY);

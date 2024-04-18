@@ -9,8 +9,10 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.sdm.sdmshopr.SDMShopR;
+import net.sdm.sdmshopr.api.IShopCondition;
 import net.sdm.sdmshopr.client.TabButton;
 import net.sdm.sdmshopr.shop.Shop;
+import net.sdm.sdmshopr.shop.condition.GameStagesCondition;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.shop.entry.type.ItemEntryType;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
@@ -26,7 +28,7 @@ public class ConverterOldShopData {
     public static CompoundTag convertToNewData(){
         SNBTCompoundTag nbt = SNBT.read(SDMShopR.getFile());
         if(nbt == null) return null;
-        if(nbt.contains("sdmversion")) return null;
+        if(nbt.contains("sdmversion") || !nbt.contains("group")) return null;
 
         ListTag d1 = (ListTag) nbt.get("tabs");
         List<ShopTab> tabList = new ArrayList<>();
@@ -51,7 +53,14 @@ public class ConverterOldShopData {
             ShopTab tab = new ShopTab(shop);
             tab.icon = icon;
             tab.title = Component.translatable(title);
-            if(!stage.isEmpty()) tab.gameStages.add(stage);
+            if(!stage.isEmpty()) {
+                for (IShopCondition condition : tab.conditions) {
+                    if (condition.getClass().equals(GameStagesCondition.class)) {
+                        ((GameStagesCondition)condition).stages.add(stage);
+                        break;
+                    }
+                }
+            }
 
             List<ShopEntry<?>> shopEntryList = new ArrayList<>();
 
@@ -82,7 +91,14 @@ public class ConverterOldShopData {
             d1.isSell = isSell;
             d1.price = (int) price;
             d1.count = item.getCount();
-            if(!stage.isEmpty()) d1.gameStages.add(stage);
+            if(!stage.isEmpty()) {
+                for (IShopCondition condition : d1.conditions) {
+                    if (condition.getClass().equals(GameStagesCondition.class)) {
+                        ((GameStagesCondition)condition).stages.add(stage);
+                        break;
+                    }
+                }
+            }
 
             ItemStack f1 = item.copy();
             f1.setCount(1);

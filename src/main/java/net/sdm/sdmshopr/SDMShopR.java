@@ -2,6 +2,7 @@ package net.sdm.sdmshopr;
 
 import com.mojang.logging.LogUtils;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
+import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import dev.ftb.mods.ftbteams.FTBTeamsAPI;
 import dev.ftb.mods.ftbteams.data.ClientTeamManager;
 import dev.ftb.mods.ftbteams.data.KnownClientPlayer;
@@ -12,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -26,15 +28,24 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.sdm.sdmshopr.api.ConditionRegister;
+import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.tags.ITag;
+import net.sdm.sdmshopr.config.ClientShopData;
 import net.sdm.sdmshopr.converter.ConverterOldShopData;
+import net.sdm.sdmshopr.events.SDMPlayerEvents;
 import net.sdm.sdmshopr.network.SDMShopNetwork;
 import net.sdm.sdmshopr.network.SyncShop;
 import net.sdm.sdmshopr.network.UpdateEditMode;
 import net.sdm.sdmshopr.network.UpdateMoney;
 import net.sdm.sdmshopr.shop.Shop;
+import net.sdm.sdmshopr.tags.TagFileParser;
 import org.slf4j.Logger;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SDMShopR.MODID)
@@ -43,17 +54,47 @@ public class SDMShopR {
     public static final String MODID = "sdmshop";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static Path getFile() {
+    public static Path getModFolder(){
+        return FMLPaths.CONFIGDIR.get().resolve("SDMShop");
+    }
+
+    public static Path getOldFile(){
         return FMLPaths.CONFIGDIR.get().resolve("sdmshop.snbt");
+    }
+
+    public static Path getTagFile(){
+        return getModFolder().resolve("customization.json");
+    }
+    public static Path getFile() {
+        return getModFolder().resolve("sdmshop.snbt");
+    }
+    public static Path getFileClient() {
+        return getModFolder().resolve("sdmshop-data-client.snbt");
     }
 
 
     public SDMShopR() {
+        if(!getModFolder().toFile().exists()){
+            getModFolder().toFile().mkdir();
+        }
+
+        if(!getTagFile().toFile().exists()) {
+            try {
+                getTagFile().toFile().createNewFile();
+                TagFileParser.writeNewFile();
+
+            } catch (IOException e) {
+                LOGGER.error(e.toString());
+            }
+        }
+
         SDMShopNetwork.init();
         SDMShopRIntegration.init();
+        EntryTypeRegister.init();
+        ConditionRegister.init();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
-        Config.init(FMLPaths.CONFIGDIR.get().resolve(SDMShopR.MODID + "-client.toml"));
+        Config.init(getModFolder().resolve(SDMShopR.MODID + "-client.toml"));
 
         DistExecutor.safeRunForDist(() -> SDMShopRClient::new, () -> SDMShopRCommon::new).preInit();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -62,7 +103,14 @@ public class SDMShopR {
         MinecraftForge.EVENT_BUS.register(SDMShopRClient.class);
         MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
+
     }
+
+
+    private void registerCommands(RegisterCommandsEvent event) {
+        SDMShopCommands.registerCommands(event.getDispatcher());
+    }
+    private void commonSetup(final FMLCommonSetupEvent event) {}
 
 
     @SubscribeEvent
@@ -88,6 +136,7 @@ public class SDMShopR {
             Shop.SERVER = new Shop();
             Shop.SERVER.needSave();
 
+
             CompoundTag nbt = SNBT.read(getFile());
 
             CompoundTag data =  ConverterOldShopData.convertToNewData();
@@ -97,27 +146,46 @@ public class SDMShopR {
                 return;
             }
 
-
             if (nbt != null) {
                 Shop.SERVER.deserializeNBT(nbt);
+            } else {
+                if(getOldFile().toFile().exists()) {
+                    nbt = SNBT.read(getOldFile());
+                    if (nbt != null) {
+                        getOldFile().toFile().delete();
+                        Shop.SERVER.deserializeNBT(nbt);
+                        Shop.SERVER.saveToFile();
+                    }
+                }
             }
         }
     }
 
-
-    private void registerCommands(RegisterCommandsEvent event) {
-        SDMShopCommands.registerCommands(event.getDispatcher());
-    }
-    private void commonSetup(final FMLCommonSetupEvent event) {}
+    @OnlyIn(Dist.CLIENT)
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+        public static ClientShopData creator;
+        public static Map<String, ITag> tags = new HashMap<>();
+
+        public static void parse(){
+            tags = TagFileParser.getTags();
+            for (Map.Entry<String, ITag> stringITagEntry : tags.entrySet()) {
+                LOGGER.info(stringITagEntry.getKey());
+            }
+        }
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            creator = new ClientShopData(getFileClient());
+            SNBTCompoundTag d1 = SNBT.read(getFileClient());
+            if(d1 != null) {
+                creator.deserializeNBT(d1);
+            }
+
+
+
+            parse();
         }
     }
 
@@ -132,9 +200,15 @@ public class SDMShopR {
         Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
         if(team != null) {
             if (money != team.getExtraData().getLong("Money")) {
-                team.getExtraData().putLong("Money", money);
-                team.save();
-                new UpdateMoney(player.getUUID(), money).sendToAll(player.server);
+                SDMPlayerEvents.SetMoneyEvent giveMoneyEvent = new SDMPlayerEvents.SetMoneyEvent(player, money, getMoney(player));
+                MinecraftForge.EVENT_BUS.post(giveMoneyEvent);
+
+                if(!giveMoneyEvent.isCanceled()) {
+
+                    team.getExtraData().putLong("Money", giveMoneyEvent.getCountMoney());
+                    team.save();
+                    new UpdateMoney(player.getUUID(), giveMoneyEvent.getCountMoney()).sendToAll(player.server);
+                }
             }
         }
     }
@@ -143,10 +217,16 @@ public class SDMShopR {
         Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
         if(team != null) {
             long balance = team.getExtraData().getLong("Money");
-            long current = balance + money;
-            team.getExtraData().putLong("Money", current);
-            team.save();
-            new UpdateMoney(player.getUUID(), current).sendToAll(player.server);
+
+            SDMPlayerEvents.AddMoneyEvent event = new SDMPlayerEvents.AddMoneyEvent(player, money, balance);
+            MinecraftForge.EVENT_BUS.post(event);
+
+            if(!event.isCanceled()) {
+                long current = event.playerMoney + event.countMoney;
+                team.getExtraData().putLong("Money", current);
+                team.save();
+                new UpdateMoney(player.getUUID(), current).sendToAll(player.server);
+            }
         }
     }
 

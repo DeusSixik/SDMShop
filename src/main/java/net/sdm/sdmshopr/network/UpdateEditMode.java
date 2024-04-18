@@ -7,7 +7,6 @@ import dev.ftb.mods.ftbteams.data.ClientTeamManager;
 import dev.ftb.mods.ftbteams.data.KnownClientPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sdm.sdmshopr.SDMShopR;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -40,7 +39,7 @@ public class UpdateEditMode extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         if(packetContext.getEnv().isClient()){
-            @Nullable KnownClientPlayer team = ClientTeamManager.INSTANCE.getKnownPlayer(playerId);
+            KnownClientPlayer team = ClientTeamManager.INSTANCE.getKnownPlayer(playerId);
 
             if (team != null) {
                 SDMShopR.setEditMode(team, value);

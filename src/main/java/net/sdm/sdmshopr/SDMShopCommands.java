@@ -9,6 +9,9 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.MinecraftForge;
+import net.sdm.sdmshopr.events.SDMPlayerEvents;
+import net.sdm.sdmshopr.network.ReloadClientData;
 import net.sdm.sdmshopr.network.SyncShopData;
 import net.sdm.sdmshopr.shop.ShopData;
 
@@ -53,7 +56,23 @@ public class SDMShopCommands {
                         .requires(source -> source.hasPermission(2))
                         .executes(context -> editMode(context.getSource()))
                 )
+                .then(Commands.literal("reloadClient")
+                        .requires(source -> source.hasPermission(1))
+                        .executes(context -> reloadClient(context.getSource()))
+                )
+
         );
+    }
+
+    private static int reloadClient(CommandSourceStack source){
+        if(source.getPlayer() != null) {
+            source.sendSuccess(Component.literal("Start Reload Client"), false);
+            new ReloadClientData().sendTo(source.getPlayer());
+            source.sendSuccess(Component.literal("End Reload Client"), false);
+            return 0;
+        }
+
+        return 1;
     }
 
     private static int editMode(CommandSourceStack source){
@@ -72,14 +91,20 @@ public class SDMShopCommands {
 
     private static int pay(CommandSourceStack source, ServerPlayer from, ServerPlayer to, long money) {
         if(from.getUUID().equals(to.getUUID())) {
-            source.sendFailure(Component.literal("Not enough money"));
+            source.sendFailure(Component.literal("You can't send money to yourself"));
             return 1;
         }
         if(SDMShopR.getMoney(from) >= money){
-            SDMShopR.setMoney(from, SDMShopR.getMoney(from) - money);
-            SDMShopR.setMoney(to, SDMShopR.getMoney(to) + money);
-            source.sendFailure(Component.literal("Money sended !"));
-            return 0;
+            SDMPlayerEvents.PayEvent event = new SDMPlayerEvents.PayEvent(from, to, money);
+            MinecraftForge.EVENT_BUS.post(event);
+
+            if(!event.isCanceled()) {
+                SDMShopR.setMoney((ServerPlayer) event.getEntity(), SDMShopR.getMoney(event.getEntity()) - event.getCountMoney());
+                SDMShopR.setMoney((ServerPlayer) event.payablePlayer, SDMShopR.getMoney(event.payablePlayer) + event.getCountMoney());
+                source.sendSuccess(Component.literal("Money sended !"), false);
+                return 0;
+            }
+            return 1;
         }
         source.sendFailure(Component.literal("Not enough money"));
         return 1;

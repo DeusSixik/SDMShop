@@ -50,8 +50,6 @@ public class Config
     public static String defaultStoke = "#5555FF";
     public static String defaultTextColor = "#5555FF";
 
-
-
     public static final String THEMES_NAME = "Shop Theme";
 
     static {

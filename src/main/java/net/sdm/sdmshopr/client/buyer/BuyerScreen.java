@@ -2,7 +2,6 @@ package net.sdm.sdmshopr.client.buyer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
-import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
@@ -147,7 +146,6 @@ public class BuyerScreen extends BaseScreen {
     @Override
     public void alignWidgets() {
     }
-
 
     @Override
     public void drawBackground(PoseStack matrixStack, Theme theme, int x, int y, int w, int h) {

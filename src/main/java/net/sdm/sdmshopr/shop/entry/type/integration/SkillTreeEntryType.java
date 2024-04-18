@@ -3,18 +3,22 @@ package net.sdm.sdmshopr.shop.entry.type.integration;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.network.NetworkDispatcher;
 import daripher.skilltree.network.message.SyncPlayerSkillsMessage;
-import daripher.skilltree.skill.PassiveSkillTree;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.vehicle.Minecart;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
-import net.sdm.sdmshopr.shop.entry.type.IEntryType;
+import net.sdm.sdmshopr.api.IEntryType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SkillTreeEntryType implements IEntryType {
 
@@ -22,6 +26,23 @@ public class SkillTreeEntryType implements IEntryType {
 
     public SkillTreeEntryType(){
 
+    }
+
+    @Override
+    public Component getTranslatableForContextMenu() {
+        return Component.translatable("sdm.shop.entry.add.context.integration.passiveskilltree");
+    }
+
+    @Override
+    public String getModNameForContextMenu() {
+        return "Passive Skill Tree";
+    }
+
+    @Override
+    public List<Component> getDescriptionForContextMenu() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.translatable("sdmr.shop.entry.creator.type.pstType.description"));
+        return list;
     }
 
     @Override
@@ -57,9 +78,24 @@ public class SkillTreeEntryType implements IEntryType {
     }
 
     @Override
+    public String getModID() {
+        return "skilltree";
+    }
+
+    @Override
+    public String getID() {
+        return "pstType";
+    }
+
+    @Override
+    public IEntryType copy() {
+        return new SkillTreeEntryType();
+    }
+
+    @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        nbt.putString("type", "pstType");
+        nbt.putString("type", getID());
         return nbt;
     }
 
@@ -92,6 +128,7 @@ public class SkillTreeEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         if(isSell){
             if(PlayerSkillsProvider.get(Minecraft.getInstance().player).getSkillPoints() >= entry.count * countSell){
@@ -106,6 +143,7 @@ public class SkillTreeEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         if(isSell) {
             return PlayerSkillsProvider.get(Minecraft.getInstance().player).getSkillPoints() / entry.count;

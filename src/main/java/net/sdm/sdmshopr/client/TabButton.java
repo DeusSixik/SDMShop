@@ -1,18 +1,17 @@
 package net.sdm.sdmshopr.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.ui.EditConfigScreen;
-import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icons;
-import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
-import net.sdm.sdmshopr.network.EditShopTab;
-import net.sdm.sdmshopr.network.MoveShopTab;
+import net.sdm.sdmshopr.network.mainshop.EditShopTab;
+import net.sdm.sdmshopr.network.mainshop.MoveShopTab;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 
@@ -22,7 +21,7 @@ import java.util.List;
 public class TabButton extends SimpleTextButton {
     public ShopTab tab;
     public TabButton(Panel panel, ShopTab tab) {
-        super(panel, tab.title, ItemIcon.getItemIcon(tab.icon));
+        super(panel, tab.title, tab.getIcon());
         this.tab = tab;
     }
 
@@ -39,26 +38,27 @@ public class TabButton extends SimpleTextButton {
             MainShopScreen screen = (MainShopScreen) getGui();
             List<ContextMenuItem> contextMenu = new ArrayList<>();
 
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.edit"), Icons.SETTINGS, (button) -> {
-                ConfigGroup group = new ConfigGroup("sdmr", b -> {
+            contextMenu.add(new ContextMenuItem(new TranslatableComponent("sdm.shop.entry.context.edit"), Icons.SETTINGS, () -> {
+                ConfigGroup group = new ConfigGroup("sdmr").setNameKey("sidebar_button.sdmr.shop");
+
+                group.savedCallback = b -> {
                     openGui();
 
                     if(b){
                         new EditShopTab(tab, false).sendToServer();
                     }
-                }).setNameKey("sidebar_button.sdmr.shop");
+                };
 
-
-                ConfigGroup g = group.getOrCreateSubgroup("shop").getOrCreateSubgroup("tab");
+                ConfigGroup g = group.getGroup("shop").getGroup("tab");
                 tab.getConfig(g);
                 new EditConfigScreen(group).openGui();
                 screen.refreshWidgets();
             }));
 
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.delete"), Icons.REMOVE, (button) -> {
+            contextMenu.add(new ContextMenuItem(new TranslatableComponent("sdm.shop.entry.context.delete"), Icons.REMOVE, () -> {
                 new EditShopTab(tab, true).sendToServer();
                 tab.shopEntryList.remove(tab);
-                screen.refreshWidgets();
+                screen.tabsPanel.refreshWidgets();
             }));
 
             /*
@@ -103,7 +103,7 @@ public class TabButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawBackground(GuiGraphics matrixStack, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack matrixStack, Theme theme, int x, int y, int w, int h) {
         SDMShopRClient.shopTheme.getShadow().draw(matrixStack, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
@@ -114,8 +114,8 @@ public class TabButton extends SimpleTextButton {
             }
         }
 
-        if(isMouseOver || ((MainShopScreen)parent.getParent()).selectedTab == tab)
-            GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, Color4I.WHITE, false);
+        if(isMouseOver || ((MainShopScreen)parent.parent).selectedTab == tab)
+            GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, SDMShopRClient.shopTheme.getColorSelectTab(), false);
         else
             GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, SDMShopRClient.shopTheme.getStoke(), false);
     }

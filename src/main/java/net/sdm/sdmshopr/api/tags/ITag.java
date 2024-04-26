@@ -1,13 +1,10 @@
 package net.sdm.sdmshopr.api.tags;
 
-import dev.ftb.mods.ftblibrary.ui.Theme;
-import net.minecraft.client.gui.GuiGraphics;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.sdm.sdmshopr.themes.SDMThemes;
 import net.sdm.sdmshopr.themes.ShopTheme;
-import org.jetbrains.annotations.Nullable;
 
 public interface ITag {
 
@@ -30,7 +27,7 @@ public interface ITag {
     }
 
     @OnlyIn(Dist.CLIENT)
-    default void executeClient(GuiGraphics graphics, ShopTheme theme, int x, int y, int w, int h){
+    default void executeClient(PoseStack graphics, ShopTheme theme, int x, int y, int w, int h){
 
     }
     default void executeServer(ServerPlayer player){

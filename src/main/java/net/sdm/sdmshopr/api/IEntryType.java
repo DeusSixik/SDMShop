@@ -5,16 +5,18 @@ import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IEntryType extends INBTSerializable<CompoundTag> {
+
+
 
     default boolean isCanBuy(){
         return true;
@@ -68,7 +70,7 @@ public interface IEntryType extends INBTSerializable<CompoundTag> {
 
     default List<Component> getDescriptionForContextMenu(){
 
-        return List.of(Component.translatable("sdmr.shop.entry.creator.type." + getID() + ".description"));
+        return List.of(new TranslatableComponent("sdmr.shop.entry.creator.type." + getID() + ".description"));
     }
     default String getModNameForContextMenu(){
         return "";

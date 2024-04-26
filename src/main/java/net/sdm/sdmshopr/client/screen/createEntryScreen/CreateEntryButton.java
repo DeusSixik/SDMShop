@@ -1,15 +1,17 @@
 package net.sdm.sdmshopr.client.screen.createEntryScreen;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.IEntryType;
-import net.sdm.sdmshopr.network.CreateShopEntry;
+import net.sdm.sdmshopr.network.mainshop.CreateShopEntry;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class CreateEntryButton extends SimpleTextButton {
     public TextField field;
     public final IEntryType entryType;
     public CreateEntryButton(Panel panel, IEntryType entryType) {
-        super(panel, Component.empty(), entryType.getCreativeIcon());
+        super(panel, TextComponent.EMPTY, entryType.getCreativeIcon());
         this.entryType = entryType;
     }
 
@@ -43,12 +45,12 @@ public class CreateEntryButton extends SimpleTextButton {
         if(mouseButton.isRight()){
             List<ContextMenuItem> contextMenu = new ArrayList<>();
             if(!SDMShopR.ClientModEvents.creator.favoriteCreator.contains(entryType.getID())) {
-                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.addfavorite"), Icons.ADD, (button) -> {
+                contextMenu.add(new ContextMenuItem(new TranslatableComponent("sdm.shop.entry.creator.addfavorite"), Icons.ADD, () -> {
                     SDMShopR.ClientModEvents.creator.favoriteCreator.add(entryType.getID());
                     SNBT.write(SDMShopR.getFileClient(), SDMShopR.ClientModEvents.creator.serializeNBT());
                 }));
             } else {
-                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.removefavorite"), Icons.REMOVE, (button) -> {
+                contextMenu.add(new ContextMenuItem(new TranslatableComponent("sdm.shop.entry.creator.removefavorite"), Icons.REMOVE, () -> {
                     SDMShopR.ClientModEvents.creator.favoriteCreator.remove(entryType.getID());
                     SNBT.write(SDMShopR.getFileClient(), SDMShopR.ClientModEvents.creator.serializeNBT());
                 }));
@@ -58,12 +60,12 @@ public class CreateEntryButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawIcon(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawIcon(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
 
     }
 
     @Override
-    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
 
     }
 }

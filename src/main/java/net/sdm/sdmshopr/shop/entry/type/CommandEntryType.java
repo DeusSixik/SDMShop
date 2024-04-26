@@ -3,13 +3,22 @@ package net.sdm.sdmshopr.shop.entry.type;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
+import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +26,23 @@ import java.util.regex.Pattern;
 
 public class CommandEntryType implements IEntryType{
 
-    private String iconPath = "minecraft:item/barrier";
+    private ItemStack iconPath = Items.BARRIER.getDefaultInstance();
     public String command = "";
     public boolean elevatePerms;
     public boolean silent;
 
-    public CommandEntryType(String command, String iconPath){
+    public CommandEntryType(String command, ItemStack iconPath){
         this.command = command;
         this.iconPath = iconPath;
     }
 
-    public static CommandEntryType of(String command, String iconPath){
+    public static CommandEntryType of(String command, ItemStack iconPath){
         return new CommandEntryType(command, iconPath);
     }
 
     @Override
     public Component getTranslatableForContextMenu() {
-        return Component.translatable("sdm.shop.entry.add.context.command");
+        return new TranslatableComponent("sdm.shop.entry.add.context.command");
     }
 
     @Override
@@ -48,9 +57,10 @@ public class CommandEntryType implements IEntryType{
 
     @Override
     public Icon getIcon() {
-        Icon getted = Icon.getIcon(iconPath);
-        if(getted.isEmpty()) return Icons.BARRIER;
-        return getted;
+        if(iconPath.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(iconPath);
+        }
+        return ItemIcon.getItemIcon(iconPath);
     }
 
     @Override
@@ -60,7 +70,8 @@ public class CommandEntryType implements IEntryType{
 
     @Override
     public void getConfig(ConfigGroup group) {
-        group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
+        group.add("iconPath", new ConfigIconItemStack(), iconPath, v -> iconPath = v, Items.BARRIER.getDefaultInstance());
+
         group.addString("command", command, v -> command = v, "/time set day", Pattern.compile("^/.*"));
         group.addBool("elevatePerms", elevatePerms, v -> elevatePerms = v, false);
         group.addBool("silent", silent, v -> silent = v, false);
@@ -69,7 +80,7 @@ public class CommandEntryType implements IEntryType{
     @Override
     public List<Component> getDescriptionForContextMenu() {
         List<Component> list = new ArrayList<>();
-        list.add(Component.translatable("sdmr.shop.entry.creator.type.commandType.description"));
+        list.add(new TranslatableComponent("sdmr.shop.entry.creator.type.commandType.description"));
         return list;
     }
 
@@ -92,7 +103,7 @@ public class CommandEntryType implements IEntryType{
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("type", getID());
-        nbt.putString("iconPath", iconPath);
+        NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
         nbt.putString("command", command);
         nbt.putBoolean("elevatePerms", elevatePerms);
         nbt.putBoolean("silent", silent);
@@ -101,7 +112,7 @@ public class CommandEntryType implements IEntryType{
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        iconPath = nbt.getString("iconPath");
+        iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
         command = nbt.getString("command");
         elevatePerms = nbt.getBoolean("elevatePerms");
         silent = nbt.getBoolean("silent");
@@ -115,7 +126,7 @@ public class CommandEntryType implements IEntryType{
         if (elevatePerms) source = source.withPermission(2);
         if (silent) source = source.withSuppressedOutput();
 
-        player.server.getCommands().performPrefixedCommand(source, command);
+        ServerLifecycleHooks.getCurrentServer().getCommands().performCommand(source, command);
     }
 
     @Override

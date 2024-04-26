@@ -1,6 +1,5 @@
 package net.sdm.sdmshopr;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import net.minecraft.commands.CommandSourceStack;
@@ -8,15 +7,14 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.sdm.sdmshopr.events.SDMPlayerEvents;
-import net.sdm.sdmshopr.network.ReloadClientData;
-import net.sdm.sdmshopr.network.SyncShopData;
-import net.sdm.sdmshopr.shop.ShopData;
+import net.sdm.sdmshopr.network.mainshop.ReloadClientData;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class SDMShopCommands {
 
@@ -65,10 +63,10 @@ public class SDMShopCommands {
     }
 
     private static int reloadClient(CommandSourceStack source){
-        if(source.getPlayer() != null) {
-            source.sendSuccess(() -> Component.literal("Start Reload Client"), false);
-            new ReloadClientData().sendTo(source.getPlayer());
-            source.sendSuccess(() -> Component.literal("End Reload Client"), false);
+        if(source.getEntity() != null) {
+            source.sendSuccess(new TextComponent("Start Reload Client"), false);
+            new ReloadClientData().sendTo((ServerPlayer) source.getEntity());
+            source.sendSuccess(new TextComponent("End Reload Client"), false);
             return 0;
         }
 
@@ -76,22 +74,22 @@ public class SDMShopCommands {
     }
 
     private static int editMode(CommandSourceStack source){
-        if(source.getPlayer() != null) {
-            SDMShopR.setEditMode(source.getPlayer(), !SDMShopR.isEditMode(source.getPlayer()));
-            source.sendSuccess(() -> Component.literal("Edit mode is " + SDMShopR.isEditMode(source.getPlayer())), false);
+        if(source.getEntity() != null) {
+            SDMShopR.setEditMode((ServerPlayer) source.getEntity(), !SDMShopR.isEditMode((Player) source.getEntity()));
+            source.sendSuccess(new TextComponent("Edit mode is " + SDMShopR.isEditMode((Player) source.getEntity())), false);
         }
         return 1;
     }
 
     private static int balance(CommandSourceStack source, ServerPlayer profiles) {
-        source.sendSuccess(() -> Component.literal(SDMShopR.moneyString(SDMShopR.getMoney(profiles))), false);
+        source.sendSuccess(new TextComponent(SDMShopR.moneyString(SDMShopR.getMoney(profiles))), false);
         return 1;
     }
 
 
     private static int pay(CommandSourceStack source, ServerPlayer from, ServerPlayer to, long money) {
         if(from.getUUID().equals(to.getUUID())) {
-            source.sendFailure(Component.literal("You can't send money to yourself"));
+            source.sendFailure(new TextComponent("You can't send money to yourself"));
             return 1;
         }
         if(SDMShopR.getMoney(from) >= money){
@@ -99,20 +97,20 @@ public class SDMShopCommands {
             MinecraftForge.EVENT_BUS.post(event);
 
             if(!event.isCanceled()) {
-                SDMShopR.setMoney((ServerPlayer) event.getEntity(), SDMShopR.getMoney(event.getEntity()) - event.getCountMoney());
+                SDMShopR.setMoney((ServerPlayer) event.getEntity(), SDMShopR.getMoney((Player) event.getEntity()) - event.getCountMoney());
                 SDMShopR.setMoney((ServerPlayer) event.payablePlayer, SDMShopR.getMoney(event.payablePlayer) + event.getCountMoney());
-                source.sendSuccess(() -> Component.literal("Money sended !"), false);
+                source.sendSuccess(new TextComponent("Money sended !"), false);
                 return 0;
             }
             return 1;
         }
-        source.sendFailure(Component.literal("Not enough money"));
+        source.sendFailure(new TextComponent("Not enough money"));
         return 1;
     }
 
     private static int set(CommandSourceStack source, Collection<ServerPlayer> players, long money) {
         for (ServerPlayer player : players) {
-            source.sendSuccess(() -> Component.literal(player.getScoreboardName() + ": ").append(SDMShopR.moneyString(money)), false);
+            source.sendSuccess(new TextComponent(player.getScoreboardName() + ": ").append(SDMShopR.moneyString(money)), false);
             SDMShopR.setMoney(player, money);
         }
 
@@ -125,7 +123,7 @@ public class SDMShopCommands {
         }
 
         for (ServerPlayer player : players) {
-            source.sendSuccess(() -> Component.literal(player.getScoreboardName() + (money > 0L ? ": +" : ": -")).append(SDMShopR.moneyString(Math.abs(money))), false);
+            source.sendSuccess(new TextComponent(player.getScoreboardName() + (money > 0L ? ": +" : ": -")).append(SDMShopR.moneyString(Math.abs(money))), false);
             SDMShopR.addMoney(player, money);
         }
 

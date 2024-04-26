@@ -6,23 +6,31 @@
 //import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 //import dev.ftb.mods.ftblibrary.icon.Icon;
 //import dev.ftb.mods.ftblibrary.icon.Icons;
+//import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+//import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+//import dev.ftb.mods.ftbquests.item.CustomIconItem;
+//import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 //import net.minecraft.client.Minecraft;
 //import net.minecraft.nbt.CompoundTag;
 //import net.minecraft.network.chat.Component;
+//import net.minecraft.network.chat.TranslatableComponent;
 //import net.minecraft.server.level.ServerPlayer;
+//import net.minecraft.world.item.ItemStack;
+//import net.minecraft.world.item.Items;
 //import net.minecraftforge.api.distmarker.Dist;
 //import net.minecraftforge.api.distmarker.OnlyIn;
 //import net.minecraftforge.network.PacketDistributor;
 //import net.sdm.sdmshopr.SDMShopR;
 //import net.sdm.sdmshopr.shop.entry.ShopEntry;
 //import net.sdm.sdmshopr.api.IEntryType;
+//import net.sdm.sdmshopr.utils.NBTUtils;
 //
 //import java.util.ArrayList;
 //import java.util.List;
 //
 //public class SkillTreeEntryType implements IEntryType {
 //
-//    private String iconPath = "minecraft:item/barrier";
+//    private ItemStack iconPath = Items.BARRIER.getDefaultInstance();
 //
 //    public SkillTreeEntryType(){
 //
@@ -30,7 +38,7 @@
 //
 //    @Override
 //    public Component getTranslatableForContextMenu() {
-//        return Component.translatable("sdm.shop.entry.add.context.integration.passiveskilltree");
+//        return new TranslatableComponent("sdm.shop.entry.add.context.integration.passiveskilltree");
 //    }
 //
 //    @Override
@@ -41,7 +49,7 @@
 //    @Override
 //    public List<Component> getDescriptionForContextMenu() {
 //        List<Component> list = new ArrayList<>();
-//        list.add(Component.translatable("sdmr.shop.entry.creator.type.pstType.description"));
+//        list.add(new TranslatableComponent("sdmr.shop.entry.creator.type.pstType.description"));
 //        return list;
 //    }
 //
@@ -57,9 +65,10 @@
 //
 //    @Override
 //    public Icon getIcon() {
-//        Icon getted = Icon.getIcon(iconPath);
-//        if(getted.isEmpty()) return Icons.BARRIER;
-//        return getted;
+//        if(iconPath.is(FTBQuestsItems.CUSTOM_ICON.get())){
+//            return CustomIconItem.getIcon(iconPath);
+//        }
+//        return ItemIcon.getItemIcon(iconPath);
 //    }
 //
 //    @Override
@@ -69,7 +78,7 @@
 //
 //    @Override
 //    public void getConfig(ConfigGroup group) {
-//        group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
+//        group.add("iconPath", new ConfigIconItemStack(), iconPath, v -> iconPath = v, Items.BARRIER.getDefaultInstance());
 //    }
 //
 //    @Override
@@ -95,13 +104,14 @@
 //    @Override
 //    public CompoundTag serializeNBT() {
 //        CompoundTag nbt = new CompoundTag();
+//        NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
 //        nbt.putString("type", getID());
 //        return nbt;
 //    }
 //
 //    @Override
 //    public void deserializeNBT(CompoundTag nbt) {
-//
+//        iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
 //    }
 //
 //    @Override

@@ -1,13 +1,12 @@
 package net.sdm.sdmshopr.client.screen.createEntryScreen;
 
-import dev.ftb.mods.ftblibrary.icon.Icon;
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.SimpleTextButton;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopRClient;
 
@@ -18,7 +17,7 @@ public class CreateShopOnlyLoadedButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawIcon(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawIcon(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         CreateEntryScreen screen = (CreateEntryScreen) getGui();
         if(screen.showNotLoadedContent){
             icon = Icons.CHECK;
@@ -30,7 +29,7 @@ public class CreateShopOnlyLoadedButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         SDMShopRClient.shopTheme.getShadow().draw(graphics, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(graphics, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(graphics, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);

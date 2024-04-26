@@ -1,22 +1,22 @@
 package net.sdm.sdmshopr.client.screen.createEntryScreen;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.ModList;
 import net.sdm.sdmshopr.SDMShopRClient;
 import net.sdm.sdmshopr.api.EntryTypeRegister;
 import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.client.widgets.BackToShopButton;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -36,17 +36,18 @@ public class CreateEntryScreen extends BaseScreen {
     public boolean onInit() {
         setWidth(getScreen().getGuiScaledWidth() * 4/5);
         setHeight(getScreen().getGuiScaledHeight() * 4/5);
+//        closeContextMenu();
 
         this.createEntryPanel = new BlankPanel(this){
             @Override
-            public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+            public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
                 SDMShopRClient.shopTheme.getBackground().draw(graphics, x + 1, y + 1, w - 2, h - 2);
                 GuiHelper.drawHollowRect(graphics, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
             }
         };
         this.scrollBar = new PanelScrollBar(this,createEntryPanel){
             @Override
-            public void drawScrollBar(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+            public void drawScrollBar(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
                 Color4I.rgb(85,35,31).draw(graphics, x + 1, y + 1, w - 2, h - 2);
                 GuiHelper.drawHollowRect(graphics, x, y, w, h, Color4I.rgb(148,118,87), false);
             }
@@ -65,10 +66,25 @@ public class CreateEntryScreen extends BaseScreen {
     public void addWidgets() {
         add(createEntryPanel);
         add(scrollBar);
-        add(shopOnlyLoadedButton = new CreateShopOnlyLoadedButton(this, Component.translatable("sdm.shop.entry.creator.info")));
-        add(backToShopButton = new BackToShopButton(this, Component.translatable("sdm.shop.entry.creator.back"), Icons.BACK));
+        add(shopOnlyLoadedButton = new CreateShopOnlyLoadedButton(this, new TranslatableComponent("sdm.shop.entry.creator.info")));
+        add(backToShopButton = new BackToShopButton(this, new TranslatableComponent("sdm.shop.entry.creator.back"), Icons.BACK));
 
 
+    }
+
+
+
+    @Override
+    public ContextMenu openContextMenu(@NotNull List<ContextMenuItem> menu) {
+        ContextMenu contextMenu = new ContextMenu(this, menu){
+            @Override
+            public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
+                NordColors.POLAR_NIGHT_3.draw(graphics, x + 1, y + 1, w - 2, h - 2);
+                GuiHelper.drawHollowRect(graphics, x, y, w, h, Color4I.BLACK, false);
+            }
+        };
+        this.openContextMenu(contextMenu);
+        return contextMenu;
     }
 
     @Override
@@ -79,7 +95,7 @@ public class CreateEntryScreen extends BaseScreen {
     }
 
     @Override
-    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         SDMShopRClient.shopTheme.getShadow().draw(graphics, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(graphics, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(graphics, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
@@ -149,7 +165,7 @@ public class CreateEntryScreen extends BaseScreen {
 
     private void updateEntry(List<Widget> items){
         createEntryPanel.setSize(this.width - 39, this.height - 30);
-        this.createEntryPanel.getWidgets().clear();
+        this.createEntryPanel.widgets.clear();
         this.createEntryPanel.addAll(items);
         this.scrollBar.setPosAndSize(this.createEntryPanel.posX + this.createEntryPanel.width + 6, this.createEntryPanel.posY - 1, 16, this.createEntryPanel.height + 2);
         this.scrollBar.setValue(0.0);

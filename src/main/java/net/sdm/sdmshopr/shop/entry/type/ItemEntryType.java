@@ -5,9 +5,14 @@ import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
+import dev.ftb.mods.ftbquests.FTBQuests;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -35,13 +40,13 @@ public class ItemEntryType implements IEntryType{
 
     @Override
     public Component getTranslatableForContextMenu() {
-        return Component.translatable("sdm.shop.entry.add.context.item");
+        return new TranslatableComponent("sdm.shop.entry.add.context.item");
     }
 
     @Override
     public List<Component> getDescriptionForContextMenu() {
         List<Component> list = new ArrayList<>();
-        list.add(Component.translatable("sdmr.shop.entry.creator.type.itemType.description"));
+        list.add(new TranslatableComponent("sdmr.shop.entry.creator.type.itemType.description"));
         return list;
     }
 
@@ -61,6 +66,9 @@ public class ItemEntryType implements IEntryType{
 
     @Override
     public Icon getIcon() {
+        if(itemStack.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(itemStack);
+        }
         return ItemIcon.getItemIcon(itemStack);
     }
 
@@ -73,6 +81,7 @@ public class ItemEntryType implements IEntryType{
 
     @Override
     public void getConfig(ConfigGroup group) {
+
         group.addItemStack("item", itemStack, v -> itemStack = v, ItemStack.EMPTY, true, true);
 
     }
@@ -130,7 +139,7 @@ public class ItemEntryType implements IEntryType{
         List<ItemStack> stackList = new ArrayList<>();
 
         for (int index = 0; index < player.getInventory().getContainerSize(); index++) {
-            if(ItemStack.matches(player.getInventory().getItem(index), (stack.copy())) || ItemStack.isSameItem(player.getInventory().getItem(index), (stack.copy()))){
+            if(ItemStack.matches(player.getInventory().getItem(index), (stack.copy())) || ItemStack.isSame(player.getInventory().getItem(index), (stack.copy()))){
                 stackList.add(player.getInventory().getItem(index));
             }
         }
@@ -196,7 +205,7 @@ public class ItemEntryType implements IEntryType{
                 /*весь ItemStack можно описать тремя параметрами. item.getData, item.getItemMeta и item.getAmmaount.
                  *При item.equas(item2)ammount тоже сравнивается, поэтому видим такое сравнение
                  */
-                if (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
+                if (ItemStack.isSame(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
                     totalamm += p.getInventory().getItem(a).getCount();
                 }
             }
@@ -211,7 +220,7 @@ public class ItemEntryType implements IEntryType{
         for (int a = 0; a<p.getInventory().getContainerSize(); a++) {
             if (ammountleft==0){return true;}
             if (p.getInventory().getItem(a)==null) continue;
-            if (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)) {
+            if (ItemStack.isSame(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)) {
                 if (p.getInventory().getItem(a).getCount()<ammountleft) {
                     ammountleft-=p.getInventory().getItem(a).getCount();
                     p.getInventory().setItem(a, ItemStack.EMPTY);

@@ -1,5 +1,6 @@
 package net.sdm.sdmshopr.converter;
 
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import dev.ftb.mods.ftbquests.util.NBTUtils;
@@ -7,10 +8,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.IShopCondition;
+import net.sdm.sdmshopr.client.TabButton;
 import net.sdm.sdmshopr.shop.Shop;
+import net.sdm.sdmshopr.shop.condition.GameStagesCondition;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.shop.entry.type.ItemEntryType;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
@@ -50,15 +54,15 @@ public class ConverterOldShopData {
 
             ShopTab tab = new ShopTab(shop);
             tab.icon = icon;
-            tab.title = Component.translatable(title);
-//            if(!stage.isEmpty()) {
-//                for (IShopCondition condition : tab.conditions) {
-//                    if (condition.getClass().equals(GameStagesCondition.class)) {
-//                        ((GameStagesCondition)condition).stages.add(stage);
-//                        break;
-//                    }
-//                }
-//            }
+            tab.title = new TranslatableComponent(title);
+            if(!stage.isEmpty()) {
+                for (IShopCondition condition : tab.conditions) {
+                    if (condition.getClass().equals(GameStagesCondition.class)) {
+                        ((GameStagesCondition)condition).stages.add(stage);
+                        break;
+                    }
+                }
+            }
 
             List<ShopEntry<?>> shopEntryList = new ArrayList<>();
 
@@ -89,14 +93,14 @@ public class ConverterOldShopData {
             d1.isSell = isSell;
             d1.price = (int) price;
             d1.count = item.getCount();
-//            if(!stage.isEmpty()) {
-//                for (IShopCondition condition : d1.conditions) {
-//                    if (condition.getClass().equals(GameStagesCondition.class)) {
-//                        ((GameStagesCondition)condition).stages.add(stage);
-//                        break;
-//                    }
-//                }
-//            }
+            if(!stage.isEmpty()) {
+                for (IShopCondition condition : d1.conditions) {
+                    if (condition.getClass().equals(GameStagesCondition.class)) {
+                        ((GameStagesCondition)condition).stages.add(stage);
+                        break;
+                    }
+                }
+            }
 
             ItemStack f1 = item.copy();
             f1.setCount(1);

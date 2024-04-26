@@ -1,13 +1,15 @@
 package net.sdm.sdmshopr.client.screen.createEntryScreen;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.TextField;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.sdm.sdmshopr.SDMShopRClient;
 import net.sdm.sdmshopr.api.IEntryType;
 
@@ -46,7 +48,7 @@ public class CreateEntryButtonPanel extends Panel {
         list.add(entryType.getTranslatableForContextMenu());
 
         if(!isActive){
-            list.add(Component.translatable("sdmr.shop.entry.creator.require").append(Component.literal(!entryType.getModNameForContextMenu().isEmpty() ? entryType.getModNameForContextMenu() : entryType.getModID()).withStyle(ChatFormatting.RED)));
+            list.add(new TranslatableComponent("sdmr.shop.entry.creator.require").append(new TextComponent(!entryType.getModNameForContextMenu().isEmpty() ? entryType.getModNameForContextMenu() : entryType.getModID()).withStyle(ChatFormatting.RED)));
         }
 
         if(!entryType.getDescriptionForContextMenu().isEmpty()){
@@ -56,7 +58,7 @@ public class CreateEntryButtonPanel extends Panel {
         }
 
         if(isActive) {
-            list.add(Component.translatable("sdm.shop.entry.creator.keyinfo").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.BOLD));
+            list.add(new TranslatableComponent("sdm.shop.entry.creator.keyinfo").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.BOLD));
         }
         //        list.add(Component.translatable("sdmr.shop.entry.creator.type.canbuy", entryType.isCanBuy()));
 //        list.add(Component.translatable("sdmr.shop.entry.creator.type.cansell", entryType.isSellable()));
@@ -66,7 +68,7 @@ public class CreateEntryButtonPanel extends Panel {
     }
 
     @Override
-    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         if(!isActive) {
             SDMShopRClient.shopTheme.getShadow().withAlpha(100).draw(graphics, x, y, w, h + 4);
             SDMShopRClient.shopTheme.getBackground().withAlpha(100).draw(graphics, x + 1, y + 1, w - 2, h - 2);
@@ -85,7 +87,7 @@ public class CreateEntryButtonPanel extends Panel {
     }
 
     @Override
-    public void drawOffsetBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawOffsetBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
 
     }
 }

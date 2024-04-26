@@ -1,12 +1,13 @@
 package net.sdm.sdmshopr.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
 import net.sdm.sdmshopr.shop.entry.TypeCreator;
@@ -16,7 +17,7 @@ import java.util.List;
 public class CreateEntryButton extends SimpleTextButton {
 
     public CreateEntryButton(Panel panel) {
-        super(panel, Component.empty(), Icons.ADD);
+        super(panel, TextComponent.EMPTY, Icons.ADD);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class CreateEntryButton extends SimpleTextButton {
     }
 
     @Override
-    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         Font font = Minecraft.getInstance().font;
         SDMShopRClient.shopTheme.getShadow().draw(graphics, x, y, w, h + 4);
         SDMShopRClient.shopTheme.getBackground().draw(graphics, x + 1, y + 1, w - 2, h - 2);

@@ -11,6 +11,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,8 +24,8 @@ public class MoneyTask extends Task implements ISingleLongValueTask {
 
     public long value = 1L;
 
-    public MoneyTask(long id, Quest quest) {
-        super(id, quest);
+    public MoneyTask(Quest quest) {
+        super(quest);
     }
 
 
@@ -78,15 +80,15 @@ public class MoneyTask extends Task implements ISingleLongValueTask {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void fillConfigGroup(ConfigGroup config) {
-        super.fillConfigGroup(config);
+    public void getConfig(ConfigGroup config) {
+        super.getConfig(config);
         config.addLong("value", value, v -> value = v, 1L, 1L, Long.MAX_VALUE).setNameKey("ftbquests.task.sdmshop");
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public Component getAltTitle() {
-        return Component.literal(SDMShopR.moneyString(value));
+        return new TextComponent(SDMShopR.moneyString(value));
     }
 
     @Override
@@ -98,7 +100,7 @@ public class MoneyTask extends Task implements ISingleLongValueTask {
     @OnlyIn(Dist.CLIENT)
     public void addMouseOverText(TooltipList list, TeamData teamData) {
         super.addMouseOverText(list, teamData);
-        list.add(Component.translatable("sdmshop.balance").append(": ").append(Component.literal(SDMShopR.moneyString(SDMShopR.getClientMoney()))).withStyle(ChatFormatting.GRAY));
+        list.add(new TranslatableComponent("sdmshop.balance").append(": ").append(new TextComponent(SDMShopR.moneyString(SDMShopR.getClientMoney()))).withStyle(ChatFormatting.GRAY));
     }
 
     @Override

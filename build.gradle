@@ -130,6 +130,11 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    // Put repositories for dependencies here
+    // ForgeGradle automatically adds the Forge maven and Maven Central for you
+
+    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
     maven {
         url "https://cursemaven.com"
     }
@@ -142,11 +147,14 @@ dependencies {
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4396792")
+    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:4760361")
+    implementation fg.deobf("curse.maven:architectury-api-419699:5137931")
+    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4579981")
+    implementation fg.deobf("curse.maven:item-filters-309674:4553322")
 
-    implementation fg.deobf("curse.maven:ftb-library-forge-404465:5269468")
-    implementation fg.deobf("curse.maven:architectury-api-419699:5173989")
-    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:5202950")
-    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:5214946")
+    compileOnly fg.deobf("curse.maven:game-stages-268655:4066389")
+    compileOnly fg.deobf("curse.maven:mana-and-artifice-406360:4918192")
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")

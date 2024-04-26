@@ -3,12 +3,14 @@ package net.sdm.sdmshopr;
 import com.mojang.logging.LogUtils;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
-import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
-import dev.ftb.mods.ftbteams.api.Team;
-import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
-import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
+import dev.ftb.mods.ftbteams.FTBTeamsAPI;
+import dev.ftb.mods.ftbteams.data.ClientTeamManager;
+import dev.ftb.mods.ftbteams.data.KnownClientPlayer;
+import dev.ftb.mods.ftbteams.data.Team;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -17,7 +19,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -29,19 +31,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.sdm.sdmshopr.api.ConditionRegister;
+import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.register.ShopEntryButtonsRegister;
 import net.sdm.sdmshopr.api.tags.ITag;
 import net.sdm.sdmshopr.config.ClientShopData;
 import net.sdm.sdmshopr.converter.ConverterOldShopData;
 import net.sdm.sdmshopr.events.SDMPlayerEvents;
-import net.sdm.sdmshopr.network.SDMShopNetwork;
-import net.sdm.sdmshopr.network.SyncShop;
-import net.sdm.sdmshopr.network.UpdateEditMode;
-import net.sdm.sdmshopr.network.UpdateMoney;
-import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.network.mainshop.SDMShopNetwork;
+import net.sdm.sdmshopr.network.mainshop.SyncShop;
+import net.sdm.sdmshopr.network.mainshop.UpdateEditMode;
+import net.sdm.sdmshopr.network.mainshop.UpdateMoney;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.tags.TagFileParser;
 import org.slf4j.Logger;
-
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -93,6 +95,7 @@ public class SDMShopR {
         SDMShopRIntegration.init();
         EntryTypeRegister.init();
         ConditionRegister.init();
+        ShopEntryButtonsRegister.init();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         Config.init(getModFolder().resolve(SDMShopR.MODID + "-client.toml"));
@@ -116,7 +119,7 @@ public class SDMShopR {
 
     @SubscribeEvent
     public void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event){
-        if(event.getEntity().level().isClientSide) return;
+        if(event.getPlayer().level.isClientSide) return;
 
         if(event.getEntity() instanceof ServerPlayer player && Shop.SERVER != null) {
             new SyncShop(Shop.SERVER.serializeNBT()).sendTo(player);
@@ -124,16 +127,16 @@ public class SDMShopR {
     }
 
     @SubscribeEvent
-    public void onLevelSavedEvent(LevelEvent.Save event){
-        if(event.getLevel() instanceof Level && Shop.SERVER != null && Shop.SERVER.needSave && !event.getLevel().isClientSide() && ((Level) event.getLevel()).dimension() == Level.OVERWORLD){
+    public void onLevelSavedEvent(WorldEvent.Save event){
+        if(event.getWorld() instanceof Level && Shop.SERVER != null && Shop.SERVER.needSave && !event.getWorld().isClientSide() && ((Level) event.getWorld()).dimension() == Level.OVERWORLD){
             Shop.SERVER.needSave = false;
             SNBT.write(getFile(), Shop.SERVER.serializeNBT());
         }
     }
 
     @SubscribeEvent
-    public void onWorldLoaded(LevelEvent.Load event) {
-        if (event.getLevel() instanceof Level && !event.getLevel().isClientSide() && ((Level) event.getLevel()).dimension() == Level.OVERWORLD) {
+    public void onWorldLoaded(WorldEvent.Load event) {
+        if (event.getWorld() instanceof Level && !event.getWorld().isClientSide() && ((Level) event.getWorld()).dimension() == Level.OVERWORLD) {
             Shop.SERVER = new Shop();
             Shop.SERVER.needSave();
 
@@ -191,14 +194,14 @@ public class SDMShopR {
     }
 
     public static long getMoney(Player player) {
-        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
+        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
         if(team != null)
             return team.getExtraData().getLong("Money");
         return 0;
     }
 
     public static void setMoney(ServerPlayer player, long money) {
-        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
+        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
         if(team != null) {
             if (money != team.getExtraData().getLong("Money")) {
                 SDMPlayerEvents.SetMoneyEvent giveMoneyEvent = new SDMPlayerEvents.SetMoneyEvent(player, money, getMoney(player));
@@ -207,7 +210,7 @@ public class SDMShopR {
                 if(!giveMoneyEvent.isCanceled()) {
 
                     team.getExtraData().putLong("Money", giveMoneyEvent.getCountMoney());
-                    team.markDirty();
+                    team.save();
                     new UpdateMoney(player.getUUID(), giveMoneyEvent.getCountMoney()).sendToAll(player.server);
                 }
             }
@@ -215,7 +218,7 @@ public class SDMShopR {
     }
 
     public static void addMoney(ServerPlayer player, long money) {
-        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
+        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
         if(team != null) {
             long balance = team.getExtraData().getLong("Money");
 
@@ -225,46 +228,46 @@ public class SDMShopR {
             if(!event.isCanceled()) {
                 long current = event.playerMoney + event.countMoney;
                 team.getExtraData().putLong("Money", current);
-                team.markDirty();
+                team.save();
                 new UpdateMoney(player.getUUID(), current).sendToAll(player.server);
             }
         }
     }
 
     public static void setEditMode(KnownClientPlayer player, boolean value){
-        player.extraData().putBoolean("sdm_edit_mobe", value);
+        player.getExtraData().putBoolean("sdm_edit_mobe", value);
     }
     public static void setEditMode(ServerPlayer player, boolean value){
-        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
+        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
         if(team != null){
             team.getExtraData().putBoolean("sdm_edit_mobe", value);
-            team.markDirty();
+            team.save();
             new UpdateEditMode(player.getUUID(), value).sendToAll(player.server);
         }
     }
 
     public static long getMoney(KnownClientPlayer player) {
-        return player.extraData().getLong("Money");
+        return player.getExtraData().getLong("Money");
     }
 
     public static void setMoney(KnownClientPlayer player, long money) {
-        player.extraData().putLong("Money", money);
+        player.getExtraData().putLong("Money", money);
     }
 
     public static void addMoney(KnownClientPlayer player, long money) {
-        player.extraData().putLong("Money", player.extraData().getLong("Money") + money);
+        player.getExtraData().putLong("Money", player.getExtraData().getLong("Money") + money);
     }
 
     public static long getClientMoney() {
-        return ClientTeamManagerImpl.getInstance().getKnownPlayer(Minecraft.getInstance().player.getUUID()).get().extraData().getLong("Money");
+        return ClientTeamManager.INSTANCE.getKnownPlayer(Minecraft.getInstance().player.getUUID()).getExtraData().getLong("Money");
     }
 
     public static boolean isEditModeClient(){
-        return ClientTeamManagerImpl.getInstance().getKnownPlayer(Minecraft.getInstance().player.getUUID()).get().extraData().getBoolean("sdm_edit_mobe");
+        return ClientTeamManager.INSTANCE.getKnownPlayer(Minecraft.getInstance().player.getUUID()).getExtraData().getBoolean("sdm_edit_mobe");
     }
 
     public static boolean isEditMode(Player player) {
-        Team team = FTBTeamsAPI.api().getManager().getPlayerTeamForPlayerID(player.getUUID()).get();
+        Team team = FTBTeamsAPI.getManager().getPlayerTeam(player.getUUID());
         if(team != null)
             return team.getExtraData().getBoolean("sdm_edit_mobe");
         return false;
@@ -272,5 +275,9 @@ public class SDMShopR {
 
     public static String moneyString(long money) {
         return String.format("◎ %,d", money);
+    }
+
+    public static Component getMoneyComponent(String money){
+        return new TextComponent(money).withStyle(SDMShopRClient.shopTheme.getMoneyTextColor().toStyle());
     }
 }

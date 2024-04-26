@@ -3,6 +3,11 @@ package net.sdm.sdmshopr.api;
 import net.minecraft.world.item.ItemStack;
 import net.sdm.sdmshopr.shop.entry.type.CommandEntryType;
 import net.sdm.sdmshopr.shop.entry.type.ItemEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.GameStagesEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.ManaAndArtifice.MNAFactionEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.ManaAndArtifice.MNALevelEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.ManaAndArtifice.MNAProgressionEntryType;
+import net.sdm.sdmshopr.shop.entry.type.integration.ManaAndArtifice.MNATierEntryType;
 import net.sdm.sdmshopr.shop.entry.type.integration.QuestEntryType;
 
 import java.util.LinkedHashMap;
@@ -19,14 +24,14 @@ public interface EntryTypeRegister {
     }
 
     IEntryType ITEM = register(ItemEntryType.of(ItemStack.EMPTY));
-    IEntryType COMMAND = register(new CommandEntryType("", ""));
-//    IEntryType GAME_STAGES = register(new GameStagesEntryType(""));
+    IEntryType COMMAND = register(new CommandEntryType("", ItemStack.EMPTY));
+    IEntryType GAME_STAGES = register(new GameStagesEntryType(""));
     IEntryType QUESTS = register(new QuestEntryType(""));
 //    IEntryType SKILL_TREE = register(new SkillTreeEntryType());
-//    IEntryType MNA_PROGRESSION = register(new MNAProgressionEntryType(1));
-//    IEntryType MNA_TIERS = register(new MNATierEntryType(1));
-//    IEntryType MNA_FACTION = register(new MNAFactionEntryType(""));
-//    IEntryType MNA_LEVEL = register(new MNALevelEntryType());
+    IEntryType MNA_PROGRESSION = register(new MNAProgressionEntryType(1));
+    IEntryType MNA_TIERS = register(new MNATierEntryType(1));
+    IEntryType MNA_FACTION = register(new MNAFactionEntryType(""));
+    IEntryType MNA_LEVEL = register(new MNALevelEntryType());
 
     static void init(){
 

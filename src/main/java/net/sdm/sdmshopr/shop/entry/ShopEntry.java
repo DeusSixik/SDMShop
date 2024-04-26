@@ -1,20 +1,32 @@
 package net.sdm.sdmshopr.shop.entry;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
+import dev.ftb.mods.ftblibrary.config.NameMap;
 import dev.ftb.mods.ftblibrary.config.StringConfig;
+import dev.ftb.mods.ftbquests.client.ClientQuestFile;
+import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
+import dev.ftb.mods.ftbquests.quest.Quest;
+import dev.ftb.mods.ftbquests.quest.TeamData;
+import net.darkhax.gamestages.GameStageHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fml.ModList;
 import net.sdm.sdmshopr.SDMShopR;
+import net.sdm.sdmshopr.SDMShopRIntegration;
 import net.sdm.sdmshopr.api.ConditionRegister;
 import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.api.IShopCondition;
+import net.sdm.sdmshopr.api.customization.APIShopEntry;
+import net.sdm.sdmshopr.api.customization.APIShopEntryButton;
+import net.sdm.sdmshopr.api.register.ShopEntryButtonsRegister;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 import net.sdm.sdmshopr.utils.NBTUtils;
 
@@ -23,6 +35,9 @@ import java.util.List;
 import java.util.Map;
 
 public class ShopEntry<T extends IEntryType> implements INBTSerializable<CompoundTag> {
+
+
+
     public ShopTab tab;
     public String tittle;
     public int count;
@@ -37,6 +52,7 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
 
     public List<String> TAGS = new ArrayList<>();
 
+    public String buttonStyle = "";
 
     public ShopEntry(){}
     public ShopEntry(ShopTab tab){
@@ -68,6 +84,7 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         nbt.putString("tittle", tittle);
         if(type != null)
             nbt.put("type", type.serializeNBT());
+        nbt.putString("buttonStyle", buttonStyle);
 
         ListTag f1 = new ListTag();
         for (String tag : TAGS) {
@@ -94,6 +111,8 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         isSell = nbt.getBoolean("isSell");
         tittle = nbt.getString("tittle");
         type = NBTUtils.getEntryType(nbt.getCompound("type"));
+        if(nbt.contains("buttonStyle"))
+            buttonStyle = nbt.getString("buttonStyle");
 
         if(nbt.contains("tags")) {
             TAGS.clear();
@@ -112,6 +131,12 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         }
     }
 
+    public APIShopEntry getButton(){
+        if(buttonStyle.isEmpty())
+            return ShopEntryButtonsRegister.BASE;
+        return ShopEntryButtonsRegister.TYPES.get(buttonStyle);
+    }
+
     public void getConfig(ConfigGroup config){
 
         config.addString("tittle", tittle, v -> tittle = v, "");
@@ -122,16 +147,25 @@ public class ShopEntry<T extends IEntryType> implements INBTSerializable<Compoun
         if(type.isSellable()) config.addBool("isSell", isSell, v -> isSell = v, false);
 
         config.addList("tags", TAGS, new StringConfig(null), "");
+        config.addEnum("buttonStyle", buttonStyle.isEmpty() ? "BASE" : buttonStyle, v -> buttonStyle = v, getIDs());
 
-
-        ConfigGroup type = config.getOrCreateSubgroup("type");
+        ConfigGroup type = config.getGroup("type");
         this.type.getConfig(type);
 
-        ConfigGroup group = config.getOrCreateSubgroup("dependencies");
+        ConfigGroup group = config.getGroup("dependencies");
 
         for (IShopCondition condition : conditions) {
             condition.getConfig(group);
         }
+    }
+
+    public NameMap<String> getIDs(){
+        List<String> ids = new ArrayList<>();
+        for (Map.Entry<String, APIShopEntry> stringAPIShopEntryButtonEntry : ShopEntryButtonsRegister.TYPES.entrySet()) {
+            ids.add(stringAPIShopEntryButtonEntry.getKey());
+        }
+
+        return NameMap.<String>of("BASE", ids).create();
     }
 
 

@@ -7,12 +7,13 @@ import dev.ftb.mods.ftblibrary.ui.CustomClickEvent;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.themes.SDMThemes;
@@ -31,7 +32,9 @@ public class SDMShopRClient extends SDMShopRCommon {
                     Color4I.fromString(Config.BACKGROUND.get()),
                     Color4I.fromString(Config.SHADOW.get()),
                     Color4I.fromString(Config.REACT.get()),
-                    Color4I.fromString(Config.STOKE.get())
+                    Color4I.fromString(Config.STOKE.get()),
+                    Color4I.fromString(Config.TEXTCOLOR.get()),
+                    Color4I.fromString(Config.SELCETTABCOLOR.get())
             );
         }
         return tm;
@@ -60,7 +63,7 @@ public class SDMShopRClient extends SDMShopRCommon {
 
         return EventResult.pass();
     }
-    public void keyInput(InputEvent.Key event) {
+    public void keyInput(InputEvent.KeyInputEvent event) {
         if (KEY_SHOP.consumeClick() && Shop.CLIENT != null) {
             new MainShopScreen().openGui();
         }
@@ -68,9 +71,14 @@ public class SDMShopRClient extends SDMShopRCommon {
 
     @Mod.EventBusSubscriber(modid = SDMShopR.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModButton{
+//        @SubscribeEvent
+//        public static void onKeyRegister(KeyBinding  e){
+//            event.register(KEY_SHOP);
+//        }
+
         @SubscribeEvent
-        public static void onKeyRegister(RegisterKeyMappingsEvent event){
-            event.register(KEY_SHOP);
+        public static void clientSetup(final FMLClientSetupEvent event) {
+            ClientRegistry.registerKeyBinding(KEY_SHOP);
         }
     }
 }

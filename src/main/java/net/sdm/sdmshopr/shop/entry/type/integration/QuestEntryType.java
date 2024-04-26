@@ -3,7 +3,12 @@ package net.sdm.sdmshopr.shop.entry.type.integration;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+import dev.ftb.mods.ftbquests.FTBQuests;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObject;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
@@ -11,12 +16,16 @@ import dev.ftb.mods.ftbquests.quest.TeamData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
+import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +34,7 @@ import java.util.List;
 public class QuestEntryType implements IEntryType {
 
     public String questID = "";
-    private String iconPath = "minecraft:item/barrier";
+    private ItemStack iconPath = Items.BARRIER.getDefaultInstance();
     private boolean useIconFromQuest = true;
 
     public QuestEntryType(String questID){
@@ -34,7 +43,7 @@ public class QuestEntryType implements IEntryType {
 
     @Override
     public Component getTranslatableForContextMenu() {
-        return Component.translatable("sdm.shop.entry.add.context.integration.quest");
+        return new TranslatableComponent("sdm.shop.entry.add.context.integration.quest");
     }
 
     @Override
@@ -57,20 +66,21 @@ public class QuestEntryType implements IEntryType {
     @Override
     public Icon getIcon() {
         if(useIconFromQuest) {
-            QuestObject quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+            QuestObject quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
             if (quest == null) return Icons.BARRIER;
             return quest.getIcon();
         }
-        Icon getted = Icon.getIcon(iconPath);
-        if(getted.isEmpty()) return Icons.BARRIER;
-        return getted;
+        if(iconPath.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(iconPath);
+        }
+        return ItemIcon.getItemIcon(iconPath);
     }
 
     @Override
     public List<Component> getDescriptionForContextMenu() {
         List<Component> list = new ArrayList<>();
-        list.add(Component.translatable("sdmr.shop.entry.creator.type.questType.description"));
-        list.add(Component.translatable("sdmr.shop.entry.creator.type.questType.description_1"));
+        list.add(new TranslatableComponent("sdmr.shop.entry.creator.type.questType.description"));
+        list.add(new TranslatableComponent("sdmr.shop.entry.creator.type.questType.description_1"));
         return list;
     }
 
@@ -82,7 +92,7 @@ public class QuestEntryType implements IEntryType {
     @Override
     public void getConfig(ConfigGroup group) {
         group.addString("questid", questID, v -> questID = v, "");
-        group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
+        group.add("iconPath", new ConfigIconItemStack(), iconPath, v -> iconPath = v, Items.BARRIER.getDefaultInstance());
         group.addBool("useIconFromQuest", useIconFromQuest, v -> useIconFromQuest = v, true);
     }
 
@@ -112,7 +122,7 @@ public class QuestEntryType implements IEntryType {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("type", getID());
         nbt.putString("questID", questID);
-        nbt.putString("iconPath", iconPath);
+        NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
         nbt.putBoolean("useIconFromQuest", useIconFromQuest);
         return nbt;
     }
@@ -120,14 +130,14 @@ public class QuestEntryType implements IEntryType {
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         questID = nbt.getString("questID");
-        iconPath = nbt.getString("iconPath");
+        iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
         useIconFromQuest = nbt.getBoolean("useIconFromQuest");
     }
 
     @Override
     public void sell(ServerPlayer player, int countSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(player);
-        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
 
         if(quest == null) return;
         if(data.isCompleted(quest)){
@@ -139,7 +149,7 @@ public class QuestEntryType implements IEntryType {
     @Override
     public void buy(ServerPlayer player, int countBuy, ShopEntry<?> entry) {
         TeamData data = TeamData.get(player);
-        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
 
         if(quest == null) return;
         if(!data.isCompleted(quest)){
@@ -152,7 +162,7 @@ public class QuestEntryType implements IEntryType {
     @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
-        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
         if(quest != null){
             if(data.isCompleted(quest)) return false;
         }
@@ -167,7 +177,7 @@ public class QuestEntryType implements IEntryType {
     @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
-        Quest quest = FTBQuestsClient.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
+        Quest quest = FTBQuests.PROXY.getClientQuestFile().getQuest(QuestObjectBase.parseCodeString(questID));
         if (quest == null) return 0;
         if (isSell) {
             if (!data.isCompleted(quest)) {

@@ -4,8 +4,22 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
+import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
 public class SDMPlayerEvents {
+
+    @Cancelable
+    public static class CustomBuyEvent extends PlayerEvent{
+        public long countMoney;
+        public long playerMoney;
+        public ShopEntry<?> entry;
+        public CustomBuyEvent(Player player, long countMoneyGet, long playerMoney, ShopEntry<?> entry) {
+            super(player);
+            this.countMoney = countMoneyGet;
+            this.playerMoney = playerMoney;
+            this.entry = entry;
+        }
+    }
 
     @Cancelable
     public static class AddMoneyEvent extends PlayerEvent{

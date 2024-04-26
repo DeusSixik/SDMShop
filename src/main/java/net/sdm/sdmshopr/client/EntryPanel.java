@@ -1,14 +1,12 @@
 package net.sdm.sdmshopr.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
-import net.sdm.sdmshopr.shop.Shop;
+import net.sdm.sdmshopr.api.customization.APIShopEntryButton;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
 public class EntryPanel extends Panel {
@@ -53,7 +51,7 @@ public class EntryPanel extends Panel {
                 ShopEntry<?> entry = shopScreen.selectedTab.shopEntryList.get(i);
                 if(entry.type == null) continue;
                 if(!entry.isLocked()) {
-                    EntryButton entryButton = new EntryButton(this, entry);
+                    APIShopEntryButton entryButton = entry.getButton().create(this,entry);
                     entryButton.setSize(sizeButtonX, sizeButtonY);
                     if (i > 0) {
                         if (i % maxInArray == 0) {
@@ -94,7 +92,7 @@ public class EntryPanel extends Panel {
     }
 
     @Override
-    public void drawBackground(GuiGraphics matrixStack, Theme theme, int x, int y, int w, int h) {
+    public void drawBackground(PoseStack matrixStack, Theme theme, int x, int y, int w, int h) {
         SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
     }

@@ -4,7 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.sdm.sdmshopr.network.SyncShopData;
+import net.sdm.sdmshopr.network.mainshop.SyncShopData;
 
 public class ShopData implements INBTSerializable<CompoundTag> {
     public boolean isNew = false;

@@ -1,19 +1,23 @@
 package net.sdm.sdmshopr.client.buyer;
 
+import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
+import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
 import net.sdm.sdmshopr.client.MainShopScreen;
-import net.sdm.sdmshopr.network.BuyEntry;
+import net.sdm.sdmshopr.network.mainshop.BuyEntry;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class BuyerScreen extends BaseScreen {
@@ -58,11 +62,6 @@ public class BuyerScreen extends BaseScreen {
                     BuyerScreen.this.updateCountInfo(Integer.parseInt(getText()));
                 }
             }
-
-            @Override
-            public void writeText(String textToWrite) {
-                super.writeText(textToWrite);
-            }
         };
         this.inputField.setPosAndSize(8, 8, this.width - 16, 16);
         this.inputField.setText("0");
@@ -106,6 +105,19 @@ public class BuyerScreen extends BaseScreen {
 
     }
 
+    @Override
+    public ContextMenu openContextMenu(@NotNull List<ContextMenuItem> menu) {
+        ContextMenu contextMenu = new ContextMenu(this, menu){
+            @Override
+            public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+                NordColors.POLAR_NIGHT_3.draw(graphics, x + 1, y + 1, w - 2, h - 2);
+                GuiHelper.drawHollowRect(graphics, x, y, w, h, Color4I.BLACK, false);
+            }
+        };
+        this.openContextMenu(contextMenu);
+        return contextMenu;
+    }
+
     public void updateCountInfo(int count){
         if(this.costBuyField == null) return;
         int d1 = count * entry.price;
@@ -126,6 +138,7 @@ public class BuyerScreen extends BaseScreen {
 
     @Override
     public boolean onInit() {
+        closeContextMenu();
         return true;
     }
 

@@ -9,6 +9,7 @@ public class ShopTheme {
     private Color4I react;
     private Color4I stoke;
     private Color4I moneyTextColor;
+    private Color4I colorSelectTab;
 
     public ShopTheme(Color4I background, Color4I shadow, Color4I react, Color4I stoke){
         this.background = background;
@@ -16,6 +17,7 @@ public class ShopTheme {
         this.react = react;
         this.stoke = stoke;
         this.moneyTextColor = Color4I.WHITE;
+        this.colorSelectTab = Color4I.WHITE;
     }
     public ShopTheme(Color4I background, Color4I shadow, Color4I react, Color4I stoke, Color4I moneyTextColor){
         this.background = background;
@@ -23,6 +25,15 @@ public class ShopTheme {
         this.react = react;
         this.stoke = stoke;
         this.moneyTextColor = moneyTextColor;
+        this.colorSelectTab = Color4I.WHITE;
+    }
+    public ShopTheme(Color4I background, Color4I shadow, Color4I react, Color4I stoke, Color4I moneyTextColor, Color4I colorSelectTab){
+        this.background = background;
+        this.shadow = shadow;
+        this.react = react;
+        this.stoke = stoke;
+        this.moneyTextColor = moneyTextColor;
+        this.colorSelectTab = colorSelectTab;
     }
 
 
@@ -44,5 +55,9 @@ public class ShopTheme {
 
     public Color4I getStoke() {
         return stoke;
+    }
+
+    public Color4I getColorSelectTab() {
+        return colorSelectTab;
     }
 }

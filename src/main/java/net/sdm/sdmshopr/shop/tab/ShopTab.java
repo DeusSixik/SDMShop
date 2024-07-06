@@ -2,9 +2,14 @@ package net.sdm.sdmshopr.shop.tab;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.StringConfig;
+import dev.ftb.mods.ftblibrary.icon.Icon;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 import net.darkhax.gamestages.GameStageHelper;
@@ -15,6 +20,7 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -27,6 +33,7 @@ import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.utils.NBTUtils;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +41,14 @@ import java.util.Map;
 public class ShopTab implements INBTSerializable<CompoundTag> {
     public Shop shop;
     public Component title = Component.empty();
-    public ItemStack icon = ItemStack.EMPTY;
+    public ItemStack icon = Items.BARRIER.getDefaultInstance();
     public int lock = 0;
     public List<ShopEntry<?>> shopEntryList = new ArrayList<>();
     public List<String> TAGS = new ArrayList<>();
 
 
     public final List<IShopCondition> conditions = new ArrayList<>();
-
-    public final List<String> gameStages = new ArrayList<>();
+    public boolean isSellableTab = false;
 
     public ShopTab(Shop shop){
         this.shop = shop;
@@ -55,10 +61,18 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
     }
 
 
+    public Icon getIcon(){
+        if(icon.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(icon);
+        }
+        return ItemIcon.getItemIcon(icon);
+    }
+
     public CompoundTag serializeSettings(){
         CompoundTag nbt = new CompoundTag();
         nbt.putString("title", title.getString());
         NBTUtils.putItemStack(nbt, "icon", icon);
+        nbt.putBoolean("isSellableTab", isSellableTab);
 
         for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
             if(ModList.get().isLoaded(d1.getValue().getModID())) {
@@ -93,6 +107,7 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
     public void deserializeSettings(CompoundTag nbt){
         title = Component.translatable(nbt.getString("title"));
         icon = NBTUtils.getItemStack(nbt, "icon");
+        isSellableTab = nbt.getBoolean("isSellableTab");
 
         for (Map.Entry<String, IShopCondition> d1 : ConditionRegister.CONDITIONS.entrySet()) {
             if(ModList.get().isLoaded(d1.getValue().getModID())) {
@@ -136,9 +151,12 @@ public class ShopTab implements INBTSerializable<CompoundTag> {
 
         config.addString("title", title.getString(), v -> title = Component.translatable(v), "");
 
-        config.addItemStack("icon", icon, v -> icon = v, ItemStack.EMPTY, true, true);
+        config.add("icon", new ConfigIconItemStack(), icon, v -> icon = v, Items.BARRIER.getDefaultInstance());
+
+
 
         config.addList("tags", TAGS, new StringConfig(null), "");
+        //config.addBool("isSellableTab", isSellableTab, v -> isSellableTab = v, false);
 
 
         ConfigGroup group = config.getOrCreateSubgroup("dependencies");

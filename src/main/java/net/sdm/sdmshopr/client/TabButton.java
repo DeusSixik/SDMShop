@@ -11,8 +11,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
-import net.sdm.sdmshopr.network.EditShopTab;
-import net.sdm.sdmshopr.network.MoveShopTab;
+import net.sdm.sdmshopr.network.mainshop.EditShopTab;
+import net.sdm.sdmshopr.network.mainshop.MoveShopTab;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class TabButton extends SimpleTextButton {
     public ShopTab tab;
     public TabButton(Panel panel, ShopTab tab) {
-        super(panel, tab.title, ItemIcon.getItemIcon(tab.icon));
+        super(panel, tab.title, tab.getIcon());
         this.tab = tab;
     }
 
@@ -39,7 +39,7 @@ public class TabButton extends SimpleTextButton {
             MainShopScreen screen = (MainShopScreen) getGui();
             List<ContextMenuItem> contextMenu = new ArrayList<>();
 
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.edit"), Icons.SETTINGS, () -> {
+            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.edit"), Icons.SETTINGS, (button) -> {
                 ConfigGroup group = new ConfigGroup("sdmr", b -> {
                     openGui();
 
@@ -55,10 +55,10 @@ public class TabButton extends SimpleTextButton {
                 screen.refreshWidgets();
             }));
 
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.delete"), Icons.REMOVE, () -> {
+            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.delete"), Icons.REMOVE, (b) -> {
                 new EditShopTab(tab, true).sendToServer();
                 tab.shopEntryList.remove(tab);
-                screen.refreshWidgets();
+                screen.tabsPanel.refreshWidgets();
             }));
 
             /*
@@ -115,7 +115,7 @@ public class TabButton extends SimpleTextButton {
         }
 
         if(isMouseOver || ((MainShopScreen)parent.getParent()).selectedTab == tab)
-            GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, Color4I.WHITE, false);
+            GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, SDMShopRClient.shopTheme.getColorSelectTab(), false);
         else
             GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, SDMShopRClient.shopTheme.getStoke(), false);
     }

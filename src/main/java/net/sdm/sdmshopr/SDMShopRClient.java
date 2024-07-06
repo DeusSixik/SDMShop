@@ -5,6 +5,7 @@ import dev.architectury.event.EventResult;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.ui.CustomClickEvent;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.multiplayer.ClientRegistryLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -13,6 +14,7 @@ import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.themes.SDMThemes;
@@ -31,7 +33,9 @@ public class SDMShopRClient extends SDMShopRCommon {
                     Color4I.fromString(Config.BACKGROUND.get()),
                     Color4I.fromString(Config.SHADOW.get()),
                     Color4I.fromString(Config.REACT.get()),
-                    Color4I.fromString(Config.STOKE.get())
+                    Color4I.fromString(Config.STOKE.get()),
+                    Color4I.fromString(Config.TEXTCOLOR.get()),
+                    Color4I.fromString(Config.SELCETTABCOLOR.get())
             );
         }
         return tm;
@@ -45,6 +49,8 @@ public class SDMShopRClient extends SDMShopRCommon {
 
     public static KeyMapping KEY_SHOP = new KeyMapping(KEY_NAME, KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, SDMSHOP_CATEGORY);
+
+
 
     @Override
     public void preInit() {
@@ -71,6 +77,11 @@ public class SDMShopRClient extends SDMShopRCommon {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event){
             event.register(KEY_SHOP);
+        }
+
+        @SubscribeEvent
+        public static void clientSetup(final FMLClientSetupEvent event) {
+
         }
     }
 }

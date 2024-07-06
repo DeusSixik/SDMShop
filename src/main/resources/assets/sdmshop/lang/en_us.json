@@ -13,6 +13,12 @@
   "sdm.shop.entry.context.edit" : "Edit",
   "sdm.shop.entry.context.delete" : "Delete",
   "sdm.shop.entry.add.context.item" : "Item",
+
+  "sdm.shop.entry.add.context.itemtag" : "Item Tag",
+  "sdm.shop.entry.add.context.xptype" : "Xp",
+  "sdm.shop.entry.add.context.xpleveltype" : "Xp Level",
+  "sdm.shop.entry.add.context.advancement" : "Advancement",
+
   "sdm.shop.entry.add.context.command" : "Command",
   "sdm.shop.entry.context.move.up" : "Move Up",
   "sdm.shop.entry.context.move.down" : "Move Down",
@@ -36,13 +42,14 @@
   "sdmr.shop.tab.title" : "Title",
   "sdmr.shop.tab.icon" : "Icon",
   "sdmr.shop.tab" : "Tab",
+  "sdmr.shop.tab.tags" : "Tags",
   "sdmr.shop.tab.dependencies" : "Requirements",
   "sdmr.shop.tab.dependencies.questID" : "Dependent FTB Quest ID",
   "sdmr.shop.tab.dependencies.gameStages" : "Dependent Game Stage",
   "sdmr.shop.tab.dependencies.factionID" : "Dependent MNA Faction ID",
 
   "sdmr.shop.tab.title.tooltip" : "The title that will be displayed at the tab",
-  "sdmr.shop.tab.icon.tooltip" : "An icon in the form of an object that will be displayed near the title",
+  "sdmr.shop.tab.icon.tooltip" : "An icon in the form of an object that will be displayed near the title. Right-click to open the extended window",
   "sdmr.shop.tab.dependencies.questID.tooltip" : "The ID of the quests that must be completed by the player in order for the tab to be displayed",
   "sdmr.shop.tab.dependencies.gameStages.tooltip" : "The stages that must be completed by the player in order for the tab to be displayed",
   "sdmr.shop.tab.dependencies.factionID.tooltip" : "Fractions that can see the tab",
@@ -91,6 +98,7 @@
   "sdmr.shop.entry.type" : "Type",
   "sdmr.shop.entry.type.questid" : "FTB Quest ID",
   "sdmr.shop.entry.type.iconPath" : "Icon Path",
+  "sdmr.shop.entry.type.iconPath.tooltip" : "Right-click to open the extended window",
   "sdmr.shop.entry.type.useIconFromQuest" : "Use Icon From Quest",
   "sdmr.shop.entry.type.command" : "Command",
   "sdmr.shop.entry.type.elevatePerms" : "Elevate Perms",
@@ -104,6 +112,7 @@
   "sdmr.shop.entry.type.mnaprogressionID" : "Task ID from Oculus",
   "sdmr.shop.entry.type.mnatierID" : "Magic Tier from Oculus",
   "sdmr.shop.entry.type.mnaresetProgression" : "Reset Progression",
+  "sdmr.shop.entry.buttonStyle" : "Button Style",
 
   "sdmr.shop.entry.type.mnafactionID.tooltip" : "The ID of the faction that is registered in the mod",
   "sdmr.shop.entry.type.mnaneedNonFaction.tooltip" : "You can only buy when the player does not have a faction",
@@ -113,7 +122,13 @@
   "sdmr.shop.entry.creator.require" : "Need a mod: ",
   "sdmr.shop.entry.creator.type.canbuy" : "Can be put up for purchase: %s",
   "sdmr.shop.entry.creator.type.cansell" : "Can be put up for sale: %s",
+
+
   "sdmr.shop.entry.creator.type.itemType.description" : "Allows you to create an item as a product. It is useful if you want to create a store where items will be sold or bought",
+  "sdmr.shop.entry.creator.type.itemTag.description" : "Allows you to create a product that will sell items by Tags",
+  "sdmr.shop.entry.creator.type.xpType.description" : "Allows you to create a product selling player experience",
+  "sdmr.shop.entry.creator.type.xpLevelType.description" : "Allows you to create a player-level sales product",
+  "sdmr.shop.entry.creator.type.advancementType.description" : "Allows you to create a product selling player achievements",
   "sdmr.shop.entry.creator.type.commandType.description" : "It will allow you to put the team up for sale. To execute from the server side and not from the player, use /execute",
   "sdmr.shop.entry.creator.type.pstType.description" : "It will allow you to put up for sale or purchase leveling points",
   "sdmr.shop.entry.creator.type.questType.description" : "It will allow you to create a quest as a product.",
@@ -130,6 +145,8 @@
   "sdm.shop.entry.creator.addfavorite" : "Add Favorite",
   "sdm.shop.entry.creator.removefavorite" : "Remove Favorite",
   "sdm.shop.entry.creator.keyinfo" : "Click the right mouse button and you can add the button to the quick menu",
+
+  "ftbquests.reward.ftbquests.advancement": "Advancement",
 
   "sdm.shop.money" : "Money"
 }

@@ -3,18 +3,26 @@ package net.sdm.sdmshopr.api;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
+import dev.ftb.mods.ftblibrary.ui.Panel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.sdm.sdmshopr.api.customization.APIShopEntryButton;
+import net.sdm.sdmshopr.client.EntryButton;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface IEntryType extends INBTSerializable<CompoundTag> {
+
+
+    default boolean isOnlySell() {
+        return false;
+    }
 
     default boolean isCanBuy(){
         return true;

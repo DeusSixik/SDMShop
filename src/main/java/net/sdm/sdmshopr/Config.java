@@ -44,11 +44,13 @@ public class Config
     public static final ForgeConfigSpec.ConfigValue<String> REACT;
     public static final ForgeConfigSpec.ConfigValue<String> STOKE;
     public static final ForgeConfigSpec.ConfigValue<String> TEXTCOLOR;
+    public static final ForgeConfigSpec.ConfigValue<String> SELCETTABCOLOR;
     public static String defaultBackground = "#5555FF";
     public static String defaultShadow = "#5555FF";
     public static String defaultReact = "#5555FF";
     public static String defaultStoke = "#5555FF";
     public static String defaultTextColor = "#5555FF";
+    public static String colorSelectTab = "#5555FF";
 
     public static final String THEMES_NAME = "Shop Theme";
 
@@ -58,12 +60,13 @@ public class Config
         THEMES = BUILDER.defineEnum(THEMES_NAME, defaultTheme);
 
         BUILDER.push("THEMES_CUSTOM");
-        BUILDER.comment("Colors Settings");
         BACKGROUND = BUILDER.define("background", defaultBackground);
         SHADOW = BUILDER.define("shadow", defaultShadow);
         REACT = BUILDER.define("react", defaultReact);
         STOKE = BUILDER.define("stoke", defaultStoke);
+        SELCETTABCOLOR = BUILDER.define("select_tab_color", colorSelectTab);
         TEXTCOLOR = BUILDER.define("moneyTextColor", defaultTextColor);
+
 
         BUILDER.pop();
     }

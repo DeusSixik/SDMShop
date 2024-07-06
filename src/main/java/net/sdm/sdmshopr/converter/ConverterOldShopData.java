@@ -1,5 +1,6 @@
 package net.sdm.sdmshopr.converter;
 
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import dev.ftb.mods.ftbquests.util.NBTUtils;

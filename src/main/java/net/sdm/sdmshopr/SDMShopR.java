@@ -3,14 +3,24 @@ package net.sdm.sdmshopr;
 import com.mojang.logging.LogUtils;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
+import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
 import dev.ftb.mods.ftbteams.api.Team;
 import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
 import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,15 +38,17 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.sdm.sdmshopr.api.ConditionRegister;
+import net.sdm.sdmshopr.api.register.ShopEntryButtonsRegister;
 import net.sdm.sdmshopr.api.tags.ITag;
 import net.sdm.sdmshopr.config.ClientShopData;
 import net.sdm.sdmshopr.converter.ConverterOldShopData;
 import net.sdm.sdmshopr.events.SDMPlayerEvents;
-import net.sdm.sdmshopr.network.SDMShopNetwork;
-import net.sdm.sdmshopr.network.SyncShop;
-import net.sdm.sdmshopr.network.UpdateEditMode;
-import net.sdm.sdmshopr.network.UpdateMoney;
+import net.sdm.sdmshopr.network.mainshop.SDMShopNetwork;
+import net.sdm.sdmshopr.network.mainshop.SyncShop;
+import net.sdm.sdmshopr.network.mainshop.UpdateEditMode;
+import net.sdm.sdmshopr.network.mainshop.UpdateMoney;
 import net.sdm.sdmshopr.api.EntryTypeRegister;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.tags.TagFileParser;
@@ -93,6 +105,7 @@ public class SDMShopR {
         SDMShopRIntegration.init();
         EntryTypeRegister.init();
         ConditionRegister.init();
+        ShopEntryButtonsRegister.init();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         Config.init(getModFolder().resolve(SDMShopR.MODID + "-client.toml"));
@@ -111,7 +124,9 @@ public class SDMShopR {
     private void registerCommands(RegisterCommandsEvent event) {
         SDMShopCommands.registerCommands(event.getDispatcher());
     }
-    private void commonSetup(final FMLCommonSetupEvent event) {}
+    private void commonSetup(final FMLCommonSetupEvent event) {
+
+    }
 
 
     @SubscribeEvent
@@ -272,5 +287,9 @@ public class SDMShopR {
 
     public static String moneyString(long money) {
         return String.format("◎ %,d", money);
+    }
+
+    public static Component getMoneyComponent(String money){
+        return Component.literal(money).withStyle(SDMShopRClient.shopTheme.getMoneyTextColor().toStyle());
     }
 }

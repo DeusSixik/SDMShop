@@ -5,28 +5,35 @@ import com.mna.capabilities.playerdata.magic.PlayerMagicProvider;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
+import net.sdm.sdmshopr.utils.NBTUtils;
 
 public class MNALevelEntryType implements IEntryType {
     protected static int maxLevel = 75;
 
     public int level;
 
-    private String iconPath = "minecraft:item/barrier";
+    private ItemStack iconPath = Items.BARRIER.getDefaultInstance();
 
 
     public MNALevelEntryType(){
     }
 
-    protected MNALevelEntryType(int level, String iconPath){
+    protected MNALevelEntryType(int level, ItemStack iconPath){
         this.level = level;
         this.iconPath = iconPath;
     }
@@ -43,15 +50,16 @@ public class MNALevelEntryType implements IEntryType {
 
     @Override
     public Icon getIcon() {
-        Icon getted = Icon.getIcon(iconPath);
-        if(getted.isEmpty()) return Icons.BARRIER;
-        return getted;
+        if(iconPath.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(iconPath);
+        }
+        return ItemIcon.getItemIcon(iconPath);
     }
 
     @Override
     public void getConfig(ConfigGroup group) {
         group.addInt("mnalevel", level, v -> level = v, 1, 1, 75);
-        group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
+        group.add("iconPath", new ConfigIconItemStack(), iconPath, v -> iconPath = v, Items.BARRIER.getDefaultInstance());
     }
 
     @Override
@@ -83,14 +91,14 @@ public class MNALevelEntryType implements IEntryType {
     public CompoundTag serializeNBT() {
         CompoundTag nbt = IEntryType.super.serializeNBT();
         nbt.putInt("level", level);
-        nbt.putString("iconPath", iconPath);
+        NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         level = nbt.getInt("level");
-        iconPath = nbt.getString("iconPath");
+        iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
     }
 
     @Override

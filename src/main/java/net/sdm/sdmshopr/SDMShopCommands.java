@@ -1,6 +1,5 @@
 package net.sdm.sdmshopr;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import net.minecraft.commands.CommandSourceStack;
@@ -11,12 +10,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.sdm.sdmshopr.events.SDMPlayerEvents;
-import net.sdm.sdmshopr.network.ReloadClientData;
-import net.sdm.sdmshopr.network.SyncShopData;
-import net.sdm.sdmshopr.shop.ShopData;
+import net.sdm.sdmshopr.network.mainshop.ReloadClientData;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class SDMShopCommands {
 

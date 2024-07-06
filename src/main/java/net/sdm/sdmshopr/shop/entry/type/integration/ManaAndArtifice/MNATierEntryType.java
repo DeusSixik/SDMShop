@@ -7,16 +7,23 @@ import com.mna.recipes.progression.ProgressionCondition;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
+import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.List;
 
@@ -24,12 +31,12 @@ public class MNATierEntryType implements IEntryType {
 
     public int tierID;
     public boolean random = false;
-    private String iconPath = "minecraft:item/barrier";
+    private ItemStack iconPath = Items.BARRIER.getDefaultInstance();
     public boolean resetProgression = false;
     public MNATierEntryType(int tierID){
         this.tierID = tierID;
     }
-    protected MNATierEntryType(int tierID, boolean random, String iconPath, boolean resetProgression){
+    protected MNATierEntryType(int tierID, boolean random, ItemStack iconPath, boolean resetProgression){
         this.tierID = tierID;
         this.random = random;
         this.iconPath = iconPath;
@@ -48,9 +55,10 @@ public class MNATierEntryType implements IEntryType {
 
     @Override
     public Icon getIcon() {
-        Icon getted = Icon.getIcon(iconPath);
-        if(getted.isEmpty()) return Icons.BARRIER;
-        return getted;
+        if(iconPath.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(iconPath);
+        }
+        return ItemIcon.getItemIcon(iconPath);
     }
 
     @Override
@@ -65,7 +73,7 @@ public class MNATierEntryType implements IEntryType {
 
         group.addBool("mnaresetProgression", resetProgression, v -> resetProgression = v, false);
 
-        group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
+        group.add("iconPath", new ConfigIconItemStack(), iconPath, v -> iconPath = v, Items.BARRIER.getDefaultInstance());
     }
 
     @Override
@@ -99,7 +107,7 @@ public class MNATierEntryType implements IEntryType {
         nbt.putInt("tierID", tierID);
         nbt.putBoolean("random", random);
         nbt.putBoolean("resetProgression", resetProgression);
-        nbt.putString("iconPath", iconPath);
+        NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
         return nbt;
     }
 
@@ -108,7 +116,7 @@ public class MNATierEntryType implements IEntryType {
         tierID = nbt.getInt("tierID");
         random = nbt.getBoolean("random");
         resetProgression = nbt.getBoolean("resetProgression");
-        iconPath = nbt.getString("iconPath");
+        iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
     }
 
     @Override

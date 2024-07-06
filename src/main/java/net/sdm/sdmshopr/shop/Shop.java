@@ -1,7 +1,6 @@
 package net.sdm.sdmshopr.shop;
 
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
-import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -9,7 +8,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import net.sdm.sdmshopr.SDMShopR;
-import net.sdm.sdmshopr.network.SyncShop;
+import net.sdm.sdmshopr.network.mainshop.SyncShop;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
 
 import java.util.ArrayList;
@@ -62,14 +61,14 @@ public class Shop implements INBTSerializable<CompoundTag> {
         needSave();
         trySync(ServerLifecycleHooks.getCurrentServer());
     }
-    public void saveWithSaveToFile(){
+    public void saveToFileWithSync(){
         SNBT.write(getFile(), Shop.SERVER.serializeNBT());
         trySync(ServerLifecycleHooks.getCurrentServer());
     }
 
     public void saveTabs(CompoundTag nbt, ShopTab tab){
         Shop.SERVER.shopTabs.get(tab.getIndex()).deserializeNBT(nbt);
-        saveWithSaveToFile();
+        saveToFileWithSync();
     }
 
     public void saveToFile(){

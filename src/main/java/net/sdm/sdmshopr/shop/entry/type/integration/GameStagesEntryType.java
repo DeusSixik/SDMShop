@@ -3,23 +3,30 @@ package net.sdm.sdmshopr.shop.entry.type.integration;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.darkhax.gamestages.GameStageHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
+import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameStagesEntryType implements IEntryType {
     public String gameStage;
-    private String iconPath = "minecraft:item/barrier";
+    private ItemStack iconPath = Items.BARRIER.getDefaultInstance();
     public GameStagesEntryType(String gameStage){
         this.gameStage = gameStage;
     }
@@ -41,9 +48,10 @@ public class GameStagesEntryType implements IEntryType {
 
     @Override
     public Icon getIcon() {
-        Icon getted = Icon.getIcon(iconPath);
-        if(getted.isEmpty()) return Icons.BARRIER;
-        return getted;
+        if(iconPath.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(iconPath);
+        }
+        return ItemIcon.getItemIcon(iconPath);
     }
 
     @Override
@@ -54,7 +62,7 @@ public class GameStagesEntryType implements IEntryType {
     @Override
     public void getConfig(ConfigGroup group) {
         group.addString("gameStage", gameStage, v -> gameStage = v, "");
-        group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
+        group.add("iconPath", new ConfigIconItemStack(), iconPath, v -> iconPath = v, Items.BARRIER.getDefaultInstance());
     }
 
     @Override
@@ -94,14 +102,14 @@ public class GameStagesEntryType implements IEntryType {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("type", getID());
         nbt.putString("gameStage", gameStage);
-        nbt.putString("iconPath", iconPath);
+        NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         gameStage = nbt.getString("gameStage");
-        iconPath = nbt.getString("iconPath");
+        iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
     }
 
     @Override

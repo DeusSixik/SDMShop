@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.IEntryType;
-import net.sdm.sdmshopr.network.CreateShopEntry;
+import net.sdm.sdmshopr.network.mainshop.CreateShopEntry;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
 import java.util.ArrayList;
@@ -43,14 +43,16 @@ public class CreateEntryButton extends SimpleTextButton {
         if(mouseButton.isRight()){
             List<ContextMenuItem> contextMenu = new ArrayList<>();
             if(!SDMShopR.ClientModEvents.creator.favoriteCreator.contains(entryType.getID())) {
-                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.addfavorite"), Icons.ADD, () -> {
+                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.addfavorite"), Icons.ADD, (b) -> {
                     SDMShopR.ClientModEvents.creator.favoriteCreator.add(entryType.getID());
                     SNBT.write(SDMShopR.getFileClient(), SDMShopR.ClientModEvents.creator.serializeNBT());
                 }));
             } else {
-                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.removefavorite"), Icons.REMOVE, () -> {
-                    SDMShopR.ClientModEvents.creator.favoriteCreator.remove(entryType.getID());
-                    SNBT.write(SDMShopR.getFileClient(), SDMShopR.ClientModEvents.creator.serializeNBT());
+                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.removefavorite"), Icons.REMOVE, (b) -> {
+                    if(b.mousePressed(MouseButton.LEFT)) {
+                        SDMShopR.ClientModEvents.creator.favoriteCreator.remove(entryType.getID());
+                        SNBT.write(SDMShopR.getFileClient(), SDMShopR.ClientModEvents.creator.serializeNBT());
+                    }
                 }));
             }
             screen.openContextMenu(contextMenu);

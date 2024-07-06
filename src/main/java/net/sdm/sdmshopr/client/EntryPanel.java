@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
+import net.sdm.sdmshopr.api.customization.APIShopEntryButton;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
@@ -53,7 +54,7 @@ public class EntryPanel extends Panel {
                 ShopEntry<?> entry = shopScreen.selectedTab.shopEntryList.get(i);
                 if(entry.type == null) continue;
                 if(!entry.isLocked()) {
-                    EntryButton entryButton = new EntryButton(this, entry);
+                    APIShopEntryButton entryButton = entry.getButton().create(this,entry);
                     entryButton.setSize(sizeButtonX, sizeButtonY);
                     if (i > 0) {
                         if (i % maxInArray == 0) {

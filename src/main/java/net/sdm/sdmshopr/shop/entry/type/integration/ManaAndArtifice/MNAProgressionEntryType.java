@@ -6,16 +6,23 @@ import com.mna.recipes.progression.ProgressionCondition;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.api.IEntryType;
+import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.List;
 
@@ -23,12 +30,12 @@ public class MNAProgressionEntryType implements IEntryType {
 
     public int progressionID;
     public boolean random = false;
-    private String iconPath = "minecraft:item/barrier";
+    private ItemStack iconPath = Items.BARRIER.getDefaultInstance();
     public MNAProgressionEntryType(int progressionID){
         this.progressionID = progressionID;
     }
 
-    protected MNAProgressionEntryType(int progressionID, boolean random, String iconPath){
+    protected MNAProgressionEntryType(int progressionID, boolean random, ItemStack iconPath){
         this.progressionID = progressionID;
         this.random = random;
         this.iconPath = iconPath;
@@ -51,9 +58,10 @@ public class MNAProgressionEntryType implements IEntryType {
 
     @Override
     public Icon getIcon() {
-        Icon getted = Icon.getIcon(iconPath);
-        if(getted.isEmpty()) return Icons.BARRIER;
-        return getted;
+        if(iconPath.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(iconPath);
+        }
+        return ItemIcon.getItemIcon(iconPath);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class MNAProgressionEntryType implements IEntryType {
         List<ProgressionCondition> progressionConditionList = ProgressionCondition.get(Minecraft.getInstance().player.level(), progression.getTier());
         group.addInt("mnaprogressionID", progressionID, v -> progressionID = v, 1, 1, progressionConditionList.size());
         group.addBool("mnarandom", random, v -> random = v, false);
-        group.addString("iconPath", iconPath, v -> iconPath = v, "minecraft:item/barrier");
+        group.add("iconPath", new ConfigIconItemStack(), iconPath, v -> iconPath = v, Items.BARRIER.getDefaultInstance());
     }
 
     @Override
@@ -96,7 +104,7 @@ public class MNAProgressionEntryType implements IEntryType {
         CompoundTag nbt = IEntryType.super.serializeNBT();
         nbt.putInt("progressionID", progressionID);
         nbt.putBoolean("random", random);
-        nbt.putString("iconPath", iconPath);
+        NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
         return nbt;
     }
 
@@ -104,7 +112,7 @@ public class MNAProgressionEntryType implements IEntryType {
     public void deserializeNBT(CompoundTag nbt) {
         progressionID = nbt.getInt("progressionID");
         random = nbt.getBoolean("random");
-        iconPath = nbt.getString("iconPath");
+        iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
     }
 
     @Override

@@ -3,6 +3,7 @@ package net.sdm.sdmshopr.client.screen.createEntryScreen;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,6 +15,7 @@ import net.sdm.sdmshopr.api.EntryTypeRegister;
 import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.client.widgets.BackToShopButton;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +38,7 @@ public class CreateEntryScreen extends BaseScreen {
     public boolean onInit() {
         setWidth(getScreen().getGuiScaledWidth() * 4/5);
         setHeight(getScreen().getGuiScaledHeight() * 4/5);
+        closeContextMenu();
 
         this.createEntryPanel = new BlankPanel(this){
             @Override
@@ -69,6 +72,21 @@ public class CreateEntryScreen extends BaseScreen {
         add(backToShopButton = new BackToShopButton(this, Component.translatable("sdm.shop.entry.creator.back"), Icons.BACK));
 
 
+    }
+
+
+
+    @Override
+    public ContextMenu openContextMenu(@NotNull List<ContextMenuItem> menu) {
+        ContextMenu contextMenu = new ContextMenu(this, menu){
+            @Override
+            public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+                NordColors.POLAR_NIGHT_3.draw(graphics, x + 1, y + 1, w - 2, h - 2);
+                GuiHelper.drawHollowRect(graphics, x, y, w, h, Color4I.BLACK, false);
+            }
+        };
+        this.openContextMenu(contextMenu);
+        return contextMenu;
     }
 
     @Override

@@ -5,6 +5,10 @@ import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
+import dev.ftb.mods.ftbquests.FTBQuests;
+import dev.ftb.mods.ftbquests.client.ConfigIconItemStack;
+import dev.ftb.mods.ftbquests.item.CustomIconItem;
+import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -61,6 +65,9 @@ public class ItemEntryType implements IEntryType{
 
     @Override
     public Icon getIcon() {
+        if(itemStack.is(FTBQuestsItems.CUSTOM_ICON.get())){
+            return CustomIconItem.getIcon(itemStack);
+        }
         return ItemIcon.getItemIcon(itemStack);
     }
 
@@ -73,6 +80,7 @@ public class ItemEntryType implements IEntryType{
 
     @Override
     public void getConfig(ConfigGroup group) {
+
         group.addItemStack("item", itemStack, v -> itemStack = v, ItemStack.EMPTY, true, true);
 
     }
@@ -179,8 +187,6 @@ public class ItemEntryType implements IEntryType{
                     countItems += inventory.getItem(i).getCount();
                 }
             }
-            SDMShopR.LOGGER.info("Founded items " + countItems);
-            SDMShopR.LOGGER.info("Calculated items  " + countItems / entry.count);
             return countItems / entry.count;
         } else {
             long playerMoney = SDMShopR.getClientMoney();

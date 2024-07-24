@@ -9,10 +9,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.ISpecialEntryCondition;
+import net.sdm.sdmshopr.api.register.EntryTypeRegister;
 import net.sdm.sdmshopr.api.IEntryType;
+import net.sdm.sdmshopr.api.register.SpecialEntryConditionRegister;
 import org.jetbrains.annotations.Nullable;
-import org.openjdk.nashorn.internal.ir.BreakableNode;
 
 public class NBTUtils {
 
@@ -27,6 +28,21 @@ public class NBTUtils {
                     entryType.deserializeNBT(nbt);
                     return (T) entryType;
                 } else return null;
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    public static <T extends ISpecialEntryCondition> T getSpecialCondition(CompoundTag nbt){
+        if(nbt.contains("conditionID")){
+            String type = nbt.getString("conditionID");
+            ISpecialEntryCondition specialEntryCondition = SpecialEntryConditionRegister.TYPES.get(type);
+            if(specialEntryCondition == null) return null;
+            if(ModList.get().isLoaded(specialEntryCondition.getModID())) {
+                specialEntryCondition.deserializeNBT(nbt);
+                return (T) specialEntryCondition;
             }
         }
 

@@ -15,6 +15,7 @@ import net.sdm.sdmshopr.network.mainshop.EditShopTab;
 import net.sdm.sdmshopr.network.mainshop.MoveShopTab;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
+import net.sdm.sdmshopr.utils.ListHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,15 +62,14 @@ public class TabButton extends SimpleTextButton {
                 screen.tabsPanel.refreshWidgets();
             }));
 
-            /*
-            TODO: Сделать перемещение вкладок
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.up"), Icons.UP, () -> {
+
+            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.up"), Icons.UP, (b) -> {
                 moveNew(screen,true);
             }));
-            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.down"), Icons.DOWN, () -> {
+            contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.down"), Icons.DOWN, (b) -> {
                 moveNew(screen, false);
             }));
-*/
+
 
             screen.openContextMenu(contextMenu);
         }
@@ -78,22 +78,13 @@ public class TabButton extends SimpleTextButton {
     public void moveNew(MainShopScreen screen, boolean isUp){
         try {
             int index = tab.getIndex();
-            int newIndex = tab.getIndex();
-            if (isUp) {
-                newIndex -= 1;
-            } else {
-                newIndex += 1;
-            }
-            if (index < 0 || index >= Shop.CLIENT.shopTabs.size() || newIndex < 0 || newIndex >= Shop.CLIENT.shopTabs.size()) {
-                SDMShopR.LOGGER.error("[MOVE] Index a broken !");
-                return;
-            }
 
-
-            ShopTab f1 = Shop.CLIENT.shopTabs.get(index);
-            ShopTab f2 = Shop.CLIENT.shopTabs.get(newIndex);
-            Shop.CLIENT.shopTabs.set(newIndex, f1);
-            Shop.CLIENT.shopTabs.set(index, f2);
+            if(isUp) {
+                ListHelper.moveUp(Shop.CLIENT.shopTabs, index);
+            }
+            else {
+                ListHelper.moveDown(Shop.CLIENT.shopTabs, index);
+            }
             new MoveShopTab(index, isUp).sendToServer();
             screen.refreshWidgets();
         } catch (Exception e){

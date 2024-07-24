@@ -5,9 +5,10 @@ import dev.architectury.networking.simple.BaseC2SMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sdm.sdmshopr.SDMShopR;
+import net.sdm.sdmshopr.network.SDMShopNetwork;
 import net.sdm.sdmshopr.shop.Shop;
-import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
+import net.sdm.sdmshopr.utils.ListHelper;
 
 public class MoveShopEntry extends BaseC2SMessage {
     private final int tab;
@@ -43,23 +44,15 @@ public class MoveShopEntry extends BaseC2SMessage {
     public void handle(NetworkManager.PacketContext packetContext) {
         if(SDMShopR.isEditMode(packetContext.getPlayer())){
             try {
-                int entryId = entry;
-                ShopTab d1 = Shop.SERVER.shopTabs.get(tab);
-                int newIndex = entryId;
-                if (isUp) {
-                    newIndex -= 1;
-                } else {
-                    newIndex += 1;
-                }
-                if (entryId < 0 || entryId >= d1.shopEntryList.size() || newIndex < 0 || newIndex >= d1.shopEntryList.size()) {
-                    SDMShopR.LOGGER.error("[MOVE] Index a broken !");
-                    return;
-                }
 
-                ShopEntry<?> f1 = d1.shopEntryList.get(entryId);
-                ShopEntry<?> f2 = d1.shopEntryList.get(newIndex);
-                d1.shopEntryList.set(newIndex, f1);
-                d1.shopEntryList.set(entryId, f2);
+
+                ShopTab d1 = Shop.SERVER.shopTabs.get(tab);
+                if(isUp) {
+                    ListHelper.moveUp(d1.shopEntryList, entry);
+                }
+                else {
+                    ListHelper.moveDown(d1.shopEntryList, entry);
+                }
 
                 Shop.SERVER.saveToFileWithSync();
             } catch (Exception e){

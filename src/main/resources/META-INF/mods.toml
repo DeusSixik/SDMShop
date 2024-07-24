@@ -89,3 +89,10 @@ mandatory = true
 versionRange = "[2001.3.5,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "sdm_core"
+mandatory = true
+versionRange = "[1.20.1-1.2.0,)"
+ordering = "AFTER"
+side = "BOTH"

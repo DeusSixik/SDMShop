@@ -16,6 +16,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
@@ -63,6 +65,7 @@ public class AdvancementEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public int howMany(boolean isSell, ShopEntry<?> entry) {
         if(isSell){
             if(Minecraft.getInstance().getConnection().getAdvancements().getAdvancements().get(advancement) == null) return 0;
@@ -74,6 +77,7 @@ public class AdvancementEntryType implements IEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry) {
         if(isSell){
             return Minecraft.getInstance().getConnection().getAdvancements().getAdvancements().get(advancement) != null;

@@ -6,6 +6,7 @@ import dev.architectury.networking.simple.MessageType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.sdm.sdmshopr.network.SDMShopNetwork;
 
 public class SyncShopData extends BaseS2CMessage {
     public CompoundTag nbt;

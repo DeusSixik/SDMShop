@@ -20,8 +20,10 @@ import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.client.buyer.BuyerScreen;
 import net.sdm.sdmshopr.network.mainshop.EditShopEntry;
 import net.sdm.sdmshopr.network.mainshop.MoveShopEntry;
+import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
+import net.sdm.sdmshopr.utils.ListHelper;
 import net.sdm.sdmshopr.utils.NBTUtils;
 
 import java.util.ArrayList;
@@ -70,6 +72,10 @@ public class APIShopEntryButton extends SimpleTextButton {
         list.add(Component.empty());
         list.add(Component.translatable("sdm.shop.entry.tooltips.price", shopEntry.price));
         list.add(Component.translatable("sdm.shop.entry.tooltips.sellcount", shopEntry.count));
+        if(shopEntry.isHaveLimit()) {
+            list.add(Component.empty());
+            list.add(Component.translatable("sdm.shop.entry.tooltips.entryleft").append(": ").append(shopEntry.getLeftEntry() + "/" + shopEntry.getLimitOnEntry()));
+        }
     }
 
 
@@ -120,21 +126,14 @@ public class APIShopEntryButton extends SimpleTextButton {
 
     public void moveNew(MainShopScreen screen, boolean isUp){
         int entryId = shopEntry.getIndex();
+
         ShopTab d1 = shopEntry.tab;
-        int newIndex = entryId;
         if(isUp) {
-            newIndex -= 1;
-        } else{
-            newIndex += 1;
+            ListHelper.moveUp(d1.shopEntryList, entryId);
         }
-        if (entryId < 0 || entryId >= d1.shopEntryList.size() || newIndex < 0 || newIndex >= d1.shopEntryList.size()) {
-            SDMShopR.LOGGER.error("[MOVE] Index a broken !");
-            return;
+        else {
+            ListHelper.moveDown(d1.shopEntryList, entryId);
         }
-        ShopEntry<?> f1 = d1.shopEntryList.get(entryId);
-        ShopEntry<?> f2 = d1.shopEntryList.get(newIndex);
-        d1.shopEntryList.set(newIndex, f1);
-        d1.shopEntryList.set(entryId, f2);
         new MoveShopEntry(d1.getIndex(), entryId, isUp).sendToServer();
         screen.refreshWidgets();
 

@@ -1,5 +1,6 @@
-package net.sdm.sdmshopr.api;
+package net.sdm.sdmshopr.api.register;
 
+import net.sdm.sdmshopr.api.IShopCondition;
 import net.sdm.sdmshopr.shop.condition.FTBQuestsCondition;
 import net.sdm.sdmshopr.shop.condition.GameStagesCondition;
 import net.sdm.sdmshopr.shop.condition.ManaAndArtifice.MNAFactionCondition;

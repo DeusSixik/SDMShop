@@ -7,6 +7,7 @@ import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
 import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sdm.sdmshopr.SDMShopR;
+import net.sdm.sdmshopr.network.SDMShopNetwork;
 
 import java.util.Optional;
 import java.util.UUID;

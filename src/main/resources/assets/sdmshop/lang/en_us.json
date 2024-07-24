@@ -148,5 +148,14 @@
 
   "ftbquests.reward.ftbquests.advancement": "Advancement",
 
-  "sdm.shop.money" : "Money"
+  "sdmr.shop.entry.limiter" : "Limiter",
+  "sdmr.shop.entry.limiter.isHaveLimiter" : "Turn on the limiter",
+  "sdmr.shop.entry.limiter.isGlobalLimiter" : "Global",
+  "sdmr.shop.entry.limiter.isGlobalLimiter.tooltip" : "If enabled, the limit will be taken into account for all players when purchasing an item. I bought some from everyone and the possible number decreased",
+  "sdmr.shop.entry.limiter.limitOnEntry" : "Limited quantity",
+  "sdm.shop.money" : "Money",
+  "sdm.shop.entry.sold": "Sold",
+  "sdm.shop.entry.tooltips.entryleft": "Products left",
+  "sdm.shop.entry.add.context.locationtype": "Location",
+  "sdmr.shop.entry.creator.type.locateType.description": "It will allow the player to buy the coordinates of some structure or biome"
 }

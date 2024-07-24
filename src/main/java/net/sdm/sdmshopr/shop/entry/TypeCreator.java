@@ -8,7 +8,7 @@ import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.client.screen.createEntryScreen.CreateEntryScreen;
 import net.sdm.sdmshopr.network.mainshop.CreateShopEntry;
-import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.register.EntryTypeRegister;
 import net.sdm.sdmshopr.api.IEntryType;
 
 import java.util.ArrayList;

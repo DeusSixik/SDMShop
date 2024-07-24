@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.api.customization.APIShopEntryButton;
 import net.sdm.sdmshopr.client.EntryButton;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface IEntryType extends INBTSerializable<CompoundTag> {
-
 
     default boolean isOnlySell() {
         return false;
@@ -106,6 +106,9 @@ public interface IEntryType extends INBTSerializable<CompoundTag> {
 
     @OnlyIn(Dist.CLIENT)
     default boolean canExecute(boolean isSell, int countSell, ShopEntry<?> entry){
+        long playerMoney = SDMShopR.getClientMoney();
+        int needMoney = entry.price * countSell;
+        if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
         return true;
     }
     @OnlyIn(Dist.CLIENT)

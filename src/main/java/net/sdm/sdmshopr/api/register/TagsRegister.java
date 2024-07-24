@@ -1,4 +1,4 @@
-package net.sdm.sdmshopr.api;
+package net.sdm.sdmshopr.api.register;
 
 import net.sdm.sdmshopr.api.tags.ITag;
 

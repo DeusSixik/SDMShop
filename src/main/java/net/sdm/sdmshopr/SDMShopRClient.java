@@ -16,13 +16,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.sdm.sdmshopr.client.MainShopScreen;
+import net.sdm.sdmshopr.data.ClientShopData;
 import net.sdm.sdmshopr.shop.Shop;
+import net.sdm.sdmshopr.shop.limiter.ClientLimiterData;
 import net.sdm.sdmshopr.themes.SDMThemes;
 import net.sdm.sdmshopr.themes.ShopTheme;
 import org.lwjgl.glfw.GLFW;
 
 
 public class SDMShopRClient extends SDMShopRCommon {
+
+    public static ClientShopData clientShopData = new ClientShopData();
 
     public static ShopTheme shopTheme = getTheme();
 

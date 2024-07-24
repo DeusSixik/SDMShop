@@ -1,8 +1,10 @@
-package net.sdm.sdmshopr.network.mainshop;
+package net.sdm.sdmshopr.network;
 
 import dev.architectury.networking.simple.MessageType;
 import dev.architectury.networking.simple.SimpleNetworkManager;
 import net.sdm.sdmshopr.SDMShopR;
+import net.sdm.sdmshopr.network.mainshop.*;
+import net.sdm.sdmshopr.network.mainshop.SyncShopData;
 
 public interface SDMShopNetwork {
     SimpleNetworkManager NET = SimpleNetworkManager.create(SDMShopR.MODID);
@@ -11,6 +13,7 @@ public interface SDMShopNetwork {
     MessageType SYNC_SHOP_DATA = NET.registerS2C("sync_shop_data", SyncShopData::new);
     MessageType UPDATE_MONEY = NET.registerS2C("update_money", UpdateMoney::new);
     MessageType UPDATE_EDIT_MODE = NET.registerS2C("update_edit_mode", UpdateEditMode::new);
+    MessageType SYNC_SHOP_GLOBAL_DATA = NET.registerS2C("sync_shop_global_data", SyncShopGlobalData::new);
 
     MessageType EDIT_SHOP_TAB = NET.registerC2S("edit_shop_tab", EditShopTab::new);
     MessageType EDIT_SHOP_ENTRY = NET.registerC2S("edit_shop_entry", EditShopEntry::new);

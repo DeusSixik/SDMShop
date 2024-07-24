@@ -153,6 +153,8 @@ dependencies {
     implementation fg.deobf("curse.maven:ftb-teams-forge-404468:5267190")
     implementation fg.deobf("curse.maven:ftb-quests-forge-289412:5363570")
 
+    implementation fg.deobf("curse.maven:sdm-engine-core-964997:5507606")
+
     compileOnly fg.deobf("curse.maven:game-stages-268655:4648424")
 
     compileOnly fg.deobf("curse.maven:passive-skill-tree-850298:5182799")

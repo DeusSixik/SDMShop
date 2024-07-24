@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.SDMShopRClient;
+import net.sdm.sdmshopr.api.ICustomEntryType;
 import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.network.mainshop.BuyEntry;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
@@ -23,6 +24,8 @@ import java.util.function.Consumer;
 public class BuyerScreen extends BaseScreen {
     @Override public boolean isDefaultScrollVertical() {return false;}
 
+
+    public ICustomEntryType customEntryType;
     public ShopEntry<?> entry;
     public TextBox inputField;
     public TextField infoField;
@@ -36,15 +39,22 @@ public class BuyerScreen extends BaseScreen {
     public int count = 0;
     public BuyerScreen(ShopEntry<?> entry){
         this.entry = entry;
+        if(entry.type instanceof ICustomEntryType entryType){
+            customEntryType = entryType;
+        }
         int bsize = this.width / 2 - 10;
 
 
         int howMane = entry.type.howMany(entry.isSell, entry);
+        if(entry.isHaveLimit()){
+            howMane = Math.min(howMane, entry.getLeftEntry());
+        }
 
+        int finalHowMane = howMane;
         this.inputField = new TextBox(this){
             @Override
             public boolean isValid(String txt) {
-                return parse((Consumer)null, txt, 0, howMane);
+                return parse((Consumer)null, txt, 0, finalHowMane);
             }
 
             @Override
@@ -84,6 +94,7 @@ public class BuyerScreen extends BaseScreen {
         this.costBuyField = new TextField(this);
         this.costBuyField.setPos(8, infoProductField.posY + infoProductField.height + 10);
         this.costBuyField.setSize(inputField.width, 9);
+
 
         this.costBuyField.setText(
                 entry.isSell ? Component.translatable("sdm.shop.buyer.info.cost.sell", 0)
@@ -150,14 +161,43 @@ public class BuyerScreen extends BaseScreen {
         add(infoField);
         add(infoProductField);
         add(costBuyField);
+
         add(outputMoneyField);
 
         add(inputField);
 
+        if(isCustom()){
+            customEntryType.addWidgets(this);
+        }
+
+    }
+
+    public boolean isCustom(){
+        return customEntryType != null;
     }
 
     @Override
     public void alignWidgets() {
+        if(isCustom()){
+            customEntryType.alignWidgets(this);
+
+        }
+    }
+
+    @Override
+    public void drawOffsetBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+        super.drawOffsetBackground(graphics, theme, x, y, w, h);
+        if(isCustom()){
+            customEntryType.drawOffsetBackground(graphics, theme, x, y, w, h);
+        }
+    }
+
+    @Override
+    public void drawForeground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+        super.drawForeground(graphics, theme, x, y, w, h);
+        if(isCustom()){
+            customEntryType.drawForeground(graphics, theme, x, y, w, h);
+        }
     }
 
     @Override
@@ -166,6 +206,9 @@ public class BuyerScreen extends BaseScreen {
         SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
         GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
         GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, SDMShopRClient.shopTheme.getStoke(), false);
+        if (isCustom()){
+            customEntryType.drawBackground(matrixStack, theme, x, y, w, h);
+        }
     }
 
     @Override
@@ -211,6 +254,12 @@ public class BuyerScreen extends BaseScreen {
         public void onClicked(MouseButton mouseButton) {
             if(mouseButton.isLeft()) {
                 BuyerScreen screen = (BuyerScreen) getGui();
+
+                if(BuyerScreen.this.isCustom()){
+                    BuyerScreen.this.customEntryType.onCancel();
+                }
+
+
                 screen.closeGui();
 
             }
@@ -241,8 +290,15 @@ public class BuyerScreen extends BaseScreen {
         public void onClicked(MouseButton mouseButton) {
             if(mouseButton.isLeft()){
 
+
+
                 ShopEntry<?> d1 = BuyerScreen.this.entry;
                 new BuyEntry(d1.tab.getIndex(), d1.getIndex(), BuyerScreen.this.count).sendToServer();
+
+                if(BuyerScreen.this.isCustom()){
+                    BuyerScreen.this.customEntryType.onConfirm();
+                }
+
                 BuyerScreen.this.closeGui();
                 MainShopScreen.refreshIfOpen();
             }

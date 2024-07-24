@@ -4,21 +4,18 @@ import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.fml.ModList;
 import net.sdm.sdmshopr.SDMShopRClient;
-import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.register.EntryTypeRegister;
 import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.client.MainShopScreen;
 import net.sdm.sdmshopr.client.widgets.BackToShopButton;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 

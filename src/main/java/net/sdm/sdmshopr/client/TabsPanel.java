@@ -1,5 +1,6 @@
 package net.sdm.sdmshopr.client;
 
+import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
@@ -52,8 +53,9 @@ public class TabsPanel extends Panel {
 
     @Override
     public void drawBackground(GuiGraphics matrixStack, Theme theme, int x, int y, int w, int h) {
-        SDMShopRClient.shopTheme.getBackground().draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
-        GuiHelper.drawHollowRect(matrixStack, x, y, w, h, SDMShopRClient.shopTheme.getReact(), false);
+
+        Color4I.RED.draw(matrixStack, x + 1, y + 1, w - 2, h - 2);
+        GuiHelper.drawHollowRect(matrixStack, x, y, w, h, Color4I.BLUE, false);
 //        GuiHelper.drawHollowRect(matrixStack, x - 1, y - 1, w + 2, h + 5, SDMShopRClient.shopTheme.getStoke(), false);
     }
 }

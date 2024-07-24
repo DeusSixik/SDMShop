@@ -53,7 +53,7 @@ public class EntryPanel extends Panel {
             for (int i = 0; i < shopScreen.selectedTab.shopEntryList.size(); i++) {
                 ShopEntry<?> entry = shopScreen.selectedTab.shopEntryList.get(i);
                 if(entry.type == null) continue;
-                if(!entry.isLocked()) {
+                if((!entry.isLocked() && entry.isSpecialConditionSuccess() && entry.isHaveMore()) || SDMShopR.isEditModeClient()) {
                     APIShopEntryButton entryButton = entry.getButton().create(this,entry);
                     entryButton.setSize(sizeButtonX, sizeButtonY);
                     if (i > 0) {

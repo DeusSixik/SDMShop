@@ -1,7 +1,8 @@
-package net.sdm.sdmshopr.api;
+package net.sdm.sdmshopr.api.register;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.sdm.sdmshopr.api.IEntryType;
 import net.sdm.sdmshopr.shop.entry.type.*;
 import net.sdm.sdmshopr.shop.entry.type.integration.GameStagesEntryType;
 import net.sdm.sdmshopr.shop.entry.type.integration.ManaAndArtifice.MNAFactionEntryType;
@@ -37,6 +38,7 @@ public interface EntryTypeRegister {
     IEntryType MNA_TIERS = register(new MNATierEntryType(1));
     IEntryType MNA_FACTION = register(new MNAFactionEntryType(""));
     IEntryType MNA_LEVEL = register(new MNALevelEntryType());
+    IEntryType TEST = register(new LocateBetaEntryType(new ResourceLocation("minecraft:iglooe"), LocateBetaEntryType.Type.BIOME));
 
 
     static void init(){

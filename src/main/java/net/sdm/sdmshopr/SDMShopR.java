@@ -3,24 +3,19 @@ package net.sdm.sdmshopr;
 import com.mojang.logging.LogUtils;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftblibrary.snbt.SNBTCompoundTag;
-import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
 import dev.ftb.mods.ftbteams.api.Team;
 import dev.ftb.mods.ftbteams.api.client.KnownClientPlayer;
 import dev.ftb.mods.ftbteams.data.ClientTeamManagerImpl;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.LocateCommand;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,6 +23,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -39,17 +36,20 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.sdm.sdmshopr.api.ConditionRegister;
+import net.sdm.sdmshopr.api.register.ConditionRegister;
 import net.sdm.sdmshopr.api.register.ShopEntryButtonsRegister;
+import net.sdm.sdmshopr.api.register.SpecialEntryConditionRegister;
 import net.sdm.sdmshopr.api.tags.ITag;
 import net.sdm.sdmshopr.config.ClientShopData;
 import net.sdm.sdmshopr.converter.ConverterOldShopData;
+import net.sdm.sdmshopr.data.ServerShopData;
 import net.sdm.sdmshopr.events.SDMPlayerEvents;
-import net.sdm.sdmshopr.network.mainshop.SDMShopNetwork;
+import net.sdm.sdmshopr.network.SDMShopNetwork;
+import net.sdm.sdmshopr.network.SyncShopGlobalData;
 import net.sdm.sdmshopr.network.mainshop.SyncShop;
 import net.sdm.sdmshopr.network.mainshop.UpdateEditMode;
 import net.sdm.sdmshopr.network.mainshop.UpdateMoney;
-import net.sdm.sdmshopr.api.EntryTypeRegister;
+import net.sdm.sdmshopr.api.register.EntryTypeRegister;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.tags.TagFileParser;
 import org.slf4j.Logger;
@@ -81,12 +81,15 @@ public class SDMShopR {
     public static Path getFile() {
         return getModFolder().resolve("sdmshop.snbt");
     }
+
+
     public static Path getFileClient() {
         return getModFolder().resolve("sdmshop-data-client.snbt");
     }
 
 
     public SDMShopR() {
+
         if(!getModFolder().toFile().exists()){
             getModFolder().toFile().mkdir();
         }
@@ -106,6 +109,7 @@ public class SDMShopR {
         EntryTypeRegister.init();
         ConditionRegister.init();
         ShopEntryButtonsRegister.init();
+        SpecialEntryConditionRegister.init();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         Config.init(getModFolder().resolve(SDMShopR.MODID + "-client.toml"));
@@ -119,7 +123,6 @@ public class SDMShopR {
 
 
     }
-
 
     private void registerCommands(RegisterCommandsEvent event) {
         SDMShopCommands.registerCommands(event.getDispatcher());
@@ -135,6 +138,7 @@ public class SDMShopR {
 
         if(event.getEntity() instanceof ServerPlayer player && Shop.SERVER != null) {
             new SyncShop(Shop.SERVER.serializeNBT()).sendTo(player);
+            new SyncShopGlobalData(ServerShopData.INSTANCE.serializeNBT()).sendTo(player);
         }
     }
 
@@ -142,7 +146,7 @@ public class SDMShopR {
     public void onLevelSavedEvent(LevelEvent.Save event){
         if(event.getLevel() instanceof Level && Shop.SERVER != null && Shop.SERVER.needSave && !event.getLevel().isClientSide() && ((Level) event.getLevel()).dimension() == Level.OVERWORLD){
             Shop.SERVER.needSave = false;
-            SNBT.write(getFile(), Shop.SERVER.serializeNBT());
+            Shop.SERVER.saveToFile();
         }
     }
 
@@ -174,6 +178,27 @@ public class SDMShopR {
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onServerStarted(ServerStartedEvent event){
+        ServerShopData serverShopData = new ServerShopData(event.getServer());
+        serverShopData.loadFromFile();
+    }
+
+    @SubscribeEvent
+    public void onServerStopped(ServerStoppedEvent event){
+        ServerShopData.INSTANCE.saveOnFile();
+    }
+
+    @SubscribeEvent
+    public void onPlayerClone(PlayerEvent.Clone event){
+        if(event.isWasDeath()) {
+
+            ServerShopData.INSTANCE.limiterData.updatePlayer(event.getOriginal().getUUID(), event.getEntity().getUUID());
+            ServerShopData.INSTANCE.saveOnFile();
+
         }
     }
 

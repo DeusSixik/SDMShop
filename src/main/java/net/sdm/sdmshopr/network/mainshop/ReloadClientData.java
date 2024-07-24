@@ -5,6 +5,7 @@ import dev.architectury.networking.simple.BaseS2CMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sdm.sdmshopr.SDMShopR;
+import net.sdm.sdmshopr.network.SDMShopNetwork;
 
 public class ReloadClientData extends BaseS2CMessage {
 

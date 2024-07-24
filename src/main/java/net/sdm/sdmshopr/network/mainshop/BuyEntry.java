@@ -6,6 +6,8 @@ import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.sdm.sdmshopr.data.ServerShopData;
+import net.sdm.sdmshopr.network.SDMShopNetwork;
 import net.sdm.sdmshopr.shop.Shop;
 import net.sdm.sdmshopr.shop.entry.ShopEntry;
 
@@ -45,5 +47,9 @@ public class BuyEntry extends BaseC2SMessage {
 
         ShopEntry<?> d1 = Shop.SERVER.shopTabs.get(tab).shopEntryList.get(entry);
         d1.execute((ServerPlayer) player, count, d1);
+
+        ServerShopData.INSTANCE.limiterData.addSellable(d1.entryID, d1.isGlobal(), player.getUUID(), count);
+        ServerShopData.INSTANCE.saveOnFile();
+        ServerShopData.INSTANCE.syncDataWithClient((ServerPlayer) player);
     }
 }

@@ -5,14 +5,18 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import net.sdm.sdmshopr.SDMShopR;
 import net.sdm.sdmshopr.network.mainshop.SyncShop;
+import net.sdm.sdmshopr.shop.entry.ShopEntry;
 import net.sdm.sdmshopr.shop.tab.ShopTab;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static net.sdm.sdmshopr.SDMShopR.getFile;
 
@@ -37,6 +41,24 @@ public class Shop implements INBTSerializable<CompoundTag> {
         nbt.put("tabs", tabs);
 
         return nbt;
+    }
+
+    @Nullable
+    public ShopEntry<?> getEntryByUUID(UUID uuid){
+        for (ShopTab shopTab : shopTabs) {
+            for (ShopEntry<?> shopEntry : shopTab.shopEntryList) {
+                if(shopEntry.entryID.equals(uuid)) return shopEntry;
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public ShopEntry<?> getEntryByUUID(UUID uuid, ShopTab tab){
+        for (ShopEntry<?> shopEntry : tab.shopEntryList) {
+            if(shopEntry.entryID.equals(uuid)) return shopEntry;
+        }
+        return null;
     }
 
     @Override

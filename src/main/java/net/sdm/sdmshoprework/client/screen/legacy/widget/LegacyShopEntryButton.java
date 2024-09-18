@@ -56,11 +56,6 @@ public class LegacyShopEntryButton extends AbstractShopEntryButton {
     }
 
     @Override
-    public void openCreateSceen() {
-        new LegacyCreateEntryScreen(getShopScreen()).openGui();
-    }
-
-    @Override
     public void drawIcon(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
         super.drawIcon(graphics, theme, x, y - h / 2 - 2, w, h);
     }

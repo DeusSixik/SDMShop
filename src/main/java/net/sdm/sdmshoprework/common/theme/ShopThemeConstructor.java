@@ -36,7 +36,6 @@ public class ShopThemeConstructor {
             "text_color",
             "text_entry_color",
             "text_tab_color"
-
     );
 
     public static void load() {

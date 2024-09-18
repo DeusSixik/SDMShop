@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.sdm.sdmshoprework.SDMShopR;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
@@ -30,6 +31,11 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     @Override
     public void getConfig(ConfigGroup group) {
         group.addItemStack("item", itemStack, v -> itemStack = v, ItemStack.EMPTY, true, true);
+    }
+
+    @Override
+    public boolean isSearch(String search) {
+        return itemStack.getDisplayName().getString().contains(search) || ForgeRegistries.ITEMS.getKey(itemStack.getItem()).toString().contains(search);
     }
 
     @Override

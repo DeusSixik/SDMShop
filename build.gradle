@@ -145,7 +145,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     implementation fg.deobf("curse.maven:ftb-library-forge-404465:5567591")
     implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
-    implementation fg.deobf("curse.maven:sdm-ui-lib-1095061:5724605")
+    implementation fg.deobf("curse.maven:sdm-ui-lib-1095061:5733613")
     implementation fg.deobf("curse.maven:sdm-economy-1102542:5729362")
 
     compileOnly fg.deobf("curse.maven:ftb-quests-forge-289412:5363570")

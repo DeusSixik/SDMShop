@@ -8,6 +8,7 @@ import net.sdm.sdmshoprework.SDMShopRework;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sdm.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
+import net.sdm.sdmshoprework.client.screen.legacy.createEntry.LegacyCreateEntryScreen;
 import net.sdm.sdmshoprework.client.screen.legacy.widget.LegacyShopEntryButton;
 import net.sdm.sdmshoprework.client.screen.legacy.widget.LegacyShopTabButton;
 import net.sdm.sdmshoprework.common.shop.ShopBase;
@@ -59,11 +60,8 @@ public class LegacyShopScreen extends AbstractShopScreen {
         setProperties();
     }
 
-    @Override
-    public void alignWidgets() {
-        setProperties();
-    }
 
+    @Override
     public void setProperties(){
         Vector2 size = new Vector2(getWidth() / 4, getHeight());
         Vector2 additionSize = new Vector2(getWidth() - size.x, getHeight() / 8);
@@ -173,6 +171,7 @@ public class LegacyShopScreen extends AbstractShopScreen {
         return (this.entriesPanel.width / 2 ) - (x1 / 2);
     }
 
+    @Override
     public void addTabsButtons() {
         List<Widget> widgetList = new ArrayList<>();
         int y = 2;

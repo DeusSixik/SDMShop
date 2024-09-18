@@ -27,7 +27,7 @@ public class LegacyShopMoneyPanel extends AbstractShopMoneyPanel {
 
     @Override
     public void alignWidgets() {
-        Component textTitle = Component.literal("Money");
+        Component textTitle = Component.translatable("sdm.shop.ui.money");
 
         int w = TextHelper.getTextWidth(textTitle.getString());
 

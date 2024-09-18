@@ -10,6 +10,7 @@ import net.sdm.sdmshoprework.client.screen.basic.panel.AbstractShopEntriesPanel;
 import net.sdm.sdmshoprework.client.screen.basic.panel.AbstractShopMoneyPanel;
 import net.sdm.sdmshoprework.client.screen.basic.panel.AbstractShopTabPanel;
 import net.sdm.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
+import net.sdm.sdmshoprework.client.screen.legacy.createEntry.LegacyCreateEntryScreen;
 import net.sdm.sdmshoprework.common.shop.ShopBase;
 import net.sdm.sdmshoprework.common.shop.ShopTab;
 
@@ -20,7 +21,7 @@ public abstract class AbstractShopScreen extends BaseScreen {
     @Override public boolean drawDefaultBackground(GuiGraphics graphics) {return false;}
 
 
-
+    public String searchField = "";
     public UUID selectedEntryID = null;
     public UUID selectedTabID = null;
 
@@ -48,6 +49,20 @@ public abstract class AbstractShopScreen extends BaseScreen {
         }
     }
 
+
+    public void openCreateScreen() {
+        new LegacyCreateEntryScreen(this).openGui();
+    }
+
+    @Override
+    public void alignWidgets() {
+        setProperties();
+    }
+
+    public void setProperties(){
+
+    }
+
     public void setSelectedTab(ShopTab shopTab){
         this.selectedTab = shopTab;
         this.selectedEntryID = null;
@@ -69,6 +84,7 @@ public abstract class AbstractShopScreen extends BaseScreen {
     }
 
     public abstract void addEntriesButtons();
+    public abstract void addTabsButtons();
 
     public abstract void calculatePositions(List<AbstractShopEntryButton> entryButtons);
 

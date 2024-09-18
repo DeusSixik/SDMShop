@@ -59,10 +59,8 @@ public abstract class AbstractShopTabButton extends SimpleTextButton {
     @Override
     public void onClicked(MouseButton mouseButton) {
        try {
-           SDMShopRework.LOGGER.info("On CLicked !");
            if (mouseButton.isLeft()) {
                if (isEdit) {
-                   SDMShopRework.LOGGER.info("Send !");
                    new SendCreateShopTabC2S(new ShopTab(ShopBase.CLIENT).serializeNBT()).sendToServer();
                    getShopScreen().refreshWidgets();
                } else {

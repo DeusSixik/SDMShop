@@ -23,6 +23,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.sdm.sdmshoprework.client.screen.legacy.LegacyShopScreen;
+import net.sdm.sdmshoprework.client.screen.modern.ModernShopScreen;
 import net.sdm.sdmshoprework.common.config.Config;
 import net.sdm.sdmshoprework.common.shop.ShopBase;
 import net.sdm.sdmshoprework.common.theme.SDMThemes;
@@ -67,7 +68,14 @@ public class SDMShopClient {
 
     public EventResult customClick(CustomClickEvent event) {
         if (ShopBase.CLIENT != null && event.id().equals(OPEN_GUI)) {
-            new LegacyShopScreen().openGui();
+            switch (Config.STYLE.get()) {
+                case LEGACY -> {
+                    new LegacyShopScreen().openGui();
+                }
+                case MODERN -> {
+                    new ModernShopScreen().openGui();
+                }
+            }
             return EventResult.interruptTrue();
         }
 
@@ -75,7 +83,14 @@ public class SDMShopClient {
     }
     public void keyInput(InputEvent.Key event) {
         if (KEY_SHOP.consumeClick() && ShopBase.CLIENT != null) {
-            new LegacyShopScreen().openGui();
+            switch (Config.STYLE.get()) {
+                case LEGACY -> {
+                    new LegacyShopScreen().openGui();
+                }
+                case MODERN -> {
+                    new ModernShopScreen().openGui();
+                }
+            }
         }
     }
 

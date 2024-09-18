@@ -15,7 +15,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmshoprework.SDMShopR;
-import net.sdm.sdmshoprework.SDMShopRework;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
 import net.sdm.sdmshoprework.api.shop.AbstractShopTab;
@@ -27,7 +26,6 @@ import net.sdm.sdmshoprework.common.utils.ListHelper;
 import net.sdm.sdmshoprework.common.utils.TypeCreator;
 import net.sdm.sdmshoprework.network.server.SendChangesShopEntriesC2S;
 import net.sdm.sdmshoprework.network.server.edit.SendEditShopEntryC2S;
-import net.sdm.sdmshoprework.network.server.edit.SendEditShopTabC2S;
 import net.sdm.sdmshoprework.network.server.move.SendMoveShopEntryC2S;
 
 import java.util.ArrayList;
@@ -97,7 +95,7 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                             getShopScreen().refreshWidgets();
                         }
                     } else {
-                        new LegacyBuyerScreen(entry).openGui();
+                        openBuyScreen();
                         getShopScreen().refreshWidgets();
                     }
             }
@@ -147,8 +145,8 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
         }
     }
 
-    public void openCreateSceen(){
-
+    public void openBuyScreen() {
+        new LegacyBuyerScreen(entry).openGui();
     }
 
     public AbstractShopEntryButton setEdit() {

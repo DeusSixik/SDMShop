@@ -21,7 +21,7 @@ import java.util.List;
 public abstract class AbstractShopEntryType implements INBTSerializable<CompoundTag>, IModIdentifier {
 
     public AbstractShopEntry shopEntry;
-    public AbstractShopIcon creativeIcon = new ShopItemIcon(Items.BARRIER.getDefaultInstance());;
+    public AbstractShopIcon creativeIcon = new ShopItemIcon(Items.BARRIER.getDefaultInstance());
 
     public SellType getSellType() {
         return SellType.BOTH;
@@ -59,6 +59,10 @@ public abstract class AbstractShopEntryType implements INBTSerializable<Compound
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean isSearch(String search) {
+        return true;
     }
 
     public abstract void getConfig(ConfigGroup configGroup);

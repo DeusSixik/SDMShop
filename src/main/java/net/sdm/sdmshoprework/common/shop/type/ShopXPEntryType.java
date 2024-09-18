@@ -132,7 +132,9 @@ public class ShopXPEntryType extends AbstractShopEntryType {
         if(iconPath.is(ItemsRegister.CUSTOM_ICON.get())){
             return CustomIconItem.getIcon(iconPath);
         }
-        return ItemIcon.getItemIcon(iconPath);
+        ItemStack icon = iconPath.copy();
+        icon.setCount(shopEntry.entryCount);
+        return ItemIcon.getItemIcon(icon);
     }
 
     @Override

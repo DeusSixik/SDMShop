@@ -1,14 +1,16 @@
-package net.sdm.sdmshoprework.client.screen.legacy;
+package net.sdm.sdmshoprework.client.screen.modern;
 
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
-import net.sdm.sdmshoprework.SDMShopClient;
 import net.sdm.sdmshoprework.client.screen.basic.panel.AbstractShopTabPanel;
 import net.sixik.sdmuilibrary.client.utils.GLHelper;
+import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
+import org.lwjgl.opengl.GL;
 
-public class LegacyShopTabPanel extends AbstractShopTabPanel {
-    public LegacyShopTabPanel(Panel panel) {
+public class ModernShopTabPanel extends AbstractShopTabPanel {
+
+    public ModernShopTabPanel(Panel panel) {
         super(panel);
     }
 
@@ -24,15 +26,14 @@ public class LegacyShopTabPanel extends AbstractShopTabPanel {
 
     @Override
     public void draw(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-        GLHelper.pushScissor(graphics, x,y,w,h);
+        GLHelper.pushScissor(graphics,x,y,w,h);
         super.draw(graphics, theme, x, y, w, h);
         GLHelper.popScissor(graphics);
     }
 
     @Override
     public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-//        SDMShopClient.getTheme().drawHollow(graphics, x, y, w, h);
+        RGBA.create(0,0,0, 255 / 2).draw(graphics, x + 10, y, w - 10, h, 0);
+//        SDMShopClient.getTheme().draw(graphics, x, y, w, h);
     }
-
-
 }

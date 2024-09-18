@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.sdm.sdmshoprework.api.IIdentifier;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 
+@Deprecated
 public abstract class AbstractShopEntryButton implements IIdentifier {
 
     public AbstractShopEntry entry;

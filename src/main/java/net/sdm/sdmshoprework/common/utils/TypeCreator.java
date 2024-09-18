@@ -5,14 +5,11 @@ import dev.ftb.mods.ftblibrary.ui.ContextMenuItem;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.fml.ModList;
 import net.sdm.sdmshoprework.SDMShopClient;
-import net.sdm.sdmshoprework.SDMShopRework;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.register.ShopContentRegister;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
 import net.sdm.sdmshoprework.client.screen.basic.AbstractShopScreen;
-import net.sdm.sdmshoprework.client.screen.legacy.createEntry.LegacyCreateEntryScreen;
 import net.sdm.sdmshoprework.common.shop.ShopEntry;
-import net.sdm.sdmshoprework.network.server.SendChangesShopEntriesC2S;
 import net.sdm.sdmshoprework.network.server.create.SendCreateShopEntryC2S;
 
 import java.util.ArrayList;
@@ -31,15 +28,13 @@ public class TypeCreator {
                     ShopEntry entry = new ShopEntry(screen.selectedTab);
                     entry.setEntryType(shopEntryType);
                     screen.selectedTab.getTabEntry().add(entry);
-                    screen.refreshWidgets();
-
                     new SendCreateShopEntryC2S(screen.selectedTab.shopTabUUID, entry.serializeNBT()).sendToServer();
                 }));
             }
         }
 
         contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.creator.contextmenu.info"), Icons.BOOK, (b) -> {
-            new LegacyCreateEntryScreen(screen).openGui();
+            screen.openCreateScreen();
         }));
         return contextMenu;
     }

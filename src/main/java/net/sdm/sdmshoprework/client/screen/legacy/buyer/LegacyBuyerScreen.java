@@ -8,10 +8,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sdm.sdmeconomy.api.CurrencyHelper;
-import net.sdm.sdmeconomy.common.currency.AbstractCurrency;
 import net.sdm.sdmshoprework.SDMShopClient;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
-import net.sdm.sdmshoprework.client.screen.basic.AbstractBuyerScreen;
+import net.sdm.sdmshoprework.client.screen.basic.buyer.AbstractBuyerBuyButton;
+import net.sdm.sdmshoprework.client.screen.basic.buyer.AbstractBuyerCancelButton;
+import net.sdm.sdmshoprework.client.screen.basic.buyer.AbstractBuyerScreen;
 import net.sdm.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sdm.sdmshoprework.network.client.SendBuyShopEntryC2S;
 import org.lwjgl.glfw.GLFW;
@@ -21,19 +22,13 @@ import java.util.function.Consumer;
 
 public class LegacyBuyerScreen extends AbstractBuyerScreen {
 
-    public AbstractShopEntry shopEntry;
-
     public TextBox inputField;
     public TextField infoField;
     public TextField infoProductField;
     public TextField costBuyField;
     public TextField outputMoneyField;
 
-    public BuyButton buyButton;
-    public CancelButton cancelButton;
-
     public int cantBuy = 0;
-    public int count = 0;
 
     public LegacyBuyerScreen(AbstractShopEntry entry){
 //        for (String allCurrencyKey : CurrencyHelper.getAllCurrencyKeys()) {
@@ -46,15 +41,11 @@ public class LegacyBuyerScreen extends AbstractBuyerScreen {
 
 
         int howMane = entry.getEntryType().howMany(Minecraft.getInstance().player, entry.isSell, entry);
-//        if(entry.isHaveLimit()){
-//            howMane = Math.min(howMane, entry.getLeftEntry());
-//        }
 
-        int finalHowMane = howMane;
         this.inputField = new TextBox(this){
             @Override
             public boolean isValid(String txt) {
-                return parse((Consumer)null, txt, 0, finalHowMane);
+                return parse((Consumer)null, txt, 0, howMane);
             }
 
             @Override
@@ -194,26 +185,10 @@ public class LegacyBuyerScreen extends AbstractBuyerScreen {
     }
 
 
-    protected class CancelButton extends SimpleTextButton {
+    protected static class CancelButton extends AbstractBuyerCancelButton {
 
         public CancelButton(Panel panel) {
-            super(panel, Component.translatable("sdm.shop.buyer.button.cancel"), Icon.empty());
-        }
-
-        @Override
-        public void onClicked(MouseButton mouseButton) {
-            if(mouseButton.isLeft()) {
-                LegacyBuyerScreen screen = (LegacyBuyerScreen) getGui();
-
-//                if(LegacyBuyerScreen.this.isCustom()){
-//                    LegacyBuyerScreen.this.customEntryType.onCancel();
-//                }
-
-
-                screen.closeGui();
-                AbstractShopScreen.refreshIfOpen();
-            }
-
+            super(panel);
         }
 
         @Override
@@ -227,23 +202,10 @@ public class LegacyBuyerScreen extends AbstractBuyerScreen {
         }
     }
 
-    protected  class BuyButton extends SimpleTextButton{
+    protected static class BuyButton extends AbstractBuyerBuyButton{
 
         public BuyButton(Panel panel) {
-            super(panel, Component.translatable("sdm.shop.buyer.button.accept"), Icon.empty());
-        }
-
-        @Override
-        public void onClicked(MouseButton mouseButton) {
-            if(mouseButton.isLeft()){
-
-
-
-                var d1 = LegacyBuyerScreen.this.shopEntry;
-                new SendBuyShopEntryC2S(d1.getShopTab().shopTabUUID, d1.entryUUID, count).sendToServer();
-                LegacyBuyerScreen.this.closeGui();
-                AbstractShopScreen.refreshIfOpen();
-            }
+            super(panel);
         }
 
         @Override

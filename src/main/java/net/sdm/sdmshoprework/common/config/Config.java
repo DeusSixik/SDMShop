@@ -41,7 +41,7 @@ public class Config {
     public static String colorSelectTab = "#5555FF";
 
     public static final String THEMES_NAME = "Shop Theme";
-    public static final String STYLE_NAME = "LEGACY";
+    public static final String STYLE_NAME = "Shop Style";
 
     static {
         BUILDER.push("THEMES");

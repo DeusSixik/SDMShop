@@ -47,7 +47,7 @@ public abstract class AbstractCreateEntryButton extends SimpleTextButton {
 
                 new SendCreateShopEntryC2S(screen.shopScreen.selectedTab.shopTabUUID, create.serializeNBT()).sendToServer();
                 screen.closeGui();
-                screen.shopScreen.refreshWidgets();
+                screen.shopScreen.addEntriesButtons();
             }
 
             //LEGACY CODE !

@@ -6,6 +6,18 @@
   "key.category.sdmshopr": "SDM Shop",
   "key.sdmshop.shopr": "Открыть Магазин",
 
+  "sdm.shop.ui.money" : "Деньги",
+  "sdm.shop.modern.ui.tab_categories" : "КАТЕГОРИИ",
+  "sdm.shop.modern.ui.search.ghost_text" : "Какой товар Вы ищите?",
+
+  "sdm.shop.modern.ui.buyer.player_money" : "Выши деньги",
+  "sdm.shop.modern.ui.buyer.entry.sell" : "Можно продать",
+  "sdm.shop.modern.ui.buyer.entry.buy" : "Можно купить",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.buy" : "Сколько вы хотите купить?",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.sell" : "Сколько вы хотите продать?",
+  "sdm.shop.modern.ui.buyer.entry.output.buy" : "Вы потратите",
+  "sdm.shop.modern.ui.buyer.entry.output.sell" : "Вы получите",
+
   "sdm.shop.market.button" : "Маркет",
   "sdm.shop.buyer.button.accept": "Подтвердить",
   "sdm.shop.buyer.button.cancel": "Отмена",

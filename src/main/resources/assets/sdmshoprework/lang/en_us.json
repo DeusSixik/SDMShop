@@ -8,6 +8,20 @@
   "sdm.shop.entry.buy" : "Buy",
   "key.category.sdmshopr" : "SDM Shop",
   "key.sdmshop.shopr" : "Open Shop",
+
+
+  "sdm.shop.ui.money" : "Money",
+  "sdm.shop.modern.ui.tab_categories" : "CATEGORIES",
+  "sdm.shop.modern.ui.search.ghost_text" : "What are you looking for?",
+
+  "sdm.shop.modern.ui.buyer.player_money" : "Your money",
+  "sdm.shop.modern.ui.buyer.entry.sell" : "Can be sell",
+  "sdm.shop.modern.ui.buyer.entry.buy" : "Can be buy",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.buy" : "How many you wanna buy?",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.sell" : "How many you wanna sell?",
+  "sdm.shop.modern.ui.buyer.entry.output.buy" : "You will spend",
+  "sdm.shop.modern.ui.buyer.entry.output.sell" : "You will receive",
+
   "sdm.shop.entry.tooltips.price" : "Price %s",
   "sdm.shop.entry.tooltips.sellcount": "Quantity %s",
   "sdm.shop.entry.context.edit" : "Edit",

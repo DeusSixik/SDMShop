@@ -1,7 +1,7 @@
 {
 	"shop": {
 		"group": "ftblibrary:info",
-		"icon": "ftblibrary:icons/money_bag",
+		"icon": "sdmshoprework:icons/money_bag",
 		"x": 100,
 		"click": "sdmshoprework:open_gui",
 		"loading_screen": true

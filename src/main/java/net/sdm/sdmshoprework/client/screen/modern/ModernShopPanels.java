@@ -147,7 +147,7 @@ public class ModernShopPanels {
 
             this.moneyCountField.setX(w2);
             this.moneyCountField.setText(textMoney);
-            this.moneyCountField.setColor(SDMShopClient.getTheme().getMoneyTextColor());
+//            this.moneyCountField.setColor(SDMShopClient.getTheme().getMoneyTextColor());
             this.moneyCountField.setY(this.height - Theme.DEFAULT.getFontHeight() - 2);
         }
 

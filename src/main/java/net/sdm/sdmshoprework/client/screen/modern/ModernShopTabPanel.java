@@ -33,7 +33,7 @@ public class ModernShopTabPanel extends AbstractShopTabPanel {
 
     @Override
     public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-        RGBA.create(0,0,0, 255 / 2).draw(graphics, x + 10, y, w - 10, h, 0);
+        RGBA.create(0,0,0, 255 / 2).draw(graphics, x, y, w, h, 0);
 //        SDMShopClient.getTheme().draw(graphics, x, y, w, h);
     }
 }

@@ -1,4 +1,4 @@
-package net.sdm.sdmshoprework.common.ftb;
+package net.sdm.sdmshoprework.common.integration.FTBQuests;
 
 import dev.ftb.mods.ftblibrary.config.ConfigCallback;
 import dev.ftb.mods.ftblibrary.config.ImageResourceConfig;

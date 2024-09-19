@@ -15,7 +15,7 @@ import net.sdm.sdmshoprework.SDMShopR;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
-import net.sdm.sdmshoprework.common.ftb.ConfigIconItemStack;
+import net.sdm.sdmshoprework.common.integration.FTBQuests.ConfigIconItemStack;
 import net.sdm.sdmshoprework.common.register.CustomIconItem;
 import net.sdm.sdmshoprework.common.register.ItemsRegister;
 
@@ -122,7 +122,7 @@ public class ShopCommandEntryType extends AbstractShopEntryType {
     public int howMany(Player player, boolean isSell, AbstractShopEntry entry) {
         long playerMoney = SDMShopR.getMoney(player);
         if(entry.entryPrice == 0) return 1;
-        return (int) (playerMoney / entry.entryPrice) > 1 ? 1 : 0;
+        return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
     }
 
     public static class Constructor implements IConstructor<AbstractShopEntryType> {

@@ -5,7 +5,6 @@ import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.darkhax.gamestages.GameStageHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,7 +15,7 @@ import net.sdm.sdmshoprework.SDMShopR;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
-import net.sdm.sdmshoprework.common.ftb.ConfigIconItemStack;
+import net.sdm.sdmshoprework.common.integration.FTBQuests.ConfigIconItemStack;
 import net.sdm.sdmshoprework.common.register.CustomIconItem;
 import net.sdm.sdmshoprework.common.register.ItemsRegister;
 import net.sdm.sdmshoprework.common.utils.NBTUtils;
@@ -123,7 +122,7 @@ public class ShopGameStagesEntryType extends AbstractShopEntryType {
 
     @Override
     public boolean canExecute(Player player, boolean isSell, int countSell, AbstractShopEntry entry) {
-        if(GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return false;
+        if(GameStageHelper.hasStage(player, gameStage)) return false;
         long playerMoney = SDMShopR.getMoney(player);
         long needMoney = entry.entryPrice * countSell;
         if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
@@ -137,11 +136,11 @@ public class ShopGameStagesEntryType extends AbstractShopEntryType {
 
     @Override
     public int howMany(Player player, boolean isSell, AbstractShopEntry entry) {
-        if(GameStageHelper.hasStage(Minecraft.getInstance().player, gameStage)) return 0;
+        if(GameStageHelper.hasStage(player, gameStage)) return 0;
 
         long playerMoney = SDMShopR.getMoney(player);
         if(entry.entryPrice == 0) return 1;
-        return (int) (playerMoney / entry.entryPrice) > 1 ? 1 : 0;
+        return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
     }
 
     public static class Constructor implements IConstructor<AbstractShopEntryType> {

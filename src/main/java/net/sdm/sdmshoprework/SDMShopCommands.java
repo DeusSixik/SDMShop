@@ -9,6 +9,7 @@ import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
+import net.sdm.sdmshoprework.network.server.reload.SendReloadConfigS2C;
 
 import java.util.Collection;
 
@@ -59,6 +60,10 @@ public class SDMShopCommands {
     }
 
     private static int reloadClient(CommandSourceStack source){
+        if(source.getPlayer() != null) {
+            source.sendSuccess(() -> Component.literal("Start Reload Client"), false);
+            new SendReloadConfigS2C().sendTo(source.getPlayer());
+        }
 //        if(source.getPlayer() != null) {
 //            source.sendSuccess(() -> Component.literal("Start Reload Client"), false);
 //            new ReloadClientData().sendTo(source.getPlayer());

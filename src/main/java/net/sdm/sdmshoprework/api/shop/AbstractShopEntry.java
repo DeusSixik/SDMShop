@@ -33,9 +33,9 @@ public abstract class AbstractShopEntry implements INBTSerializable<CompoundTag>
 
     public boolean isSell = false;
 
-    @Deprecated
-    @Description("I haven't figured out the best way to do it yet")
-    public AbstractShopIcon entryIcon = new ShopItemIcon(Items.BARRIER.getDefaultInstance());
+//    @Deprecated
+//    @Description("I haven't figured out the best way to do it yet")
+//    public AbstractShopIcon entryIcon = new ShopItemIcon(Items.BARRIER.getDefaultInstance());
 
     public ItemStack icon = Items.BARRIER.getDefaultInstance();
 
@@ -70,9 +70,9 @@ public abstract class AbstractShopEntry implements INBTSerializable<CompoundTag>
         this.entryType.setShopEntry(this);
     }
 
-    public void setEntryIcon(AbstractShopIcon entryIcon) {
-        this.entryIcon = entryIcon;
-    }
+//    public void setEntryIcon(AbstractShopIcon entryIcon) {
+//        this.entryIcon = entryIcon;
+//    }
 
     public AbstractShopTab getShopTab() {
         return shopTab;
@@ -132,7 +132,7 @@ public abstract class AbstractShopEntry implements INBTSerializable<CompoundTag>
         CompoundTag nbt = new CompoundTag();
         nbt.putLong("entryPrice", entryPrice);
         nbt.putInt("entryCount", entryCount);
-        nbt.put("entryIcon", entryIcon.serializeNBT());
+//        nbt.put("entryIcon", entryIcon.serializeNBT());
         nbt.putUUID("entryUUID", entryUUID);
         nbt.put("icon", icon.serializeNBT());
         nbt.putString("title", title);
@@ -166,7 +166,7 @@ public abstract class AbstractShopEntry implements INBTSerializable<CompoundTag>
     public void deserializeNBT(CompoundTag nbt) {
         entryPrice = nbt.getLong("entryPrice");
         entryCount = nbt.getInt("entryCount");
-        entryIcon = ShopItemIcon.from(nbt.getCompound("entryIcon"));
+//        entryIcon = ShopItemIcon.from(nbt.getCompound("entryIcon"));
         this.entryUUID = nbt.getUUID("entryUUID");
         this.icon = ItemStack.of(nbt.getCompound("icon"));
         this.title = nbt.getString("title");
@@ -202,7 +202,7 @@ public abstract class AbstractShopEntry implements INBTSerializable<CompoundTag>
                 "entryUUID=" + entryUUID +
                 ", entryPrice=" + entryPrice +
                 ", entryCount=" + entryCount +
-                ", entryIcon=" + entryIcon +
+//                ", entryIcon=" + entryIcon +
                 ", entryType=" + entryType +
                 ", shopTab=" + shopTab +
                 ", entryLimiters=" + entryLimiters +

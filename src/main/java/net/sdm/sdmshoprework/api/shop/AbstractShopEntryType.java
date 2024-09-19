@@ -4,16 +4,17 @@ import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.sdm.sdmeconomy.api.CurrencyHelper;
+import net.sdm.sdmshoprework.SDMShopRework;
 import net.sdm.sdmshoprework.api.IModIdentifier;
 import net.sdm.sdmshoprework.api.register.ShopContentRegister;
-import net.sdm.sdmshoprework.common.icon.ShopItemIcon;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public abstract class AbstractShopEntryType implements INBTSerializable<CompoundTag>, IModIdentifier {
 
     public AbstractShopEntry shopEntry;
-    public AbstractShopIcon creativeIcon = new ShopItemIcon(Items.BARRIER.getDefaultInstance());
+//    public AbstractShopIcon creativeIcon = new ShopItemIcon(Items.BARRIER.getDefaultInstance());
 
     public SellType getSellType() {
         return SellType.BOTH;
@@ -34,6 +35,23 @@ public abstract class AbstractShopEntryType implements INBTSerializable<Compound
     public static AbstractShopEntryType fromOld(CompoundTag nbt) {
         try {
             String id = nbt.getString("type");
+            if(id.equals("itemType")) {
+                id = "shopItemEntryType";
+
+                if(nbt.contains("item")) {
+                    if (nbt.get("item") instanceof CompoundTag it) {
+                        nbt.put("itemStack", it);
+                        SDMShopRework.LOGGER.info("SDM Item -> " + it.toString());
+
+                    } else {
+                        nbt.putString("itemStack", nbt.getString("item"));
+                        SDMShopRework.LOGGER.info("SDM Item -> " + nbt.getString("item"));
+                    }
+                }
+            }
+
+
+
             AbstractShopEntryType type = ShopContentRegister.SHOP_ENTRY_TYPES.getOrDefault(id, null).createDefaultInstance();
             type.deserializeNBT(nbt);
             return type;
@@ -47,11 +65,6 @@ public abstract class AbstractShopEntryType implements INBTSerializable<Compound
     public static AbstractShopEntryType from(CompoundTag nbt) {
         try {
             String id = nbt.getString("shopEntryTypeID");
-            if(id.equals("itemType")) {
-                id = "shopItemEntryType";
-                nbt.put("itemStack", nbt.getCompound("item"));
-            }
-
             AbstractShopEntryType type = ShopContentRegister.SHOP_ENTRY_TYPES.getOrDefault(id, null).createDefaultInstance();
             type.deserializeNBT(nbt);
             return type;
@@ -92,7 +105,7 @@ public abstract class AbstractShopEntryType implements INBTSerializable<Compound
 
 
     public boolean canExecute(Player player, boolean isSell, int countSell, AbstractShopEntry entry){
-        long playerMoney = CurrencyHelper.Basic.getMoney(Minecraft.getInstance().player);
+        long playerMoney = CurrencyHelper.Basic.getMoney(player);
         long needMoney = entry.entryPrice * countSell;
         if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
         return true;

@@ -15,6 +15,7 @@ import net.sdm.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
 import net.sdm.sdmshoprework.client.screen.modern.ModernShopScreen;
 import net.sdm.sdmshoprework.common.shop.type.ShopItemEntryType;
 import net.sixik.sdmuilibrary.client.utils.GLHelper;
+import net.sixik.sdmuilibrary.client.utils.TextHelper;
 import net.sixik.sdmuilibrary.client.utils.math.Vector2;
 import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 
@@ -103,23 +104,33 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         Vector2 pos = new Vector2(x + 5, y + 5);
 
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, sizeIcon * 2, sizeIcon * 2, 8);
+
         entryButton.entry.getEntryType().getIcon().draw(graphics,pos.x + sizeIcon / 2,pos.y + sizeIcon / 2,sizeIcon,sizeIcon);
 
         pos.setX(pos.x + sizeIcon * 2 + 2);
 
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, Minecraft.getInstance().font.lineHeight + 1, 4);
         if(entryButton.entry.getEntryType() instanceof ShopItemEntryType entryType) {
+
+            w = TextHelper.getTextWidth(entryType.itemStack.getDisplayName().getString());
+            int w1 = (this.width - 10 - 2 - sizeIcon * 2) - w;
+            int w2 = w1 / 2;
+
+
             String d = entryType.itemStack.getDisplayName().getString();
             d = d.replace("[", "").replace("]", "");
-            theme.drawString(graphics, d, pos.x + 2, pos.y + 1, Color4I.WHITE, 2);
+            theme.drawString(graphics, d, pos.x + w2, pos.y + 1, Color4I.WHITE, 2);
         }
 
 
         String textMoney = SDMShopRework.moneyString(entryButton.entry.entryPrice);
+        int d = TextHelper.getTextWidth(textMoney);
+        int w1 = (this.width - 10 - 2 - sizeIcon * 2) - d;
+        int w2 = w1 / 2;
 
         pos.setY(pos.y + sizeIcon);
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, Minecraft.getInstance().font.lineHeight + 1, 4);
-        theme.drawString(graphics, textMoney, pos.x + 2, pos.y + 1, Color4I.WHITE, 2);
+        theme.drawString(graphics, textMoney, pos.x + w2, pos.y + 1, Color4I.WHITE, 2);
 
         pos.setPosition(x + 5, y + 5 + sizeIcon * 2 + 2);
         Vector2 size = new Vector2(this.width - 10, this.height - (5 + sizeIcon * 2 + 2 + 24 + 2));
@@ -144,7 +155,7 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         pos.setPosition(pos.x, pos.y + (Minecraft.getInstance().font.lineHeight + 1 + 2) * 2);
         textMoney = shopEntry.isSell ? Component.translatable("sdm.shop.modern.ui.buyer.entry.output.sell").getString() : Component.translatable("sdm.shop.modern.ui.buyer.entry.output.buy").getString();
 
-        drawNewLabel(graphics, theme, pos, size, textMoney, String.valueOf(shopEntry.entryPrice * count));
+        drawNewLabel(graphics, theme, pos, size,textMoney, SDMShopRework.moneyString(shopEntry.entryPrice * count));
 
 //        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10, this.height - (5 + sizeIcon * 2 + 2 + 24 + 2), 4);
     }

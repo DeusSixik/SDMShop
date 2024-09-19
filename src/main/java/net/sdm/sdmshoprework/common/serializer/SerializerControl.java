@@ -23,6 +23,10 @@ public class SerializerControl {
         String version = nbt.getString("sdmversion");
         if (!VERSION.equals(version)) {
             if(version.equals("0.0.1")) {
+
+                SDMShopRework.LOGGER.info("SDM LOAD !");
+
+
                 ShopBase shopBase = new ShopBase();
                 ListTag tabs = (ListTag) nbt.get("tabs");
                 for (Tag tab : tabs) {
@@ -44,7 +48,7 @@ public class SerializerControl {
                         shopEntry.title = entryData.getString("tittle");
                         shopEntry.entryUUID = entryData.getUUID("entryID");
 
-                        AbstractShopEntryType entryType = AbstractShopEntryType.from(nbt.getCompound("type"));
+                        AbstractShopEntryType entryType = AbstractShopEntryType.fromOld(entryData.getCompound("type"));
                         if(entryType != null) {
                             shopEntry.setEntryType(entryType);
                         }
@@ -56,6 +60,8 @@ public class SerializerControl {
                 }
 
                 ShopBase.SERVER.deserializeNBT(shopBase.serializeNBT());
+
+
             } else {
                 SDMShopRework.LOGGER.error("Unsupported SDM Shop version: {}. Expected version: 1.0.0", version);
             }

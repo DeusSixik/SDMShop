@@ -1,14 +1,12 @@
 package net.sdm.sdmshoprework.common.shop.type.integration.ManaAndArtifice;
 
 import com.mna.api.capabilities.IPlayerProgression;
-import com.mna.api.entities.construct.IConstruct;
 import com.mna.capabilities.playerdata.progression.PlayerProgression;
 import com.mna.capabilities.playerdata.progression.PlayerProgressionProvider;
 import com.mna.recipes.progression.ProgressionCondition;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
@@ -19,7 +17,7 @@ import net.sdm.sdmshoprework.SDMShopR;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
-import net.sdm.sdmshoprework.common.ftb.ConfigIconItemStack;
+import net.sdm.sdmshoprework.common.integration.FTBQuests.ConfigIconItemStack;
 import net.sdm.sdmshoprework.common.register.CustomIconItem;
 import net.sdm.sdmshoprework.common.register.ItemsRegister;
 import net.sdm.sdmshoprework.common.utils.NBTUtils;
@@ -123,7 +121,7 @@ public class ShopMNATierEntryType extends AbstractShopEntryType {
         }
 
         long playerMoney = SDMShopR.getMoney(player);
-        return (int) (playerMoney / entry.entryPrice) > 1 ? 1 : 0;
+        return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
     }
 
     @Override

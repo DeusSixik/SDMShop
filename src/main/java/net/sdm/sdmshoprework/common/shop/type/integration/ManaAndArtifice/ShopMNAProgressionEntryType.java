@@ -13,11 +13,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sdm.sdmshoprework.SDMShopR;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
-import net.sdm.sdmshoprework.common.ftb.ConfigIconItemStack;
+import net.sdm.sdmshoprework.common.integration.FTBQuests.ConfigIconItemStack;
 import net.sdm.sdmshoprework.common.register.CustomIconItem;
 import net.sdm.sdmshoprework.common.register.ItemsRegister;
 import net.sdm.sdmshoprework.common.utils.NBTUtils;
@@ -63,6 +65,7 @@ public class ShopMNAProgressionEntryType extends AbstractShopEntryType {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void getConfig(ConfigGroup group) {
         IPlayerProgression progression = (IPlayerProgression) Minecraft.getInstance().player.getCapability(PlayerProgressionProvider.PROGRESSION).orElse((IPlayerProgression) null);
         List<ProgressionCondition> progressionConditionList = ProgressionCondition.get(Minecraft.getInstance().player.level(), progression.getTier());
@@ -116,7 +119,7 @@ public class ShopMNAProgressionEntryType extends AbstractShopEntryType {
     @Override
     public int howMany(Player player, boolean isSell, AbstractShopEntry entry) {
         long playerMoney = SDMShopR.getMoney(player);
-        return (int) (playerMoney / entry.entryPrice) > 1 ? 1 : 0;
+        return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
     }
 
     @Override

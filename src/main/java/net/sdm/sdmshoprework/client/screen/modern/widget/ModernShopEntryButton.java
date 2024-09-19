@@ -27,7 +27,10 @@ public class ModernShopEntryButton extends AbstractShopEntryButton {
 
     @Override
     public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-        RGBA.create(0,0,0,255 / 3).drawRoundFill(graphics, x,y,w,h, 6);
+        if(isSelected()) {
+            RGBA.create(255, 255, 255, 255 / 3).drawRoundFill(graphics, x, y, w, h, 6);
+        } else
+            RGBA.create(0, 0, 0, 255 / 3).drawRoundFill(graphics, x, y, w, h, 6);
     }
 
     @Override

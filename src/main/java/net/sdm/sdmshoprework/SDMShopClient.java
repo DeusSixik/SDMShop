@@ -27,6 +27,7 @@ import net.sdm.sdmshoprework.client.screen.modern.ModernShopScreen;
 import net.sdm.sdmshoprework.common.config.Config;
 import net.sdm.sdmshoprework.common.shop.ShopBase;
 import net.sdm.sdmshoprework.common.theme.SDMThemes;
+import net.sdm.sdmshoprework.common.theme.ShopStyle;
 import net.sdm.sdmshoprework.common.theme.ShopTheme;
 import org.lwjgl.glfw.GLFW;
 
@@ -66,16 +67,20 @@ public class SDMShopClient {
         MinecraftForge.EVENT_BUS.addListener(this::keyInput);
     }
 
+    public static void openGui(ShopStyle shopStyle) {
+        switch (shopStyle) {
+            case LEGACY -> {
+                new LegacyShopScreen().openGui();
+            }
+            case MODERN -> {
+                new ModernShopScreen().openGui();
+            }
+        }
+    }
+
     public EventResult customClick(CustomClickEvent event) {
         if (ShopBase.CLIENT != null && event.id().equals(OPEN_GUI)) {
-            switch (Config.STYLE.get()) {
-                case LEGACY -> {
-                    new LegacyShopScreen().openGui();
-                }
-                case MODERN -> {
-                    new ModernShopScreen().openGui();
-                }
-            }
+            openGui(Config.STYLE.get());
             return EventResult.interruptTrue();
         }
 
@@ -83,14 +88,7 @@ public class SDMShopClient {
     }
     public void keyInput(InputEvent.Key event) {
         if (KEY_SHOP.consumeClick() && ShopBase.CLIENT != null) {
-            switch (Config.STYLE.get()) {
-                case LEGACY -> {
-                    new LegacyShopScreen().openGui();
-                }
-                case MODERN -> {
-                    new ModernShopScreen().openGui();
-                }
-            }
+            SDMShopClient.openGui(Config.STYLE.get());
         }
     }
 

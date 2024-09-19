@@ -144,7 +144,7 @@ public class ShopQuestEntryType extends AbstractShopEntryType {
 
             long playerMoney = SDMShopR.getMoney(player);
             if(entry.entryPrice == 0) return 1;
-            return (int) (playerMoney / entry.entryPrice) > 1 ? 1 : 0;
+            return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
         }
         return 0;
     }

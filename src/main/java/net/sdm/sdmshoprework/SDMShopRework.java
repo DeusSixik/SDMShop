@@ -6,10 +6,12 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.sdm.sdmshoprework.api.register.ShopContentRegister;
 import net.sdm.sdmshoprework.common.ModEvents;
 import net.sdm.sdmshoprework.common.config.Config;
 import net.sdm.sdmshoprework.common.icon.ShopItemIcon;
+import net.sdm.sdmshoprework.common.integration.SDMShopRIntegration;
 import net.sdm.sdmshoprework.common.register.ItemsRegister;
 import net.sdm.sdmshoprework.common.shop.condition.ManaAndArtifice.ShopMNAFactionCondition;
 import net.sdm.sdmshoprework.common.shop.condition.ManaAndArtifice.ShopMNALevelCondition;
@@ -66,11 +68,14 @@ public class SDMShopRework {
         register();
 
 
-        new SDMShopClient().init();
+        if(FMLEnvironment.dist.isClient())
+            new SDMShopClient().init();
 
         ShopNetwork.init();
         ShopContentRegister.init();
         MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
+
+        SDMShopRIntegration.init();
     }
 
     private void registerCommands(RegisterCommandsEvent event) {
@@ -85,13 +90,17 @@ public class SDMShopRework {
         return String.format("◎ %,d", money);
     }
 
+    public static String moneyString(String money) {
+        return "◎ " + money;
+    }
+
     public void register(){
         if(ModList.get().isLoaded("ftbquests")) {
             ShopContentRegister.registerType(new ShopQuestEntryType.Constructor());
             ShopContentRegister.registerCondition(new ShopFTBQuestsCondition.Constructor());
         }
 
-        ShopContentRegister.registerIcon(new ShopItemIcon.ShopItemIconC());
+//        ShopContentRegister.registerIcon(new ShopItemIcon.ShopItemIconC());
 
         ShopContentRegister.registerType(new ShopItemEntryType.Constructor());
         ShopContentRegister.registerType(new ShopTagEntryType.Constructor());

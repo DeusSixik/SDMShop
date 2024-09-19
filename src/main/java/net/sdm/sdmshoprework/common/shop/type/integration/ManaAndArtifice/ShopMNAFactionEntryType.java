@@ -7,7 +7,6 @@ import com.mna.capabilities.playerdata.progression.PlayerProgressionProvider;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +19,7 @@ import net.sdm.sdmshoprework.SDMShopRework;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
-import net.sdm.sdmshoprework.common.ftb.ConfigIconItemStack;
+import net.sdm.sdmshoprework.common.integration.FTBQuests.ConfigIconItemStack;
 import net.sdm.sdmshoprework.common.register.CustomIconItem;
 import net.sdm.sdmshoprework.common.register.ItemsRegister;
 import net.sdm.sdmshoprework.common.utils.NBTUtils;
@@ -117,7 +116,7 @@ public class ShopMNAFactionEntryType extends AbstractShopEntryType {
                 if (needNonFaction && !progression.getAlliedFaction().is(new ResourceLocation("mna:none"))) return 0;
                 long playerMoney = SDMShopR.getMoney(player);
                 if(entry.entryPrice == 0) return 1;
-                return (int) (playerMoney / entry.entryPrice) > 1 ? 1 : 0;
+                return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
             }
         } catch (Exception e){
             SDMShopRework.LOGGER.error(e.toString());

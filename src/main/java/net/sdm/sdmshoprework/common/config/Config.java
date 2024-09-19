@@ -47,7 +47,7 @@ public class Config {
         BUILDER.push("THEMES");
 
 
-        STYLE = BUILDER.defineEnum(STYLE_NAME, ShopStyle.LEGACY);
+        STYLE = BUILDER.defineEnum(STYLE_NAME, ShopStyle.MODERN);
         THEMES = BUILDER.defineEnum(THEMES_NAME, defaultTheme);
 
         BUILDER.push("THEMES_CUSTOM");

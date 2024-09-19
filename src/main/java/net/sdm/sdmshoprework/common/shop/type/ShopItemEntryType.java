@@ -8,12 +8,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sdm.sdmshoprework.SDMShopR;
 import net.sdm.sdmshoprework.api.IConstructor;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sdm.sdmshoprework.api.shop.AbstractShopEntryType;
+import net.sdm.sdmshoprework.common.utils.NBTUtils;
 import net.sdm.sdmshoprework.common.utils.SDMItemHelper;
 
 import java.util.ArrayList;
@@ -64,7 +67,7 @@ public class ShopItemEntryType extends AbstractShopEntryType {
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        this.itemStack = ItemStack.of(nbt.getCompound("itemStack"));
+        this.itemStack = NBTUtils.getItemStack(nbt, "itemStack");
     }
 
     @Override

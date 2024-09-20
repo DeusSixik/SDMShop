@@ -1,0 +1,116 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+loom {
+    forge {
+        mixinConfig "sdmshoprework-common.mixins.json"
+        mixinConfig "sdmshoprework.mixins.json"
+    }
+}
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url "https://maven.architectury.dev/"
+    }
+
+    maven {
+        url "https://maven.saps.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+
+    maven {
+        url "https://maven.saps.dev/snapshots"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+    maven {
+        url "https://cursemaven.com"
+    }
+}
+dependencies {
+    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    // Remove the next line if you don't want to depend on the API
+    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+
+    modCompileOnlyApi ("curse.maven:game-stages-268655:4648424")
+
+    modCompileOnlyApi ("curse.maven:passive-skill-tree-850298:5182799")
+
+    modCompileOnlyApi ("curse.maven:mana-and-artifice-406360:5204009")
+
+    modApi("curse.maven:sdm-economy-1102542:5736790")
+    modApi "curse.maven:sdm-ui-lib-1095061:5736797"
+    modApi("dev.ftb.mods:ftb-library-forge:${rootProject.ftb_library_version}") { transitive false }
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+    inputFile.set(shadowJar.archiveFile)
+    dependsOn shadowJar
+    archiveClassifier.set(null)
+}
+
+jar {
+    archiveClassifier.set("dev")
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}

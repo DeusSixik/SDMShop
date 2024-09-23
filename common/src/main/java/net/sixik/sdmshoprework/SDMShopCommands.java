@@ -9,6 +9,8 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.sixik.sdmshoprework.network.server.misc.SendConfigS2C;
+import net.sixik.sdmshoprework.network.server.misc.SendOpenShopScreenS2C;
 import net.sixik.sdmshoprework.network.server.reload.SendReloadConfigS2C;
 
 import java.util.Collection;
@@ -51,18 +53,36 @@ public class SDMShopCommands {
                         .requires(source -> source.hasPermission(2))
                         .executes(context -> editMode(context.getSource()))
                 )
-                .then(Commands.literal("reloadClient")
-                        .requires(source -> source.hasPermission(1))
+                .then(Commands.literal("reloadConfig")
+                        .requires(source -> source.hasPermission(2))
                         .executes(context -> reloadClient(context.getSource()))
                 )
-
+                .then(Commands.literal("open_shop")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(context -> openShop(context.getSource(), null))
+                        .then(Commands.argument("player", EntityArgument.players())
+                                .executes(context -> openShop(context.getSource(), EntityArgument.getPlayers(context, "player")))
+                        )
+                )
         );
+    }
+
+    private static int openShop(CommandSourceStack source, Collection<ServerPlayer> profiles) {
+        if(profiles != null) {
+            for (ServerPlayer profile : profiles) {
+                new SendOpenShopScreenS2C().sendTo(profile);
+            }
+        } else if(source.getPlayer() != null) {
+            new SendOpenShopScreenS2C().sendTo(source.getPlayer());
+        }
+        return 1;
     }
 
     private static int reloadClient(CommandSourceStack source){
         if(source.getPlayer() != null) {
-            source.sendSuccess(() -> Component.literal("Start Reload Client"), false);
-            new SendReloadConfigS2C().sendTo(source.getPlayer());
+            source.sendSuccess(() -> Component.literal("Start Reload"), false);
+            new SendConfigS2C().sendToAll(source.getServer());
+            new SendReloadConfigS2C().sendToAll(source.getServer());
         }
 //        if(source.getPlayer() != null) {
 //            source.sendSuccess(() -> Component.literal("Start Reload Client"), false);

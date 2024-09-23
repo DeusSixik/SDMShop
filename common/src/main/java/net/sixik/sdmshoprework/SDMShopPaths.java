@@ -28,7 +28,7 @@ public class SDMShopPaths {
     }
 
     public static Path getClientConfig(){
-        return getModFolder().resolve("sdmshop-client.snbt");
+        return getModFolder().resolve("sdmshop-common.snbt");
     }
 
     public static Path getOldFile(){

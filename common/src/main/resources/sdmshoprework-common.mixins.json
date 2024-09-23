@@ -4,6 +4,7 @@
   "package": "net.sixik.sdmshoprework.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+
   ],
   "client": [
   ],

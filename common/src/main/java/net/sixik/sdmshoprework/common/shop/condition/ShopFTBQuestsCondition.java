@@ -31,6 +31,7 @@ public class ShopFTBQuestsCondition extends AbstractShopEntryCondition {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public boolean isLocked() {
         TeamData data = TeamData.get(Minecraft.getInstance().player);
         for (String s : questID) {

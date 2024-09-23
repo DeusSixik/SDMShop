@@ -23,6 +23,10 @@ public class LegacyShopScreen extends AbstractShopScreen {
     public PanelScrollBar tabsScrollPanel;
     public PanelScrollBar entryScrollPanel;
 
+    public LegacyShopScreen(boolean isOpenCommand) {
+        super(isOpenCommand);
+    }
+
     @Override
     public void addWidgets() {
         add(this.entriesPanel = new LegacyShopEntriesPanel(this));

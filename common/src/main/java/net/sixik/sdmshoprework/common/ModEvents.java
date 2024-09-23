@@ -9,8 +9,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmshoprework.SDMShopPaths;
 import net.sixik.sdmshoprework.SDMShopR;
+import net.sixik.sdmshoprework.common.config.Config;
+import net.sixik.sdmshoprework.common.config.ConfigFile;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.network.client.SendEditModeS2C;
+import net.sixik.sdmshoprework.network.server.misc.SendConfigS2C;
 
 public class ModEvents {
 
@@ -22,6 +25,7 @@ public class ModEvents {
     }
 
     public static void onServerStart(MinecraftServer server){
+        Config.loadConfig(false);
         CompoundTag nbt = SNBT.read(SDMShopPaths.getFile());
         if(nbt != null) {
             ShopBase.SERVER = new ShopBase();
@@ -42,6 +46,7 @@ public class ModEvents {
         if(!player.isLocalPlayer() || !player.level().isClientSide){
             ShopBase.SERVER.syncShop((ServerPlayer) player);
             new SendEditModeS2C(SDMShopR.isEditMode(player)).sendTo((ServerPlayer) player);
+            new SendConfigS2C().sendTo(player);
         }
     }
 }

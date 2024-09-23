@@ -29,6 +29,10 @@ public class ModernShopScreen extends AbstractShopScreen {
     public ModernShopPanels.TopPanel topPanel;
     public ModernShopPanels.BottomPanel bottomPanel;
 
+    public ModernShopScreen(boolean isOpenCommand) {
+        super(isOpenCommand);
+    }
+
     @Override
     public void addWidgets() {
         add(this.tabsPanel = new ModernShopTabPanel(this));

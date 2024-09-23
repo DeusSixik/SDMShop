@@ -11,6 +11,7 @@ import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopMoneyPanel;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopTabPanel;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
 import net.sixik.sdmshoprework.client.screen.legacy.createEntry.LegacyCreateEntryScreen;
+import net.sixik.sdmshoprework.common.config.ConfigFile;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.shop.ShopTab;
 
@@ -31,9 +32,13 @@ public abstract class AbstractShopScreen extends BaseScreen {
 
     public ShopTab selectedTab;
 
-    public AbstractShopScreen() {
+    public boolean isOpenCommand;
+
+    public AbstractShopScreen(boolean isOpenCommand) {
+        this.isOpenCommand = isOpenCommand;
         onConstruct();
     }
+
 
 
     public void onConstruct() {
@@ -70,6 +75,8 @@ public abstract class AbstractShopScreen extends BaseScreen {
 
     @Override
     public boolean onInit() {
+        if(ConfigFile.CLIENT.disableKeyBind && !isOpenCommand) return false;
+
         setWidth(getScreen().getGuiScaledWidth() * 4/5);
         setHeight(getScreen().getGuiScaledHeight() * 4/5);
 

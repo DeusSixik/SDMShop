@@ -21,6 +21,7 @@ import net.sixik.sdmshoprework.api.INBTSerializable;
 import net.sixik.sdmshoprework.client.screen.legacy.LegacyShopScreen;
 import net.sixik.sdmshoprework.client.screen.modern.ModernShopScreen;
 import net.sixik.sdmshoprework.common.config.Config;
+import net.sixik.sdmshoprework.common.config.ConfigFile;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.theme.SDMThemes;
 import net.sixik.sdmshoprework.common.theme.ShopStyle;
@@ -62,23 +63,29 @@ public class SDMShopClient {
         ClientLifecycleEvent.CLIENT_SETUP.register(SDMShopClient::onClientSetup);
         CustomClickEvent.EVENT.register(SDMShopClient::customClick);
 
-        KeyMappingRegistry.register(KEY_SHOP);
+        if(!ConfigFile.CLIENT.disableKeyBind) {
+            KeyMappingRegistry.register(KEY_SHOP);
+        }
     }
 
-    public static void openGui(ShopStyle shopStyle) {
+    public static void openGui(boolean isOpenCommand) {
+        openGui(Config.STYLE.get(), isOpenCommand);
+    }
+
+    public static void openGui(ShopStyle shopStyle, boolean isOpenCommand) {
         switch (shopStyle) {
             case LEGACY -> {
-                new LegacyShopScreen().openGui();
+                new LegacyShopScreen(isOpenCommand).openGui();
             }
             case MODERN -> {
-                new ModernShopScreen().openGui();
+                new ModernShopScreen(isOpenCommand).openGui();
             }
         }
     }
 
     public static EventResult customClick(CustomClickEvent event) {
-        if (ShopBase.CLIENT != null && event.id().equals(OPEN_GUI)) {
-            openGui(Config.STYLE.get());
+        if (ShopBase.CLIENT != null && event.id().equals(OPEN_GUI) && !ConfigFile.CLIENT.disableKeyBind) {
+            openGui(Config.STYLE.get(), false);
             return EventResult.interruptTrue();
         }
 
@@ -86,7 +93,9 @@ public class SDMShopClient {
     }
     public static void keyInput(Minecraft mc) {
         if (KEY_SHOP.consumeClick() && ShopBase.CLIENT != null) {
-            SDMShopClient.openGui(Config.STYLE.get());
+            if(!ConfigFile.CLIENT.disableKeyBind) {
+                SDMShopClient.openGui(Config.STYLE.get(), false);
+            }
         }
     }
 

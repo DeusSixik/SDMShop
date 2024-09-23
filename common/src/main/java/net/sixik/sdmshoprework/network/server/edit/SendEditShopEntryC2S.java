@@ -5,10 +5,10 @@ import dev.architectury.networking.simple.BaseC2SMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.sixik.sdm_economy.network.SyncDataS2C;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.network.ShopNetwork;
+import net.sixik.sdmshoprework.network.client.SyncShopS2C;
 
 import java.util.UUID;
 
@@ -48,7 +48,7 @@ public class SendEditShopEntryC2S extends BaseC2SMessage {
     public void handle(NetworkManager.PacketContext packetContext) {
         try {
             ShopBase.SERVER.getShopTab(tabID).getShopEntry(entryID).deserializeNBT(nbt);
-            new SyncDataS2C(ShopBase.SERVER.serializeNBT()).sendToAll(packetContext.getPlayer().getServer());
+            new SyncShopS2C(ShopBase.SERVER.serializeNBT()).sendToAll(packetContext.getPlayer().getServer());
             ShopBase.SERVER.saveShopToFile();
         } catch (Exception e){
             SDMShopRework.printStackTrace("", e);

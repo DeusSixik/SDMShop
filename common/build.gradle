@@ -34,7 +34,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-    modApi files("../libs/sdm_economy-1.20.1-1.5.1.jar")
+    modApi files("../libs/sdm_economy-1.20.1-1.6.0.jar")
     modApi files("../libs/sdm_ui_lib-1.20.1-1.8.1.jar")
     modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
     modApi ("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }

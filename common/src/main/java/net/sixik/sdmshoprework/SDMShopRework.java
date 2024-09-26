@@ -7,6 +7,7 @@ import dev.architectury.utils.EnvExecutor;
 import net.sixik.sdmshoprework.api.register.ShopContentRegister;
 import net.sixik.sdmshoprework.common.ModEvents;
 import net.sixik.sdmshoprework.common.config.Config;
+import net.sixik.sdmshoprework.common.integration.SDMShopRIntegration;
 import net.sixik.sdmshoprework.common.register.ItemsRegister;
 import net.sixik.sdmshoprework.common.shop.condition.ShopFTBQuestsCondition;
 import net.sixik.sdmshoprework.common.shop.type.*;
@@ -51,6 +52,7 @@ public class SDMShopRework
 		Config.init(SDMShopPaths.getModFolder());
 
 		CommandRegistrationEvent.EVENT.register(SDMShopCommands::registerCommands);
+		SDMShopRIntegration.init();
 		EnvExecutor.runInEnv(Env.CLIENT, () -> SDMShopClient::init);
 	}
 

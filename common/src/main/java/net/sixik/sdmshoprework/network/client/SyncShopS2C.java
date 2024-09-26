@@ -25,7 +25,6 @@ public class SyncShopS2C extends BaseS2CMessage {
         this.nbt = nbt.readAnySizeNbt();
     }
 
-
     @Override
     public MessageType getType() {
         return ShopNetwork.SYNC_SHOP;

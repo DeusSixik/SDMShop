@@ -41,6 +41,7 @@ public class Config {
     public static final StringValue SELCETTABCOLOR;
 //    public static final BooleanValue DISABLE_BUTTON;
     public static final BooleanValue DISABLE_KEYBIND;
+    public static final BooleanValue SEND_NOTIFY;
 
 
     public static String defaultBackground = "#5555FF";
@@ -58,6 +59,7 @@ public class Config {
         CONFIG = SNBTConfig.create("sdmshop-common");
 
         DISABLE_KEYBIND = CONFIG.addBoolean("disable_key_bind", false);
+        SEND_NOTIFY = CONFIG.addBoolean("send_notify", true);
 
         STYLE = CONFIG.addEnum(STYLE_NAME, ShopStyle.NAME_MAP);
         THEMES = CONFIG.addEnum(THEMES_NAME, SDMThemes.NAME_MAP);

@@ -13,12 +13,16 @@
   "sdm.shop.ui.money" : "Money",
   "sdm.shop.modern.ui.tab_categories" : "CATEGORIES",
   "sdm.shop.modern.ui.search.ghost_text" : "What are you looking for?",
+  "sdm.shop.modern.ui.keybinding.info" : "Key Binding",
+
+  "sdm.shop.entry.sell.info.item" : "You sold %s in %s count. Your balance %s",
+  "sdm.shop.entry.buy.info.item" : "You buy %s in %s count. Your balance %s",
 
   "sdm.shop.modern.ui.buyer.player_money" : "Your money",
   "sdm.shop.modern.ui.buyer.entry.sell" : "Can be sell",
   "sdm.shop.modern.ui.buyer.entry.buy" : "Can be buy",
-  "sdm.shop.modern.ui.buyer.entry.input.ghost.buy" : "How many you wanna buy?",
-  "sdm.shop.modern.ui.buyer.entry.input.ghost.sell" : "How many you wanna sell?",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.buy" : "Click. How many you wanna buy?",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.sell" : "Click. How many you wanna sell?",
   "sdm.shop.modern.ui.buyer.entry.output.buy" : "You will spend",
   "sdm.shop.modern.ui.buyer.entry.output.sell" : "You will receive",
 
@@ -34,6 +38,7 @@
   "sdm.shop.entry.add.context.advancement" : "Advancement",
 
   "sdm.shop.entry.add.context.command" : "Command",
+  "sdm.shop.entry.context.duplicate" : "Duplicate",
   "sdm.shop.entry.context.move.up" : "Move Up",
   "sdm.shop.entry.context.move.down" : "Move Down",
   "sdm.shop.entry.add.context.integration.quest" : "FTB Quest",

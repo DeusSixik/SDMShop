@@ -10,15 +10,16 @@ import net.sixik.sdmshoprework.api.INBTSerializable;
 import net.sixik.sdmshoprework.common.serializer.SerializerControl;
 import net.sixik.sdmshoprework.network.client.SyncShopS2C;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.Future;
 
 public class ShopBase implements INBTSerializable<CompoundTag> {
 
     public static ShopBase SERVER;
     public static ShopBase CLIENT = new ShopBase();
+
+    private final LinkedList<Runnable> saveTasks = new LinkedList<Runnable>();
+    private final LinkedList<Runnable> deserializeTask = new LinkedList<Runnable>();
 
     private final List<ShopTab> shopTabs = new ArrayList<>();
 
@@ -50,25 +51,45 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        if(SerializerControl.isOldVersion(nbt)) {
-            SerializerControl.deserializeVersion(nbt, this);
-        } else {
-            shopTabs.clear();
-            ListTag tagShopTabs = nbt.getList("shopTabs", 10);
-            for (int i = 0; i < tagShopTabs.size(); i++) {
-                ShopTab tab = new ShopTab(this);
-                tab.deserializeNBT(tagShopTabs.getCompound(i));
-                shopTabs.add(tab);
+        Runnable runnable = () -> {
+            if (SerializerControl.isOldVersion(nbt)) {
+                SerializerControl.deserializeVersion(nbt, this);
+            } else {
+                shopTabs.clear();
+                ListTag tagShopTabs = nbt.getList("shopTabs", 10);
+                for (int i = 0; i < tagShopTabs.size(); i++) {
+                    ShopTab tab = new ShopTab(this);
+                    tab.deserializeNBT(tagShopTabs.getCompound(i));
+                    shopTabs.add(tab);
+                }
             }
+        };
+
+        deserializeTask.add(runnable);
+
+        Iterator<Runnable> runnableIterator = deserializeTask.iterator();
+        if(runnableIterator.hasNext()) {
+            runnableIterator.next().run();
+            runnableIterator.remove();
         }
     }
 
     public void saveShopToFile() {
 
-        try {
-            SNBT.write(SDMShopPaths.getFile(), serializeNBT());
-        } catch (Exception e){
-            e.printStackTrace();
+        Runnable runnable = () -> {
+            try {
+                SNBT.write(SDMShopPaths.getFile(), serializeNBT());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        saveTasks.add(runnable);
+
+        Iterator<Runnable> runnableIterator = saveTasks.iterator();
+
+        while (runnableIterator.hasNext()) {
+            runnableIterator.next().run();
+            runnableIterator.remove();
         }
 //        if(ServerLifecycleHooks.getCurrentServer() != null) {
 //            syncShop(ServerLifecycleHooks.getCurrentServer());

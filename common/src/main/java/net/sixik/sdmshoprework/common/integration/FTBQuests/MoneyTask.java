@@ -10,7 +10,6 @@ import dev.ftb.mods.ftbquests.quest.task.TaskType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -95,9 +94,10 @@ public class MoneyTask extends Task implements ISingleLongValueTask {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void addMouseOverText(TooltipList list, TeamData teamData) {
         super.addMouseOverText(list, teamData);
-        list.add(Component.translatable("sdmshop.balance").append(": ").append(Component.literal(SDMShopRework.moneyString(SDMShopR.getMoney(Minecraft.getInstance().player)))).withStyle(ChatFormatting.GRAY));
+        list.add(Component.translatable("sdmshop.balance").append(": ").append(Component.literal(SDMShopRework.moneyString(SDMShopR.getMoney(net.minecraft.client.Minecraft.getInstance().player)))).withStyle(ChatFormatting.GRAY));
     }
 
     @Override

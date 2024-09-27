@@ -3,6 +3,7 @@ package net.sixik.sdmshoprework.common.shop.type;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.sixik.sdmshoprework.SDMShopR;
+import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.IConstructor;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntryType;
@@ -54,6 +56,17 @@ public class ShopItemEntryType extends AbstractShopEntryType {
         List<Component> list = new ArrayList<>();
         list.add(Component.translatable("sdmr.shop.entry.creator.type.itemType.description"));
         return list;
+    }
+
+    @Override
+    public void sendNotifiedMessage(Player player) {
+        if(shopEntry.isSell) {
+            Component text = Component.translatable("sdm.shop.entry.sell.info.item", itemStack.getDisplayName().getString(), shopEntry.entryCount, SDMShopRework.moneyString(SDMShopR.getMoney(player))).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY);
+            player.displayClientMessage(text, false);
+        } else {
+            Component text = Component.translatable("sdm.shop.entry.buy.info.item", itemStack.getDisplayName().getString(), shopEntry.entryCount, SDMShopRework.moneyString(SDMShopR.getMoney(player))).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY);
+            player.displayClientMessage(text, false);
+        }
     }
 
     @Override

@@ -13,10 +13,14 @@
   "sdm.shop.modern.ui.buyer.player_money" : "Ваши деньги",
   "sdm.shop.modern.ui.buyer.entry.sell" : "Можно продать",
   "sdm.shop.modern.ui.buyer.entry.buy" : "Можно купить",
-  "sdm.shop.modern.ui.buyer.entry.input.ghost.buy" : "Сколько вы хотите купить?",
-  "sdm.shop.modern.ui.buyer.entry.input.ghost.sell" : "Сколько вы хотите продать?",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.buy" : "Нажми. Сколько вы хотите купить?",
+  "sdm.shop.modern.ui.buyer.entry.input.ghost.sell" : "Нажми. Сколько вы хотите продать?",
   "sdm.shop.modern.ui.buyer.entry.output.buy" : "Вы потратите",
   "sdm.shop.modern.ui.buyer.entry.output.sell" : "Вы получите",
+
+
+  "sdm.shop.entry.sell.info.item" : "Вы продали %s в размере %s. Ваш баланс %s",
+  "sdm.shop.entry.buy.info.item" : "Вы купили %s в размере %s. Ваш баланс %s",
 
   "sdm.shop.market.button" : "Маркет",
   "sdm.shop.buyer.button.accept": "Подтвердить",
@@ -158,5 +162,13 @@
   "sdmshop.balance": "Баланс",
   "sidebar_button.sdmr.shop": "SDM Shop",
   "sidebar_button.sdmshop.shop": "SDM Shop",
-  "sidebar_button.sdmshoprework.shop" : "SDM Shop"
+  "sidebar_button.sdmshoprework.shop" : "SDM Shop",
+  "sdm.shop.entry.context.duplicate": "Дублировать",
+  "sdmr.shop.tab.description": "Описание",
+  "sdmr.shop.entry.description": "Описание",
+  "sdmr.shop.entry.type.tags": "Forge Tag",
+  "sdmr.shop.entry.type.xp": "ХП Опыта",
+  "sdmr.shop.entry.type.level": "Левел Опыта",
+  "sdmr.shop.entry.type.locate_id": "Locate ID",
+  "sdmr.shop.entry.type.locate_type": "Locate Type"
 }

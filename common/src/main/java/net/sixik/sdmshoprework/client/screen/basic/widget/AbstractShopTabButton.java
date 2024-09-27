@@ -93,6 +93,7 @@ public abstract class AbstractShopTabButton extends SimpleTextButton {
                            getShopScreen().selectedTab = null;
                        }
                    }
+
                    ShopBase.CLIENT.getShopTabs().remove(shopTab);
                    new SendChangesShopC2S(ShopBase.CLIENT.serializeNBT()).sendToServer();
                    getShopScreen().tabsPanel.refreshWidgets();

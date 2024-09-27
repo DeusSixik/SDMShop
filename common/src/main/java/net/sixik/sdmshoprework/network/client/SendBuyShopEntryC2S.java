@@ -4,8 +4,10 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.simple.BaseC2SMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundSource;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
+import net.sixik.sdmshoprework.common.config.Config;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.network.ShopNetwork;
 
@@ -59,5 +61,11 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
                SDMShopRework.printStackTrace("", e);
            }
        }
+
+       if(Config.SEND_NOTIFY.get()) {
+           entry.getEntryType().sendNotifiedMessage(packetContext.getPlayer());
+       }
+
+        packetContext.getPlayer().playNotifySound(SDMShopRework.BUY_SOUND, SoundSource.VOICE, 1.0F, 1.0F);
     }
 }

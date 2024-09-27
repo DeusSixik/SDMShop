@@ -6,6 +6,7 @@ import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.sixik.sdm_economy.api.CurrencyHelper;
@@ -100,6 +101,7 @@ public abstract class AbstractShopEntryType implements INBTSerializable<Compound
     public void buy(Player player, int countBuy, AbstractShopEntry entry){}
     public void sell(Player player, int countSell, AbstractShopEntry entry) {}
 
+    public void sendNotifiedMessage(Player player) {}
 
     public boolean canExecute(Player player, boolean isSell, int countSell, AbstractShopEntry entry){
         long playerMoney = CurrencyHelper.Basic.getMoney(player);

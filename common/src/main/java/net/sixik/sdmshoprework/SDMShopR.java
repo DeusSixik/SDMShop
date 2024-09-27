@@ -24,6 +24,8 @@ public class SDMShopR {
         else {
             return false;
         }
+
+
     }
 
     public static void setEditMode(ServerPlayer player, boolean value){

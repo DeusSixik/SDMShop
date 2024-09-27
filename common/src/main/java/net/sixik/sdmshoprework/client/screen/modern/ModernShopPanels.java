@@ -2,7 +2,10 @@ package net.sixik.sdmshoprework.client.screen.modern;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
+import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
+import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
@@ -10,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.sixik.sdm_economy.api.CurrencyHelper;
 import net.sixik.sdmshoprework.SDMShopClient;
+import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopPanel;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopMoneyPanel;
@@ -24,6 +28,7 @@ public class ModernShopPanels {
     public static class TopEntriesPanel extends AbstractShopPanel {
 
         public AbstractShopEntrySearch textBox;
+        public SimpleTextButton button;
         public TopEntriesPanel(Panel panel) {
             super(panel);
         }
@@ -37,6 +42,28 @@ public class ModernShopPanels {
                     RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, x, y, w, h, 8);
                 }
             });
+            if(SDMShopR.isEditMode()) {
+                add(button = new SimpleTextButton(this, Component.empty(), Icons.INFO) {
+                    @Override
+                    public void onClicked(MouseButton mouseButton) {
+
+                    }
+
+                    @Override
+                    public void addMouseOverText(TooltipList list) {
+                        list.add(Component.translatable("sdm.shop.modern.ui.keybinding.info"));
+                        list.add(Component.empty());
+                        list.add(Component.literal("Entry"));
+                        list.add(Component.literal("Shift + left click - Change Sell/Buy"));
+                        list.add(Component.literal("Ctrl + left click - Move to next clicked entry"));
+                    }
+
+                    @Override
+                    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+
+                    }
+                });
+            }
             textBox.setText(getShopScreen().searchField);
         }
 
@@ -49,9 +76,14 @@ public class ModernShopPanels {
 
             int h = this.height / 4;
 
+
             this.textBox.ghostText = Component.translatable("sdm.shop.modern.ui.search.ghost_text").getString();
             this.textBox.setPos(h / 2 + 6, h / 2);
             this.textBox.setSize(this.width / 2 - h, this.height - h);
+            if(SDMShopR.isEditMode()) {
+                this.button.setSize(this.height - h, this.height - h);
+                this.button.setPos(this.width - button.width - 6, h / 2);
+            }
         }
 
         @Override

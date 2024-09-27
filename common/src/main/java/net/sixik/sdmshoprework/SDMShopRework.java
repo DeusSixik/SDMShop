@@ -4,11 +4,13 @@ import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
+import net.minecraft.sounds.SoundEvent;
 import net.sixik.sdmshoprework.api.register.ShopContentRegister;
 import net.sixik.sdmshoprework.common.ModEvents;
 import net.sixik.sdmshoprework.common.config.Config;
 import net.sixik.sdmshoprework.common.integration.SDMShopRIntegration;
 import net.sixik.sdmshoprework.common.register.ItemsRegister;
+import net.sixik.sdmshoprework.common.register.SoundRegister;
 import net.sixik.sdmshoprework.common.shop.condition.ShopFTBQuestsCondition;
 import net.sixik.sdmshoprework.common.shop.type.*;
 import net.sixik.sdmshoprework.common.shop.type.integration.ShopQuestEntryType;
@@ -18,6 +20,9 @@ import org.slf4j.Logger;
 public class SDMShopRework
 {
 	public static Logger LOGGER = LogUtils.getLogger();
+
+	public static SoundEvent BUY_SOUND;
+	public static SoundEvent CANCEL_SOUND;
 
 	public static final String MODID = "sdmshoprework";
 
@@ -53,6 +58,10 @@ public class SDMShopRework
 
 		CommandRegistrationEvent.EVENT.register(SDMShopCommands::registerCommands);
 		SDMShopRIntegration.init();
+		BUY_SOUND = SoundRegister.registerSound("buy_sound");
+		CANCEL_SOUND = SoundRegister.registerSound("cancel_sound");
+		SoundRegister.init();
+
 		EnvExecutor.runInEnv(Env.CLIENT, () -> SDMShopClient::init);
 	}
 

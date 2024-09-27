@@ -74,6 +74,18 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
         return tabEntry;
     }
 
+    public boolean removeEntry(UUID uuid) {
+       var it = getTabEntry().iterator();
+       while (it.hasNext()) {
+           AbstractShopEntry entry = it.next();
+           if(entry.entryUUID.equals(uuid)) {
+               it.remove();
+               return true;
+           }
+       }
+       return false;
+    }
+
     public AbstractShopEntry getShopEntry(UUID uuid){
         for (AbstractShopEntry shopEntry : tabEntry) {
             if(Objects.equals(shopEntry.entryUUID, uuid))

@@ -21,6 +21,8 @@ import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sixik.sdmshoprework.client.screen.legacy.buyer.LegacyBuyerScreen;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
+import net.sixik.sdmshoprework.common.shop.ShopEntry;
+import net.sixik.sdmshoprework.common.shop.ShopTab;
 import net.sixik.sdmshoprework.common.shop.type.ShopItemEntryType;
 import net.sixik.sdmshoprework.common.utils.ListHelper;
 import net.sixik.sdmshoprework.common.utils.TypeCreator;
@@ -125,8 +127,22 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                     getShopScreen().refreshWidgets();
                 }));
 
+                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.duplicate"), Icons.ADD, (b) -> {
+                    ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
+                    if(entry instanceof ShopEntry shopEntry) {
+                        ShopEntry d = shopEntry.copy();
+                        tab.getTabEntry().add(d);
+                        entry.getShopTab().getTabEntry().add(d);
+
+                    }
+                    new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
+                    getShopScreen().refreshWidgets();
+                }));
+
                 contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.delete"), Icons.REMOVE, (b) -> {
-                    entry.getShopTab().getTabEntry().remove(entry);
+                    ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
+                    entry.getShopTab().removeEntry(entry.entryUUID);
+                    tab.removeEntry(entry.entryUUID);
                     new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
                     getShopScreen().refreshWidgets();
                 }));
@@ -165,13 +181,15 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
 
     public void moneEntry(boolean isUp){
         int entryId = entry.getIndex();
-
+        ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
         AbstractShopTab d1 = entry.getShopTab();
         if(isUp) {
             ListHelper.moveUp(d1.getTabEntry(), entryId);
+            ListHelper.moveUp(tab.getTabEntry(), entryId);
         }
         else {
             ListHelper.moveDown(d1.getTabEntry(), entryId);
+            ListHelper.moveDown(tab.getTabEntry(), entryId);
         }
         new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
 

@@ -49,14 +49,39 @@ public class SDMItemHelper {
         return false;
     }
 
+    public static int countItems(Player p, ItemStack item) {
+        boolean flag = item.hasTag();
+
+        int totalamm = 0; //общее количество вещей в инвентаре
+        for (int a = 0; a<p.getInventory().getContainerSize(); a++) { //считаем эти вещи
+            if (!p.getInventory().getItem(a).isEmpty()){
+                /*весь ItemStack можно описать тремя параметрами. item.getData, item.getItemMeta и item.getAmmaount.
+                 *При item.equas(item2)ammount тоже сравнивается, поэтому видим такое сравнение
+                 */
+                if(flag && ItemStack.matches(p.getInventory().getItem(a), item)) {
+                    totalamm += p.getInventory().getItem(a).getCount();
+                } else if(!flag && ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
+                    totalamm += p.getInventory().getItem(a).getCount();
+                }
+            }
+        }
+
+        return totalamm;
+    }
+
     public static boolean sellItem(Player p, int amm, ItemStack item) {
+
+        boolean flag = item.hasTag();
+
         int totalamm = 0; //общее количество вещей в инвентаре
         for (int a = 0; a<p.getInventory().getContainerSize(); a++) { //считаем эти вещи
             if (p.getInventory().getItem(a)!=null){
                 /*весь ItemStack можно описать тремя параметрами. item.getData, item.getItemMeta и item.getAmmaount.
                  *При item.equas(item2)ammount тоже сравнивается, поэтому видим такое сравнение
                  */
-                if (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
+                if(flag && ItemStack.matches(p.getInventory().getItem(a), item)) {
+                    totalamm += p.getInventory().getItem(a).getCount();
+                } else if(!flag && ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
                     totalamm += p.getInventory().getItem(a).getCount();
                 }
             }
@@ -71,7 +96,8 @@ public class SDMItemHelper {
         for (int a = 0; a<p.getInventory().getContainerSize(); a++) {
             if (ammountleft==0){return true;}
             if (p.getInventory().getItem(a)==null) continue;
-            if (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)) {
+
+            if((flag && ItemStack.isSameItem(p.getInventory().getItem(a), item)) || (!flag && (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)))){
                 if (p.getInventory().getItem(a).getCount()<ammountleft) {
                     ammountleft-=p.getInventory().getItem(a).getCount();
                     p.getInventory().setItem(a, ItemStack.EMPTY);

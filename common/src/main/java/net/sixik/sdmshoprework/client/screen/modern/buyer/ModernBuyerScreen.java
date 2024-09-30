@@ -1,11 +1,16 @@
 package net.sixik.sdmshoprework.client.screen.modern.buyer;
 
+import de.cadentem.quality_food.util.QualityUtils;
+import dev.architectury.platform.Platform;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
+import dev.ftb.mods.ftblibrary.icon.Icon;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.ui.TextBox;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.sixik.sdm_economy.api.CurrencyHelper;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerBuyButton;
@@ -105,8 +110,7 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
 
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, sizeIcon * 2, sizeIcon * 2, 8);
 
-        entryButton.entry.getEntryType().getIcon().draw(graphics,pos.x + sizeIcon / 2,pos.y + sizeIcon / 2,sizeIcon,sizeIcon);
-
+        Icon icon = entryButton.entry.getEntryType().getIcon();
         pos.setX(pos.x + sizeIcon * 2 + 2);
 
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, Minecraft.getInstance().font.lineHeight + 1, 4);

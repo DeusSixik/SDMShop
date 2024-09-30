@@ -38,6 +38,8 @@ dependencies {
     modApi files("../libs/sdm_ui_lib-1.20.1-1.8.1.jar")
     modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
     modApi ("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
+
+    modApi ("curse.maven:quality-food-973932:5736769")
 }
 
 publishing {

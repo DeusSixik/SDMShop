@@ -1,5 +1,8 @@
 package net.sixik.sdmshoprework.common.shop.type;
 
+import de.cadentem.quality_food.util.OverlayUtils;
+import de.cadentem.quality_food.util.QualityUtils;
+import dev.architectury.platform.Platform;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
@@ -90,6 +93,14 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     public Icon getIcon() {
         ItemStack d1 = itemStack.copy();
         d1.setCount(shopEntry.entryCount);
+
+        if(Platform.isModLoaded("quality_food")) {
+            if(QualityUtils.hasQuality(d1)) {
+                d1 = OverlayUtils.getOverlay(d1);
+                d1.setCount(shopEntry.entryCount);
+            }
+        }
+
         return ItemIcon.getItemIcon(d1);
     }
 
@@ -110,19 +121,19 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     @Override
     public void sell(Player player, int countSell, AbstractShopEntry entry) {
 
-        ItemStack stack = itemStack;
+        ItemStack stack = itemStack.copy();
         List<ItemStack> stackList = new ArrayList<>();
+//
+//        for (int index = 0; index < player.getInventory().getContainerSize(); index++) {
+//            if(ItemStack.matches(player.getInventory().getItem(index), (stack.copy())) || ItemStack.isSameItem(player.getInventory().getItem(index), (stack.copy()))){
+//                stackList.add(player.getInventory().getItem(index));
+//            }
+//        }
 
-        for (int index = 0; index < player.getInventory().getContainerSize(); index++) {
-            if(ItemStack.matches(player.getInventory().getItem(index), (stack.copy())) || ItemStack.isSameItem(player.getInventory().getItem(index), (stack.copy()))){
-                stackList.add(player.getInventory().getItem(index));
-            }
-        }
-
-        int amountItems = 0;
-        for (ItemStack item : stackList){
-            amountItems += item.getCount();
-        }
+        int amountItems = SDMItemHelper.countItems(player, stack);
+//        for (ItemStack item : stackList){
+//            amountItems += item.getCount();
+//        }
 
         int amount = amountItems >= entry.entryCount * countSell ? entry.entryCount * countSell : 0;
         if(amountItems == 0 || amount == 0) return;

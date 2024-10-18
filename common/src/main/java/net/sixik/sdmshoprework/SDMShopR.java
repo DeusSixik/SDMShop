@@ -1,5 +1,6 @@
 package net.sixik.sdmshoprework;
 
+import dev.architectury.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -24,8 +25,6 @@ public class SDMShopR {
         else {
             return false;
         }
-
-
     }
 
     public static void setEditMode(ServerPlayer player, boolean value){
@@ -45,4 +44,6 @@ public class SDMShopR {
     public static long getMoney(Player player) {
         return CurrencyHelper.getMoney(player, "basic_money");
     }
+
+    public static final boolean isMarketLoaded = Platform.isModLoaded("sdm_market");
 }

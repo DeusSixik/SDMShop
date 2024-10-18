@@ -79,6 +79,6 @@ side = "BOTH"
 [[dependencies.sdmshoprework]]
 modId = "sdm_ui_lib"
 mandatory = true
-versionRange = "[1.20.1-1.7.0,)"
+versionRange = "[1.20.1-1.8.2,)"
 ordering = "AFTER"
 side = "BOTH"

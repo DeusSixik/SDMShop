@@ -50,7 +50,8 @@ dependencies {
 
 //    modApi "curse.maven:sdm-economy-1102542:5737215"
     modApi files("../libs/sdm_economy-fabric-1.20.1-1.6.0.jar")
-    modApi "curse.maven:sdm-ui-lib-1095061:5736796"
+    modApi "curse.maven:sdm-ui-lib-1095061:5808290"
+    modApi "curse.maven:sdm-market-1061821:5821633"
     modApi("dev.ftb.mods:ftb-library-fabric:${rootProject.ftb_library_version}") { transitive false }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }

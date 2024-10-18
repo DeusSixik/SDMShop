@@ -74,6 +74,6 @@ public class SerializerControl {
     }
 
     public static boolean isOldVersion(String version) {
-        return!VERSION.equals(version);
+        return !VERSION.equals(version);
     }
 }

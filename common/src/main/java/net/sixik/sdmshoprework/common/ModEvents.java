@@ -26,13 +26,16 @@ public class ModEvents {
 
     public static void onServerStart(MinecraftServer server){
         Config.loadConfig(false);
-        CompoundTag nbt = SNBT.read(SDMShopPaths.getFile());
-        if(nbt != null) {
-            ShopBase.SERVER = new ShopBase();
-            ShopBase.SERVER.deserializeNBT(nbt);
-            ShopBase.SERVER.saveShopToFile();
-        } else {
-            ShopBase.SERVER = new ShopBase();
+
+        if(SDMShopPaths.getFile().toFile().exists()) {
+            CompoundTag nbt = SNBT.read(SDMShopPaths.getFile());
+            if (nbt != null) {
+                ShopBase.SERVER = new ShopBase();
+                ShopBase.SERVER.deserializeNBT(nbt);
+                ShopBase.SERVER.saveShopToFile();
+            } else {
+                ShopBase.SERVER = new ShopBase();
+            }
         }
     }
 

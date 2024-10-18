@@ -12,6 +12,14 @@ public class SDMShopPaths {
             getModFolder().toFile().mkdir();
         }
 
+        if(!getFile().toFile().exists()) {
+            try {
+                getFile().toFile().createNewFile();
+            } catch (IOException e) {
+                SDMShopRework.printStackTrace("", e);
+            }
+        }
+
         if(!getTagFile().toFile().exists()) {
             try {
                 getTagFile().toFile().createNewFile();

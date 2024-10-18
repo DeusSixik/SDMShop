@@ -27,7 +27,7 @@ public class SDMShopRework
 	public static final String MODID = "sdmshoprework";
 
 	public static void printStackTrace(String str, Throwable s){
-		StringBuilder strBuilder = new StringBuilder(str);
+		StringBuilder strBuilder = new StringBuilder(str + " " + s.getMessage());
 		for (StackTraceElement stackTraceElement : s.getStackTrace()) {
 			strBuilder.append("\t").append(" ").append("at").append(" ").append(stackTraceElement).append("\n");
 		}
@@ -48,12 +48,13 @@ public class SDMShopRework
 	}
 
 	public static void init() {
+		SDMShopPaths.initFilesAndFolders();
+
 		register();
 		ModEvents.init();
 		ShopNetwork.init();
 		ItemsRegister.ITEMS.register();
 
-		SDMShopPaths.initFilesAndFolders();
 		Config.init(SDMShopPaths.getModFolder());
 
 		CommandRegistrationEvent.EVENT.register(SDMShopCommands::registerCommands);

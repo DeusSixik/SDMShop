@@ -7,9 +7,9 @@ import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
+import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractMarketButton;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
-import net.sixik.sdmshoprework.client.screen.legacy.widget.LegacyShopEntryButton;
-import net.sixik.sdmshoprework.client.screen.legacy.widget.LegacyShopTabButton;
+import net.sixik.sdmshoprework.client.screen.modern.widget.ModernMarketButton;
 import net.sixik.sdmshoprework.client.screen.modern.widget.ModernShopEntryButton;
 import net.sixik.sdmshoprework.client.screen.modern.widget.ModernShopTabButton;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
@@ -29,12 +29,18 @@ public class ModernShopScreen extends AbstractShopScreen {
     public ModernShopPanels.TopPanel topPanel;
     public ModernShopPanels.BottomPanel bottomPanel;
 
+    public ModernMarketButton marketButton;
+
     public ModernShopScreen(boolean isOpenCommand) {
         super(isOpenCommand);
     }
 
     @Override
     public void addWidgets() {
+        if(SDMShopR.isMarketLoaded) {
+            add(this.marketButton = new ModernMarketButton(this));
+        }
+
         add(this.tabsPanel = new ModernShopTabPanel(this));
         add(this.tabsScrollPanel = new PanelScrollBar(this, ScrollBar.Plane.VERTICAL, tabsPanel) {
             @Override
@@ -70,6 +76,11 @@ public class ModernShopScreen extends AbstractShopScreen {
 
     @Override
     public void setProperties() {
+
+        if(marketButton != null) {
+            marketButton.setPos(this.width + 2, 0);
+        }
+
         this.tabsPanel.setY(this.height / 7);
         this.tabsPanel.setSize(this.width / 5, this.height - (this.height / 7 * 2));
 

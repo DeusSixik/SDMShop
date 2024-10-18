@@ -52,17 +52,24 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         Runnable runnable = () -> {
-            if (SerializerControl.isOldVersion(nbt)) {
-                SerializerControl.deserializeVersion(nbt, this);
-            } else {
-                shopTabs.clear();
-                ListTag tagShopTabs = nbt.getList("shopTabs", 10);
-                for (int i = 0; i < tagShopTabs.size(); i++) {
-                    ShopTab tab = new ShopTab(this);
-                    tab.deserializeNBT(tagShopTabs.getCompound(i));
-                    shopTabs.add(tab);
-                }
+            shopTabs.clear();
+            ListTag tagShopTabs = nbt.getList("shopTabs", 10);
+            for (int i = 0; i < tagShopTabs.size(); i++) {
+                ShopTab tab = new ShopTab(this);
+                tab.deserializeNBT(tagShopTabs.getCompound(i));
+                shopTabs.add(tab);
             }
+//            if (SerializerControl.isOldVersion(nbt)) {
+//                SerializerControl.deserializeVersion(nbt, this);
+//            } else {
+//                shopTabs.clear();
+//                ListTag tagShopTabs = nbt.getList("shopTabs", 10);
+//                for (int i = 0; i < tagShopTabs.size(); i++) {
+//                    ShopTab tab = new ShopTab(this);
+//                    tab.deserializeNBT(tagShopTabs.getCompound(i));
+//                    shopTabs.add(tab);
+//                }
+//            }
         };
 
         deserializeTask.add(runnable);

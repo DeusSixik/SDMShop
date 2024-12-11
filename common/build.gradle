@@ -1,5 +1,18 @@
 architectury {
-    common(rootProject.enabled_platforms.split(","))
+    common rootProject.enabled_platforms.split(',')
+}
+
+dependencies {
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+    modApi("dev.ftb.mods:ftb-library:2101.1.4") { transitive false }
+    modApi("curse.maven:sdm-economy-1102542:5803157")
+    modApi "curse.maven:sdm-engine-core-964997:5968080"
+    modApi("curse.maven:sdm-ui-lib-1095061:5762237")
 }
 
 repositories {
@@ -25,34 +38,5 @@ repositories {
     }
     maven {
         url "https://cursemaven.com"
-    }
-}
-
-dependencies {
-    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
-    // Do NOT use other classes from fabric loader
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-    modApi files("../libs/sdm_economy-1.20.1-1.6.0.jar")
-    modApi files("../libs/sdm_ui_lib-1.20.1-1.8.2.jar")
-    modApi files("../libs/sdm-market-6.1.0.jar")
-    modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
-    modApi ("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
-
-    modApi ("curse.maven:quality-food-973932:5736769")
-}
-
-publishing {
-    publications {
-        mavenCommon(MavenPublication) {
-            artifactId = rootProject.archives_base_name
-            from components.java
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
     }
 }

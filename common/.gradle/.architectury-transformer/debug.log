@@ -1,476 +1,284 @@
 [Architectury Transformer DEBUG] 
 [Architectury Transformer DEBUG] ============================
-[Architectury Transformer DEBUG] Transforming from F:\Java\1.20.1\SDM Shop Rework\common\build\devlibs\sdmshoprework-1.20.1-6.5.5-dev.jar to F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionFabric.jar
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar
 [Architectury Transformer DEBUG] ============================
 [Architectury Transformer DEBUG] 
-[Architectury Transformer DEBUG] Transforming 5 transformer(s) from F:\Java\1.20.1\SDM Shop Rework\common\build\devlibs\sdmshoprework-1.20.1-6.5.5-dev.jar to F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionFabric.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapMixinVariables@61be648b
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@5725af21
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@501e954f
+[Architectury Transformer DEBUG] Transforming 5 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapMixinVariables@6920c3ea
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@89f03db
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@9a73352
 [Architectury Transformer DEBUG]  - AddRefmapName(enabled=() -> kotlin.Boolean)
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@4e66b91a
-[Architectury Transformer DEBUG] Transforming from F:\Java\1.20.1\SDM Shop Rework\common\build\devlibs\sdmshoprework-1.20.1-6.5.5-dev.jar to F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionFabric.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopRework with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopR with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopPaths with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopCommands with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient$ClientShopData with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/ShopNetwork with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/SendChangesShopEntriesC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/SendChangesShopC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/SendChangeShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/reload/SendReloadConfigS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/move/SendMoveShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/move/SendMoveShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Provided 66 classpath jar(s):
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.7\18ce52a3228434ba2aa8c1936728ef4eacad64b8\fabric-loader-0.16.7.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\24.1.0\7af6a669488450c4a07c2c3254e2151df42d7d04\annotations-24.1.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.7.1\f0ed132a49244b042cd0e15702ab9f2ce3cc8436\asm-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-analysis\9.7.1\f97a3b319f0ed6a8cd944dc79060d3912a28985f\asm-analysis-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-commons\9.7.1\406c6a2225cfe1819f102a161e54cc16a5c24f75\asm-commons-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-tree\9.7.1\3a53139787663b139de76b627fca0084ab60d32c\asm-tree-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-util\9.7.1\9e23359b598ec6b74b23e53110dd5c577adf2243\asm-util-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.fabricmc\sponge-mixin\0.15.3+mixin.0.8.7\51ee0a44ab05f6fddd66b09e66b3a16904f9c55d\sponge-mixin-0.15.3+mixin.0.8.7.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-fabric\0.4.1\8d1a9e96afb990367fa1f904d17580d164da72e3\mixinextras-fabric-0.4.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.github.oshi\oshi-core\6.2.2\54f5efc19bca95d709d9a37d19ffcbba3d21c1a6\oshi-core-6.2.2.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10\dd9b193aef96e973d5a11ab13cd17430c2e4306b\gson-2.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\31.1-jre\60458f877d055d0c9114d9e1a2efb737b4bc282c\guava-31.1-jre.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j\71.1\9e7d3304c23f9ba5cb71915f7cce23231a57a445\icu4j-71.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\4.0.43\2ff9d747a77570a07a60d32ac77eb6162ad2a2d9\authlib-4.0.43.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\blocklist\1.0.10\5c685c5ffa94c4cd39496c7184c1d122e515ecef\blocklist-1.0.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\brigadier\1.1.8\5244ce82c3337bba4a196a3ce858bfaecc74404a\brigadier-1.1.8.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\datafixerupper\6.0.8\3ba4a30557a9b057760af4011f909ba619fc5125\datafixerupper-6.0.8.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\logging\1.1.1\832b8e6674a9b325a5175a3a6267dfaf34c85139\logging-1.1.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\patchy\2.2.10\da05971b07cbb379d002cf7eaec6a2048211fefc\patchy-2.2.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\text2speech\1.17.9\3cad216e3a7f0c19b4b394388bc9ffc446f13b14\text2speech-1.17.9.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.15\49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d\commons-codec-1.15.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.11.0\a2503f302b11ebde7ebc3df41daebe0e4eea3689\commons-io-2.11.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.2\4bfc12adfe4842bf07b657f0369c4cb522955686\commons-logging-1.2.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-buffer\4.1.82.Final\a544270cf1ae8b8077082f5036436a9a9971ea71\netty-buffer-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec\4.1.82.Final\b77200379acb345a9ffdece1c605e591ac3e4e0a\netty-codec-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-common\4.1.82.Final\22d148e85c3f5ebdacc0ce1f5aabb1d420f73f3\netty-common-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler\4.1.82.Final\644041d1fa96a5d3130a29e8978630d716d76e38\netty-handler-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver\4.1.82.Final\38f665ae8dcd29032eea31245ba7806bed2e0fa8\netty-resolver-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-epoll\4.1.82.Final\e7c7dd18deac93105797f30057c912651ea76521\netty-transport-classes-epoll-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-unix-common\4.1.82.Final\3e895b35ca1b8a0eca56cacff4c2dde5d2c6abce\netty-transport-native-unix-common-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport\4.1.82.Final\e431a218d91acb6476ccad5f5aafde50aa3945ca\netty-transport-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\it.unimi.dsi\fastutil\8.5.9\bb7ea75ecdb216654237830b3a96d87ad91f8cc5\fastutil-8.5.9.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna-platform\5.12.1\97406a297c852f4a41e688a176ec675f72e8329\jna-platform-5.12.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\5.12.1\b1e93a735caea94f503e95e6fe79bf9cdc1e985d\jna-5.12.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\5.0.4\4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c\jopt-simple-5.0.4.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.21\4ec95b60d4e86b5c95a0e919cb172a0af98011ef\commons-compress-1.21.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.12.0\c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e\commons-lang3-3.12.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.5.13\e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada\httpclient-4.5.13.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.15\7f2e0c573eaa7a74bac2e89b359e1f73d92a0a1d\httpcore-4.4.15.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.19.0\ea1b37f38c327596b216542bc636cfdc0b8036fa\log4j-api-2.19.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.19.0\3b6eeb4de4c49c0fe38a4ee27188ff5fee44d0bb\log4j-core-2.19.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-slf4j2-impl\2.19.0\5c04bfdd63ce9dceb2e284b81e96b6a70010ee10\log4j-slf4j2-impl-2.19.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.joml\joml\1.10.5\22566d58af70ad3d72308bab63b8339906deb649\joml-1.10.5.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-glfw\3.3.1\cbac1b8d30cb4795149c1ef540f912671a8616d0\lwjgl-glfw-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-jemalloc\3.3.1\a817bcf213db49f710603677457567c37d53e103\lwjgl-jemalloc-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-openal\3.3.1\2623a6b8ae1dfcd880738656a9f0243d2e6840bd\lwjgl-openal-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-opengl\3.3.1\831a5533a21a5f4f81bbc51bb13e9899319b5411\lwjgl-opengl-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-stb\3.3.1\b119297cf8ed01f247abe8685857f8e7fcf5980f\lwjgl-stb-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-tinyfd\3.3.1\ff1914111ef2e3e0110ef2dabc8d8cdaad82347\lwjgl-tinyfd-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl\3.3.1\ae58664f88e18a9bb2c77b063833ca7aaec484cb\lwjgl-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.1\f48d81adce2abf5ad3cfe463df517952749e03bc\slf4j-api-2.0.1.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\minecraftMaven\net\minecraft\minecraft-merged-ab9f01c257\1.20.1-loom.mappings.1_20_1.layered+hash.40359-v2\minecraft-merged-ab9f01c257-1.20.1-loom.mappings.1_20_1.layered+hash.40359-v2.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.82.Final\c7350a71920f3ae9142945e25fed4846cce53374\netty-transport-native-epoll-4.1.82.Final-linux-x86_64.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.82.Final\476409d6255001ca53a55f65b01c13822f8dc93a\netty-transport-native-epoll-4.1.82.Final-linux-aarch_64.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.ftb.mods\ftb-quests-forge\2001.4.8\dc8416b042866f5d8b0d852a7788d7dc138c41d2\ftb-quests-forge-2001.4.8.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\curse.maven\quality-food-973932\5736769\dcc81ce4b150f79b0c1f958aa1238e1920ed8334\quality-food-973932-5736769.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-forge\9.1.12\f99d8f8dbc47eae7607a718768e3a117bd475938\architectury-forge-9.1.12.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.ftb.mods\ftb-library-forge\2001.2.3\912735761c12e33a41775e641c96a77f5a801cd2\ftb-library-forge-2001.2.3.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.ftb.mods\ftb-teams-forge\2001.3.0\bb5a1f3ac9d44c5e9b319768e7166e877879aaaa\ftb-teams-forge-2001.3.0.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\dev\architectury\architectury\9.2.14\architectury-9.2.14.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\dev\ftb\mods\ftb-library\2001.2.4\ftb-library-2001.2.4.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_economy-1.20.1-1.6.0\8119703e7b76\sdm_economy-1.20.1-1.6.0-8119703e7b76.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_ui_lib-1.20.1-1.8.2\efbdd0a61a7a\sdm_ui_lib-1.20.1-1.8.2-efbdd0a61a7a.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm-market-6.1.0\7e4fb350c6ac\sdm-market-6.1.0-7e4fb350c6ac.jar
-[Architectury Transformer] Read classpath in 1.648 s
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/misc/SendOpenShopScreenS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/misc/SendConfigS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/edit/SendEditShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/edit/SendEditShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SyncShopS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendEditModeS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendBuyShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/TypeCreator with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/StructureUtil with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/SDMItemHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/RenderTest with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/NBTUtils with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/LocalizationHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/LocalizationHelper$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/ListHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/RangedWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/PlayerMainInvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/ItemHandlerHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/InvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/IItemHandlerModifiable with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/IItemHandler with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopThemeConstructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopThemeConstructor$Theme with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopTheme with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopStyle with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/SDMThemes with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPLevelEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPLevelEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$Type with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopItemEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopItemEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/integration/ShopQuestEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/integration/ShopQuestEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopTab with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopEntry with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopBase with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/limiter/ShopCountLimiter with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/limiter/ShopCountLimiter$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/condition/ShopFTBQuestsCondition with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/condition/ShopFTBQuestsCondition$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/serializer/SerializerControl with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/SoundRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/ItemsRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/CustomIconItem with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/ModEvents with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/SDMShopRIntegration with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyTask with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyReward with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/ConfigIconItemStack with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/icon/ShopItemIcon with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/icon/ShopItemIcon$ShopItemIconC with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/data/limiter/LimiterData with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/config/ConfigFile with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/config/Config with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernShopTabButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernMarketButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$BottomPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$CancelButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$BuyButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/widget/LegacyShopTabButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/widget/LegacyShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopMoneyPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryButton$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen$CancelButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen$BuyButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopTabButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopEntrySearch with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractMarketButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/panel/AbstractShopTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/panel/AbstractShopMoneyPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/panel/AbstractShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$AbstractShowOnlyLoadedButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$AbstractBackButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerCancelButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerBuyButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/AbstractShopScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/AbstractShopPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopTab with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopIcon with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryType$SellType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryLimiter with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryCondition with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntry with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/register/ShopContentRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/INBTSerializable with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IModIdentifier with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IIdentifier with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IConstructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/customization/AbstractShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Checking whether /sdmshoprework-common.mixins.json is a mixin config.
-[Architectury Transformer DEBUG] Found mixin config(s): /sdmshoprework-common.mixins.json
-[Architectury Transformer DEBUG] Injecting sdmshoprework-common-refmap.json to /sdmshoprework-common.mixins.json
-[Architectury Transformer DEBUG] Closed File Systems for F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionFabric.jar
-[Architectury Transformer] Transformed jar with 5 transformer(s) in 1.893 s
-[Architectury Transformer DEBUG] 
-[Architectury Transformer DEBUG] ============================
-[Architectury Transformer DEBUG] Transforming from F:\Java\1.20.1\SDM Shop Rework\common\build\devlibs\sdmshoprework-1.20.1-6.5.5-dev.jar to F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionForge.jar
-[Architectury Transformer DEBUG] ============================
-[Architectury Transformer DEBUG] 
-[Architectury Transformer DEBUG] Transforming 7 transformer(s) from F:\Java\1.20.1\SDM Shop Rework\common\build\devlibs\sdmshoprework-1.20.1-6.5.5-dev.jar to F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionForge.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@70862a64
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@5909a1f3
-[Architectury Transformer DEBUG]  - AddRefmapName(enabled=() -> kotlin.Boolean)
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@27a1420b
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeAnnotations@1824d97d
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeEnvironment@22eba1f0
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.FixForgeMixin@2cce1a8c
-[Architectury Transformer DEBUG] Transforming from F:\Java\1.20.1\SDM Shop Rework\common\build\devlibs\sdmshoprework-1.20.1-6.5.5-dev.jar to F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionForge.jar with 7 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@2a2e3515
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG] Reading mixin mappings file: D:\SDMShopA\common\build\loom-cache\mixin-map-loom.mappings.1_21_1.layered+hash.40545-v2.main.tiny
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeEnvironment$$Lambda$3397/0x0000024fba25efe0@e8cdeef
-[Architectury Transformer DEBUG] Provided 66 classpath jar(s):
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.7\18ce52a3228434ba2aa8c1936728ef4eacad64b8\fabric-loader-0.16.7.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\24.1.0\7af6a669488450c4a07c2c3254e2151df42d7d04\annotations-24.1.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.7.1\f0ed132a49244b042cd0e15702ab9f2ce3cc8436\asm-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-analysis\9.7.1\f97a3b319f0ed6a8cd944dc79060d3912a28985f\asm-analysis-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-commons\9.7.1\406c6a2225cfe1819f102a161e54cc16a5c24f75\asm-commons-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-tree\9.7.1\3a53139787663b139de76b627fca0084ab60d32c\asm-tree-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-util\9.7.1\9e23359b598ec6b74b23e53110dd5c577adf2243\asm-util-9.7.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.fabricmc\sponge-mixin\0.15.3+mixin.0.8.7\51ee0a44ab05f6fddd66b09e66b3a16904f9c55d\sponge-mixin-0.15.3+mixin.0.8.7.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-fabric\0.4.1\8d1a9e96afb990367fa1f904d17580d164da72e3\mixinextras-fabric-0.4.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.github.oshi\oshi-core\6.2.2\54f5efc19bca95d709d9a37d19ffcbba3d21c1a6\oshi-core-6.2.2.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10\dd9b193aef96e973d5a11ab13cd17430c2e4306b\gson-2.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\31.1-jre\60458f877d055d0c9114d9e1a2efb737b4bc282c\guava-31.1-jre.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j\71.1\9e7d3304c23f9ba5cb71915f7cce23231a57a445\icu4j-71.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\4.0.43\2ff9d747a77570a07a60d32ac77eb6162ad2a2d9\authlib-4.0.43.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\blocklist\1.0.10\5c685c5ffa94c4cd39496c7184c1d122e515ecef\blocklist-1.0.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\brigadier\1.1.8\5244ce82c3337bba4a196a3ce858bfaecc74404a\brigadier-1.1.8.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\datafixerupper\6.0.8\3ba4a30557a9b057760af4011f909ba619fc5125\datafixerupper-6.0.8.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\logging\1.1.1\832b8e6674a9b325a5175a3a6267dfaf34c85139\logging-1.1.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\patchy\2.2.10\da05971b07cbb379d002cf7eaec6a2048211fefc\patchy-2.2.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\com.mojang\text2speech\1.17.9\3cad216e3a7f0c19b4b394388bc9ffc446f13b14\text2speech-1.17.9.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.15\49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d\commons-codec-1.15.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.11.0\a2503f302b11ebde7ebc3df41daebe0e4eea3689\commons-io-2.11.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.2\4bfc12adfe4842bf07b657f0369c4cb522955686\commons-logging-1.2.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-buffer\4.1.82.Final\a544270cf1ae8b8077082f5036436a9a9971ea71\netty-buffer-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec\4.1.82.Final\b77200379acb345a9ffdece1c605e591ac3e4e0a\netty-codec-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-common\4.1.82.Final\22d148e85c3f5ebdacc0ce1f5aabb1d420f73f3\netty-common-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler\4.1.82.Final\644041d1fa96a5d3130a29e8978630d716d76e38\netty-handler-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver\4.1.82.Final\38f665ae8dcd29032eea31245ba7806bed2e0fa8\netty-resolver-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-epoll\4.1.82.Final\e7c7dd18deac93105797f30057c912651ea76521\netty-transport-classes-epoll-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-unix-common\4.1.82.Final\3e895b35ca1b8a0eca56cacff4c2dde5d2c6abce\netty-transport-native-unix-common-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport\4.1.82.Final\e431a218d91acb6476ccad5f5aafde50aa3945ca\netty-transport-4.1.82.Final.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\it.unimi.dsi\fastutil\8.5.9\bb7ea75ecdb216654237830b3a96d87ad91f8cc5\fastutil-8.5.9.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna-platform\5.12.1\97406a297c852f4a41e688a176ec675f72e8329\jna-platform-5.12.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\5.12.1\b1e93a735caea94f503e95e6fe79bf9cdc1e985d\jna-5.12.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\5.0.4\4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c\jopt-simple-5.0.4.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.21\4ec95b60d4e86b5c95a0e919cb172a0af98011ef\commons-compress-1.21.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.12.0\c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e\commons-lang3-3.12.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.5.13\e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada\httpclient-4.5.13.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.15\7f2e0c573eaa7a74bac2e89b359e1f73d92a0a1d\httpcore-4.4.15.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.19.0\ea1b37f38c327596b216542bc636cfdc0b8036fa\log4j-api-2.19.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.19.0\3b6eeb4de4c49c0fe38a4ee27188ff5fee44d0bb\log4j-core-2.19.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-slf4j2-impl\2.19.0\5c04bfdd63ce9dceb2e284b81e96b6a70010ee10\log4j-slf4j2-impl-2.19.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.joml\joml\1.10.5\22566d58af70ad3d72308bab63b8339906deb649\joml-1.10.5.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-glfw\3.3.1\cbac1b8d30cb4795149c1ef540f912671a8616d0\lwjgl-glfw-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-jemalloc\3.3.1\a817bcf213db49f710603677457567c37d53e103\lwjgl-jemalloc-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-openal\3.3.1\2623a6b8ae1dfcd880738656a9f0243d2e6840bd\lwjgl-openal-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-opengl\3.3.1\831a5533a21a5f4f81bbc51bb13e9899319b5411\lwjgl-opengl-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-stb\3.3.1\b119297cf8ed01f247abe8685857f8e7fcf5980f\lwjgl-stb-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-tinyfd\3.3.1\ff1914111ef2e3e0110ef2dabc8d8cdaad82347\lwjgl-tinyfd-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl\3.3.1\ae58664f88e18a9bb2c77b063833ca7aaec484cb\lwjgl-3.3.1.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.1\f48d81adce2abf5ad3cfe463df517952749e03bc\slf4j-api-2.0.1.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\minecraftMaven\net\minecraft\minecraft-merged-ab9f01c257\1.20.1-loom.mappings.1_20_1.layered+hash.40359-v2\minecraft-merged-ab9f01c257-1.20.1-loom.mappings.1_20_1.layered+hash.40359-v2.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.82.Final\c7350a71920f3ae9142945e25fed4846cce53374\netty-transport-native-epoll-4.1.82.Final-linux-x86_64.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.82.Final\476409d6255001ca53a55f65b01c13822f8dc93a\netty-transport-native-epoll-4.1.82.Final-linux-aarch_64.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.ftb.mods\ftb-quests-forge\2001.4.8\dc8416b042866f5d8b0d852a7788d7dc138c41d2\ftb-quests-forge-2001.4.8.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\curse.maven\quality-food-973932\5736769\dcc81ce4b150f79b0c1f958aa1238e1920ed8334\quality-food-973932-5736769.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-forge\9.1.12\f99d8f8dbc47eae7607a718768e3a117bd475938\architectury-forge-9.1.12.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.ftb.mods\ftb-library-forge\2001.2.3\912735761c12e33a41775e641c96a77f5a801cd2\ftb-library-forge-2001.2.3.jar
-[Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.ftb.mods\ftb-teams-forge\2001.3.0\bb5a1f3ac9d44c5e9b319768e7166e877879aaaa\ftb-teams-forge-2001.3.0.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\dev\architectury\architectury\9.2.14\architectury-9.2.14.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\dev\ftb\mods\ftb-library\2001.2.4\ftb-library-2001.2.4.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_economy-1.20.1-1.6.0\8119703e7b76\sdm_economy-1.20.1-1.6.0-8119703e7b76.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_ui_lib-1.20.1-1.8.2\efbdd0a61a7a\sdm_ui_lib-1.20.1-1.8.2-efbdd0a61a7a.jar
-[Architectury Transformer DEBUG]  - F:\Java\1.20.1\SDM Shop Rework\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm-market-6.1.0\7e4fb350c6ac\sdm-market-6.1.0-7e4fb350c6ac.jar
-[Architectury Transformer] Read classpath in 1.516 s
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.shadowed.impl.dev.architectury.tinyremapper.TinyUtils$$Lambda/0x0000023abb372c68@28cb8a5c
+[Architectury Transformer DEBUG] Provided 64 classpath jar(s):
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.9\7eaa23079ac1569963e488054db124c7eb984f05\fabric-loader-0.16.9.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\24.1.0\7af6a669488450c4a07c2c3254e2151df42d7d04\annotations-24.1.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.7.1\f0ed132a49244b042cd0e15702ab9f2ce3cc8436\asm-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-analysis\9.7.1\f97a3b319f0ed6a8cd944dc79060d3912a28985f\asm-analysis-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-commons\9.7.1\406c6a2225cfe1819f102a161e54cc16a5c24f75\asm-commons-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-tree\9.7.1\3a53139787663b139de76b627fca0084ab60d32c\asm-tree-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-util\9.7.1\9e23359b598ec6b74b23e53110dd5c577adf2243\asm-util-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\sponge-mixin\0.15.4+mixin.0.8.7\6a12aacc794f1078458433116e9ed42c1cc98096\sponge-mixin-0.15.4+mixin.0.8.7.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-fabric\0.4.1\8d1a9e96afb990367fa1f904d17580d164da72e3\mixinextras-fabric-0.4.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.github.oshi\oshi-core\6.4.10\b1d8ab82d11d92fd639b56d639f8f46f739dd5fa\oshi-core-6.4.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10.1\b3add478d4382b78ea20b1671390a858002feb6c\gson-2.10.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\32.1.2-jre\5e64ec7e056456bef3a4bc4c6fdaef71e8ab6318\guava-32.1.2-jre.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j\73.2\61ad4ef7f9131fcf6d25c34b817f90d6da06c9e9\icu4j-73.2.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\6.0.54\de8bc95660e1b2fe8793fd427a7a10dcec5b3ea7\authlib-6.0.54.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\blocklist\1.0.10\5c685c5ffa94c4cd39496c7184c1d122e515ecef\blocklist-1.0.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\brigadier\1.3.10\d15b53a14cf20fdcaa98f731af5dda654452c010\brigadier-1.3.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\datafixerupper\8.0.16\67d4de6d7f95d89bcf5862995fb854ebaec02a34\datafixerupper-8.0.16.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\logging\1.2.7\24cb95ffb0e3433fd6e844c04e68009e504ca1c0\logging-1.2.7.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\patchy\2.2.10\da05971b07cbb379d002cf7eaec6a2048211fefc\patchy-2.2.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\text2speech\1.17.9\3cad216e3a7f0c19b4b394388bc9ffc446f13b14\text2speech-1.17.9.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.16.0\4e3eb3d79888d76b54e28b350915b5dc3919c9de\commons-codec-1.16.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.15.1\f11560da189ab563a5c8e351941415430e9304ea\commons-io-2.15.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.2\4bfc12adfe4842bf07b657f0369c4cb522955686\commons-logging-1.2.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-buffer\4.1.97.Final\f8f3d8644afa5e6e1a40a3a6aeb9d9aa970ecb4f\netty-buffer-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec\4.1.97.Final\384ba4d75670befbedb45c4d3b497a93639c206d\netty-codec-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-common\4.1.97.Final\7cceacaf11df8dc63f23d0fb58e9d4640fc88404\netty-common-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler\4.1.97.Final\abb86c6906bf512bf2b797a41cd7d2e8d3cd7c36\netty-handler-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver\4.1.97.Final\cec8348108dc76c47cf87c669d514be52c922144\netty-resolver-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-epoll\4.1.97.Final\795da37ded759e862457a82d9d92c4d39ce8ecee\netty-transport-classes-epoll-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-unix-common\4.1.97.Final\d469d84265ab70095b01b40886cabdd433b6e664\netty-transport-native-unix-common-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport\4.1.97.Final\f37380d23c9bb079bc702910833b2fd532c9abd0\netty-transport-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\it.unimi.dsi\fastutil\8.5.12\c24946d46824bd528054bface3231d2ecb7e95e8\fastutil-8.5.12.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna-platform\5.14.0\28934d48aed814f11e4c584da55c49fa7032b31b\jna-platform-5.14.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\5.14.0\67bf3eaea4f0718cb376a181a629e5f88fa1c9dd\jna-5.14.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\5.0.4\4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c\jopt-simple-5.0.4.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.26.0\659feffdd12280201c8aacb8f7be94f9a883c824\commons-compress-1.26.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.14.0\1ed471194b02f2c6cb734a0cd6f6f107c673afae\commons-lang3-3.14.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.5.13\e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada\httpclient-4.5.13.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.16\51cf043c87253c9f58b539c9f7e44c8894223850\httpcore-4.4.16.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.22.1\bea6fede6328fabafd7e68363161a7ea6605abd1\log4j-api-2.22.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.22.1\7183a25510a02ad00cc6a95d3b3d2a7d3c5a8dc4\log4j-core-2.22.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-slf4j2-impl\2.22.1\d7e6693c2606cb7e7335047d7bb96dec52db5665\log4j-slf4j2-impl-2.22.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.jcraft\jorbis\0.0.17\8872d22b293e8f5d7d56ff92be966e6dc28ebdc6\jorbis-0.0.17.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.joml\joml\1.10.5\22566d58af70ad3d72308bab63b8339906deb649\joml-1.10.5.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-freetype\3.3.3\a0db6c84a8becc8ca05f9dbfa985edc348a824c7\lwjgl-freetype-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-glfw\3.3.3\efa1eb78c5ccd840e9f329717109b5e892d72f8e\lwjgl-glfw-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-jemalloc\3.3.3\b543467b7ff3c6920539a88ee602d34098628be5\lwjgl-jemalloc-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-openal\3.3.3\daada81ceb5fc0c291fbfdd4433cb8d9423577f2\lwjgl-openal-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-opengl\3.3.3\2f6b0147078396a58979125a4c947664e98293a\lwjgl-opengl-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-stb\3.3.3\25dd6161988d7e65f71d5065c99902402ee32746\lwjgl-stb-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-tinyfd\3.3.3\82d755ca94b102e9ca77283b9e2dc46d1b15fbe5\lwjgl-tinyfd-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl\3.3.3\29589b5f87ed335a6c7e7ee6a5775f81f97ecb84\lwjgl-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lz4\lz4-java\1.8.0\4b986a99445e49ea5fbf5d149c4b63f6ed6c6780\lz4-java-1.8.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.9\7cf2726fdcfbc8610f9a71fb3ed639871f315340\slf4j-api-2.0.9.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\minecraftMaven\net\minecraft\minecraft-merged-3376b012f0\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2\minecraft-merged-3376b012f0-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.97.Final\54188f271e388e7f313aea995e82f58ce2cdb809\netty-transport-native-epoll-4.1.97.Final-linux-x86_64.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.97.Final\5514744c588190ffda076b35a9b8c9f24946a960\netty-transport-native-epoll-4.1.97.Final-linux-aarch_64.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\curse.maven\sdm-engine-core-964997\5968080\ea43c3026ca0fafdb7a7e4006ed41059fe0894c0\sdm-engine-core-964997-5968080.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\curse.maven\sdm-ui-lib-1095061\5762237\fd89dc21d783b3ffb8cb904972023566dc6382d\sdm-ui-lib-1095061-5762237.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\architectury\architectury\13.0.8\architectury-13.0.8.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\ftb\mods\ftb-library\2101.1.4\ftb-library-2101.1.4.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\curse\maven\sdm-economy-1102542\5803157\sdm-economy-1102542-5803157.jar
+[Architectury Transformer] Read classpath in 1.572 s
 [Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/minecraftforge/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/minecraftforge/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopCommands with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopR with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopRework with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopPaths with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient$ClientShopData with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/ShopNetwork with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/SendChangesShopC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/SendChangesShopEntriesC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/SendChangeShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/reload/SendReloadConfigS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/move/SendMoveShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/move/SendMoveShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/misc/SendConfigS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/misc/SendOpenShopScreenS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/edit/SendEditShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/edit/SendEditShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopTabC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendBuyShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SyncShopS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendEditModeS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/ModEvents with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/StructureUtil with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/RenderTest with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/TypeCreator with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/LocalizationHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/SDMItemHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/ListHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/NBTUtils with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/LocalizationHelper$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/InvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/PlayerMainInvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/ItemHandlerHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/RangedWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/IItemHandler with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/IItemHandlerModifiable with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/SDMThemes with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopTheme with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopThemeConstructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopStyle with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/theme/ShopThemeConstructor$Theme with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopBase with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopEntry with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopTab with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopItemEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPLevelEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPLevelEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$Type with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopItemEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/integration/ShopQuestEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/integration/ShopQuestEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/limiter/ShopCountLimiter$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/limiter/ShopCountLimiter with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/condition/ShopFTBQuestsCondition with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/condition/ShopFTBQuestsCondition$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/serializer/SerializerControl with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/CustomIconItem with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/ItemsRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/SoundRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/SDMShopRIntegration with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyReward with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/ConfigIconItemStack with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyTask with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/icon/ShopItemIcon with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/icon/ShopItemIcon$ShopItemIconC with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/data/limiter/LimiterData with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/config/Config with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/config/ConfigFile with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$BottomPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernMarketButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernShopTabButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$CancelButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$BuyButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopMoneyPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/widget/LegacyShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/widget/LegacyShopTabButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryButton$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen$CancelButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen$BuyButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/AbstractShopScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/AbstractShopPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopTabButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractMarketButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopEntrySearch with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/panel/AbstractShopTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/panel/AbstractShopMoneyPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/panel/AbstractShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$AbstractShowOnlyLoadedButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$AbstractBackButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerBuyButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerCancelButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/INBTSerializable with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IConstructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IIdentifier with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IModIdentifier with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntry with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopTab with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryType$SellType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryCondition with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryLimiter with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopIcon with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/register/ShopContentRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/customization/AbstractShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Checking whether /sdmshoprework-common.mixins.json is a mixin config.
-[Architectury Transformer DEBUG] Found mixin config(s): /sdmshoprework-common.mixins.json
-[Architectury Transformer DEBUG] Injecting sdmshoprework-common-refmap.json to /sdmshoprework-common.mixins.json
-[Architectury Transformer DEBUG] Checking whether /sdmshoprework-common.mixins.json is a mixin config.
-[Architectury Transformer DEBUG] Found mixin config(s): sdmshoprework-common.mixins.json
-[Architectury Transformer DEBUG] Injecting MixinConfigs into /META-INF/MANIFEST.MF
-[Architectury Transformer DEBUG] Remapping refmap from intermediary to srg: sdmshoprework-common-refmap.json
-[Architectury Transformer DEBUG] Closed File Systems for F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5-transformProductionForge.jar
-[Architectury Transformer] Transformed jar with 7 transformer(s) in 2.640 s
-[Architectury Transformer DEBUG] Closed File Systems for F:\Java\1.20.1\SDM Shop Rework\common\build\libs\sdmshoprework-1.20.1-6.5.5.jar
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShopClient with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShop with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/ItemHandlerHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/PlayerMainInvWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/InvWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandlerModifiable with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/RangedWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandler with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/CheckBox with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/WalletRender with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$4 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarList with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TovarTab with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/ModNetwork with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendShopDataS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendEditModeS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/SellShopTovarC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateServerDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/mixin/TextFieldMixin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerBuyer with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerSeller with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/ITovarTypa with maxs=true frames=true
+[Architectury Transformer DEBUG] Checking whether /sdmshop.mixins.json is a mixin config.
+[Architectury Transformer DEBUG] Checking whether /sdmshopa-common-common-refmap.json is a mixin config.
+[Architectury Transformer DEBUG] Found mixin config(s): /sdmshop.mixins.json
+[Architectury Transformer DEBUG] Injecting sdmshopa-common-common-refmap.json to /sdmshop.mixins.json
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar
+[Architectury Transformer] Transformed jar with 5 transformer(s) in 2.167 s
+[Architectury Transformer DEBUG] 
+[Architectury Transformer DEBUG] ============================
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar
+[Architectury Transformer DEBUG] ============================
+[Architectury Transformer DEBUG] 
+[Architectury Transformer DEBUG] Transforming 5 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@10c9c037
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@2b53610
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@741d5cf1
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeAnnotations@458b7b96
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment@1b1dc368
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000023abb821400@2e575b8e
+[Architectury Transformer DEBUG] Provided 64 classpath jar(s):
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.9\7eaa23079ac1569963e488054db124c7eb984f05\fabric-loader-0.16.9.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\24.1.0\7af6a669488450c4a07c2c3254e2151df42d7d04\annotations-24.1.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.7.1\f0ed132a49244b042cd0e15702ab9f2ce3cc8436\asm-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-analysis\9.7.1\f97a3b319f0ed6a8cd944dc79060d3912a28985f\asm-analysis-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-commons\9.7.1\406c6a2225cfe1819f102a161e54cc16a5c24f75\asm-commons-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-tree\9.7.1\3a53139787663b139de76b627fca0084ab60d32c\asm-tree-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-util\9.7.1\9e23359b598ec6b74b23e53110dd5c577adf2243\asm-util-9.7.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\sponge-mixin\0.15.4+mixin.0.8.7\6a12aacc794f1078458433116e9ed42c1cc98096\sponge-mixin-0.15.4+mixin.0.8.7.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-fabric\0.4.1\8d1a9e96afb990367fa1f904d17580d164da72e3\mixinextras-fabric-0.4.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.github.oshi\oshi-core\6.4.10\b1d8ab82d11d92fd639b56d639f8f46f739dd5fa\oshi-core-6.4.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10.1\b3add478d4382b78ea20b1671390a858002feb6c\gson-2.10.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\32.1.2-jre\5e64ec7e056456bef3a4bc4c6fdaef71e8ab6318\guava-32.1.2-jre.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j\73.2\61ad4ef7f9131fcf6d25c34b817f90d6da06c9e9\icu4j-73.2.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\6.0.54\de8bc95660e1b2fe8793fd427a7a10dcec5b3ea7\authlib-6.0.54.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\blocklist\1.0.10\5c685c5ffa94c4cd39496c7184c1d122e515ecef\blocklist-1.0.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\brigadier\1.3.10\d15b53a14cf20fdcaa98f731af5dda654452c010\brigadier-1.3.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\datafixerupper\8.0.16\67d4de6d7f95d89bcf5862995fb854ebaec02a34\datafixerupper-8.0.16.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\logging\1.2.7\24cb95ffb0e3433fd6e844c04e68009e504ca1c0\logging-1.2.7.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\patchy\2.2.10\da05971b07cbb379d002cf7eaec6a2048211fefc\patchy-2.2.10.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.mojang\text2speech\1.17.9\3cad216e3a7f0c19b4b394388bc9ffc446f13b14\text2speech-1.17.9.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.16.0\4e3eb3d79888d76b54e28b350915b5dc3919c9de\commons-codec-1.16.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.15.1\f11560da189ab563a5c8e351941415430e9304ea\commons-io-2.15.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.2\4bfc12adfe4842bf07b657f0369c4cb522955686\commons-logging-1.2.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-buffer\4.1.97.Final\f8f3d8644afa5e6e1a40a3a6aeb9d9aa970ecb4f\netty-buffer-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec\4.1.97.Final\384ba4d75670befbedb45c4d3b497a93639c206d\netty-codec-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-common\4.1.97.Final\7cceacaf11df8dc63f23d0fb58e9d4640fc88404\netty-common-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler\4.1.97.Final\abb86c6906bf512bf2b797a41cd7d2e8d3cd7c36\netty-handler-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver\4.1.97.Final\cec8348108dc76c47cf87c669d514be52c922144\netty-resolver-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-epoll\4.1.97.Final\795da37ded759e862457a82d9d92c4d39ce8ecee\netty-transport-classes-epoll-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-unix-common\4.1.97.Final\d469d84265ab70095b01b40886cabdd433b6e664\netty-transport-native-unix-common-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport\4.1.97.Final\f37380d23c9bb079bc702910833b2fd532c9abd0\netty-transport-4.1.97.Final.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\it.unimi.dsi\fastutil\8.5.12\c24946d46824bd528054bface3231d2ecb7e95e8\fastutil-8.5.12.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna-platform\5.14.0\28934d48aed814f11e4c584da55c49fa7032b31b\jna-platform-5.14.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\5.14.0\67bf3eaea4f0718cb376a181a629e5f88fa1c9dd\jna-5.14.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\5.0.4\4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c\jopt-simple-5.0.4.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.26.0\659feffdd12280201c8aacb8f7be94f9a883c824\commons-compress-1.26.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.14.0\1ed471194b02f2c6cb734a0cd6f6f107c673afae\commons-lang3-3.14.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.5.13\e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada\httpclient-4.5.13.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.16\51cf043c87253c9f58b539c9f7e44c8894223850\httpcore-4.4.16.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.22.1\bea6fede6328fabafd7e68363161a7ea6605abd1\log4j-api-2.22.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.22.1\7183a25510a02ad00cc6a95d3b3d2a7d3c5a8dc4\log4j-core-2.22.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-slf4j2-impl\2.22.1\d7e6693c2606cb7e7335047d7bb96dec52db5665\log4j-slf4j2-impl-2.22.1.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.jcraft\jorbis\0.0.17\8872d22b293e8f5d7d56ff92be966e6dc28ebdc6\jorbis-0.0.17.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.joml\joml\1.10.5\22566d58af70ad3d72308bab63b8339906deb649\joml-1.10.5.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-freetype\3.3.3\a0db6c84a8becc8ca05f9dbfa985edc348a824c7\lwjgl-freetype-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-glfw\3.3.3\efa1eb78c5ccd840e9f329717109b5e892d72f8e\lwjgl-glfw-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-jemalloc\3.3.3\b543467b7ff3c6920539a88ee602d34098628be5\lwjgl-jemalloc-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-openal\3.3.3\daada81ceb5fc0c291fbfdd4433cb8d9423577f2\lwjgl-openal-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-opengl\3.3.3\2f6b0147078396a58979125a4c947664e98293a\lwjgl-opengl-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-stb\3.3.3\25dd6161988d7e65f71d5065c99902402ee32746\lwjgl-stb-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-tinyfd\3.3.3\82d755ca94b102e9ca77283b9e2dc46d1b15fbe5\lwjgl-tinyfd-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl\3.3.3\29589b5f87ed335a6c7e7ee6a5775f81f97ecb84\lwjgl-3.3.3.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lz4\lz4-java\1.8.0\4b986a99445e49ea5fbf5d149c4b63f6ed6c6780\lz4-java-1.8.0.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.9\7cf2726fdcfbc8610f9a71fb3ed639871f315340\slf4j-api-2.0.9.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\minecraftMaven\net\minecraft\minecraft-merged-3376b012f0\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2\minecraft-merged-3376b012f0-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.97.Final\54188f271e388e7f313aea995e82f58ce2cdb809\netty-transport-native-epoll-4.1.97.Final-linux-x86_64.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.97.Final\5514744c588190ffda076b35a9b8c9f24946a960\netty-transport-native-epoll-4.1.97.Final-linux-aarch_64.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\curse.maven\sdm-engine-core-964997\5968080\ea43c3026ca0fafdb7a7e4006ed41059fe0894c0\sdm-engine-core-964997-5968080.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\curse.maven\sdm-ui-lib-1095061\5762237\fd89dc21d783b3ffb8cb904972023566dc6382d\sdm-ui-lib-1095061-5762237.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\architectury\architectury\13.0.8\architectury-13.0.8.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\ftb\mods\ftb-library\2101.1.4\ftb-library-2101.1.4.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\curse\maven\sdm-economy-1102542\5803157\sdm-economy-1102542-5803157.jar
+[Architectury Transformer] Read classpath in 1.527 s
+[Architectury Transformer DEBUG] Remapping Classes:
+[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
+[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
+[Architectury Transformer DEBUG] Found class transformer
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShopClient with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShop with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandler with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/PlayerMainInvWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/ItemHandlerHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandlerModifiable with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/RangedWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/InvWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/CheckBox with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$4 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/WalletRender with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarList with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TovarTab with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/ModNetwork with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendEditModeS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendShopDataS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/SellShopTovarC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateServerDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/mixin/TextFieldMixin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerBuyer with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerSeller with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/ITovarTypa with maxs=true frames=true
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar
+[Architectury Transformer] Transformed jar with 5 transformer(s) in 1.949 s
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1.jar

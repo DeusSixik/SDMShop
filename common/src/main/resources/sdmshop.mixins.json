@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "net.sixk.sdmshop.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "TextFieldMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,56 @@
+architectury {
+    common(rootProject.enabled_platforms.split(","))
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url "https://maven.architectury.dev/"
+    }
+
+    maven {
+        url "https://maven.saps.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+
+    maven {
+        url "https://maven.saps.dev/snapshots"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+    maven {
+        url "https://cursemaven.com"
+    }
+}
+
+dependencies {
+    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
+    // Do NOT use other classes from fabric loader
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    // Remove the next line if you don't want to depend on the API
+    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+    modApi "curse.maven:sdm-ui-lib-1095061:5984477"
+    modApi "curse.maven:sdm-economy-1102542:5984540"
+    modApi "curse.maven:ftb-library-forge-404465:4661834"
+    modApi "curse.maven:ftb-quests-forge-289412:5417957"
+    modApi "curse.maven:quality-food-973932:5624215"
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            artifactId = rootProject.archives_base_name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}

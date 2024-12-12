@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "sdmshoprework",
+  "version": "${version}",
+
+  "name": "SDM Shop",
+  "description": "",
+  "authors": [],
+  "contact": {},
+
+  "license": "All Rights Reserved",
+  "icon": "icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.sixik.sdmshoprework.fabric.SDMShopFabric"
+    ]
+  },
+  "mixins": [
+    "sdmshoprework.mixins.json",
+    "sdmshoprework-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": ">=1.19.2",
+    "ftblibrary": ">=1.0",
+    "sdm_economy": ">=1.0",
+    "sdm_ui_lib": ">=1.0"
+  }
+}

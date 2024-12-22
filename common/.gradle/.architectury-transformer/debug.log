@@ -1,18 +1,18 @@
 [Architectury Transformer DEBUG] 
 [Architectury Transformer DEBUG] ============================
-[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-2.0-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionFabric.jar
 [Architectury Transformer DEBUG] ============================
 [Architectury Transformer DEBUG] 
-[Architectury Transformer DEBUG] Transforming 5 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapMixinVariables@6920c3ea
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@89f03db
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@9a73352
+[Architectury Transformer DEBUG] Transforming 5 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-2.0-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionFabric.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapMixinVariables@621b09c4
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@6494e777
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@6c402e14
 [Architectury Transformer DEBUG]  - AddRefmapName(enabled=() -> kotlin.Boolean)
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@2a2e3515
-[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@55035965
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-2.0-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionFabric.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
 [Architectury Transformer DEBUG] Reading mixin mappings file: D:\SDMShopA\common\build\loom-cache\mixin-map-loom.mappings.1_21_1.layered+hash.40545-v2.main.tiny
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.shadowed.impl.dev.architectury.tinyremapper.TinyUtils$$Lambda/0x0000023abb372c68@28cb8a5c
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.shadowed.impl.dev.architectury.tinyremapper.TinyUtils$$Lambda/0x0000016282017dd8@492152f2
 [Architectury Transformer DEBUG] Provided 64 classpath jar(s):
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.9\7eaa23079ac1569963e488054db124c7eb984f05\fabric-loader-0.16.9.jar
@@ -78,51 +78,72 @@
 [Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\architectury\architectury\13.0.8\architectury-13.0.8.jar
 [Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\ftb\mods\ftb-library\2101.1.4\ftb-library-2101.1.4.jar
 [Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\curse\maven\sdm-economy-1102542\5803157\sdm-economy-1102542-5803157.jar
-[Architectury Transformer] Read classpath in 1.572 s
+[Architectury Transformer] Read classpath in 1.726 s
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShopClient with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShop with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShopClient with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/ItemHandlerHelper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/PlayerMainInvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/InvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandlerModifiable with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/RangedWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandlerModifiable with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/InvWrapper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandler with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/CheckBox with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/CheckBox with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/WalletRender with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$4 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$11 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$5$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$4$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$4 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$10 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AbstractTovar with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarList with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$7 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$8 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$6 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$5 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$9 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$10$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$2 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$2 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TovarTab with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/ModNetwork with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendShopDataS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendEditModeS2C with maxs=true frames=true
@@ -134,27 +155,29 @@
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/mixin/TextFieldMixin with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerBuyer with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerSeller with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IItemSerializer with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IConstructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/ITovarTypa with maxs=true frames=true
 [Architectury Transformer DEBUG] Checking whether /sdmshop.mixins.json is a mixin config.
 [Architectury Transformer DEBUG] Checking whether /sdmshopa-common-common-refmap.json is a mixin config.
 [Architectury Transformer DEBUG] Found mixin config(s): /sdmshop.mixins.json
 [Architectury Transformer DEBUG] Injecting sdmshopa-common-common-refmap.json to /sdmshop.mixins.json
-[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionFabric.jar
-[Architectury Transformer] Transformed jar with 5 transformer(s) in 2.167 s
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionFabric.jar
+[Architectury Transformer] Transformed jar with 5 transformer(s) in 2.422 s
 [Architectury Transformer DEBUG] 
 [Architectury Transformer DEBUG] ============================
-[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-2.0-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionNeoForge.jar
 [Architectury Transformer DEBUG] ============================
 [Architectury Transformer DEBUG] 
-[Architectury Transformer DEBUG] Transforming 5 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@10c9c037
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@2b53610
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@741d5cf1
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeAnnotations@458b7b96
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment@1b1dc368
-[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG] Transforming 5 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-2.0-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionNeoForge.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@278c0767
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@6cda3d1c
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@bef64a2
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeAnnotations@7c289324
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment@3b5804f9
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-2.0-dev.jar to D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionNeoForge.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000023abb821400@2e575b8e
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x00000162820deb40@766d425f
 [Architectury Transformer DEBUG] Provided 64 classpath jar(s):
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.9\7eaa23079ac1569963e488054db124c7eb984f05\fabric-loader-0.16.9.jar
@@ -220,65 +243,88 @@
 [Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\architectury\architectury\13.0.8\architectury-13.0.8.jar
 [Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\dev\ftb\mods\ftb-library\2101.1.4\ftb-library-2101.1.4.jar
 [Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2\curse\maven\sdm-economy-1102542\5803157\sdm-economy-1102542-5803157.jar
-[Architectury Transformer] Read classpath in 1.527 s
+[Architectury Transformer] Read classpath in 1.277 s
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShopClient with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShop with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandler with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/PlayerMainInvWrapper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/ItemHandlerHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandler with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandlerModifiable with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/RangedWrapper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/InvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/CheckBox with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$3 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$3 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$2 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$3 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$4 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/WalletRender with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$4 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$5$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$4$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$11 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$4 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$6 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AbstractTovar with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarList with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$3$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$10 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$8 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$9 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$5 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$7 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel$1$10$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel$2 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TovarTab with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/ModNetwork with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendEditModeS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendShopDataS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendEditModeS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/SellShopTovarC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateServerDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateServerDataC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/mixin/TextFieldMixin with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerBuyer with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerSeller with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IItemSerializer with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IConstructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/ITovarTypa with maxs=true frames=true
-[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1-transformProductionNeoForge.jar
-[Architectury Transformer] Transformed jar with 5 transformer(s) in 1.949 s
-[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-1.3.1.jar
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-2.0-transformProductionNeoForge.jar
+[Architectury Transformer] Transformed jar with 5 transformer(s) in 1.606 s
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\libs\sdmshopa-common-2.0.jar

@@ -21,6 +21,7 @@ import net.sixk.sdmshop.shop.Tovar.TovarPanel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -71,7 +72,7 @@ public class ShopPage extends BaseScreen {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, alpha);
         //blit(ResourceLocation texture, int x, int y, int width, int height, int textureX, int textureY, int textureW, int textureH, int textureSizeX, int textureSizeY)
         graphics.blit(info.getSkin().texture(), x + width - 17 , y + 2, 15, 15, 8.0f, 8, 8, 8, 64, 64);
-        graphics.blit(info.getSkin().texture(), x +150, y, 126, 126, 40.0f, 8, 8, 8, 64, 64);
+        graphics.blit(info.getSkin().texture(), x + width - 17, y + 2, 15, 15, 40.0f, 8, 8, 8, 64, 64);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.disableBlend();
         if(s) {
@@ -120,16 +121,17 @@ public class ShopPage extends BaseScreen {
 
                     }
 
-                    if((Objects.equals(tab, TovarList.CLIENT.tovarList.get(w).tab) || Objects.equals(tab, "All")) && (TovarList.CLIENT.tovarList.get(w).limit != 0 || SDMShop.isEditMode())) {
-                        String i = TovarList.CLIENT.tovarList.get(w).item.getTooltipLines(Item.TooltipContext.EMPTY, Minecraft.getInstance().player, TooltipFlag.NORMAL).get(0).getString();
-                        if(searchContent.isEmpty() || i.contains(searchContent)){
-                            add(tovarRender);
-                            tovarRenderList.add(tovarRender);
-                            tovarRender.setPos(2 + 30 * w1, 2 + 45 * w2);
-                            //System.out.println(SDMShop.isEditMode());
-                            w1++;
-                        }
-                    }
+                   if((Objects.equals(tab, TovarList.CLIENT.tovarList.get(w).tab) || Objects.equals(tab, "All")) && (TovarList.CLIENT.tovarList.get(w).limit != 0 || SDMShop.isEditMode())) {
+                       String i = TovarList.CLIENT.tovarList.get(w).abstractTovar.getTitel().toLowerCase();
+                               //.item.getTooltipLines(Item.TooltipContext.EMPTY, Minecraft.getInstance().player, TooltipFlag.NORMAL).get(0).getString();
+                       if(searchContent.isEmpty() || i.contains(searchContent.toLowerCase())){
+                           add(tovarRender);
+                           tovarRenderList.add(tovarRender);
+                           tovarRender.setPos(2 + 30 * w1, 2 + 45 * w2);
+                           //System.out.println(SDMShop.isEditMode());
+                           w1++;
+                       }
+                   }
                 }
 
                 if( w1 == (getGui().width - 65 ) / 30 ) {
@@ -141,7 +143,7 @@ public class ShopPage extends BaseScreen {
 
                 if(SDMShop.isEditMode())
                     add(addTovar = new SimpleButton(this, Component.translatable("sdm_shop.shop_page.add_tovar"), Icons.ADD,((simpleButton, mouseButton) -> {
-                        new AddTovarPanel(tab == "All" ? null : tab).openGui();
+                        new SelectTypeTovarPanel(tab == "All" ? null : tab).openGui();
                     })));
             }
 

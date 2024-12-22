@@ -33,6 +33,7 @@ public class PlayerBasket extends BaseScreen {
     public void drawOffsetBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
         //blit(ResourceLocation texture, int x, int y, int width, int height, int textureX, int textureY, int textureW, int textureH, int textureSizeX, int textureSizeY)
         graphics.blit(info.getSkin().texture(), x + 2 , y + 2, 15, 15, 8.0f, 8, 8, 8, 64, 64);
+        graphics.blit(info.getSkin().texture(), x + width - 17, y + 2, 15, 15, 40.0f, 8, 8, 8, 64, 64);
         NordColors.POLAR_NIGHT_0.draw(graphics,x + 5,y + 25,width/2 - 20, h - 30);
         GuiHelper.drawHollowRect(graphics,x + 4,y + 24,width/2 - 19, h - 29, NordColors.POLAR_NIGHT_4, false);
         NordColors.POLAR_NIGHT_0.draw(graphics,x + width/2 - 10,y + 25,width/2 + 5, h - 30);

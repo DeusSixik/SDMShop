@@ -7,7 +7,6 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +17,10 @@ import net.sixik.sdmcore.impl.utils.serializer.data.IData;
 import net.sixk.sdmshop.shop.ShopComands;
 import net.sixk.sdmshop.shop.Tab.TovarTab;
 import net.sixk.sdmshop.shop.Tovar.TovarList;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarCommand;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarItem;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarTypeRegister;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
 import net.sixk.sdmshop.shop.network.ModNetwork;
 import net.sixk.sdmshop.shop.network.server.SendEditModeS2C;
 import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
@@ -37,6 +40,10 @@ public class SDMShop {
         CommandRegistrationEvent.EVENT.register(ShopComands::registerCommands);
 
         EnvExecutor.runInEnv(Env.CLIENT,() ->SDMShopClient::init);
+
+        TovarTypeRegister.registerTovar(new TovarItem.Constructor());
+        TovarTypeRegister.registerTovar(new TovarXP.Constructor());
+        TovarTypeRegister.registerTovar(new TovarCommand.Constructor());
     }
 
     public static void event(){
@@ -45,6 +52,8 @@ public class SDMShop {
             TovarTab.SERVER = new TovarTab();
             TovarList.SERVER = new TovarList();
             isSerialize = false;
+
+            if(!server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarTab.sdm").toFile().exists()) saveData(server);
 
             IData w1 = DataIO.read(server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarTab.sdm").toString());
 
@@ -70,6 +79,8 @@ public class SDMShop {
                 isSerialize = true;
                 TovarList.SERVER.deserialize(w2.asKeyMap(), serverPlayer.getServer().registryAccess());
             }
+
+
 
             NetworkManager.sendToPlayer((ServerPlayer) serverPlayer,new SendShopDataS2C(TovarList.SERVER.serialize(serverPlayer.registryAccess()).asNBT(),TovarTab.SERVER.serialize().asNBT()));
             NetworkManager.sendToPlayer((ServerPlayer) serverPlayer, new SendEditModeS2C(isEditMode(serverPlayer)));

@@ -32,15 +32,8 @@ public class BuyShopTovarC2S implements CustomPacketPayload {
     public static void handle(BuyShopTovarC2S message, NetworkManager.PacketContext context) {
         context.queue(() -> {
 
-            Tovar tovar = TovarList.SERVER.tovarList.get(message.index);
-            if (tovar == null) return;
-            long currency = CurrencyHelper.getMoney(context.getPlayer(), tovar.currency);
-            if((tovar.limit < message.count && tovar.limit != -1) || currency < tovar.cost * message.count ) return;
-            CurrencyHelper.addMoney(context.getPlayer(), tovar.currency,-(tovar.cost * message.count));
-            for (int w = 0; w < message.count; w++) {
-               ItemHandlerHelper.giveItemToPlayer(context.getPlayer(), tovar.item.copy());;
-            }
-            if(tovar.limit != -1) tovar.limit -= message.count;
+            TovarList.SERVER.tovarList.get(message.index).abstractTovar.buy(context.getPlayer(),TovarList.SERVER.tovarList.get(message.index),message.count);
+
 
             NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), new SendShopDataS2C(TovarList.SERVER.serialize(context.registryAccess()).asNBT(), TovarTab.SERVER.serialize().asNBT()));
             NetworkManager.sendToServer(new UpdateServerDataC2S(new CompoundTag()));

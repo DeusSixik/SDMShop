@@ -34,61 +34,14 @@ public class SellShopTovarC2S implements CustomPacketPayload {
     public static void handle(SellShopTovarC2S message, NetworkManager.PacketContext context) {
         context.queue(() -> {
 
-            Tovar tovar = TovarList.SERVER.tovarList.get(message.index);
-            if (tovar == null) return;
-            if((tovar.limit < message.count && tovar.limit != -1)) return;
-            CurrencyHelper.addMoney(context.getPlayer(), tovar.currency,tovar.cost * message.count);
-            sellItem(context.getPlayer(), message.getCount() * tovar.item.getCount(), tovar.item);
-            if(tovar.limit != -1) tovar.limit -= message.count;
+            TovarList.SERVER.tovarList.get(message.index).abstractTovar.sell(context.getPlayer(),TovarList.SERVER.tovarList.get(message.index),message.count);
 
             NetworkManager.sendToPlayer((ServerPlayer) context.getPlayer(), new SendShopDataS2C(TovarList.SERVER.serialize(context.registryAccess()).asNBT(), TovarTab.SERVER.serialize().asNBT()));
             NetworkManager.sendToServer(new UpdateServerDataC2S(new CompoundTag()));
         });
     }
 
-    public static boolean sellItem(Player p, int amm, ItemStack item) {
 
-
-        int totalamm = 0; //общее количество вещей в инвентаре
-        for (int a = 0; a<p.getInventory().getContainerSize(); a++) { //считаем эти вещи
-            if (p.getInventory().getItem(a)!=null){
-                /*весь ItemStack можно описать тремя параметрами. item.getData, item.getItemMeta и item.getAmmaount.
-                 *При item.equas(item2)ammount тоже сравнивается, поэтому видим такое сравнение
-                 */
-                if(ItemStack.isSameItem(p.getInventory().getItem(a), item) && ItemStack.isSameItemSameComponents(item,p.getInventory().getItem(a))) {
-                    totalamm += p.getInventory().getItem(a).getCount();
-                }
-            }
-        }
-        if (totalamm==0) {
-            return false;
-        }
-        if (totalamm<amm) {
-            return false;
-        }
-        int ammountleft =amm; //эта переменная не очень нужна, но мне с ней удобнее
-        for (int a = 0; a<p.getInventory().getContainerSize(); a++) {
-            if (ammountleft==0){return true;}
-            if (p.getInventory().getItem(a)==null) continue;
-
-            if(ItemStack.isSameItem(p.getInventory().getItem(a), item) && ItemStack.isSameItemSameComponents(item,p.getInventory().getItem(a))){
-                if (p.getInventory().getItem(a).getCount()<ammountleft) {
-                    ammountleft-=p.getInventory().getItem(a).getCount();
-                    p.getInventory().setItem(a, ItemStack.EMPTY);
-                }
-                if (p.getInventory().getItem(a)!=null&&p.getInventory().getItem(a).getCount()==ammountleft) {
-                    p.getInventory().setItem(a, ItemStack.EMPTY);
-                    return true;
-                }
-
-                if (p.getInventory().getItem(a).getCount()>ammountleft&&p.getInventory().getItem(a)!=null) {
-                    p.getInventory().getItem(a).setCount(p.getInventory().getItem(a).getCount()-ammountleft);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     public Integer getIndex() {
         return index;

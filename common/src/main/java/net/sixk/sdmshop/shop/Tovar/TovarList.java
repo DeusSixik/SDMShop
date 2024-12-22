@@ -1,10 +1,10 @@
 package net.sixk.sdmshop.shop.Tovar;
 
 import net.minecraft.core.HolderLookup;
-import net.sixik.sdmcore.impl.utils.serializer.SDMSerializer;
 import net.sixik.sdmcore.impl.utils.serializer.data.IData;
 import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmcore.impl.utils.serializer.data.ListData;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class TovarList  {
     }
 
 
-    public void deserialize(KeyData data,HolderLookup.Provider provider) {
+    public void deserialize(KeyData data, HolderLookup.Provider provider) {
 
         tovarList.clear();
 
@@ -43,7 +43,7 @@ public class TovarList  {
 
         for (IData w : tovarList.data) {
 
-            Tovar w1 = new Tovar(null, "", null, 0, 0,false);
+            Tovar w1 = new Tovar(""," ", 0,0,true);
             w1.deserialize(w.asKeyMap(), provider);
             this.tovarList.add(w1);
 

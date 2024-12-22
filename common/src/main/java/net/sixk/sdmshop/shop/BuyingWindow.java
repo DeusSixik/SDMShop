@@ -17,6 +17,8 @@ import net.sixik.sdmuilibrary.client.utils.TextHelper;
 import net.sixk.sdmshop.mixin.TextFieldMixin;
 import net.sixk.sdmshop.shop.Tovar.Tovar;
 import net.sixk.sdmshop.shop.Tovar.TovarList;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarItem;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
 import net.sixk.sdmshop.shop.network.client.BuyShopTovarC2S;
 import net.sixk.sdmshop.shop.network.client.SellShopTovarC2S;
 
@@ -26,22 +28,25 @@ import java.util.Iterator;
 
 public class BuyingWindow extends BaseScreen {
 
-    Tovar tovar;
-    AbstractCurrency currency;
-    TextField title;
-    TextField cost;
-    TextField moneyTxt;
-    TextField moneyNum;
-    TextField mayBuyTxt;
-    TextField mayBuyNum;
-    TextField limitTxt;
-    TextField limit;
-    TextField receiptTxt;
-    TextField receipt;
-    TextBox countTxt;
-    SimpleTextButton confirm;
-    SimpleTextButton cancel;
-    long count;
+    private Tovar tovar;
+    private AbstractCurrency currency;
+    private TextField title;
+    private TextField cost;
+    private TextField moneyTxt;
+    private TextField moneyNum;
+    private TextField mayBuyTxt;
+    private TextField mayBuyNum;
+    private TextField limitTxt;
+    private TextField limit;
+    private TextField receiptTxt;
+    private TextField receipt;
+    private TextBox countTxt;
+    private SimpleTextButton confirm;
+    private SimpleTextButton cancel;
+    private int stackCount;
+    private String id;
+    private ItemStack item;
+    private long count;
     public int countItems = 0;
 
     public BuyingWindow(Tovar tovar){
@@ -50,7 +55,17 @@ public class BuyingWindow extends BaseScreen {
         for (AbstractCurrency w1 : PlayerMoneyData.CLIENT.CLIENT_MONET.currencies) {
             if(tovar.currency.equals(w1.getID())) currency = w1;
         }
-
+        id = tovar.abstractTovar.getID();
+        switch (id) {
+            case "ItemType" :
+                ItemStack item = (ItemStack) tovar.abstractTovar.getItemStack();
+                stackCount = item.getCount();
+                this.item = item;
+                break;
+            case "XPType" :
+                stackCount = (int) tovar.abstractTovar.getItemStack();
+                break;
+        }
 
     }
 
@@ -101,7 +116,7 @@ public class BuyingWindow extends BaseScreen {
         NordColors.POLAR_NIGHT_1.draw(graphics, x + 5 + w / 2, y + 103, w / 2 - 7, 12);
         GuiHelper.drawHollowRect(graphics, x + 5 +  w / 2, y + 103, w  / 2 - 7, 12, NordColors.POLAR_NIGHT_4, true);
 
-        ItemIcon.getItemIcon(tovar.item).draw(graphics, x + 6, y + 7, 20, 20);
+        tovar.abstractTovar.getIcon().draw(graphics, x + 6, y + 7, 20, 20);
     }
 
 
@@ -110,7 +125,7 @@ public class BuyingWindow extends BaseScreen {
     @Override
     public void addWidgets() {
 
-        add(title = new TextField(this).setText(tovar.item.getDisplayName().getString().replace("[","").replace("]", "")));
+        add(title = new TextField(this).setText(tovar.abstractTovar.getTitel()));
         add(cost = new TextField(this));
         add(moneyTxt = new TextField(this));
         add(moneyNum = new TextField(this));
@@ -137,7 +152,7 @@ public class BuyingWindow extends BaseScreen {
 
                     count = Long.parseLong(getText());
                     if (tovar.toSell){
-                        if (Integer.valueOf(countTxt.getText()) > countItems / tovar.item.getCount()) countTxt.setText(String.valueOf(countItems / tovar.item.getCount()));
+                        if (Integer.valueOf(countTxt.getText()) > countItems / stackCount) countTxt.setText(String.valueOf(countItems / stackCount));
                     } else {
                         if(Integer.valueOf(countTxt.getText()) > (int) (currency.moneys / tovar.cost)) countTxt.setText(String.valueOf((int) (currency.moneys / tovar.cost)));
                     }
@@ -260,12 +275,31 @@ public class BuyingWindow extends BaseScreen {
             mayBuyTxt.setPos(7, 50);
         }else {
             countItems = 0;
-            Inventory inventory = Minecraft.getInstance().player.getInventory();
-            for (int i = 0; i < inventory.getContainerSize(); i++) {
-                if(inventory.getItem(i).is(tovar.item.getItem()) && ItemStack.isSameItemSameComponents(inventory.getItem(i),tovar.item)) {
-                    countItems += inventory.getItem(i).getCount();
+            if(id.equals("ItemType")) {
+                Inventory inventory = Minecraft.getInstance().player.getInventory();
+                if(tovar.abstractTovar.getisXPLVL()){
+                    for (int a = 0; a<inventory.getContainerSize(); a++) {
+                        if (inventory.getItem(a) != null ){
+                            if (inventory.getItem(a).is(tovar.abstractTovar.getTag())){
+                                countItems += inventory.getItem(a).getCount();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < inventory.getContainerSize(); i++) {
+                        if (inventory.getItem(i).is(item.getItem()) && ItemStack.isSameItemSameComponents(inventory.getItem(i), item)) {
+                            countItems += inventory.getItem(i).getCount();
+                        }
+                    }
                 }
             }
+            else {
+                if(tovar.abstractTovar.getisXPLVL()) countItems = Minecraft.getInstance().player.experienceLevel;
+                else  countItems = Minecraft.getInstance().player.totalExperience;
+            }
+
             moneyTxt.setText(Component.translatable("sdm_shop.buying_window.count_in_inventory"));
             moneyTxt.setScale(0.8f);
             moneyNum.setText(String.valueOf(countItems));
@@ -273,7 +307,7 @@ public class BuyingWindow extends BaseScreen {
 
             mayBuyTxt.setText(Component.translatable("sdm_shop.buying_window.may_sell"));
             mayBuyTxt.setScale(0.5f);
-            mayBuyNum.setText(String.valueOf(countItems / tovar.item.getCount()));
+            mayBuyNum.setText(String.valueOf(countItems / stackCount));
             receiptTxt.setText(Component.translatable("sdm_shop.buying_window.receipt_2"));
             moneyTxt.setPos(7, 37);
             mayBuyTxt.setPos(7, 51);

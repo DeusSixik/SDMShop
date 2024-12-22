@@ -48,7 +48,7 @@ public class TovarPanel extends Panel {
     }
 
     public void drawIcon(GuiGraphics graphics, int x, int y, int w, int h) {
-        ItemIcon.getItemIcon(tovar.item).draw(graphics, x, y, 20, 20);
+        tovar.abstractTovar.getIcon().draw(graphics, x, y, 20, 20);
     }
 
 

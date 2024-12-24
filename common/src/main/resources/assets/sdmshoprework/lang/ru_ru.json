@@ -122,6 +122,7 @@
   "sdmr.shop.entry.type.iconPath": "Путь до Иконки",
   "sdmr.shop.entry.type.iconPath.tooltip": "Нажмите правую кнопку мыши для открытия расширенного окна",
   "sdmr.shop.entry.type.item": "Предмет",
+  "sdmr.shop.entry.type.ignore_nbt" : "Игнорировать NBT",
   "sdmr.shop.entry.type.mnafactionID": "ID Фракции",
   "sdmr.shop.entry.type.mnafactionID.tooltip": "Идентификатор фракции, которая зарегистрирована в моде",
   "sdmr.shop.entry.type.mnalevel": "Магический уровень",

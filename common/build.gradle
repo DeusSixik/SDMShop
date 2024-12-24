@@ -40,6 +40,9 @@ dependencies {
     modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
     modApi ("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
 
+    modApi ("curse.maven:kubejs-238086:5853326")
+    modApi ("curse.maven:rhino-416294:5655836")
+
     modApi ("curse.maven:quality-food-973932:5736769")
 }
 

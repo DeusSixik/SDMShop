@@ -126,6 +126,7 @@
   "sdmr.shop.entry.type.elevatePerms" : "Elevate Perms",
   "sdmr.shop.entry.type.silent" : "Silent",
   "sdmr.shop.entry.type.item" : "Item",
+  "sdmr.shop.entry.type.ignore_nbt" : "Ignore NBT",
   "sdmr.shop.entry.type.gameStage" : "Stage",
   "sdmr.shop.entry.type.mnafactionID" : "Faction ID",
   "sdmr.shop.entry.type.mnarandom" : "Random Value",

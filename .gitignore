@@ -5,3 +5,6 @@ fabric/run/
 forge/.gradle/
 forge/build/
 forge/run/
+.gradle/
+.idea/
+build/

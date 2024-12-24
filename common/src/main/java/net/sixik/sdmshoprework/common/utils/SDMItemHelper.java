@@ -69,7 +69,7 @@ public class SDMItemHelper {
         return totalamm;
     }
 
-    public static boolean sellItem(Player p, int amm, ItemStack item) {
+    public static boolean sellItem(Player p, int amm, ItemStack item, boolean ignoreNBT) {
 
         boolean flag = item.hasTag();
 
@@ -79,9 +79,11 @@ public class SDMItemHelper {
                 /*весь ItemStack можно описать тремя параметрами. item.getData, item.getItemMeta и item.getAmmaount.
                  *При item.equas(item2)ammount тоже сравнивается, поэтому видим такое сравнение
                  */
-                if(flag && ItemStack.matches(p.getInventory().getItem(a), item)) {
+                if(!ignoreNBT && (flag && ItemStack.matches(p.getInventory().getItem(a), item))) {
                     totalamm += p.getInventory().getItem(a).getCount();
-                } else if(!flag && ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)){
+                } else if(!ignoreNBT && (!flag && ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item))){
+                    totalamm += p.getInventory().getItem(a).getCount();
+                } else if(!ignoreNBT && (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item))) {
                     totalamm += p.getInventory().getItem(a).getCount();
                 }
             }
@@ -97,7 +99,26 @@ public class SDMItemHelper {
             if (ammountleft==0){return true;}
             if (p.getInventory().getItem(a)==null) continue;
 
-            if((flag && ItemStack.isSameItem(p.getInventory().getItem(a), item)) || (!flag && (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item)))){
+            if(!ignoreNBT && ((flag && ItemStack.isSameItem(p.getInventory().getItem(a), item)) ||
+                    (!flag && (ItemStack.isSameItem(p.getInventory().getItem(a), item) ||
+                            ItemStack.matches(p.getInventory().getItem(a), item))))
+            ){
+                if (p.getInventory().getItem(a).getCount()<ammountleft) {
+                    ammountleft-=p.getInventory().getItem(a).getCount();
+                    p.getInventory().setItem(a, ItemStack.EMPTY);
+                }
+                if (p.getInventory().getItem(a)!=null&&p.getInventory().getItem(a).getCount()==ammountleft) {
+                    p.getInventory().setItem(a, ItemStack.EMPTY);
+                    return true;
+                }
+
+                if (p.getInventory().getItem(a).getCount()>ammountleft&&p.getInventory().getItem(a)!=null) {
+                    p.getInventory().getItem(a).setCount(p.getInventory().getItem(a).getCount()-ammountleft);
+                    return true;
+                }
+            }
+
+            if(ignoreNBT && (ItemStack.isSameItem(p.getInventory().getItem(a), item) || ItemStack.matches(p.getInventory().getItem(a), item))) {
                 if (p.getInventory().getItem(a).getCount()<ammountleft) {
                     ammountleft-=p.getInventory().getItem(a).getCount();
                     p.getInventory().setItem(a, ItemStack.EMPTY);

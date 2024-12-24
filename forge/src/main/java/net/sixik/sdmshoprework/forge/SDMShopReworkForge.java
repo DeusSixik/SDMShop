@@ -1,6 +1,8 @@
 package net.sixik.sdmshoprework.forge;
 
 import dev.architectury.platform.forge.EventBuses;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;

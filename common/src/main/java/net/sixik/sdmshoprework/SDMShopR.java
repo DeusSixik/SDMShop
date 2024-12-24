@@ -1,6 +1,7 @@
 package net.sixik.sdmshoprework;
 
 import dev.architectury.platform.Platform;
+import dev.ftb.mods.ftblibrary.snbt.config.SNBTConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

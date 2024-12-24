@@ -110,7 +110,8 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
 
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, sizeIcon * 2, sizeIcon * 2, 8);
 
-        Icon icon = entryButton.entry.getEntryType().getIcon();
+        entryButton.entry.getEntryType().getIcon().draw(graphics,pos.x + sizeIcon / 2,pos.y + sizeIcon / 2,sizeIcon,sizeIcon);
+
         pos.setX(pos.x + sizeIcon * 2 + 2);
 
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, Minecraft.getInstance().font.lineHeight + 1, 4);

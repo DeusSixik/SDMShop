@@ -1,0 +1,1 @@
+net.sixik.sdmshoprework.common.integration.KubeJS.ShopJSPlugin

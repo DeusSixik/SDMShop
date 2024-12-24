@@ -36,6 +36,7 @@ public class MoneyReward extends Reward {
 
     @Override
     public void writeData(CompoundTag nbt) {
+        super.writeData(nbt);
         nbt.putLong("ftb_money", value);
 
         if (randomBonus > 0) {
@@ -45,6 +46,7 @@ public class MoneyReward extends Reward {
 
     @Override
     public void readData(CompoundTag nbt) {
+        super.readData(nbt);
         value = nbt.getLong("ftb_money");
         randomBonus = nbt.getInt("random_bonus");
     }

@@ -29,6 +29,7 @@ import java.util.Objects;
 public class ShopItemEntryType extends AbstractShopEntryType {
 
     public ItemStack itemStack;
+    public boolean ignoreNBT = false;
 
     public ShopItemEntryType(ItemStack itemStack) {
         this.itemStack = itemStack;
@@ -37,6 +38,7 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     @Override
     public void getConfig(ConfigGroup group) {
         group.addItemStack("item", itemStack, v -> itemStack = v, ItemStack.EMPTY, true, true);
+        group.addBool("ignore_nbt", ignoreNBT, v -> ignoreNBT = v, false);
     }
 
     @Override
@@ -76,11 +78,15 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     public CompoundTag serializeNBT() {
         CompoundTag nbt = super.serializeNBT();
         NBTUtils.putItemStack(nbt,"itemStack", itemStack);
+        nbt.putBoolean("ignoreNBT", ignoreNBT);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
+        if(nbt.contains("ignoreNBT"))
+            this.ignoreNBT = nbt.getBoolean("ignoreNBT");
+
         this.itemStack = NBTUtils.getItemStack(nbt, "itemStack");
     }
 
@@ -122,24 +128,14 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     public void sell(Player player, int countSell, AbstractShopEntry entry) {
 
         ItemStack stack = itemStack.copy();
-        List<ItemStack> stackList = new ArrayList<>();
-//
-//        for (int index = 0; index < player.getInventory().getContainerSize(); index++) {
-//            if(ItemStack.matches(player.getInventory().getItem(index), (stack.copy())) || ItemStack.isSameItem(player.getInventory().getItem(index), (stack.copy()))){
-//                stackList.add(player.getInventory().getItem(index));
-//            }
-//        }
 
         int amountItems = SDMItemHelper.countItems(player, stack);
-//        for (ItemStack item : stackList){
-//            amountItems += item.getCount();
-//        }
 
         int amount = amountItems >= entry.entryCount * countSell ? entry.entryCount * countSell : 0;
         if(amountItems == 0 || amount == 0) return;
 
         if (amount <= 0) return;
-        if(SDMItemHelper.sellItem(player, amount, stack))
+        if(SDMItemHelper.sellItem(player, amount, stack, ignoreNBT))
             SDMShopR.addMoney(player, entry.entryPrice * (countSell));
     }
 

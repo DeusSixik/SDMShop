@@ -37,6 +37,8 @@ public class SDMShopRework
 			printStackTrace(str, throwable);
 		}
 
+
+
 		Throwable ourCause = s.getCause();
 		if(ourCause != null){
 			printStackTrace(str, ourCause);

@@ -18,6 +18,7 @@ import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerCancelButt
 import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerScreen;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
 import net.sixik.sdmshoprework.client.screen.modern.ModernShopScreen;
+import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
 import net.sixik.sdmshoprework.common.shop.type.ShopItemEntryType;
 import net.sixik.sdmuilib.client.utils.GLHelper;
 import net.sixik.sdmuilib.client.utils.TextHelper;
@@ -29,6 +30,7 @@ import java.util.function.Consumer;
 
 public class ModernBuyerScreen extends AbstractBuyerScreen {
 
+    private int limit;
     public TextBox textBox;
 
     int sizeIcon;
@@ -47,6 +49,8 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         this.screen = screen;
         this.entryButton = shopEntry;
         this.shopEntry = shopEntry.entry;
+        this.limit = shopEntry.entry.limit - LimiterData.CLIENT.LIMITER_DATA.getOrDefault(shopEntry.entry.entryUUID,0);
+        this.limit = Math.max(limit, 0);
     }
 
     @Override
@@ -98,6 +102,10 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
 
     public void updateButtons(){
         howMane = shopEntry.getEntryType().howMany(Minecraft.getInstance().player, shopEntry.isSell, shopEntry);
+
+        if(entryButton.entry.limit != 0)
+            howMane = Math.min(limit, howMane);
+
         entryType = shopEntry.isSell ? Component.translatable("sdm.shop.modern.ui.buyer.entry.sell")
                 : Component.translatable("sdm.shop.modern.ui.buyer.entry.buy");
     }
@@ -165,8 +173,17 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         pos.setPosition(pos.x, pos.y + Minecraft.getInstance().font.lineHeight + 1 + 2);
         drawNewLabel(graphics, theme, pos, size, entryType.getString(), String.valueOf(howMane));
 
-        pos.setPosition(pos.x, pos.y + (Minecraft.getInstance().font.lineHeight + 1 + 2) * 2);
-        textMoney = shopEntry.isSell ? Component.translatable("sdm.shop.modern.ui.buyer.entry.output.sell").getString() : Component.translatable("sdm.shop.modern.ui.buyer.entry.output.buy").getString();
+        if(limit != 0){
+            pos.setPosition(pos.x, pos.y + (Minecraft.getInstance().font.lineHeight + 1 + 2) * 2);
+            drawNewLabel(graphics, theme, pos, size, Component.translatable("sdm.shop.modern.ui.buyer.entry.limit").getString(), String.valueOf(limit));
+
+            pos.setPosition(pos.x, pos.y + Minecraft.getInstance().font.lineHeight + 1 + 2);
+            textMoney = shopEntry.isSell ? Component.translatable("sdm.shop.modern.ui.buyer.entry.output.sell").getString() : Component.translatable("sdm.shop.modern.ui.buyer.entry.output.buy").getString();
+        }
+        else {
+            pos.setPosition(pos.x, pos.y + (Minecraft.getInstance().font.lineHeight + 1 + 2) * 2);
+            textMoney = shopEntry.isSell ? Component.translatable("sdm.shop.modern.ui.buyer.entry.output.sell").getString() : Component.translatable("sdm.shop.modern.ui.buyer.entry.output.buy").getString();
+        }
 
         drawNewLabel(graphics, theme, pos, size,textMoney, SDMShopRework.moneyString(shopEntry.entryPrice * count));
 

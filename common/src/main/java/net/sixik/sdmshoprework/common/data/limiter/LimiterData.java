@@ -1,13 +1,19 @@
 package net.sixik.sdmshoprework.common.data.limiter;
 
+import dev.ftb.mods.ftblibrary.snbt.SNBT;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.level.storage.LevelResource;
 import net.sixik.sdmshoprework.api.INBTSerializable;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class LimiterData implements INBTSerializable<CompoundTag> {
 
@@ -75,4 +81,18 @@ public class LimiterData implements INBTSerializable<CompoundTag> {
             LIMITER_DATA.put(d1.getUUID("id"), d1.getInt("count"));
         }
     }
+
+    public void save(MinecraftServer server) {
+
+       Path path = server.getWorldPath(LevelResource.ROOT).resolve("shop_limit_data.snbt");
+        SNBT.write(path, serializeNBT());
+    }
+
+    public void load(MinecraftServer server) {
+
+       Path path = server.getWorldPath(LevelResource.ROOT).resolve("shop_limit_data.snbt");
+       var data = SNBT.read(path);
+       if (data != null) deserializeNBT(data);
+    }
+
 }

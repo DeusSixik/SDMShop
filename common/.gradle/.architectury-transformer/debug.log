@@ -1,15 +1,15 @@
 [Architectury Transformer DEBUG] 
 [Architectury Transformer DEBUG] ============================
-[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.6.0-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionFabric.jar
+[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.7.1-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionFabric.jar
 [Architectury Transformer DEBUG] ============================
 [Architectury Transformer DEBUG] 
-[Architectury Transformer DEBUG] Transforming 5 transformer(s) from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.6.0-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionFabric.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapMixinVariables@5605e329
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@271cc097
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@65ed02c6
+[Architectury Transformer DEBUG] Transforming 5 transformer(s) from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.7.1-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionFabric.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapMixinVariables@4d85a158
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@5017d24
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@c8a5223
 [Architectury Transformer DEBUG]  - AddRefmapName(enabled=() -> kotlin.Boolean)
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@5b0f8098
-[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.6.0-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionFabric.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@7823c503
+[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.7.1-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionFabric.jar with 5 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopRework with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopR with maxs=true frames=true
@@ -94,7 +94,7 @@
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\Downloads\SDM Shop\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_economy-1.20.1-1.6.0\8119703e7b76\sdm_economy-1.20.1-1.6.0-8119703e7b76.jar
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\Downloads\SDM Shop\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_ui_lib-1.20.1-1.8.2\efbdd0a61a7a\sdm_ui_lib-1.20.1-1.8.2-efbdd0a61a7a.jar
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\Downloads\SDM Shop\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm-market-6.1.0\7e4fb350c6ac\sdm-market-6.1.0-7e4fb350c6ac.jar
-[Architectury Transformer] Read classpath in 1.886 s
+[Architectury Transformer] Read classpath in 1.643 s
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/misc/SendOpenShopScreenS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/misc/SendConfigS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/edit/SendEditShopTabC2S with maxs=true frames=true
@@ -102,6 +102,7 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopTabC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopEntryC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SyncShopS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendEntryLimitS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendEditModeS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendBuyShopEntryC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/TypeCreator with maxs=true frames=true
@@ -153,7 +154,13 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/ModEvents with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/SDMShopRIntegration with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/ShopJSPlugin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/ShopJSEvents with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/ShopJS with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/KubeJSHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/KubeJSHelper$EventType with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/KubeJSHelper$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/events/ShopEntrySellEventJS with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/events/ShopEntryBuyEventJS with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyTask with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyReward with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/ConfigIconItemStack with maxs=true frames=true
@@ -228,28 +235,32 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IModIdentifier with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IIdentifier with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IConstructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents$ShopEvent with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents$EntrySellEvent with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents$EntryBuyEvent with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/customization/AbstractShopEntryButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Checking whether /sdmshoprework-common.mixins.json is a mixin config.
 [Architectury Transformer DEBUG] Found mixin config(s): /sdmshoprework-common.mixins.json
 [Architectury Transformer DEBUG] Injecting sdmshoprework-common-refmap.json to /sdmshoprework-common.mixins.json
-[Architectury Transformer DEBUG] Closed File Systems for C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionFabric.jar
-[Architectury Transformer] Transformed jar with 5 transformer(s) in 2.163 s
+[Architectury Transformer DEBUG] Closed File Systems for C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionFabric.jar
+[Architectury Transformer] Transformed jar with 5 transformer(s) in 1.944 s
 [Architectury Transformer DEBUG] 
 [Architectury Transformer DEBUG] ============================
-[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.6.0-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionForge.jar
+[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.7.1-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionForge.jar
 [Architectury Transformer DEBUG] ============================
 [Architectury Transformer DEBUG] 
-[Architectury Transformer DEBUG] Transforming 7 transformer(s) from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.6.0-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionForge.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@6e63d06
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@6b4ee282
+[Architectury Transformer DEBUG] Transforming 7 transformer(s) from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.7.1-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionForge.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@6e53e4a0
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@3594e45b
 [Architectury Transformer DEBUG]  - AddRefmapName(enabled=() -> kotlin.Boolean)
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@4a2c6b87
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeAnnotations@297cf16f
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeEnvironment@63fdd874
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.FixForgeMixin@751edadf
-[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.6.0-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionForge.jar with 7 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@40ef7568
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeAnnotations@240e8a43
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeEnvironment@76504dfc
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.FixForgeMixin@521e1ff0
+[Architectury Transformer DEBUG] Transforming from C:\Users\8sixik\Downloads\SDM Shop\common\build\devlibs\sdmshoprework-1.20.1-6.7.1-dev.jar to C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionForge.jar with 7 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeEnvironment$$Lambda$3661/0x000001fb0626b928@27b19f46
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformForgeEnvironment$$Lambda$3073/0x000001fec5fdf348@5bde93f9
 [Architectury Transformer DEBUG] Provided 68 classpath jar(s):
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.9\7eaa23079ac1569963e488054db124c7eb984f05\fabric-loader-0.16.9.jar
@@ -319,7 +330,7 @@
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\Downloads\SDM Shop\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_economy-1.20.1-1.6.0\8119703e7b76\sdm_economy-1.20.1-1.6.0-8119703e7b76.jar
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\Downloads\SDM Shop\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm_ui_lib-1.20.1-1.8.2\efbdd0a61a7a\sdm_ui_lib-1.20.1-1.8.2-efbdd0a61a7a.jar
 [Architectury Transformer DEBUG]  - C:\Users\8sixik\Downloads\SDM Shop\.gradle\loom-cache\remapped_mods\loom_mappings_1_20_1_layered_hash_40359_v2\unspecified\sdm-market-6.1.0\7e4fb350c6ac\sdm-market-6.1.0-7e4fb350c6ac.jar
-[Architectury Transformer] Read classpath in 1.464 s
+[Architectury Transformer] Read classpath in 1.496 s
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/minecraftforge/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/minecraftforge/api/distmarker/OnlyIn
@@ -327,8 +338,8 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopCommands with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopR with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopRework with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopRework with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopPaths with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/SDMShopClient$ClientShopData with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/ShopNetwork with maxs=true frames=true
@@ -345,20 +356,21 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopEntryC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/server/create/SendCreateShopTabC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendBuyShopEntryC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendEditModeS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendEntryLimitS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SyncShopS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/network/client/SendEditModeS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/ModEvents with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/StructureUtil with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/SDMItemHelper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/RenderTest with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/LocalizationHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/RenderTest with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/TypeCreator with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/ListHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/SDMItemHelper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/LocalizationHelper$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/NBTUtils with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/InvWrapper with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/ItemHandlerHelper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/PlayerMainInvWrapper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/ItemHandlerHelper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/IItemHandler with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/RangedWrapper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/utils/item/IItemHandlerModifiable with maxs=true frames=true
@@ -370,22 +382,22 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopBase with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopEntry with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/ShopTab with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopItemEntryType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopCommandEntryType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPLevelEntryType with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopAdvancementEntryType$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPLevelEntryType$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopLocateBetaEntryType$Type with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopXPEntryType$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/ShopItemEntryType$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/integration/ShopQuestEntryType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/integration/ShopQuestEntryType$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/type/integration/ShopQuestEntryType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/limiter/ShopCountLimiter$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/limiter/ShopCountLimiter with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/shop/condition/ShopFTBQuestsCondition with maxs=true frames=true
@@ -395,8 +407,14 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/ItemsRegister with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/register/SoundRegister with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/SDMShopRIntegration with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/ShopJSEvents with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/KubeJSHelper with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/KubeJSHelper$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/KubeJSHelper$EventType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/ShopJS with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/ShopJSPlugin with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/events/ShopEntryBuyEventJS with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/KubeJS/events/ShopEntrySellEventJS with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyReward with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/ConfigIconItemStack with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/integration/FTBQuests/MoneyTask with maxs=true frames=true
@@ -405,31 +423,31 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/data/limiter/LimiterData with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/config/Config with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/common/config/ConfigFile with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$BottomPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$BottomPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel$2 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopScreen$3 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel$2 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopPanels$TopEntriesPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/ModernShopEntriesPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernShopEntryButton with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernShopTabButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernMarketButton with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/widget/ModernShopTabButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$CancelButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/modern/buyer/ModernBuyerScreen$BuyButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopMoneyPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopTabPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopScreen with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/LegacyShopMoneyPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/widget/LegacyShopEntryButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/widget/LegacyShopTabButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/createEntry/LegacyCreateEntryButton with maxs=true frames=true
@@ -443,8 +461,8 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/legacy/buyer/LegacyBuyerScreen$BuyButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/AbstractShopScreen with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/AbstractShopPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopEntryButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopTabButton with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopEntryButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractMarketButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/widget/AbstractShopEntrySearch with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/panel/AbstractShopTabPanel with maxs=true frames=true
@@ -453,24 +471,28 @@
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$AbstractShowOnlyLoadedButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$AbstractBackButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/createEntry/AbstractCreateEntryScreen$AbstractBackButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerScreen with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerBuyButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/client/screen/basic/buyer/AbstractBuyerCancelButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/INBTSerializable with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IIdentifier with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IConstructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IIdentifier with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/IModIdentifier with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntry with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopTab with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryType$SellType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryType with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryType$SellType with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryCondition with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopEntryLimiter with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/shop/AbstractShopIcon with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/register/ShopContentRegister with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents$ShopEvent with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents$EntryBuyEvent with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/events/ShopEvents$EntrySellEvent with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixik/sdmshoprework/api/customization/AbstractShopEntryButton with maxs=true frames=true
 [Architectury Transformer DEBUG] Checking whether /sdmshoprework-common.mixins.json is a mixin config.
 [Architectury Transformer DEBUG] Found mixin config(s): /sdmshoprework-common.mixins.json
@@ -479,6 +501,6 @@
 [Architectury Transformer DEBUG] Found mixin config(s): sdmshoprework-common.mixins.json
 [Architectury Transformer DEBUG] Injecting MixinConfigs into /META-INF/MANIFEST.MF
 [Architectury Transformer DEBUG] Remapping refmap from intermediary to srg: sdmshoprework-common-refmap.json
-[Architectury Transformer DEBUG] Closed File Systems for C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0-transformProductionForge.jar
-[Architectury Transformer] Transformed jar with 7 transformer(s) in 2.401 s
-[Architectury Transformer DEBUG] Closed File Systems for C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.6.0.jar
+[Architectury Transformer DEBUG] Closed File Systems for C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1-transformProductionForge.jar
+[Architectury Transformer] Transformed jar with 7 transformer(s) in 2.518 s
+[Architectury Transformer DEBUG] Closed File Systems for C:\Users\8sixik\Downloads\SDM Shop\common\build\libs\sdmshoprework-1.20.1-6.7.1.jar

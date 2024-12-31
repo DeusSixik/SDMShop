@@ -11,8 +11,10 @@ import net.sixik.sdmshoprework.SDMShopPaths;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.common.config.Config;
 import net.sixik.sdmshoprework.common.config.ConfigFile;
+import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.network.client.SendEditModeS2C;
+import net.sixik.sdmshoprework.network.client.SendEntryLimitS2C;
 import net.sixik.sdmshoprework.network.server.misc.SendConfigS2C;
 
 public class ModEvents {
@@ -37,11 +39,18 @@ public class ModEvents {
                 ShopBase.SERVER = new ShopBase();
             }
         }
+
+        LimiterData.SERVER = new LimiterData();
+        LimiterData.SERVER.load(server);
     }
 
     public static void onServerStopped(MinecraftServer server){
         if(ShopBase.SERVER != null){
             ShopBase.SERVER.saveShopToFile();
+        }
+
+        if(LimiterData.SERVER != null){
+            LimiterData.SERVER.save(server);
         }
     }
 
@@ -50,6 +59,7 @@ public class ModEvents {
             ShopBase.SERVER.syncShop((ServerPlayer) player);
             new SendEditModeS2C(SDMShopR.isEditMode(player)).sendTo((ServerPlayer) player);
             new SendConfigS2C().sendTo(player);
+            new SendEntryLimitS2C(LimiterData.SERVER.serializeClient(player.getGameProfile().getId())).sendTo(player);
         }
     }
 }

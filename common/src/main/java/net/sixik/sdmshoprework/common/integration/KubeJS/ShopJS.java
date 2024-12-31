@@ -3,6 +3,7 @@ package net.sixik.sdmshoprework.common.integration.KubeJS;
 import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
+import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.shop.ShopTab;
 
@@ -38,5 +39,20 @@ public interface ShopJS {
             entry.getEntryType().buy(player, count, entry);
             return;
         }
+    }
+
+    default AbstractShopTab getShopTab(String tabID) {
+        UUID uuid = UUID.fromString(tabID);
+        return ShopBase.SERVER.getShopTab(uuid);
+    }
+
+    default AbstractShopEntry getShopEntry(String entryID) {
+        UUID uuid = UUID.fromString(entryID);
+        for (ShopTab shopTab : ShopBase.SERVER.getShopTabs()) {
+            AbstractShopEntry entry = shopTab.getShopEntry(uuid);
+            if(entry != null) return entry;
+        }
+
+        return null;
     }
 }

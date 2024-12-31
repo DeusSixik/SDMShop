@@ -5,6 +5,7 @@ import dev.architectury.networking.simple.SimpleNetworkManager;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.network.client.SendBuyShopEntryC2S;
 import net.sixik.sdmshoprework.network.client.SendEditModeS2C;
+import net.sixik.sdmshoprework.network.client.SendEntryLimitS2C;
 import net.sixik.sdmshoprework.network.client.SyncShopS2C;
 import net.sixik.sdmshoprework.network.server.*;
 import net.sixik.sdmshoprework.network.server.create.SendCreateShopEntryC2S;
@@ -26,6 +27,8 @@ public class ShopNetwork {
     public static final MessageType SEND_RELOAD_CONFIG = NET.registerS2C("send_reload_config", SendReloadConfigS2C::new);
     public static final MessageType SEND_CONFIG = NET.registerS2C("send_config", SendConfigS2C::new);
     public static final MessageType SEND_OPEN_SHOP = NET.registerS2C("send_open_shop", SendOpenShopScreenS2C::new);
+    public static final MessageType SEND_ENTRY_LIMIT = NET.registerS2C("send_entry_limit", SendEntryLimitS2C::new);
+
 
     public static final MessageType SEND_BUY_ENTRY = NET.registerC2S("send_buy_entry", SendBuyShopEntryC2S::new);
     public static final MessageType CREATE_SHOP_TAB = NET.registerC2S("create_shop_tab", SendCreateShopTabC2S::new);

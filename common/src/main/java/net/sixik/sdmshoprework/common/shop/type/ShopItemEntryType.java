@@ -126,7 +126,6 @@ public class ShopItemEntryType extends AbstractShopEntryType {
 
     @Override
     public void sell(Player player, int countSell, AbstractShopEntry entry) {
-
         ItemStack stack = itemStack.copy();
 
         int amountItems = SDMItemHelper.countItems(player, stack);

@@ -19,7 +19,6 @@ public class ShopEntry extends AbstractShopEntry {
         entry.isSell = this.isSell;
         entry.icon = this.icon;
         entry.getEntryConditions().addAll(getEntryConditions());
-        entry.getEntryLimiters().addAll(getEntryLimiters());
         return  entry;
     }
 }

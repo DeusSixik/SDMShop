@@ -11,4 +11,9 @@ public class ShopJSPlugin extends KubeJSPlugin {
             event.add("SDMShop", ShopJS.class);
         }
     }
+
+    @Override
+    public void registerEvents() {
+        ShopJSEvents.GROUP.register();
+    }
 }

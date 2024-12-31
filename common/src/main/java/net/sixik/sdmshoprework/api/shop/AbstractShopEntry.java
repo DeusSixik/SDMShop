@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.sixik.sdmshoprework.api.IConstructor;
 import net.sixik.sdmshoprework.api.register.ShopContentRegister;
+import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
 import net.sixik.sdmshoprework.common.icon.ShopItemIcon;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public abstract class AbstractShopEntry {
 
     public long entryPrice = 0;
     public int entryCount = 1;
+    public int limit = 0;
 
     public boolean isSell = false;
 
@@ -43,7 +45,6 @@ public abstract class AbstractShopEntry {
     private AbstractShopEntryType entryType = null;
     private AbstractShopTab shopTab;
 
-    private final List<AbstractShopEntryLimiter> entryLimiters = new ArrayList<>();
     private final List<AbstractShopEntryCondition> entryConditions = new ArrayList<>();
 
 
@@ -81,10 +82,6 @@ public abstract class AbstractShopEntry {
         return entryType;
     }
 
-    public List<AbstractShopEntryLimiter> getEntryLimiters() {
-        return entryLimiters;
-    }
-
     public List<AbstractShopEntryCondition> getEntryConditions() {
         return entryConditions;
     }
@@ -95,6 +92,8 @@ public abstract class AbstractShopEntry {
         if(entryType.isCountable())
             config.addInt("count", entryCount, v -> entryCount = v, 1, 1, Integer.MAX_VALUE);
         config.addLong("price", entryPrice, v -> entryPrice = v, 1, 0, Long.MAX_VALUE);
+
+        config.addInt("limit", limit, v -> limit = v, 0, 0, Integer.MAX_VALUE);
 
         if(entryType.getSellType() == AbstractShopEntryType.SellType.BOTH)
             config.addBool("isSell", isSell, v -> isSell = v, false);
@@ -118,6 +117,8 @@ public abstract class AbstractShopEntry {
 
     public boolean isLocked() {
 
+        if(limit != 0 && LimiterData.CLIENT.LIMITER_DATA.getOrDefault(entryUUID,0) >= limit ) return true;
+
         for (AbstractShopEntryCondition entryCondition : entryConditions) {
             if(entryCondition.isLocked()) return true;
         }
@@ -129,6 +130,7 @@ public abstract class AbstractShopEntry {
         CompoundTag nbt = new CompoundTag();
         nbt.putLong("entryPrice", entryPrice);
         nbt.putInt("entryCount", entryCount);
+        nbt.putInt("limit", limit);
 //        nbt.put("entryIcon", entryIcon.serializeNBT());
         nbt.putUUID("entryUUID", entryUUID);
         CompoundTag d = new CompoundTag();
@@ -139,12 +141,6 @@ public abstract class AbstractShopEntry {
 
         if(entryType != null)
             nbt.put("entryType", entryType.serializeNBT());
-
-        ListTag tagEntryLimiter = new ListTag();
-        for (AbstractShopEntryLimiter entryLimiter : entryLimiters) {
-            tagEntryLimiter.add(entryLimiter.serializeNBT());
-        }
-        nbt.put("entryLimiter", tagEntryLimiter);
 
         ListTag tagEntryCondition = new ListTag();
         for (AbstractShopEntryCondition entryCondition : entryConditions) {
@@ -162,8 +158,12 @@ public abstract class AbstractShopEntry {
     }
 
     public void deserializeNBT(CompoundTag nbt) {
-        entryPrice = nbt.getLong("entryPrice");
-        entryCount = nbt.getInt("entryCount");
+        this.entryPrice = nbt.getLong("entryPrice");
+        this.entryCount = nbt.getInt("entryCount");
+
+        if(nbt.contains("limit"))
+            this.limit = nbt.getInt("limit");
+
 //        entryIcon = ShopItemIcon.from(nbt.getCompound("entryIcon"));
         this.entryUUID = nbt.getUUID("entryUUID");
         this.icon = ItemStack.of(nbt.getCompound("icon"));
@@ -172,12 +172,6 @@ public abstract class AbstractShopEntry {
 
         if(nbt.contains("entryType"))
             setEntryType(AbstractShopEntryType.from(nbt.getCompound("entryType")));
-
-        ListTag tagEntryLimiter = nbt.getList("entryLimiter", 10);
-        entryLimiters.clear();
-        for (int i = 0; i < tagEntryLimiter.size(); i++) {
-            entryLimiters.add(AbstractShopEntryLimiter.from(tagEntryLimiter.getCompound(i)));
-        }
 
         ListTag tagEntryCondition = nbt.getList("entryCondition", 10);
         entryConditions.clear();
@@ -203,7 +197,6 @@ public abstract class AbstractShopEntry {
 //                ", entryIcon=" + entryIcon +
                 ", entryType=" + entryType +
                 ", shopTab=" + shopTab +
-                ", entryLimiters=" + entryLimiters +
                 ", entryConditions=" + entryConditions +
                 '}';
     }

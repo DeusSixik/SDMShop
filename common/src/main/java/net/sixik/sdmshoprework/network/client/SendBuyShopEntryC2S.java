@@ -56,17 +56,19 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
        AbstractShopEntry entry = ShopBase.SERVER.getShopTab(tabUUID)
                 .getShopEntry(entryUUID);
 
-       if(entry instanceof ShopEntry shopEntry)
-           entry = shopEntry.copy();
-
-        if(entry.limit != 0){
-            Map<UUID, Integer> BuyData = LimiterData.SERVER.PLAYER_DATA.getOrDefault(packetContext.getPlayer().getGameProfile().getId(), new HashMap<>());
-            int counBuy = BuyData.getOrDefault(entryUUID, 0) ;
-            if( counBuy > entry.limit) return;
+        if(entry.limit != 0 ){
+            Map<UUID, Integer> BuyData = LimiterData.SERVER.PLAYER_DATA.getOrDefault(entry.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), new HashMap<>());
+            int counBuy = BuyData.getOrDefault(entryUUID, 0);
+            if (counBuy > entry.limit) return;
             BuyData.put(entryUUID, counBuy + 1 * count);
-            LimiterData.SERVER.PLAYER_DATA.put(packetContext.getPlayer().getGameProfile().getId(), BuyData);
+            LimiterData.SERVER.PLAYER_DATA.put(entry.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), BuyData);
             new SendEntryLimitS2C(LimiterData.SERVER.serializeClient(packetContext.getPlayer().getGameProfile().getId())).sendTo((ServerPlayer) packetContext.getPlayer());
             LimiterData.SERVER.save(packetContext.getPlayer().getServer());
+            if(entry.globalLimit) {
+                for (ServerPlayer player : packetContext.getPlayer().getServer().getPlayerList().getPlayers()) {
+                    new SendEntryLimitS2C(LimiterData.SERVER.serializeClient(player.getGameProfile().getId())).sendTo(player);
+                }
+            }
         }
 
        if(entry.isSell) {

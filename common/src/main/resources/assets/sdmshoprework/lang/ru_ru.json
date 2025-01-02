@@ -173,5 +173,7 @@
   "sdmr.shop.entry.type.locate_id": "Locate ID",
   "sdmr.shop.entry.type.locate_type": "Locate Type",
   "sdm.shop.modern.ui.buyer.entry.limit" : "Лимит на покупку",
-  "sdmr.shop.entry.limit": "Лимит"
+  "sdmr.shop.entry.limit": "Лимит",
+  "sdm.shop.modern.ui.keybinding.info": "Key Binding",
+  "sdmr.shop.entry.globalLimit": "Глобальный Лимит"
 }

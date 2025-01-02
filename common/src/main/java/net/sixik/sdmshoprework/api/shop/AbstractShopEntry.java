@@ -33,6 +33,7 @@ public abstract class AbstractShopEntry {
     public int limit = 0;
 
     public boolean isSell = false;
+    public boolean globalLimit = false;
 
 //    @Deprecated
 //    @Description("I haven't figured out the best way to do it yet")
@@ -98,6 +99,8 @@ public abstract class AbstractShopEntry {
         if(entryType.getSellType() == AbstractShopEntryType.SellType.BOTH)
             config.addBool("isSell", isSell, v -> isSell = v, false);
 
+        config.addBool("globalLimit", globalLimit, v -> globalLimit = v, false);
+
         config.addList("description", descriptionList, new StringConfig(null), "");
 
        ConfigGroup entryGroup = config.getOrCreateSubgroup("type");
@@ -118,7 +121,6 @@ public abstract class AbstractShopEntry {
     public boolean isLocked() {
 
         if(limit != 0 && LimiterData.CLIENT.LIMITER_DATA.getOrDefault(entryUUID,0) >= limit ) return true;
-
         for (AbstractShopEntryCondition entryCondition : entryConditions) {
             if(entryCondition.isLocked()) return true;
         }
@@ -138,6 +140,7 @@ public abstract class AbstractShopEntry {
         nbt.put("icon", d);
         nbt.putString("title", title);
         nbt.putBoolean("isSell", isSell);
+        nbt.putBoolean("globalLimit", globalLimit);
 
         if(entryType != null)
             nbt.put("entryType", entryType.serializeNBT());
@@ -169,6 +172,7 @@ public abstract class AbstractShopEntry {
         this.icon = ItemStack.of(nbt.getCompound("icon"));
         this.title = nbt.getString("title");
         this.isSell = nbt.getBoolean("isSell");
+        this.globalLimit = nbt.getBoolean("globalLimit");
 
         if(nbt.contains("entryType"))
             setEntryType(AbstractShopEntryType.from(nbt.getCompound("entryType")));

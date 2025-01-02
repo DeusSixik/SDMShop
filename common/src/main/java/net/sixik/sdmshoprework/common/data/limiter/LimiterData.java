@@ -20,6 +20,7 @@ public class LimiterData implements INBTSerializable<CompoundTag> {
     public static LimiterData SERVER;
     public static LimiterData CLIENT = new LimiterData();
 
+    public static UUID defaul_ = UUID.fromString("57874c37-f8fe-4090-927e-be008faa95ed");
 
     public Map<UUID, Map<UUID, Integer>> PLAYER_DATA = new HashMap<>();
 
@@ -63,6 +64,12 @@ public class LimiterData implements INBTSerializable<CompoundTag> {
         CompoundTag f1 = new CompoundTag();
         ListTag d1 = new ListTag();
         for (Map.Entry<UUID, Integer> h : PLAYER_DATA.getOrDefault(uuid, new HashMap<>()).entrySet()) {
+            CompoundTag nbt = new CompoundTag();
+            nbt.putUUID("id", h.getKey());
+            nbt.putInt("count", h.getValue());
+            d1.add(nbt);
+        }
+        for (Map.Entry<UUID, Integer> h : PLAYER_DATA.getOrDefault(defaul_, new HashMap<>()).entrySet()) {
             CompoundTag nbt = new CompoundTag();
             nbt.putUUID("id", h.getKey());
             nbt.putInt("count", h.getValue());

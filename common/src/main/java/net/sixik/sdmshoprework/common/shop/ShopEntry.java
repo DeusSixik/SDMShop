@@ -15,8 +15,10 @@ public class ShopEntry extends AbstractShopEntry {
         entry.descriptionList = this.descriptionList;
         entry.entryPrice = this.entryPrice;
         entry.title = this.title;
+        entry.limit = this.limit;
         entry.setEntryType(getEntryType().copy());
         entry.isSell = this.isSell;
+        entry.globalLimit = this.globalLimit;
         entry.icon = this.icon;
         entry.getEntryConditions().addAll(getEntryConditions());
         return  entry;

@@ -117,6 +117,7 @@
   "sdmr.shop.tab.dependencies.mnatier.useTierCondition" : "Use Tier Condition",
 
   "sdmr.shop.entry.isSell" : "Sell",
+  "sdmr.shop.entry.globalLimit" : "Global Limit",
   "sdmr.shop" : "SDM Shop",
   "sdmr.shop.entry" : "Entry",
   "sdmr.shop.entry.type" : "Type",

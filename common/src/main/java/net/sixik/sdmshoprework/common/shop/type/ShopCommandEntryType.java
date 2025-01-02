@@ -97,6 +97,11 @@ public class ShopCommandEntryType extends AbstractShopEntryType {
     public void buy(Player player, int countBuy, AbstractShopEntry entry) {
         if(player instanceof ServerPlayer serverPlayer){
             if(command.isEmpty()) return;
+
+            if(command.contains("{player}")) {
+                command = command.replace("{player}", serverPlayer.getName().getString());
+            }
+
             CommandSourceStack source = serverPlayer.createCommandSourceStack();
             if (elevatePerms) source = source.withPermission(2);
             if (silent) source = source.withSuppressedOutput();

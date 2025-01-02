@@ -57,7 +57,7 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
                 .getShopEntry(entryUUID);
 
        if(entry instanceof ShopEntry shopEntry)
-           entry = shopEntry.copy();
+           entry = shopEntry;
 
         if(entry.limit != 0){
             Map<UUID, Integer> BuyData = LimiterData.SERVER.PLAYER_DATA.getOrDefault(packetContext.getPlayer().getGameProfile().getId(), new HashMap<>());

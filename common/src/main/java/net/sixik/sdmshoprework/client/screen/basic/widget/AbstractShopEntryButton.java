@@ -87,17 +87,26 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                         } else if (Objects.equals(getShopScreen().selectedEntryID, entry.entryUUID)) {
                             getShopScreen().selectedEntryID = null;
                         } else {
-                            ListHelper.swap(entry.getShopTab().getTabEntry(), entry.getShopTab().getShopEntry(getShopScreen().selectedEntryID).getIndex(), entry.getIndex());
-                            new SendMoveShopEntryC2S(entry.getShopTab().shopTabUUID, entry.getShopTab().getShopEntry(getShopScreen().selectedEntryID).getIndex(), entry.getIndex()).sendToServer();
+                            ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
+                            AbstractShopEntry entry1 = tab.getShopEntry(getShopScreen().selectedEntryID);
+                            AbstractShopEntry entry2 = tab.getShopEntry(entry.entryUUID);
+
+                            ListHelper.swap(tab.getTabEntry(), entry1.getIndex(), entry2.getIndex());
+
                             getShopScreen().selectedEntryID = null;
-                            getShopScreen().refreshWidgets();
+                            getShopScreen().setSelectedTab(entry1.getShopTab());
+                            getShopScreen().addEntriesButtons();
+
+                            new SendMoveShopEntryC2S(tab.shopTabUUID, entry1.getIndex(), entry2.getIndex()).sendToServer();
                         }
                     } else if (Screen.hasShiftDown() && SDMShopR.isEditMode()) {
                         if (entry.getEntryType().getSellType() == AbstractShopEntryType.SellType.BOTH) {
-                            entry.isSell = !entry.isSell;
-                            getShopScreen().setSelectedTab(entry.getShopTab());
+                            ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
+                            AbstractShopEntry entry1 = tab.getShopEntry(entry.entryUUID);
+                            entry1.isSell = !entry1.isSell;
+                            getShopScreen().setSelectedTab(entry1.getShopTab());
                             getShopScreen().addEntriesButtons();
-                            new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
+                            new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(entry1.getShopTab().shopTabUUID).serializeNBT()).sendToServer();
                         }
                     } else {
                         openBuyScreen();

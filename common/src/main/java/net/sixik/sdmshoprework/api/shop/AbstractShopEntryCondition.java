@@ -18,6 +18,8 @@ public abstract class AbstractShopEntryCondition  implements IModIdentifier {
         try {
             String id = nbt.getString("entryConditionID");
             AbstractShopEntryCondition condition = ShopContentRegister.SHOP_ENTRY_CONDITIONS.getOrDefault(id, null).createDefaultInstance();
+            if(condition == null) return null;
+
             if(Platform.isModLoaded(condition.getModId())) {
                 condition.deserializeNBT(nbt);
                 return condition;

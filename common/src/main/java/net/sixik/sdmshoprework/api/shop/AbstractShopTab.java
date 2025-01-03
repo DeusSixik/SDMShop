@@ -188,7 +188,9 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
         if(nbt.contains("tabCondition")) {
             ListTag tagTabConditions = nbt.getList("tabCondition", 10);
             for (int i = 0; i < tagTabConditions.size(); i++) {
-                this.tabConditions.add(AbstractShopEntryCondition.from(tagTabConditions.getCompound(i)));
+                AbstractShopEntryCondition condition = AbstractShopEntryCondition.from(tagTabConditions.getCompound(i));
+                if(condition == null) continue;
+                this.tabConditions.add(condition);
             }
         }
 

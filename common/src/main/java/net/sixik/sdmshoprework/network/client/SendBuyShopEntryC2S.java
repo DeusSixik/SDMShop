@@ -3,6 +3,7 @@ package net.sixik.sdmshoprework.network.client;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.simple.BaseC2SMessage;
 import dev.architectury.networking.simple.MessageType;
+import dev.architectury.platform.Platform;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -102,7 +103,7 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
 
        if(entry.isSell) {
            try {
-               KubeJSHelper.postEvent(packetContext.getPlayer(), entry, count, KubeJSHelper.EventType.SELL);
+               if(Platform.isModLoaded("kubejs")) KubeJSHelper.postEvent(packetContext.getPlayer(), entry, count, KubeJSHelper.EventType.SELL);
 
                entry.getEntryType().sell(packetContext.getPlayer(), count, entry);
 
@@ -114,7 +115,7 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
            }
        } else {
            try {
-               KubeJSHelper.postEvent(packetContext.getPlayer(), entry, count, KubeJSHelper.EventType.BUY);
+               if(Platform.isModLoaded("kubejs")) KubeJSHelper.postEvent(packetContext.getPlayer(), entry, count, KubeJSHelper.EventType.BUY);
 
                entry.getEntryType().buy(packetContext.getPlayer(), count, entry);
 

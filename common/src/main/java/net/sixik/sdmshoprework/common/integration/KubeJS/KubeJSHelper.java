@@ -9,12 +9,11 @@ import net.sixik.sdmshoprework.common.integration.KubeJS.events.ShopEntrySellEve
 public class KubeJSHelper {
 
     public static void postEvent(Player player, AbstractShopEntry entry, int count, EventType type) {
-        if(!Platform.isModLoaded("kubejs")) return;
-
         switch (type) {
             case BUY -> ShopJSEvents.BUY_ENTRY.post(new ShopEntryBuyEventJS(player, entry, count));
             case SELL -> ShopJSEvents.SELL_ENTRY.post(new ShopEntrySellEventJS(player, entry, count));
         }
+
     }
 
 

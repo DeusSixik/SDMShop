@@ -74,8 +74,10 @@ public class ShopCommandEntryType extends AbstractShopEntryType {
         CompoundTag nbt = super.serializeNBT();
         NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
         nbt.putString("command", command);
-        nbt.putBoolean("elevatePerms", elevatePerms);
-        nbt.putBoolean("silent", silent);
+        if(elevatePerms)
+            nbt.putBoolean("elevatePerms", true);
+        if(silent)
+            nbt.putBoolean("silent", true);
         return nbt;
     }
 
@@ -83,8 +85,10 @@ public class ShopCommandEntryType extends AbstractShopEntryType {
     public void deserializeNBT(CompoundTag nbt) {
         iconPath = ItemStack.of(nbt.getCompound("iconPathNew"));
         command = nbt.getString("command");
-        elevatePerms = nbt.getBoolean("elevatePerms");
-        silent = nbt.getBoolean("silent");
+        if(nbt.contains("elevatePerms"))
+            elevatePerms = nbt.getBoolean("elevatePerms");
+        if(nbt.contains("silent"))
+            silent = nbt.getBoolean("silent");
     }
 
     @Override

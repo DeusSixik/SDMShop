@@ -47,7 +47,7 @@ public class SendCreateShopEntryC2S extends BaseC2SMessage {
             ShopEntry shopEntry = new ShopEntry(shopTab);
             shopEntry.deserializeNBT(nbt);
             shopTab.getTabEntry().add(shopEntry);
-            new SyncShopS2C(ShopBase.SERVER.serializeNBT()).sendToAll(packetContext.getPlayer().getServer());
+            ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
             ShopBase.SERVER.saveShopToFile();
         } catch (Exception e){
             SDMShopRework.printStackTrace("", e);

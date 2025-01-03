@@ -94,19 +94,17 @@ public abstract class AbstractShopTabButton extends SimpleTextButton {
                        }
                    }
 
-                   ShopBase.CLIENT.getShopTabs().remove(shopTab);
+                   ShopBase.CLIENT.getShopTabs().removeIf(s -> shopTab.shopTabUUID.equals(s.shopTabUUID));
                    new SendChangesShopC2S(ShopBase.CLIENT.serializeNBT()).sendToServer();
-                   getShopScreen().tabsPanel.refreshWidgets();
+                   getShopScreen().addTabsButtons();
                }));
 
 
                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.up"), Icons.UP, (b) -> {
                    moveNew(true);
-                   getShopScreen().refreshWidgets();
                }));
                contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.down"), Icons.DOWN, (b) -> {
                    moveNew(false);
-                   getShopScreen().refreshWidgets();
                }));
 
 
@@ -128,7 +126,7 @@ public abstract class AbstractShopTabButton extends SimpleTextButton {
                 ListHelper.moveDown(ShopBase.CLIENT.getShopTabs(), index);
             }
             new SendChangesShopC2S(ShopBase.CLIENT.serializeNBT()).sendToServer();
-            getShopScreen().refreshWidgets();
+            getShopScreen().addTabsButtons();
         } catch (Exception e){
             SDMShopRework.LOGGER.error(e.toString());
         }

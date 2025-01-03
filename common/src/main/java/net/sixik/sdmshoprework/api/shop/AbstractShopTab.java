@@ -19,6 +19,7 @@ import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.IConstructor;
 import net.sixik.sdmshoprework.api.INBTSerializable;
 import net.sixik.sdmshoprework.api.register.ShopContentRegister;
+import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
 import net.sixik.sdmshoprework.common.integration.FTBQuests.ConfigIconItemStack;
 import net.sixik.sdmshoprework.common.register.CustomIconItem;
 import net.sixik.sdmshoprework.common.register.ItemsRegister;
@@ -46,6 +47,9 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
 
     public List<String> descriptionList = new ArrayList<>();
 
+    public int limit = 0;
+    public boolean globalLimit = false;
+
     public AbstractShopTab(ShopBase shop){
         this.shop = shop;
         this.shopTabUUID = UUID.randomUUID();
@@ -56,6 +60,12 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
                 tabConditions.add(condition);
             }
         }
+    }
+
+    public void createShopEntry(CompoundTag nbt) {
+        AbstractShopEntry entry = new ShopEntry(this);
+        entry.deserializeNBT(nbt);
+        tabEntry.add(entry);
     }
 
     public ShopBase getShop() {
@@ -104,6 +114,8 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
 
         config.addList("description", descriptionList, new StringConfig(null), "");
 
+        config.addInt("limit", limit, v -> limit = v, 0, 0, Integer.MAX_VALUE);
+        config.addBool("globalLimit", globalLimit, v -> globalLimit = v, false);
 
         ConfigGroup group = config.getOrCreateSubgroup("dependencies");
 
@@ -131,65 +143,78 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
         NBTUtils.putItemStack(nbt, "icon", icon);
         nbt.putUUID("shopTabUUID", shopTabUUID);
         nbt.putString("title", title.getString());
+
+        if(limit != 0) {
+            nbt.putInt("limit", limit);
+            nbt.putBoolean("globalLimit", globalLimit);
+        }
+
         ListTag tagTabEntries = new ListTag();
         for (AbstractShopEntry shopEntry : tabEntry) {
             tagTabEntries.add(shopEntry.serializeNBT());
         }
         nbt.put("tabEntry", tagTabEntries);
 
-        ListTag tagTabEntryLimits = new ListTag();
-        for (AbstractShopEntryLimiter tabEntryLimit : tabEntryLimits) {
-            tagTabEntryLimits.add(tabEntryLimit.serializeNBT());
+        if(!tabConditions.isEmpty()) {
+            ListTag tagTabConditions = new ListTag();
+            for (AbstractShopEntryCondition tabCondition : tabConditions) {
+                tagTabConditions.add(tabCondition.serializeNBT());
+            }
+            nbt.put("tabCondition", tagTabConditions);
         }
-        nbt.put("tabLimit", tagTabEntryLimits);
-        ListTag tagTabConditions = new ListTag();
-        for (AbstractShopEntryCondition tabCondition : tabConditions) {
-            tagTabConditions.add(tabCondition.serializeNBT());
-        }
-        nbt.put("tabCondition", tagTabConditions);
 
-        ListTag tagDescription = new ListTag();
-        for (String s : descriptionList) {
-            tagDescription.add(StringTag.valueOf(s));
+        if(!descriptionList.isEmpty()) {
+            ListTag tagDescription = new ListTag();
+            for (String s : descriptionList) {
+                tagDescription.add(StringTag.valueOf(s));
+            }
+            nbt.put("description", tagDescription);
         }
-        nbt.put("description", tagDescription);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.shopTabUUID = nbt.getUUID("shopTabUUID");
-        title = Component.translatable(nbt.getString("title"));
-        icon = NBTUtils.getItemStack(nbt, "icon");
-        ListTag tagTabEntryLimits = nbt.getList("tabLimit", 10);
-        tabEntryLimits.clear();
-        for (int i = 0; i < tagTabEntryLimits.size(); i++) {
-            tabEntryLimits.add(AbstractShopEntryLimiter.from(tagTabEntryLimits.getCompound(i)));
+        this.title = Component.translatable(nbt.getString("title"));
+        this.icon = NBTUtils.getItemStack(nbt, "icon");
+
+        if(nbt.contains("limit")) {
+            this.limit = nbt.getInt("limit");
+            this.globalLimit = nbt.getBoolean("globalLimit");
         }
 
-        ListTag tagTabConditions = nbt.getList("tabCondition", 10);
-        tabConditions.clear();
-        for (int i = 0; i < tagTabConditions.size(); i++) {
-            tabConditions.add(AbstractShopEntryCondition.from(tagTabConditions.getCompound(i)));
+        this.tabConditions.clear();
+        if(nbt.contains("tabCondition")) {
+            ListTag tagTabConditions = nbt.getList("tabCondition", 10);
+            for (int i = 0; i < tagTabConditions.size(); i++) {
+                this.tabConditions.add(AbstractShopEntryCondition.from(tagTabConditions.getCompound(i)));
+            }
         }
 
-        ListTag tagEntries = nbt.getList("tabEntry", 10);
-        tabEntry.clear();
-        for (Tag tagEntry : tagEntries) {
-            ShopEntry shopEntry = new ShopEntry(this);
-            shopEntry.deserializeNBT((CompoundTag) tagEntry);
-            tabEntry.add(shopEntry);
+        this.tabEntry.clear();
+        if(nbt.contains("tabEntry")) {
+            ListTag tagEntries = nbt.getList("tabEntry", 10);
+            for (Tag tagEntry : tagEntries) {
+                ShopEntry shopEntry = new ShopEntry(this);
+                shopEntry.deserializeNBT((CompoundTag) tagEntry);
+                this.tabEntry.add(shopEntry);
+            }
         }
 
-        descriptionList.clear();
-        ListTag tagDescription = nbt.getList("description", 8);
-        for (Tag tag : tagDescription) {
-            descriptionList.add(tag.getAsString());
+        this.descriptionList.clear();
+        if(nbt.contains("description")) {
+            ListTag tagDescription = nbt.getList("description", 8);
+            for (Tag tag : tagDescription) {
+                this.descriptionList.add(tag.getAsString());
+            }
         }
     }
 
     public boolean isLocked() {
         if (SDMShopR.isEditMode()) return false;
+
+        if(limit != 0 && LimiterData.CLIENT.TAB_DATA.getOrDefault(shopTabUUID,0) >= limit ) return true;
 
         for (AbstractShopEntryCondition tabCondition : tabConditions) {
             if(tabCondition.isLocked()) return true;

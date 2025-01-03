@@ -48,7 +48,7 @@ public class SendMoveShopEntryC2S extends BaseC2SMessage {
         try {
             ShopTab shopTab = ShopBase.SERVER.getShopTab(tabID);
             ListHelper.swap(shopTab.getTabEntry(), from, to);
-            new SyncShopS2C(ShopBase.SERVER.serializeNBT()).sendToAll(packetContext.getPlayer().getServer());
+            ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
             ShopBase.SERVER.saveShopToFile();
         } catch (Exception e){
             SDMShopRework.printStackTrace("", e);

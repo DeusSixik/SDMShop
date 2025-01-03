@@ -7,15 +7,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.sixik.sdmshoprework.SDMShopRework;
-import net.sixik.sdmshoprework.api.events.ShopEvents;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
+import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.common.config.Config;
 import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
 import net.sixik.sdmshoprework.common.integration.KubeJS.KubeJSHelper;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
-import net.sixik.sdmshoprework.common.shop.ShopEntry;
 import net.sixik.sdmshoprework.network.ShopNetwork;
-import org.jetbrains.annotations.Debug;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,29 +51,64 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
 
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
-       AbstractShopEntry entry = ShopBase.SERVER.getShopTab(tabUUID)
-                .getShopEntry(entryUUID);
+        AbstractShopTab shopTab = ShopBase.SERVER.getShopTab(tabUUID);
+        AbstractShopEntry entry = shopTab.getShopEntry(entryUUID);
 
-        if(entry.limit != 0 ){
-            Map<UUID, Integer> BuyData = LimiterData.SERVER.PLAYER_DATA.getOrDefault(entry.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), new HashMap<>());
-            int counBuy = BuyData.getOrDefault(entryUUID, 0);
-            if (counBuy > entry.limit) return;
-            BuyData.put(entryUUID, counBuy + 1 * count);
-            LimiterData.SERVER.PLAYER_DATA.put(entry.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), BuyData);
+        /////////////////////////////////////////////////////
+        //              Shop Tab limit logic               //
+        /////////////////////////////////////////////////////
+        if(shopTab.limit != 0) {
+            Map<UUID, Integer> buyDataMap = LimiterData.SERVER.PLAYER_TAB_DATA.getOrDefault(shopTab.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), new HashMap<>());
+            int counBuy = buyDataMap.getOrDefault(tabUUID, 0);
+            if (counBuy > shopTab.limit) return;
+
+            buyDataMap.put(tabUUID, counBuy + 1 * count);
+
+            LimiterData.SERVER.PLAYER_TAB_DATA.put(shopTab.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), buyDataMap);
             new SendEntryLimitS2C(LimiterData.SERVER.serializeClient(packetContext.getPlayer().getGameProfile().getId())).sendTo((ServerPlayer) packetContext.getPlayer());
             LimiterData.SERVER.save(packetContext.getPlayer().getServer());
-            if(entry.globalLimit) {
+
+            if(shopTab.globalLimit) {
                 for (ServerPlayer player : packetContext.getPlayer().getServer().getPlayerList().getPlayers()) {
                     new SendEntryLimitS2C(LimiterData.SERVER.serializeClient(player.getGameProfile().getId())).sendTo(player);
                 }
             }
         }
 
+        /////////////////////////////////////////////////////
+        //              Shop Entry limit logic             //
+        /////////////////////////////////////////////////////
+        if(entry.limit != 0 ){
+           Map<UUID, Integer> buyDataMap = LimiterData.SERVER.PLAYER_ENTRY_DATA.getOrDefault(entry.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), new HashMap<>());
+
+           int counBuy = buyDataMap.getOrDefault(entryUUID, 0);
+           if (counBuy > entry.limit) return;
+
+           buyDataMap.put(entryUUID, counBuy + 1 * count);
+
+           LimiterData.SERVER.PLAYER_ENTRY_DATA.put(entry.globalLimit ? LimiterData.defaul_ : packetContext.getPlayer().getGameProfile().getId(), buyDataMap);
+           new SendEntryLimitS2C(LimiterData.SERVER.serializeClient(packetContext.getPlayer().getGameProfile().getId())).sendTo((ServerPlayer) packetContext.getPlayer());
+           LimiterData.SERVER.save(packetContext.getPlayer().getServer());
+
+           if(entry.globalLimit) {
+               for (ServerPlayer player : packetContext.getPlayer().getServer().getPlayerList().getPlayers()) {
+                   new SendEntryLimitS2C(LimiterData.SERVER.serializeClient(player.getGameProfile().getId())).sendTo(player);
+               }
+           }
+       }
+
+       long defaultPrice = entry.entryPrice;
+       long defaultCount = entry.entryCount;
+
        if(entry.isSell) {
            try {
                KubeJSHelper.postEvent(packetContext.getPlayer(), entry, count, KubeJSHelper.EventType.SELL);
 
                entry.getEntryType().sell(packetContext.getPlayer(), count, entry);
+
+               if(defaultPrice != entry.entryPrice || defaultCount != entry.entryCount) {
+                   ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
+               }
            } catch (Exception e) {
                SDMShopRework.printStackTrace("", e);
            }
@@ -84,6 +117,10 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
                KubeJSHelper.postEvent(packetContext.getPlayer(), entry, count, KubeJSHelper.EventType.BUY);
 
                entry.getEntryType().buy(packetContext.getPlayer(), count, entry);
+
+               if(defaultPrice != entry.entryPrice || defaultCount != entry.entryCount) {
+                   ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
+               }
            } catch (Exception e) {
                SDMShopRework.printStackTrace("", e);
            }

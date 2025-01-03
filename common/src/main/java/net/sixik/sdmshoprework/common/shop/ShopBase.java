@@ -9,6 +9,8 @@ import net.sixik.sdmshoprework.SDMShopPaths;
 import net.sixik.sdmshoprework.api.INBTSerializable;
 import net.sixik.sdmshoprework.common.serializer.SerializerControl;
 import net.sixik.sdmshoprework.network.client.SyncShopS2C;
+import net.sixik.sdmshoprework.network.sync.SendClearTabsS2C;
+import net.sixik.sdmshoprework.network.sync.SendShopTabS2C;
 
 import java.util.*;
 import java.util.concurrent.Future;
@@ -26,6 +28,13 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
 
     public List<ShopTab> getShopTabs() {
         return shopTabs;
+    }
+
+    public ShopTab createShopTab(CompoundTag nbt) {
+        ShopTab tab = new ShopTab(this);
+        tab.deserializeNBT(nbt);
+        shopTabs.add(tab);
+        return tab;
     }
 
     public ShopTab getShopTab(UUID uuid){
@@ -81,8 +90,41 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
         }
     }
 
-    public void saveShopToFile() {
 
+    public List<CompoundTag> serializeTabs() {
+        List<CompoundTag> compoundTags = new ArrayList<>();
+        for (ShopTab shopTab : shopTabs) {
+            compoundTags.add(shopTab.serializeNBT());
+        }
+        return compoundTags;
+    }
+
+    public List<ShopTab> deserializeTabs(List<CompoundTag> compoundTags) {
+        List<ShopTab> shopTabs = new ArrayList<>();
+        for (CompoundTag compoundTag : compoundTags) {
+            ShopTab t = new ShopTab(this);
+            t.deserializeNBT(compoundTag);
+            shopTabs.add(t);
+        }
+        return shopTabs;
+    }
+
+    public CompoundTag serializeTab(UUID id) {
+        ShopTab shopTab = getShopTab(id);
+        if(shopTab != null)
+            return shopTab.serializeNBT();
+        return new CompoundTag();
+    }
+
+    public ShopTab deserializeTab(CompoundTag nbt) {
+        if(nbt.isEmpty()) return new ShopTab(this);
+
+        ShopTab shopTab = new ShopTab(this);
+        shopTab.deserializeNBT(nbt);
+        return shopTab;
+    }
+
+    public void saveShopToFile() {
         Runnable runnable = () -> {
             try {
                 SNBT.write(SDMShopPaths.getFile(), serializeNBT());
@@ -98,16 +140,13 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
             runnableIterator.next().run();
             runnableIterator.remove();
         }
-//        if(ServerLifecycleHooks.getCurrentServer() != null) {
-//            syncShop(ServerLifecycleHooks.getCurrentServer());
-//        }
     }
 
     public void syncShop(MinecraftServer server) {
-        new SyncShopS2C(serializeNBT()).sendToAll(server);
+        ShopDataHelper.syncShopData(server);
     }
 
     public void syncShop(ServerPlayer player) {
-        new SyncShopS2C(serializeNBT()).sendTo(player);
+        ShopDataHelper.syncShopData(player);
     }
 }

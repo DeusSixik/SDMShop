@@ -36,10 +36,8 @@ public class SendCreateShopTabC2S extends BaseC2SMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         try {
-            ShopTab shopTab = new ShopTab(ShopBase.SERVER);
-            shopTab.deserializeNBT(nbt);
-            ShopBase.SERVER.getShopTabs().add(shopTab);
-            new SyncShopS2C(ShopBase.SERVER.serializeNBT()).sendToAll(packetContext.getPlayer().getServer());
+            ShopBase.SERVER.createShopTab(nbt);
+            ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
             ShopBase.SERVER.saveShopToFile();
         } catch (Exception e){
             SDMShopRework.printStackTrace("", e);

@@ -95,8 +95,9 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                     } else if (Screen.hasShiftDown() && SDMShopR.isEditMode()) {
                         if (entry.getEntryType().getSellType() == AbstractShopEntryType.SellType.BOTH) {
                             entry.isSell = !entry.isSell;
+                            getShopScreen().setSelectedTab(entry.getShopTab());
+                            getShopScreen().addEntriesButtons();
                             new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
-                            getShopScreen().refreshWidgets();
                         }
                     } else {
                         openBuyScreen();
@@ -132,28 +133,25 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                     if(entry instanceof ShopEntry shopEntry) {
                         ShopEntry d = shopEntry.copy();
                         tab.getTabEntry().add(d);
-                        entry.getShopTab().getTabEntry().add(d);
-
                     }
+                    getShopScreen().setSelectedTab(tab);
+                    getShopScreen().addEntriesButtons();
                     new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
-                    getShopScreen().refreshWidgets();
                 }));
 
                 contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.delete"), Icons.REMOVE, (b) -> {
                     ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
-                    entry.getShopTab().removeEntry(entry.entryUUID);
                     tab.removeEntry(entry.entryUUID);
+                    getShopScreen().setSelectedTab(tab);
+                    getShopScreen().addEntriesButtons();
                     new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
-                    getShopScreen().refreshWidgets();
                 }));
 
                 contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.up"), Icons.UP, (b) -> {
                     moneEntry(true);
-                    getShopScreen().refreshWidgets();
                 }));
                 contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.move.down"), Icons.DOWN, (b) -> {
                     moneEntry(false);
-                    getShopScreen().refreshWidgets();
                 }));
 
                 getShopScreen().openContextMenu(contextMenu);
@@ -182,15 +180,14 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
     public void moneEntry(boolean isUp){
         int entryId = entry.getIndex();
         ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
-        AbstractShopTab d1 = entry.getShopTab();
         if(isUp) {
-            ListHelper.moveUp(d1.getTabEntry(), entryId);
             ListHelper.moveUp(tab.getTabEntry(), entryId);
         }
         else {
-            ListHelper.moveDown(d1.getTabEntry(), entryId);
             ListHelper.moveDown(tab.getTabEntry(), entryId);
         }
+        getShopScreen().setSelectedTab(tab);
+        getShopScreen().addEntriesButtons();
         new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();
 
     }

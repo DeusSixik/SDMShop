@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
+import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractMarketButton;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
@@ -144,7 +145,7 @@ public class ModernShopScreen extends AbstractShopScreen {
 
             entriesPanel.getWidgets().clear();
             entriesPanel.addAll(widgets);
-            entryScrollPanel.setValue(0.0);
+            entryScrollPanel.setValue(entryScrollPos);
         }
     }
 
@@ -216,11 +217,14 @@ public class ModernShopScreen extends AbstractShopScreen {
         List<Widget> widgetList = new ArrayList<>();
         int y = 0;
         for (ShopTab shopTab : ShopBase.CLIENT.getShopTabs()) {
-            ModernShopTabButton button = new ModernShopTabButton(tabsPanel, shopTab);
-            button.setSize(tabsPanel.width - 2 - getScrollbarWidth(), 15);
-            button.setPos(0, y);
-            widgetList.add(button);
-            y+=button.height + 3;
+
+            if(!shopTab.isLocked() || SDMShopR.isEditMode()) {
+                ModernShopTabButton button = new ModernShopTabButton(tabsPanel, shopTab);
+                button.setSize(tabsPanel.width - 2 - getScrollbarWidth(), 15);
+                button.setPos(0, y);
+                widgetList.add(button);
+                y += button.height + 3;
+            }
         }
 
         if(SDMShopR.isEditMode()) {
@@ -238,5 +242,16 @@ public class ModernShopScreen extends AbstractShopScreen {
 
     protected int getScrollbarWidth() {
         return 2;
+    }
+
+    @Override
+    public void setSelectedTab(AbstractShopTab shopTab) {
+        if(this.selectedTab.shopTabUUID.equals(shopTab.shopTabUUID)) {
+            this.entryScrollPos = Math.min(entryScrollPanel.getValue(), entryScrollPanel.getMaxValue());
+        } else {
+            entryScrollPos = 0.0;
+        }
+
+        super.setSelectedTab(shopTab);
     }
 }

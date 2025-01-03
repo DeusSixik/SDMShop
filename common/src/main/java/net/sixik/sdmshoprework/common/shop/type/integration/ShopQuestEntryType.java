@@ -73,7 +73,8 @@ public class ShopQuestEntryType extends AbstractShopEntryType {
         CompoundTag nbt = super.serializeNBT();
         nbt.putString("questID", questID);
         NBTUtils.putItemStack(nbt, "iconPathNew", iconPath);
-        nbt.putBoolean("useIconFromQuest", useIconFromQuest);
+        if(useIconFromQuest)
+            nbt.putBoolean("useIconFromQuest", true);
         return nbt;
     }
 
@@ -81,7 +82,9 @@ public class ShopQuestEntryType extends AbstractShopEntryType {
     public void deserializeNBT(CompoundTag nbt) {
         questID = nbt.getString("questID");
         iconPath = NBTUtils.getItemStack(nbt, "iconPathNew");
-        useIconFromQuest = nbt.getBoolean("useIconFromQuest");
+
+        if(nbt.contains("useIconFromQuest"))
+            useIconFromQuest = nbt.getBoolean("useIconFromQuest");
     }
 
     @Override

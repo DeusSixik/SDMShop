@@ -3,20 +3,15 @@ package net.sixik.sdmshoprework.api.shop;
 import dev.architectury.platform.Platform;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.StringConfig;
-import jdk.jfr.Description;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.sixik.sdmshoprework.api.IConstructor;
 import net.sixik.sdmshoprework.api.register.ShopContentRegister;
 import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
-import net.sixik.sdmshoprework.common.icon.ShopItemIcon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +115,7 @@ public abstract class AbstractShopEntry {
 
     public boolean isLocked() {
 
-        if(limit != 0 && LimiterData.CLIENT.LIMITER_DATA.getOrDefault(entryUUID,0) >= limit ) return true;
+        if(limit != 0 && LimiterData.CLIENT.ENTRY_DATA.getOrDefault(entryUUID,0) >= limit ) return true;
         for (AbstractShopEntryCondition entryCondition : entryConditions) {
             if(entryCondition.isLocked()) return true;
         }
@@ -132,30 +127,41 @@ public abstract class AbstractShopEntry {
         CompoundTag nbt = new CompoundTag();
         nbt.putLong("entryPrice", entryPrice);
         nbt.putInt("entryCount", entryCount);
-        nbt.putInt("limit", limit);
-//        nbt.put("entryIcon", entryIcon.serializeNBT());
+
+        if(limit != 0) {
+            nbt.putInt("limit", limit);
+            nbt.putBoolean("globalLimit", globalLimit);
+        }
+
         nbt.putUUID("entryUUID", entryUUID);
         CompoundTag d = new CompoundTag();
         icon.save(d);
         nbt.put("icon", d);
-        nbt.putString("title", title);
+
+        if(!title.isEmpty())
+            nbt.putString("title", title);
         nbt.putBoolean("isSell", isSell);
-        nbt.putBoolean("globalLimit", globalLimit);
+
 
         if(entryType != null)
             nbt.put("entryType", entryType.serializeNBT());
 
-        ListTag tagEntryCondition = new ListTag();
-        for (AbstractShopEntryCondition entryCondition : entryConditions) {
-            tagEntryCondition.add(entryCondition.serializeNBT());
+        if(!entryConditions.isEmpty()) {
+            ListTag tagEntryCondition = new ListTag();
+            for (AbstractShopEntryCondition entryCondition : entryConditions) {
+                tagEntryCondition.add(entryCondition.serializeNBT());
+            }
+            nbt.put("entryCondition", tagEntryCondition);
         }
-        nbt.put("entryCondition", tagEntryCondition);
 
-        ListTag tagDescription = new ListTag();
-        for (String s : descriptionList) {
-            tagDescription.add(StringTag.valueOf(s));
+        if(!descriptionList.isEmpty()) {
+            ListTag tagDescription = new ListTag();
+            for (String s : descriptionList) {
+                tagDescription.add(StringTag.valueOf(s));
+            }
+            nbt.put("description", tagDescription);
         }
-        nbt.put("description", tagDescription);
+
 
         return nbt;
     }
@@ -164,31 +170,37 @@ public abstract class AbstractShopEntry {
         this.entryPrice = nbt.getLong("entryPrice");
         this.entryCount = nbt.getInt("entryCount");
 
-        if(nbt.contains("limit"))
+        if(nbt.contains("limit")) {
             this.limit = nbt.getInt("limit");
+            this.globalLimit = nbt.getBoolean("globalLimit");
+        }
 
-//        entryIcon = ShopItemIcon.from(nbt.getCompound("entryIcon"));
+        if(nbt.contains("title"))
+            this.title = nbt.getString("title");
+
         this.entryUUID = nbt.getUUID("entryUUID");
         this.icon = ItemStack.of(nbt.getCompound("icon"));
-        this.title = nbt.getString("title");
         this.isSell = nbt.getBoolean("isSell");
-        this.globalLimit = nbt.getBoolean("globalLimit");
 
         if(nbt.contains("entryType"))
             setEntryType(AbstractShopEntryType.from(nbt.getCompound("entryType")));
 
-        ListTag tagEntryCondition = nbt.getList("entryCondition", 10);
         entryConditions.clear();
-        for (int i = 0; i < tagEntryCondition.size(); i++) {
-            AbstractShopEntryCondition condition = AbstractShopEntryCondition.from(tagEntryCondition.getCompound(i));
-            if(condition == null) continue;
-            entryConditions.add(condition);
+        if(nbt.contains("entryCondition")) {
+            ListTag tagEntryCondition = nbt.getList("entryCondition", 10);
+            for (int i = 0; i < tagEntryCondition.size(); i++) {
+                AbstractShopEntryCondition condition = AbstractShopEntryCondition.from(tagEntryCondition.getCompound(i));
+                if (condition == null) continue;
+                entryConditions.add(condition);
+            }
         }
 
         descriptionList.clear();
-        ListTag tagDescription = nbt.getList("description", 8);
-        for (Tag tag : tagDescription) {
-            descriptionList.add(tag.getAsString());
+        if(nbt.contains("description")) {
+            ListTag tagDescription = nbt.getList("description", 8);
+            for (Tag tag : tagDescription) {
+                descriptionList.add(tag.getAsString());
+            }
         }
     }
 

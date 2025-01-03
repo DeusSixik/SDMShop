@@ -78,7 +78,8 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     public CompoundTag serializeNBT() {
         CompoundTag nbt = super.serializeNBT();
         NBTUtils.putItemStack(nbt,"itemStack", itemStack);
-        nbt.putBoolean("ignoreNBT", ignoreNBT);
+        if(ignoreNBT)
+            nbt.putBoolean("ignoreNBT", true);
         return nbt;
     }
 

@@ -43,7 +43,7 @@ public class SendMoveShopTabC2S extends BaseC2SMessage {
     public void handle(NetworkManager.PacketContext packetContext) {
         try {
             ListHelper.swap(ShopBase.SERVER.getShopTabs(), from, to);
-            new SyncShopS2C(ShopBase.SERVER.serializeNBT()).sendToAll(packetContext.getPlayer().getServer());
+            ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
             ShopBase.SERVER.saveShopToFile();
         } catch (Exception e){
             SDMShopRework.printStackTrace("", e);

@@ -42,7 +42,7 @@ public class SendChangesShopEntriesC2S extends BaseC2SMessage {
     public void handle(NetworkManager.PacketContext packetContext) {
         try {
             ShopBase.SERVER.getShopTab(tabID).deserializeNBT(nbt);
-            new SyncShopS2C(ShopBase.SERVER.serializeNBT()).sendToAll(packetContext.getPlayer().getServer());
+            ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
             ShopBase.SERVER.saveShopToFile();
         } catch (Exception e){
             SDMShopRework.printStackTrace("", e);

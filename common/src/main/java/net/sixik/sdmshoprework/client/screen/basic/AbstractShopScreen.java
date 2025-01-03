@@ -6,6 +6,7 @@ import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshoprework.SDMShopClient;
+import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopEntriesPanel;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopMoneyPanel;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopTabPanel;
@@ -23,6 +24,9 @@ public abstract class AbstractShopScreen extends BaseScreen {
     @Override public boolean drawDefaultBackground(GuiGraphics graphics) {return false;}
 
 
+    public double entryScrollPos = 0.0;
+    public double tabScrollPos = 0.0;
+
     public String searchField = "";
     public UUID selectedEntryID = null;
     public UUID selectedTabID = null;
@@ -31,7 +35,7 @@ public abstract class AbstractShopScreen extends BaseScreen {
     public AbstractShopTabPanel tabsPanel;
     public AbstractShopMoneyPanel moneyPanel;
 
-    public ShopTab selectedTab;
+    public AbstractShopTab selectedTab;
 
     public boolean isOpenCommand;
 
@@ -69,7 +73,7 @@ public abstract class AbstractShopScreen extends BaseScreen {
 
     }
 
-    public void setSelectedTab(ShopTab shopTab){
+    public void setSelectedTab(AbstractShopTab shopTab){
         this.selectedTab = shopTab;
         this.selectedEntryID = null;
     }
@@ -87,12 +91,15 @@ public abstract class AbstractShopScreen extends BaseScreen {
 
     public static void refreshIfOpen() {
         if (Minecraft.getInstance().screen instanceof ScreenWrapper w && w.getGui() instanceof AbstractShopScreen mts) {
-            mts.refreshWidgets();
+            mts.addTabsButtons();
+            mts.addEntriesButtons();
         }
     }
 
     public abstract void addEntriesButtons();
     public abstract void addTabsButtons();
+    public void setScrollEntryPos() {}
+    public void setScrollEntryTab() {}
 
     public abstract void calculatePositions(List<AbstractShopEntryButton> entryButtons);
 

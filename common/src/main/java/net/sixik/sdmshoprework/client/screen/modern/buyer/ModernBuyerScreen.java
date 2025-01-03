@@ -1,16 +1,11 @@
 package net.sixik.sdmshoprework.client.screen.modern.buyer;
 
-import de.cadentem.quality_food.util.QualityUtils;
-import dev.architectury.platform.Platform;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
-import dev.ftb.mods.ftblibrary.icon.Icon;
-import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.ui.TextBox;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 import net.sixik.sdm_economy.api.CurrencyHelper;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerBuyButton;
@@ -49,8 +44,29 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         this.screen = screen;
         this.entryButton = shopEntry;
         this.shopEntry = shopEntry.entry;
-        this.limit = shopEntry.entry.limit - LimiterData.CLIENT.LIMITER_DATA.getOrDefault(shopEntry.entry.entryUUID,0);
-        this.limit = Math.max(limit, 0);
+
+
+        int tabLimit = LimiterData.CLIENT.TAB_DATA.getOrDefault(shopEntry.entry.getShopTab().shopTabUUID, 0);
+        int entryLimit = LimiterData.CLIENT.ENTRY_DATA.getOrDefault(shopEntry.entry.entryUUID, 0);
+
+        int max;
+
+        if (tabLimit == 0) {
+            max = entryLimit;
+        } else {
+            max = Math.min(tabLimit, entryLimit > 0 ? entryLimit : tabLimit);
+        }
+
+        // Учет лимита вкладки, если он задан
+        if (shopEntry.entry.getShopTab().limit != 0) {
+            max = shopEntry.entry.getShopTab().limit - max;
+        }
+        // Учет лимита товара, если он задан
+        else if (shopEntry.entry.limit != 0) {
+            max = shopEntry.entry.limit - max;
+        }
+
+        this.limit = Math.max(max, 0);
     }
 
     @Override

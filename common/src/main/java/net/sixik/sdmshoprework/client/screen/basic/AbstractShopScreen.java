@@ -10,7 +10,6 @@ import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopEntriesPanel;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopMoneyPanel;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopTabPanel;
-import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractMarketButton;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
 import net.sixik.sdmshoprework.client.screen.legacy.createEntry.LegacyCreateEntryScreen;
 import net.sixik.sdmshoprework.common.config.ConfigFile;

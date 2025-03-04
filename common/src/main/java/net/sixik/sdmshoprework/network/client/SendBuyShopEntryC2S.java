@@ -11,7 +11,7 @@ import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.common.config.Config;
-import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
+import net.sixik.sdmshoprework.common.data.LimiterData;
 import net.sixik.sdmshoprework.common.integration.KubeJS.KubeJSHelper;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.network.ShopNetwork;
@@ -54,6 +54,11 @@ public class SendBuyShopEntryC2S extends BaseC2SMessage {
     public void handle(NetworkManager.PacketContext packetContext) {
         AbstractShopTab shopTab = ShopBase.SERVER.getShopTab(tabUUID);
         AbstractShopEntry entry = shopTab.getShopEntry(entryUUID);
+
+        if(!entry.getEntryType().canExecute(packetContext.getPlayer(), entry.isSell, count, entry)) {
+            SDMShopRework.LOGGER.warn("Player {} tried to buy entry {} from tab {} which is not allowed", packetContext.getPlayer().getGameProfile().getName(), entry.entryUUID, shopTab.shopTabUUID);
+            return;
+        }
 
         /////////////////////////////////////////////////////
         //              Shop Tab limit logic               //

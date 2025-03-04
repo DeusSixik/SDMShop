@@ -37,7 +37,8 @@ public class ShopXPEntryType extends AbstractShopEntryType {
         int expForLevel = getExperienceForLevel(player.experienceLevel);
         player.experienceProgress = (float) (experience - expForLevel) / (float) player.getXpNeededForNextLevel();
 
-        SDMShopR.setMoney(player, playerMoney - needMoney);
+        entry.shopSellerType.buy(player, entry, -needMoney);
+//        SDMShopR.setMoney(player, playerMoney - needMoney);
     }
 
     @Override
@@ -48,7 +49,8 @@ public class ShopXPEntryType extends AbstractShopEntryType {
         int expForLevel = getExperienceForLevel(player.experienceLevel);
         player.experienceProgress = (float) (experience - expForLevel) / (float) player.getXpNeededForNextLevel();
 
-        SDMShopR.addMoney(player, entry.entryPrice * (countSell));
+        entry.shopSellerType.buy(player, entry, (entry.entryPrice * (countSell)));
+//        SDMShopR.addMoney(player, entry.entryPrice * (countSell));
     }
 
     public static int getPlayerXP(Player player) {
@@ -109,7 +111,7 @@ public class ShopXPEntryType extends AbstractShopEntryType {
             return player.totalExperience > (countSell * xpCount);
         }
 
-        long playerMoney = SDMShopR.getMoney(player);
+        long playerMoney = entry.shopSellerType.getCount(player);
         long needMoney = entry.entryPrice * countSell;
         if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
         return true;
@@ -121,7 +123,7 @@ public class ShopXPEntryType extends AbstractShopEntryType {
             if(player.totalExperience == 0 || xpCount == 0) return 0;
             return (int) (player.totalExperience / xpCount);
         } else {
-            long playerMoney = SDMShopR.getMoney(player);
+            long playerMoney = entry.shopSellerType.getCount(player);
             if(entry.entryPrice == 0) return Byte.MAX_VALUE;
             return (int) (playerMoney / entry.entryPrice);
         }

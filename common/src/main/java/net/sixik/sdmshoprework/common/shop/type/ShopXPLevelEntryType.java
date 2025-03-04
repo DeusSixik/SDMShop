@@ -31,19 +31,22 @@ public class ShopXPLevelEntryType extends AbstractShopEntryType {
     public void sell(Player player, int countSell, AbstractShopEntry entry) {
         if(player instanceof ServerPlayer serverPlayer) {
             serverPlayer.setExperienceLevels(player.experienceLevel - (xpLevel * countSell));
-            SDMShopR.addMoney(player, entry.entryPrice * (countSell));
+
+            entry.shopSellerType.buy(player, entry, entry.entryPrice * (countSell));
+//            SDMShopR.addMoney(player, entry.entryPrice * (countSell));
         }
     }
 
     @Override
     public void buy(Player player, int countBuy, AbstractShopEntry entry) {
         if(player instanceof ServerPlayer serverPlayer) {
-            long playerMoney = SDMShopR.getMoney(player);
+//            long playerMoney = entry.shopSellerType.getCount(player);
             long needMoney = entry.entryPrice * countBuy;
 
             serverPlayer.setExperienceLevels(player.experienceLevel + (xpLevel * countBuy));
 
-            SDMShopR.setMoney(player, playerMoney - needMoney);
+            entry.shopSellerType.buy(player, entry, -needMoney);
+//            SDMShopR.setMoney(player, playerMoney - needMoney);
         }
     }
 
@@ -53,7 +56,7 @@ public class ShopXPLevelEntryType extends AbstractShopEntryType {
             return player.experienceLevel > (countSell * xpLevel);
         }
 
-        long playerMoney = SDMShopR.getMoney(player);
+        long playerMoney = entry.shopSellerType.getCount(player);
         long needMoney = entry.entryPrice * countSell;
         if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
         return true;
@@ -65,7 +68,7 @@ public class ShopXPLevelEntryType extends AbstractShopEntryType {
             if(player.totalExperience == 0 || xpLevel == 0) return 0;
             return (int) (player.experienceLevel / xpLevel);
         } else {
-            long playerMoney = SDMShopR.getMoney(player);
+            long playerMoney = entry.shopSellerType.getCount(player);
             if(entry.entryPrice == 0) return Byte.MAX_VALUE;
             return (int) (playerMoney / entry.entryPrice);
         }

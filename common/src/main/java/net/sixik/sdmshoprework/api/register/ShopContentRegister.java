@@ -2,10 +2,9 @@ package net.sixik.sdmshoprework.api.register;
 
 import net.sixik.sdmshoprework.api.IConstructor;
 import net.sixik.sdmshoprework.api.customization.AbstractShopEntryButton;
+import net.sixik.sdmshoprework.api.shop.AbstractShopSellerType;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntryCondition;
-import net.sixik.sdmshoprework.api.shop.AbstractShopEntryLimiter;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntryType;
-import net.sixik.sdmshoprework.api.shop.AbstractShopIcon;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -14,21 +13,9 @@ import java.util.Map;
 public class ShopContentRegister {
 
     public static final Map<String, IConstructor<AbstractShopEntryCondition>> SHOP_ENTRY_CONDITIONS = new HashMap<>();
-    public static final Map<String, IConstructor<AbstractShopEntryLimiter>> SHOP_ENTRY_LIMITERS = new HashMap<>();
     public static final LinkedHashMap<String, IConstructor<AbstractShopEntryType>> SHOP_ENTRY_TYPES = new LinkedHashMap<>();
-    public static final Map<String, IConstructor<AbstractShopIcon>> SHOP_ICONS = new HashMap<>();
     public static final Map<String, IConstructor<AbstractShopEntryButton>> BUTTON_STYLE = new HashMap<>();
-
-    public static AbstractShopIcon registerIcon(IConstructor<AbstractShopIcon> constructor) {
-        AbstractShopIcon icon = constructor.createDefaultInstance();
-        if(!SHOP_ICONS.containsKey(icon.getId())) {
-            SHOP_ICONS.put(icon.getId(), constructor);
-        } else {
-//            SDMShopRework.LOGGER.error("Icon {} already registered!", icon.getId());
-        }
-
-        return icon;
-    }
+    public static final LinkedHashMap<String, IConstructor<AbstractShopSellerType<?>>> SELLER_TYPES = new LinkedHashMap<>();
 
     public static AbstractShopEntryType registerType(IConstructor<AbstractShopEntryType> constructor) {
         AbstractShopEntryType icon = constructor.createDefaultInstance();
@@ -41,12 +28,13 @@ public class ShopContentRegister {
         return icon;
     }
 
-    public static AbstractShopEntryLimiter registerLimiter(IConstructor<AbstractShopEntryLimiter> constructor) {
-        AbstractShopEntryLimiter icon = constructor.createDefaultInstance();
-        if(!SHOP_ENTRY_LIMITERS.containsKey(icon.getId())) {
-            SHOP_ENTRY_LIMITERS.put(icon.getId(), constructor);
+
+    public static AbstractShopSellerType<?> registerSellerType(IConstructor<AbstractShopSellerType<?>> constructor) {
+        AbstractShopSellerType<?> icon = constructor.createDefaultInstance();
+        if(!SELLER_TYPES.containsKey(icon.getId())) {
+            SELLER_TYPES.put(icon.getId(), constructor);
         } else {
-//            SDMShopRework.LOGGER.error("Shop Limiter {} already registered!", icon.getId());
+//            SDMShopRework.LOGGER.error("Shop Condition {} already registered!", icon.getId());
         }
 
         return icon;

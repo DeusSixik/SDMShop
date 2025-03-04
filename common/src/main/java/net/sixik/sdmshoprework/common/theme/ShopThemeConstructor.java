@@ -1,14 +1,9 @@
 package net.sixik.sdmshoprework.common.theme;
 
 import dev.ftb.mods.ftblibrary.icon.Color4I;
-import net.sixik.sdmshoprework.SDMShopPaths;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ShopThemeConstructor {
 

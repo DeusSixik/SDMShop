@@ -1,12 +1,12 @@
 package net.sixik.sdmshoprework;
 
 import dev.architectury.platform.Platform;
-import dev.ftb.mods.ftblibrary.snbt.config.SNBTConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.sixik.sdm_economy.api.CurrencyHelper;
 import net.sixik.sdm_economy.api.ICustomData;
+import net.sixik.sdmshoprework.economy.EconomyManager;
 import net.sixik.sdmshoprework.network.client.SendEditModeS2C;
 
 public class SDMShopR {
@@ -35,15 +35,27 @@ public class SDMShopR {
     }
 
     public static void setMoney(Player player, long money) {
-        CurrencyHelper.setMoney(player, "basic_money", money);
+        if(player.isLocalPlayer()) {
+            CurrencyHelper.setMoney(player, "basic_money", money);
+        } else {
+            EconomyManager.economy.set().accept(player, money);
+        }
     }
 
     public static void addMoney(Player player, long money) {
-        CurrencyHelper.addMoney(player, "basic_money",money);
+        if(player.isLocalPlayer()) {
+            CurrencyHelper.addMoney(player, "basic_money", money);
+        }
+        else {
+            EconomyManager.economy.set().accept(player, EconomyManager.economy.get().apply(player) + money);
+        }
     }
 
     public static long getMoney(Player player) {
-        return CurrencyHelper.getMoney(player, "basic_money");
+        if(player.isLocalPlayer()) {
+            return CurrencyHelper.getMoney(player, "basic_money");
+        }
+        return EconomyManager.economy.get().apply(player);
     }
 
     public static final boolean isMarketLoaded = Platform.isModLoaded("sdm_market");

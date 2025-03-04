@@ -1,14 +1,16 @@
 package net.sixik.sdmshoprework.client.screen.modern;
 
 
-import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.PanelScrollBar;
+import dev.ftb.mods.ftblibrary.ui.ScrollBar;
+import dev.ftb.mods.ftblibrary.ui.Theme;
+import dev.ftb.mods.ftblibrary.ui.Widget;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
-import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractMarketButton;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
 import net.sixik.sdmshoprework.client.screen.modern.widget.ModernMarketButton;
 import net.sixik.sdmshoprework.client.screen.modern.widget.ModernShopEntryButton;
@@ -246,6 +248,10 @@ public class ModernShopScreen extends AbstractShopScreen {
 
     @Override
     public void setSelectedTab(AbstractShopTab shopTab) {
+        if(this.selectedTab == null) {
+            addEntriesButtons();
+            return;
+        }
         if(this.selectedTab.shopTabUUID.equals(shopTab.shopTabUUID)) {
             this.entryScrollPos = Math.min(entryScrollPanel.getValue(), entryScrollPanel.getMaxValue());
         } else {

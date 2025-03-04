@@ -1,26 +1,26 @@
 package net.sixik.sdmshoprework.common.shop;
 
+import net.minecraft.nbt.CompoundTag;
+import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
+
+import java.util.Optional;
 
 public class ShopEntry extends AbstractShopEntry {
     public ShopEntry(AbstractShopTab shopTab) {
         super(shopTab);
     }
 
+    public static Optional<ShopEntry> create(AbstractShopTab shopTab, CompoundTag nbt) {
+        try {
+            ShopEntry entry = new ShopEntry(shopTab);
+            entry.deserializeNBT(nbt);
+            return Optional.of(entry);
+        } catch (Exception e) {
+            SDMShopRework.printStackTrace("Failed to create shop entry: ", e);
+        }
 
-    public ShopEntry copy() {
-        ShopEntry entry = new ShopEntry(getShopTab());
-        entry.entryCount = this.entryCount;
-        entry.descriptionList = this.descriptionList;
-        entry.entryPrice = this.entryPrice;
-        entry.title = this.title;
-        entry.limit = this.limit;
-        entry.setEntryType(getEntryType().copy());
-        entry.isSell = this.isSell;
-        entry.globalLimit = this.globalLimit;
-        entry.icon = this.icon;
-        entry.getEntryConditions().addAll(getEntryConditions());
-        return  entry;
+        return Optional.empty();
     }
 }

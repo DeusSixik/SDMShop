@@ -17,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntryType;
-import net.sixik.sdmshoprework.api.shop.AbstractShopTab;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sixik.sdmshoprework.client.screen.legacy.buyer.LegacyBuyerScreen;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
@@ -62,10 +61,14 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                 list.add(Component.translatable(entry.title));
             }
 
+            if(entry.shopSellerType != null)
+                entry.shopSellerType.addTooltip(list, entry);
+
             if(!entry.descriptionList.isEmpty()) {
                 list.add(Component.empty());
                 entry.descriptionList.stream().map(Component::translatable).forEach(list::add);
             }
+
         }
 
     }
@@ -139,10 +142,7 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
 
                 contextMenu.add(new ContextMenuItem(Component.translatable("sdm.shop.entry.context.duplicate"), Icons.ADD, (b) -> {
                     ShopTab tab = ShopBase.CLIENT.getShopTab(entry.getShopTab().shopTabUUID);
-                    if(entry instanceof ShopEntry shopEntry) {
-                        ShopEntry d = shopEntry.copy();
-                        tab.getTabEntry().add(d);
-                    }
+                    tab.getTabEntry().add(entry.copy());
                     getShopScreen().setSelectedTab(tab);
                     getShopScreen().addEntriesButtons();
                     new SendChangesShopEntriesC2S(getShopScreen().selectedTab.shopTabUUID, ShopBase.CLIENT.getShopTab(getShopScreen().selectedTab.shopTabUUID).serializeNBT()).sendToServer();

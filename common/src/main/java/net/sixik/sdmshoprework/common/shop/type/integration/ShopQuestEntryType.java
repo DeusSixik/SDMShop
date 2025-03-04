@@ -100,7 +100,9 @@ public class ShopQuestEntryType extends AbstractShopEntryType {
         if(quest == null) return;
         if(data.isCompleted(quest)){
             data.setCompleted(QuestObjectBase.parseCodeString(questID), null);
-            SDMShopR.setMoney(player, SDMShopR.getMoney(player) + entry.entryPrice);
+
+            entry.shopSellerType.buy(player, entry, entry.entryPrice);
+//            SDMShopR.setMoney(player, SDMShopR.getMoney(player) + entry.entryPrice);
         }
     }
 
@@ -112,7 +114,9 @@ public class ShopQuestEntryType extends AbstractShopEntryType {
         if(quest == null) return;
         if(!data.isCompleted(quest)){
             data.setCompleted(QuestObjectBase.parseCodeString(questID), new Date(System.currentTimeMillis()));
-            SDMShopR.setMoney(player, SDMShopR.getMoney(player) - entry.entryPrice);
+
+            entry.shopSellerType.buy(player, entry, -entry.entryPrice);
+//            SDMShopR.setMoney(player, SDMShopR.getMoney(player) - entry.entryPrice);
         }
     }
 
@@ -124,7 +128,7 @@ public class ShopQuestEntryType extends AbstractShopEntryType {
             if(data.isCompleted(quest)) return false;
         }
 
-        long playerMoney = SDMShopR.getMoney(player);
+        long playerMoney = entry.shopSellerType.getCount(player);
         long needMoney = entry.entryPrice * countSell;
         if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
         return true;
@@ -145,7 +149,7 @@ public class ShopQuestEntryType extends AbstractShopEntryType {
             }
 
 
-            long playerMoney = SDMShopR.getMoney(player);
+            long playerMoney = entry.shopSellerType.getCount(player);
             if(entry.entryPrice == 0) return 1;
             return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
         }

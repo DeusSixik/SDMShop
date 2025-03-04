@@ -14,7 +14,6 @@ import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.SDMShopPaths;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntryType;
 import net.sixik.sdmshoprework.common.shop.ShopEntry;
-import net.sixik.sdmshoprework.network.server.SendChangesShopEntriesC2S;
 import net.sixik.sdmshoprework.network.server.create.SendCreateShopEntryC2S;
 
 import java.util.ArrayList;

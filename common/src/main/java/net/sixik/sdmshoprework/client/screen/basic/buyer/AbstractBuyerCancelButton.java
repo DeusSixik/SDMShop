@@ -6,7 +6,6 @@ import dev.ftb.mods.ftblibrary.ui.SimpleTextButton;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
-import net.sixik.sdmshoprework.client.screen.legacy.buyer.LegacyBuyerScreen;
 
 public abstract class AbstractBuyerCancelButton extends SimpleTextButton {
     public AbstractBuyerCancelButton(Panel panel) {

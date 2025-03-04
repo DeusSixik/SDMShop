@@ -58,10 +58,9 @@ public class ShopLocateBetaEntryType extends AbstractShopEntryType {
 
     @Override
     public boolean canExecute(Player player, boolean isSell, int countSell, AbstractShopEntry entry) {
-        long playerMoney = SDMShopR.getMoney(player);
+        long playerMoney = entry.shopSellerType.getCount(player);
         long needMoney = entry.entryPrice * countSell;
-        if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
-        return true;
+        return playerMoney >= needMoney && playerMoney - needMoney >= 0;
     }
 
     @Override

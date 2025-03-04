@@ -26,6 +26,7 @@ import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.theme.SDMThemes;
 import net.sixik.sdmshoprework.common.theme.ShopStyle;
 import net.sixik.sdmshoprework.common.theme.ShopTheme;
+import net.sixik.sdmshoprework.network.server.SendGetMoneyC2S;
 import org.lwjgl.glfw.GLFW;
 
 import java.nio.file.Path;
@@ -59,13 +60,13 @@ public class SDMShopClient {
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, SDMSHOP_CATEGORY);
 
     public static void init() {
-        ClientTickEvent.CLIENT_PRE.register(SDMShopClient::keyInput);
         ClientLifecycleEvent.CLIENT_SETUP.register(SDMShopClient::onClientSetup);
+        ClientTickEvent.CLIENT_PRE.register(SDMShopClient::keyInput);
         CustomClickEvent.EVENT.register(SDMShopClient::customClick);
-
         if(!ConfigFile.CLIENT.disableKeyBind) {
             KeyMappingRegistry.register(KEY_SHOP);
         }
+
     }
 
     public static void openGui(boolean isOpenCommand) {
@@ -73,6 +74,8 @@ public class SDMShopClient {
     }
 
     public static void openGui(ShopStyle shopStyle, boolean isOpenCommand) {
+        new SendGetMoneyC2S().sendToServer();
+
         switch (shopStyle) {
             case LEGACY -> {
                 new LegacyShopScreen(isOpenCommand).openGui();

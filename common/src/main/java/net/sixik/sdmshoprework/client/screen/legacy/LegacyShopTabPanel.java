@@ -3,7 +3,6 @@ package net.sixik.sdmshoprework.client.screen.legacy;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
-import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopTabPanel;
 import net.sixik.sdmuilib.client.utils.GLHelper;
 

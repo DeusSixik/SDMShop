@@ -68,6 +68,8 @@
   "sdmr.shop.tab.dependencies.questID" : "Dependent FTB Quest ID",
   "sdmr.shop.tab.dependencies.gameStages" : "Dependent Game Stage",
   "sdmr.shop.tab.dependencies.factionID" : "Dependent MNA Faction ID",
+  "sdmr.shop.tab.globalLimit" : "Global Limit",
+  "sdmr.shop.tab.limit" : "Limit",
 
   "sdmr.shop.tab.title.tooltip" : "The title that will be displayed at the tab",
   "sdmr.shop.tab.icon.tooltip" : "An icon in the form of an object that will be displayed near the title. Right-click to open the extended window",
@@ -75,9 +77,10 @@
   "sdmr.shop.tab.dependencies.gameStages.tooltip" : "The stages that must be completed by the player in order for the tab to be displayed",
   "sdmr.shop.tab.dependencies.factionID.tooltip" : "Fractions that can see the tab",
 
-  "sdmr.shop.entry.title.tooltip" : "The title that will be displayed when hovering over",
-  "sdmr.shop.entry.count.tooltip" : "The number of items to be bought or sold at a time",
-  "sdmr.shop.entry.price.tooltip" : "The amount for which the product will be bought or sold at a time",
+  "sdmr.shop.entry.type.title.tooltip" : "The title that will be displayed when hovering over",
+  "sdmr.shop.entry.type.count" : "Count",
+  "sdmr.shop.entry.type.count.tooltip" : "The number of items to be bought or sold at a time",
+  "sdmr.shop.entry.type.price.tooltip" : "The amount for which the product will be bought or sold at a time",
   "sdmr.shop.entry.dependencies.questID.tooltip" : "The ID of the quests that must be completed by the player before the product is displayed",
   "sdmr.shop.entry.dependencies.gameStages.tooltip" : "The stages that must be completed by the player before the product is displayed",
   "sdmr.shop.entry.dependencies.factionID.tooltip" : "Fractions that can buy the product",
@@ -90,9 +93,8 @@
 
   "sdmr.shop.entry.tags" : "Tags",
   "sdmr.shop.entry.title" : "Title",
-  "sdmr.shop.entry.price" : "Price",
-  "sdmr.shop.entry.count" : "Count",
-  "sdmr.shop.entry.limit" : "Limit",
+  "sdmr.shop.entry.type.entry.count" : "Count",
+  "sdmr.shop.entry.type.limit" : "Limit",
   "sdmr.shop.entry.description" : "Descriptions",
   "sdmr.shop.entry.dependencies" : "Requirements",
   "sdmr.shop.entry.dependencies.questID" : "Dependent FTB Quest ID",
@@ -116,8 +118,16 @@
   "sdmr.shop.tab.dependencies.mnatier.maxLevel.tooltip" : "If the value is 0 then the maximum value is infinite",
   "sdmr.shop.tab.dependencies.mnatier.useTierCondition" : "Use Tier Condition",
 
-  "sdmr.shop.entry.isSell" : "Sell",
-  "sdmr.shop.entry.globalLimit" : "Global Limit",
+  "sdmr.shop.entry.seller_type" : "Seller Type",
+  "sdmr.shop.entry.seller_type.isSell" : "Sell",
+  "sdmr.shop.entry.seller_type.item" : "The item in the currency",
+  "sdmr.shop.entry.seller_type.seller_type" : "Currency Type",
+  "sdmr.shop.entry.seller_type.seller_type.tooltip" : "When you change the type, you will need to reopen the configuration window.",
+  "sdmr.shop.entry.seller_type.price" : "Price",
+  "sdmr.shop.entry.seller_type.showTooltip" : "Show Tooltip",
+  "sdmr.shop.entry.seller_type.showTooltip.tooltip" : "Displays a tooltip with information about the item for which the product is being purchased",
+  "sdmr.shop.entry.seller_type.money_id" : "Money ID",
+  "sdmr.shop.entry.type.globalLimit" : "Global Limit",
   "sdmr.shop" : "SDM Shop",
   "sdmr.shop.entry" : "Entry",
   "sdmr.shop.entry.type" : "Type",
@@ -188,5 +198,7 @@
   "sdm.shop.entry.sold": "Sold",
   "sdm.shop.entry.tooltips.entryleft": "Products left",
   "sdm.shop.entry.add.context.locationtype": "Location",
-  "sdmr.shop.entry.creator.type.locateType.description": "It will allow the player to buy the coordinates of some structure or biome"
+  "sdmr.shop.entry.creator.type.locateType.description": "It will allow the player to buy the coordinates of some structure or biome",
+  "sdmr.shop.ehtry.sell.by" : "Sold for: ",
+  "sdmr.shop.ehtry.sell.off" : "Bought for: "
 }

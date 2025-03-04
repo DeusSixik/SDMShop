@@ -26,7 +26,11 @@ repositories {
     maven {
         url "https://cursemaven.com"
     }
+
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.refinedev.xyz/public-repo' }
 }
+
 
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
@@ -44,6 +48,14 @@ dependencies {
     modApi ("curse.maven:rhino-416294:5655836")
 
     modApi ("curse.maven:quality-food-973932:5736769")
+
+    compileOnly ("com.github.MilkBowl:VaultAPI:1.7") {
+        exclude group: "org.bukkit", module: "bukkit"
+    }
+    compileOnly ('com.github.spigotmc:spigot-api:1.8.1-R4') {}
+
+    compileOnly (files("./libs/AuctionHouse-1.20.4-3.7.1.jar"))
+
 }
 
 publishing {

@@ -2,7 +2,6 @@ package net.sixik.sdmshoprework.client.screen.modern;
 
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
-import dev.ftb.mods.ftblibrary.ui.Widget;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopEntriesPanel;
 import net.sixik.sdmuilib.client.utils.GLHelper;

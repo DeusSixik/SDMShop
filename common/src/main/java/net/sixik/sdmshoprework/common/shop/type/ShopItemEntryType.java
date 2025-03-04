@@ -38,7 +38,7 @@ public class ShopItemEntryType extends AbstractShopEntryType {
     @Override
     public void getConfig(ConfigGroup group) {
         group.addItemStack("item", itemStack, v -> itemStack = v, ItemStack.EMPTY, true, true);
-        group.addBool("ignore_nbt", ignoreNBT, v -> ignoreNBT = v, false);
+//        group.addBool("ignore_nbt", ignoreNBT, v -> ignoreNBT = v, false);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class ShopItemEntryType extends AbstractShopEntryType {
 
     @Override
     public void buy(Player player, int countBuy, AbstractShopEntry entry) {
-        long playerMoney = SDMShopR.getMoney(player);
+//        long playerMoney = SDMShopR.getMoney(player);
         long needMoney = entry.entryPrice * countBuy;
 
         for (int i = 0; i < countBuy; i++) {
@@ -122,7 +122,8 @@ public class ShopItemEntryType extends AbstractShopEntryType {
             ItemHandlerHelper.giveItemToPlayer(player, d1);
         }
 
-        SDMShopR.setMoney(player, playerMoney - needMoney);
+        entry.shopSellerType.buy(player, entry, needMoney);
+//        SDMShopR.setMoney(player, playerMoney - needMoney);
     }
 
     @Override
@@ -135,43 +136,30 @@ public class ShopItemEntryType extends AbstractShopEntryType {
         if(amountItems == 0 || amount == 0) return;
 
         if (amount <= 0) return;
-        if(SDMItemHelper.sellItem(player, amount, stack, ignoreNBT))
-            SDMShopR.addMoney(player, entry.entryPrice * (countSell));
+        if(SDMItemHelper.sellItem(player, amount, stack, !itemStack.hasTag()))
+            entry.shopSellerType.buy(player, entry, entry.entryPrice * (countSell));
+//            SDMShopR.addMoney(player, entry.entryPrice * (countSell));
     }
 
     @Override
     public boolean canExecute(Player player, boolean isSell, int countSell, AbstractShopEntry entry) {
-        if(isSell){
-            int countItems = 0;
-            Inventory inventory = player.getInventory();
-            for (int i = 0; i < inventory.getContainerSize(); i++) {
-                if(inventory.getItem(i).equals(itemStack)) {
-                    countItems += inventory.getItem(i).getCount();
-                }
-            }
-            if(countItems < (entry.entryCount * countSell)) return false;
-            return true;
+        if (isSell) {
+            int countItems = SDMItemHelper.countItems(player, itemStack);
+            return countItems >= (entry.entryCount * countSell);
         } else {
-            long playerMoney = SDMShopR.getMoney(player);
+            long playerMoney = entry.shopSellerType.getCount(player);
             long needMoney = entry.entryPrice * countSell;
-            if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
-            return true;
+            return playerMoney >= needMoney;
         }
     }
 
     @Override
     public int howMany(Player player, boolean isSell, AbstractShopEntry entry) {
         if(isSell){
-            int countItems = 0;
-            Inventory inventory = player.getInventory();
-            for (int i = 0; i < inventory.getContainerSize(); i++) {
-                if(inventory.getItem(i).is(itemStack.getItem()) && Objects.equals(inventory.getItem(i).getTag(), itemStack.getTag())) {
-                    countItems += inventory.getItem(i).getCount();
-                }
-            }
+            int countItems = SDMItemHelper.countItems(player, itemStack);;
             return countItems / entry.entryCount;
         } else {
-            long playerMoney = SDMShopR.getMoney(player);
+            long playerMoney = entry.shopSellerType.getCount(player);
             if(entry.entryPrice == 0) return Byte.MAX_VALUE;
             return (int) (playerMoney / entry.entryPrice);
         }

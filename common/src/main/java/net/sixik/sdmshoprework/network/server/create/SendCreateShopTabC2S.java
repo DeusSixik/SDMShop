@@ -6,10 +6,9 @@ import dev.architectury.networking.simple.MessageType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sixik.sdmshoprework.SDMShopRework;
+import net.sixik.sdmshoprework.api.SDMSerializeParam;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
-import net.sixik.sdmshoprework.common.shop.ShopTab;
 import net.sixik.sdmshoprework.network.ShopNetwork;
-import net.sixik.sdmshoprework.network.client.SyncShopS2C;
 
 public class SendCreateShopTabC2S extends BaseC2SMessage {
 
@@ -36,7 +35,7 @@ public class SendCreateShopTabC2S extends BaseC2SMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         try {
-            ShopBase.SERVER.createShopTab(nbt);
+            ShopBase.SERVER.createShopTab(nbt, SDMSerializeParam.SERIALIZE_ALL);
             ShopBase.SERVER.syncShop(packetContext.getPlayer().getServer());
             ShopBase.SERVER.saveShopToFile();
         } catch (Exception e){

@@ -35,7 +35,7 @@ public class ShopAdvancementEntryType extends AbstractShopEntryType {
     @Override
     public void buy(Player player, int countBuy, AbstractShopEntry entry) {
         if(player instanceof ServerPlayer serverPlayer) {
-            long playerMoney = SDMShopR.getMoney(player);
+//            long playerMoney = SDMShopR.getMoney(player);
             long needMoney = entry.entryPrice;
             Advancement a = serverPlayer.server.getAdvancements().getAdvancement(advancement);
 
@@ -43,7 +43,8 @@ public class ShopAdvancementEntryType extends AbstractShopEntryType {
                 for (String s : a.getCriteria().keySet()) {
                     serverPlayer.getAdvancements().award(a, s);
                 }
-                SDMShopR.setMoney(player, playerMoney - needMoney);
+
+                entry.shopSellerType.buy(player, entry, -needMoney);
             }
         }
     }
@@ -57,7 +58,9 @@ public class ShopAdvancementEntryType extends AbstractShopEntryType {
                 for (String s : a.getCriteria().keySet()) {
                     serverPlayer.getAdvancements().revoke(a, s);
                 }
-                SDMShopR.addMoney(player, entry.entryPrice);
+
+                entry.shopSellerType.buy(player, entry, entry.entryPrice);
+//                SDMShopR.addMoney(player, entry.entryPrice);
             }
         }
     }
@@ -85,7 +88,7 @@ public class ShopAdvancementEntryType extends AbstractShopEntryType {
             return Minecraft.getInstance().getConnection().getAdvancements().getAdvancements().get(advancement) != null;
         }
 
-        long playerMoney = SDMShopR.getMoney(player);
+        long playerMoney = entry.shopSellerType.getCount(player);
         long needMoney = entry.entryPrice * countSell;
         if((playerMoney < needMoney || playerMoney - needMoney < 0) && Minecraft.getInstance().getConnection().getAdvancements().getAdvancements().get(advancement) == null) return false;
         return true;

@@ -57,7 +57,7 @@ dependencies {
     modCompileOnlyApi ("curse.maven:mana-and-artifice-406360:5204009")
 
     modImplementation ("curse.maven:sdm-ui-lib-1095061:5808289")
-    modImplementation("curse.maven:sdm-economy-1102542:5823991")
+    modImplementation("curse.maven:sdm-economy-1102542:6145324")
     modImplementation("dev.ftb.mods:ftb-library-forge:${rootProject.ftb_library_version}") { transitive false }
 
     modCompileOnlyApi ("curse.maven:kubejs-238086:5853326")

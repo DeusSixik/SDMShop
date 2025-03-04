@@ -4,7 +4,6 @@ import dev.ftb.mods.ftblibrary.ui.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.SDMShopR;
-import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;

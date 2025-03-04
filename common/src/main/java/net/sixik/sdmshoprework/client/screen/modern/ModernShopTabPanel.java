@@ -6,7 +6,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshoprework.client.screen.basic.panel.AbstractShopTabPanel;
 import net.sixik.sdmuilib.client.utils.GLHelper;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
-import org.lwjgl.opengl.GL;
 
 public class ModernShopTabPanel extends AbstractShopTabPanel {
 

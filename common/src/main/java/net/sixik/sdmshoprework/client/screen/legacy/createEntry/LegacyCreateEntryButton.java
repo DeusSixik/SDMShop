@@ -1,6 +1,9 @@
 package net.sixik.sdmshoprework.client.screen.legacy.createEntry;
 
-import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.BaseScreen;
+import dev.ftb.mods.ftblibrary.ui.Panel;
+import dev.ftb.mods.ftblibrary.ui.TextField;
+import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -8,8 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntryType;
 import net.sixik.sdmshoprework.client.screen.basic.createEntry.AbstractCreateEntryButton;
-import net.sixik.sdmuilib.client.utils.GLHelper;
-import net.sixik.sdmuilib.client.utils.TextHelper;
 
 public class LegacyCreateEntryButton extends AbstractCreateEntryButton {
 

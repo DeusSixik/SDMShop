@@ -6,13 +6,12 @@ import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmshoprework.SDMShopPaths;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.common.config.Config;
-import net.sixik.sdmshoprework.common.config.ConfigFile;
-import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
+import net.sixik.sdmshoprework.common.data.LimiterData;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
+import net.sixik.sdmshoprework.economy.EconomyManager;
 import net.sixik.sdmshoprework.network.client.SendEditModeS2C;
 import net.sixik.sdmshoprework.network.client.SendEntryLimitS2C;
 import net.sixik.sdmshoprework.network.server.misc.SendConfigS2C;
@@ -27,6 +26,8 @@ public class ModEvents {
     }
 
     public static void onServerStart(MinecraftServer server){
+        EconomyManager.init();
+
         Config.loadConfig(false);
 
         if(SDMShopPaths.getFile().toFile().exists()) {

@@ -112,7 +112,9 @@ public class ShopCommandEntryType extends AbstractShopEntryType {
 
             try {
                 player.getServer().getCommands().performPrefixedCommand(source, command);
-                SDMShopR.setMoney(serverPlayer, SDMShopR.getMoney(serverPlayer) - entry.entryPrice * countBuy);
+
+                entry.shopSellerType.buy(player, entry, entry.entryPrice * countBuy);
+//                SDMShopR.setMoney(serverPlayer, SDMShopR.getMoney(serverPlayer) - entry.entryPrice * countBuy);
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -121,7 +123,7 @@ public class ShopCommandEntryType extends AbstractShopEntryType {
 
     @Override
     public boolean canExecute(Player player, boolean isSell, int countSell, AbstractShopEntry entry) {
-        long playerMoney = SDMShopR.getMoney(player);
+        long playerMoney = entry.shopSellerType.getCount(player);
         long needMoney = entry.entryPrice * countSell;
         if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
         return true;
@@ -129,7 +131,7 @@ public class ShopCommandEntryType extends AbstractShopEntryType {
 
     @Override
     public int howMany(Player player, boolean isSell, AbstractShopEntry entry) {
-        long playerMoney = SDMShopR.getMoney(player);
+        long playerMoney = entry.shopSellerType.getCount(player);
         if(entry.entryPrice == 0) return 1;
         return (int) (playerMoney / entry.entryPrice) >= 1 ? 1 : 0;
     }

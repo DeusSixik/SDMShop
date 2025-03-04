@@ -16,7 +16,6 @@ import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.shop.ShopTab;
 import net.sixik.sdmshoprework.common.utils.ListHelper;
-import net.sixik.sdmshoprework.network.server.SendChangeShopTabC2S;
 import net.sixik.sdmshoprework.network.server.SendChangesShopC2S;
 import net.sixik.sdmshoprework.network.server.create.SendCreateShopTabC2S;
 import net.sixik.sdmshoprework.network.server.edit.SendEditShopTabC2S;

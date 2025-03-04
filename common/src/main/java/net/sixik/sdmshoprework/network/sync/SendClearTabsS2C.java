@@ -51,6 +51,6 @@ public class SendClearTabsS2C extends BaseS2CMessage {
 
        tab.getTabEntry().clear();
 
-       new SendGetTabsC2S().sendToServer();
+       new SendGetTabsC2S(tab.shopTabUUID.toString()).sendToServer();
     }
 }

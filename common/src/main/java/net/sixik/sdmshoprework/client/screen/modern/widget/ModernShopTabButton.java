@@ -1,18 +1,12 @@
 package net.sixik.sdmshoprework.client.screen.modern.widget;
 
-import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
-import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopTabButton;
 import net.sixik.sdmshoprework.common.shop.ShopTab;
 import net.sixik.sdmuilib.client.utils.GLHelper;
-import net.sixik.sdmuilib.client.utils.RenderHelper;
-import net.sixik.sdmuilib.client.utils.TextHelper;
 import net.sixik.sdmuilib.client.utils.math.Vector2;
-import net.sixik.sdmuilib.client.utils.math.Vector2f;
-import net.sixik.sdmuilib.client.utils.misc.RGB;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
 import net.sixik.sdmuilib.client.widgetsFake.text.SingleLineFakeWidget;
 

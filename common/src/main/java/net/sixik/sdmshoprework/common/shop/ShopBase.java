@@ -3,22 +3,22 @@ package net.sixik.sdmshoprework.common.shop;
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.sixik.sdmshoprework.SDMShopPaths;
 import net.sixik.sdmshoprework.api.INBTSerializable;
+import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.common.serializer.SerializerControl;
-import net.sixik.sdmshoprework.network.client.SyncShopS2C;
-import net.sixik.sdmshoprework.network.sync.SendClearTabsS2C;
-import net.sixik.sdmshoprework.network.sync.SendShopTabS2C;
 
 import java.util.*;
-import java.util.concurrent.Future;
 
 public class ShopBase implements INBTSerializable<CompoundTag> {
 
     public static ShopBase SERVER;
     public static ShopBase CLIENT = new ShopBase();
+
+    public Component shopName = Component.empty();
 
     private final LinkedList<Runnable> saveTasks = new LinkedList<Runnable>();
     private final LinkedList<Runnable> deserializeTask = new LinkedList<Runnable>();
@@ -30,9 +30,9 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
         return shopTabs;
     }
 
-    public ShopTab createShopTab(CompoundTag nbt) {
+    public ShopTab createShopTab(CompoundTag nbt, int bits) {
         ShopTab tab = new ShopTab(this);
-        tab.deserializeNBT(nbt);
+        tab.deserializeNBT(nbt, bits);
         shopTabs.add(tab);
         return tab;
     }
@@ -50,6 +50,8 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
         CompoundTag nbt = new CompoundTag();
         SerializerControl.serializeVersion(nbt);
 
+        nbt.putString("shopName", shopName.getString());
+
         ListTag tagShopTabs = new ListTag();
         for (ShopTab shopTab : shopTabs) {
             tagShopTabs.add(shopTab.serializeNBT());
@@ -62,23 +64,13 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag nbt) {
         Runnable runnable = () -> {
             shopTabs.clear();
+            if(nbt.contains("shopName")) shopName = Component.literal(nbt.getString("shopName"));
             ListTag tagShopTabs = nbt.getList("shopTabs", 10);
             for (int i = 0; i < tagShopTabs.size(); i++) {
                 ShopTab tab = new ShopTab(this);
                 tab.deserializeNBT(tagShopTabs.getCompound(i));
                 shopTabs.add(tab);
             }
-//            if (SerializerControl.isOldVersion(nbt)) {
-//                SerializerControl.deserializeVersion(nbt, this);
-//            } else {
-//                shopTabs.clear();
-//                ListTag tagShopTabs = nbt.getList("shopTabs", 10);
-//                for (int i = 0; i < tagShopTabs.size(); i++) {
-//                    ShopTab tab = new ShopTab(this);
-//                    tab.deserializeNBT(tagShopTabs.getCompound(i));
-//                    shopTabs.add(tab);
-//                }
-//            }
         };
 
         deserializeTask.add(runnable);
@@ -88,40 +80,6 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
             runnableIterator.next().run();
             runnableIterator.remove();
         }
-    }
-
-
-    public List<CompoundTag> serializeTabs() {
-        List<CompoundTag> compoundTags = new ArrayList<>();
-        for (ShopTab shopTab : shopTabs) {
-            compoundTags.add(shopTab.serializeNBT());
-        }
-        return compoundTags;
-    }
-
-    public List<ShopTab> deserializeTabs(List<CompoundTag> compoundTags) {
-        List<ShopTab> shopTabs = new ArrayList<>();
-        for (CompoundTag compoundTag : compoundTags) {
-            ShopTab t = new ShopTab(this);
-            t.deserializeNBT(compoundTag);
-            shopTabs.add(t);
-        }
-        return shopTabs;
-    }
-
-    public CompoundTag serializeTab(UUID id) {
-        ShopTab shopTab = getShopTab(id);
-        if(shopTab != null)
-            return shopTab.serializeNBT();
-        return new CompoundTag();
-    }
-
-    public ShopTab deserializeTab(CompoundTag nbt) {
-        if(nbt.isEmpty()) return new ShopTab(this);
-
-        ShopTab shopTab = new ShopTab(this);
-        shopTab.deserializeNBT(nbt);
-        return shopTab;
     }
 
     public void saveShopToFile() {
@@ -148,5 +106,41 @@ public class ShopBase implements INBTSerializable<CompoundTag> {
 
     public void syncShop(ServerPlayer player) {
         ShopDataHelper.syncShopData(player);
+    }
+
+    public boolean changeTab(UUID uuid, CompoundTag nbt) {
+        ShopTab tab = getShopTab(uuid);
+        if(tab!= null) {
+            tab.deserializeNBT(nbt);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteTab(UUID uuid) {
+        ShopTab tab = getShopTab(uuid);
+        if(tab!= null) {
+            return shopTabs.remove(tab);
+        }
+        return false;
+    }
+
+    public boolean changeEntry(UUID uuid, CompoundTag nbt) {
+        for (ShopTab shopTab : shopTabs) {
+            Optional<AbstractShopEntry> obj = shopTab.getTabEntry().stream().filter(s -> s.entryUUID.equals(uuid)).findFirst();
+            if(obj.isPresent()) {
+                obj.get().deserializeNBT(nbt);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteEntry(UUID uuid) {
+        for (ShopTab shopTab : shopTabs) {
+            if(shopTab.getTabEntry().removeIf(s -> s.entryUUID.equals(uuid)))
+                return true;
+        }
+        return false;
     }
 }

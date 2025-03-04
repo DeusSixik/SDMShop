@@ -6,10 +6,10 @@ import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.sixik.sdm_economy.api.CurrencyHelper;
+import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.IModIdentifier;
 import net.sixik.sdmshoprework.api.INBTSerializable;
 import net.sixik.sdmshoprework.api.register.ShopContentRegister;
@@ -20,7 +20,6 @@ import java.util.List;
 public abstract class AbstractShopEntryType implements INBTSerializable<CompoundTag>, IModIdentifier {
 
     public AbstractShopEntry shopEntry;
-//    public AbstractShopIcon creativeIcon = new ShopItemIcon(Items.BARRIER.getDefaultInstance());
 
     public SellType getSellType() {
         return SellType.BOTH;
@@ -104,10 +103,9 @@ public abstract class AbstractShopEntryType implements INBTSerializable<Compound
     public void sendNotifiedMessage(Player player) {}
 
     public boolean canExecute(Player player, boolean isSell, int countSell, AbstractShopEntry entry){
-        long playerMoney = CurrencyHelper.Basic.getMoney(player);
+        long playerMoney = SDMShopR.getMoney(player);
         long needMoney = entry.entryPrice * countSell;
-        if(playerMoney < needMoney || playerMoney - needMoney < 0) return false;
-        return true;
+        return playerMoney >= needMoney;
     }
 
     public int howMany(Player player, boolean isSell, AbstractShopEntry entry){

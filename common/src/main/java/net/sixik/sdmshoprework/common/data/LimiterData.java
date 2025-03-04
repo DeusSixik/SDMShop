@@ -1,4 +1,4 @@
-package net.sixik.sdmshoprework.common.data.limiter;
+package net.sixik.sdmshoprework.common.data;
 
 import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import net.minecraft.nbt.CompoundTag;

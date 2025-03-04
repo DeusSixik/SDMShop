@@ -1,6 +1,5 @@
 package net.sixik.sdmshoprework.client.screen.legacy.widget;
 
-import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.Minecraft;
@@ -8,12 +7,10 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.sixik.sdm_economy.api.CurrencyHelper;
 import net.sixik.sdmshoprework.SDMShopClient;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
-import net.sixik.sdmshoprework.client.screen.legacy.createEntry.LegacyCreateEntryScreen;
 import net.sixik.sdmuilib.client.utils.TextHelper;
 
 public class LegacyShopEntryButton extends AbstractShopEntryButton {

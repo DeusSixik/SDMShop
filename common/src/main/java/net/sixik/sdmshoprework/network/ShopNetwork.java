@@ -7,7 +7,10 @@ import net.sixik.sdmshoprework.network.client.SendBuyShopEntryC2S;
 import net.sixik.sdmshoprework.network.client.SendEditModeS2C;
 import net.sixik.sdmshoprework.network.client.SendEntryLimitS2C;
 import net.sixik.sdmshoprework.network.client.SyncShopS2C;
-import net.sixik.sdmshoprework.network.server.*;
+import net.sixik.sdmshoprework.network.server.SendChangeShopTabC2S;
+import net.sixik.sdmshoprework.network.server.SendChangesShopC2S;
+import net.sixik.sdmshoprework.network.server.SendChangesShopEntriesC2S;
+import net.sixik.sdmshoprework.network.server.SendGetMoneyC2S;
 import net.sixik.sdmshoprework.network.server.create.SendCreateShopEntryC2S;
 import net.sixik.sdmshoprework.network.server.create.SendCreateShopTabC2S;
 import net.sixik.sdmshoprework.network.server.edit.SendEditShopEntryC2S;
@@ -17,10 +20,8 @@ import net.sixik.sdmshoprework.network.server.misc.SendOpenShopScreenS2C;
 import net.sixik.sdmshoprework.network.server.move.SendMoveShopEntryC2S;
 import net.sixik.sdmshoprework.network.server.move.SendMoveShopTabC2S;
 import net.sixik.sdmshoprework.network.server.reload.SendReloadConfigS2C;
-import net.sixik.sdmshoprework.network.sync.SendClearTabsS2C;
-import net.sixik.sdmshoprework.network.sync.SendGetTabsC2S;
-import net.sixik.sdmshoprework.network.sync.SendShopEntryS2C;
-import net.sixik.sdmshoprework.network.sync.SendShopTabS2C;
+import net.sixik.sdmshoprework.network.sync.*;
+import net.sixik.sdmshoprework.network2.SDMRequests;
 
 public class ShopNetwork {
 
@@ -37,6 +38,7 @@ public class ShopNetwork {
     public static final MessageType SEND_SHOP_ENTRY = NET.registerS2C("send_shop_entry", SendShopEntryS2C::new);
     public static final MessageType SEND_CLEAR_TAB = NET.registerS2C("send_clear_tab", SendClearTabsS2C::new);
     public static final MessageType SEND_GET_TABS = NET.registerC2S("send_get_tabs", SendGetTabsC2S::new);
+    public static final MessageType SEND_GET_ENTRIES = NET.registerC2S("send_get_entries", SendGetEntriesC2S::new);
 
 
     public static final MessageType SEND_BUY_ENTRY = NET.registerC2S("send_buy_entry", SendBuyShopEntryC2S::new);
@@ -44,7 +46,8 @@ public class ShopNetwork {
     public static final MessageType CREATE_SHOP_ENTRY = NET.registerC2S("create_shop_entry", SendCreateShopEntryC2S::new);
     public static final MessageType SEND_CHANGES_SHOP = NET.registerC2S("send_changes_shop", SendChangesShopC2S::new);
     public static final MessageType SEND_CHANGE_ENTRIES = NET.registerC2S("send_change_entries", SendChangesShopEntriesC2S::new);
-    public static final MessageType SEND_CHANGE_TAB = NET.registerC2S("senc_change_tab", SendChangeShopTabC2S::new);
+    public static final MessageType SEND_CHANGE_TAB = NET.registerC2S("send_change_tab", SendChangeShopTabC2S::new);
+    public static final MessageType SEND_GET_MONEY = NET.registerC2S("send_get_money", SendGetMoneyC2S::new);
 
     public static final MessageType SEND_EDIT_TAB = NET.registerC2S("send_edit_tab", SendEditShopTabC2S::new);
     public static final MessageType SEND_EDIT_ENTRY = NET.registerC2S("send_edit_entry", SendEditShopEntryC2S::new);
@@ -54,6 +57,6 @@ public class ShopNetwork {
 
 
     public static void init() {
-
+        SDMRequests.init();
     }
 }

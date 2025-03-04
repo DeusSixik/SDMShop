@@ -6,26 +6,22 @@ import dev.ftb.mods.ftblibrary.config.StringConfig;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.sixik.sdmshoprework.SDMShopR;
 import net.sixik.sdmshoprework.api.IConstructor;
 import net.sixik.sdmshoprework.api.INBTSerializable;
+import net.sixik.sdmshoprework.api.SDMSerializeParam;
+import net.sixik.sdmshoprework.api.ShopSerializerHandler;
 import net.sixik.sdmshoprework.api.register.ShopContentRegister;
-import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
+import net.sixik.sdmshoprework.common.data.LimiterData;
 import net.sixik.sdmshoprework.common.integration.FTBQuests.ConfigIconItemStack;
 import net.sixik.sdmshoprework.common.register.CustomIconItem;
 import net.sixik.sdmshoprework.common.register.ItemsRegister;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.shop.ShopEntry;
-import net.sixik.sdmshoprework.common.utils.NBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +38,6 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
 
     public ItemStack icon = Items.BARRIER.getDefaultInstance();
     private final List<AbstractShopEntry> tabEntry = new ArrayList<>();
-    private final List<AbstractShopEntryLimiter> tabEntryLimits = new ArrayList<>();
     private final List<AbstractShopEntryCondition> tabConditions = new ArrayList<>();
 
     public List<String> descriptionList = new ArrayList<>();
@@ -70,10 +65,6 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
 
     public ShopBase getShop() {
         return shop;
-    }
-
-    public List<AbstractShopEntryLimiter> getTabEntryLimits() {
-        return tabEntryLimits;
     }
 
     public List<AbstractShopEntryCondition> getTabConditions() {
@@ -139,78 +130,20 @@ public abstract class AbstractShopTab implements INBTSerializable<CompoundTag> {
 
     @Override
     public CompoundTag serializeNBT() {
-        CompoundTag nbt = new CompoundTag();
-        NBTUtils.putItemStack(nbt, "icon", icon);
-        nbt.putUUID("shopTabUUID", shopTabUUID);
-        nbt.putString("title", title.getString());
+        return serializeNBT(SDMSerializeParam.SERIALIZE_ALL);
+    }
 
-        if(limit != 0) {
-            nbt.putInt("limit", limit);
-            nbt.putBoolean("globalLimit", globalLimit);
-        }
-
-        ListTag tagTabEntries = new ListTag();
-        for (AbstractShopEntry shopEntry : tabEntry) {
-            tagTabEntries.add(shopEntry.serializeNBT());
-        }
-        nbt.put("tabEntry", tagTabEntries);
-
-        if(!tabConditions.isEmpty()) {
-            ListTag tagTabConditions = new ListTag();
-            for (AbstractShopEntryCondition tabCondition : tabConditions) {
-                tagTabConditions.add(tabCondition.serializeNBT());
-            }
-            nbt.put("tabCondition", tagTabConditions);
-        }
-
-        if(!descriptionList.isEmpty()) {
-            ListTag tagDescription = new ListTag();
-            for (String s : descriptionList) {
-                tagDescription.add(StringTag.valueOf(s));
-            }
-            nbt.put("description", tagDescription);
-        }
-        return nbt;
+    public CompoundTag serializeNBT(int bits) {
+        return ShopSerializerHandler.serializeShopTab(this, bits);
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        this.shopTabUUID = nbt.getUUID("shopTabUUID");
-        this.title = Component.translatable(nbt.getString("title"));
-        this.icon = NBTUtils.getItemStack(nbt, "icon");
+        deserializeNBT(nbt, SDMSerializeParam.SERIALIZE_ALL);
+    }
 
-        if(nbt.contains("limit")) {
-            this.limit = nbt.getInt("limit");
-            this.globalLimit = nbt.getBoolean("globalLimit");
-        }
-
-        this.tabConditions.clear();
-        if(nbt.contains("tabCondition")) {
-            ListTag tagTabConditions = nbt.getList("tabCondition", 10);
-            for (int i = 0; i < tagTabConditions.size(); i++) {
-                AbstractShopEntryCondition condition = AbstractShopEntryCondition.from(tagTabConditions.getCompound(i));
-                if(condition == null) continue;
-                this.tabConditions.add(condition);
-            }
-        }
-
-        this.tabEntry.clear();
-        if(nbt.contains("tabEntry")) {
-            ListTag tagEntries = nbt.getList("tabEntry", 10);
-            for (Tag tagEntry : tagEntries) {
-                ShopEntry shopEntry = new ShopEntry(this);
-                shopEntry.deserializeNBT((CompoundTag) tagEntry);
-                this.tabEntry.add(shopEntry);
-            }
-        }
-
-        this.descriptionList.clear();
-        if(nbt.contains("description")) {
-            ListTag tagDescription = nbt.getList("description", 8);
-            for (Tag tag : tagDescription) {
-                this.descriptionList.add(tag.getAsString());
-            }
-        }
+    public void deserializeNBT(CompoundTag nbt, int bits) {
+        ShopSerializerHandler.deserializeShopTab(this, nbt, bits);
     }
 
     public boolean isLocked() {

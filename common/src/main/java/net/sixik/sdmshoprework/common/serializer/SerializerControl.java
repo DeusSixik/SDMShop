@@ -4,7 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntryType;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.shop.ShopEntry;

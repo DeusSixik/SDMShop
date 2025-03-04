@@ -13,7 +13,7 @@ import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerCancelButt
 import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerScreen;
 import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
 import net.sixik.sdmshoprework.client.screen.modern.ModernShopScreen;
-import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
+import net.sixik.sdmshoprework.common.data.LimiterData;
 import net.sixik.sdmshoprework.common.shop.type.ShopItemEntryType;
 import net.sixik.sdmuilib.client.utils.GLHelper;
 import net.sixik.sdmuilib.client.utils.TextHelper;
@@ -74,7 +74,7 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         add(this.textBox = new TextBox(this) {
             @Override
             public boolean isValid(String txt) {
-                return parse((Consumer)null, txt, 1, howMane);
+                return parse(null, txt, 1, howMane);
             }
 
             @Override
@@ -167,7 +167,10 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
 
         pos.setY(pos.y + sizeIcon);
         RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, Minecraft.getInstance().font.lineHeight + 1, 4);
-        theme.drawString(graphics, textMoney, pos.x + w2, pos.y + 1, Color4I.WHITE, 2);
+
+        shopEntry.shopSellerType.draw(graphics, theme, pos.x + w2, pos.y + 1, w, 16, entryButton.entry.entryPrice,this, -2);
+
+//        theme.drawString(graphics, textMoney, pos.x + w2, pos.y + 1, Color4I.WHITE, 2);
 
         pos.setPosition(x + 5, y + 5 + sizeIcon * 2 + 2);
         Vector2 size = new Vector2(this.width - 10, this.height - (5 + sizeIcon * 2 + 2 + 24 + 2));
@@ -183,7 +186,9 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         textMoney = SDMShopRework.moneyString(CurrencyHelper.Basic.getMoney(Minecraft.getInstance().player));
 
         GLHelper.pushScissor(graphics, pos.x + size.x / 2, pos.y, size.x / 2 - 2, Minecraft.getInstance().font.lineHeight + 1);
-        theme.drawString(graphics, textMoney, pos.x + size.x / 2 + 2, pos.y + 1, Color4I.WHITE, 2);
+        shopEntry.shopSellerType.draw(graphics, theme, pos.x + size.x / 2 + 2, pos.y + 1, w, 16, shopEntry.shopSellerType.getCount(Minecraft.getInstance().player),this, -2);
+
+//        theme.drawString(graphics, textMoney, pos.x + size.x / 2 + 2, pos.y + 1, Color4I.WHITE, 2);
         GLHelper.popScissor(graphics);
 
         pos.setPosition(pos.x, pos.y + Minecraft.getInstance().font.lineHeight + 1 + 2);
@@ -201,7 +206,7 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
             textMoney = shopEntry.isSell ? Component.translatable("sdm.shop.modern.ui.buyer.entry.output.sell").getString() : Component.translatable("sdm.shop.modern.ui.buyer.entry.output.buy").getString();
         }
 
-        drawNewLabel(graphics, theme, pos, size,textMoney, SDMShopRework.moneyString(shopEntry.entryPrice * count));
+        drawNewLabelR(graphics, theme, pos, size,textMoney, SDMShopRework.moneyString(shopEntry.entryPrice * count));
 
 //        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10, this.height - (5 + sizeIcon * 2 + 2 + 24 + 2), 4);
     }
@@ -220,6 +225,22 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         GLHelper.popScissor(graphics);
     }
 
+    public void drawNewLabelR(GuiGraphics graphics, Theme theme, Vector2 pos, Vector2 size, String left, String right) {
+        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, size.x / 2 - 2, Minecraft.getInstance().font.lineHeight + 1, 4);
+
+        GLHelper.pushScissor(graphics, pos.x,pos.y, size.x / 2 - 2, Minecraft.getInstance().font.lineHeight + 1);
+        theme.drawString(graphics, left, pos.x + 2, pos.y + 1, Color4I.WHITE, 2);
+        GLHelper.popScissor(graphics);
+
+        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x + size.x / 2,pos.y, size.x / 2, Minecraft.getInstance().font.lineHeight + 1, 4);
+
+        GLHelper.pushScissor(graphics, pos.x + size.x / 2, pos.y, size.x / 2 - 2, Minecraft.getInstance().font.lineHeight + 1);
+
+        shopEntry.shopSellerType.draw(graphics, theme, pos.x + size.x / 2 + 2, pos.y + 1, 0, 16, shopEntry.entryPrice * count, this, - 2);
+//        theme.drawString(graphics, right, pos.x + size.x / 2 + 2, pos.y + 1, Color4I.WHITE, 2);
+        GLHelper.popScissor(graphics);
+    }
+
 
     public boolean parse(@Nullable Consumer<Integer> callback, String string, int min, int max) {
         try {
@@ -232,6 +253,7 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
                 return true;
             }
         } catch (Exception var4) {
+
         }
 
         return false;

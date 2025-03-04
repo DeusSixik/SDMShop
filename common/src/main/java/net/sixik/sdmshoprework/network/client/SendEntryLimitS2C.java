@@ -5,7 +5,7 @@ import dev.architectury.networking.simple.BaseS2CMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.sixik.sdmshoprework.common.data.limiter.LimiterData;
+import net.sixik.sdmshoprework.common.data.LimiterData;
 import net.sixik.sdmshoprework.network.ShopNetwork;
 
 public class SendEntryLimitS2C extends BaseS2CMessage {

@@ -2,7 +2,6 @@ package net.sixik.sdmshoprework.client.screen.basic.widget;
 
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.TextBox;
-import net.sixik.sdmshoprework.client.screen.basic.AbstractShopPanel;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 
 public abstract class AbstractShopEntrySearch extends TextBox {

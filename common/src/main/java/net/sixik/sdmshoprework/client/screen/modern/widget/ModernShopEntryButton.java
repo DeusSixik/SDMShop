@@ -5,7 +5,6 @@ import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshoprework.SDMShopRework;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
@@ -84,12 +83,14 @@ public class ModernShopEntryButton extends AbstractShopEntryButton {
             centeredX = x + 2 + (w - 4 - textWidth) / 2;
 
             pos = new Vector2(centeredX, y + w + 2 + 1);
-            GLHelper.pushScissor(graphics, pos.x, pos.y, w - 4, h - 4);
+//            GLHelper.pushScissor(graphics, pos.x, pos.y, w - 4, h - 4);
 
             GLHelper.pushTransform(graphics, pos, new Vector2(1, 1), textSize.y, 0);
-            theme.drawString(graphics, textMoney, pos.x, pos.y, theme.getContentColor(this.getWidgetType()), 2);
+
+            entry.shopSellerType.draw(graphics, theme, pos.x, pos.y, w, 16, entry.entryPrice, this, 0);
+
             GLHelper.popTransform(graphics);
-            GLHelper.popScissor(graphics);
+//            GLHelper.popScissor(graphics);
         } else {
             size = this.height / 2;
             this.drawIcon(graphics, theme, x + size / 2, y + size / 2, w - size, h - size);

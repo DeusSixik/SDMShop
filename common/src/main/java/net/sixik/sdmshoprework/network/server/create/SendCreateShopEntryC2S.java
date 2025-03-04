@@ -10,7 +10,6 @@ import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.shop.ShopEntry;
 import net.sixik.sdmshoprework.common.shop.ShopTab;
 import net.sixik.sdmshoprework.network.ShopNetwork;
-import net.sixik.sdmshoprework.network.client.SyncShopS2C;
 
 import java.util.UUID;
 

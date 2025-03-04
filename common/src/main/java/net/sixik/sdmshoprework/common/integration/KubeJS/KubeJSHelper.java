@@ -1,6 +1,5 @@
 package net.sixik.sdmshoprework.common.integration.KubeJS;
 
-import dev.architectury.platform.Platform;
 import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.common.integration.KubeJS.events.ShopEntryBuyEventJS;

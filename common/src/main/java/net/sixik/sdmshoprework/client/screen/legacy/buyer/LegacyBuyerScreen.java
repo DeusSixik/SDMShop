@@ -1,7 +1,9 @@
 package net.sixik.sdmshoprework.client.screen.legacy.buyer;
 
-import dev.ftb.mods.ftblibrary.icon.Icon;
-import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.Panel;
+import dev.ftb.mods.ftblibrary.ui.TextBox;
+import dev.ftb.mods.ftblibrary.ui.TextField;
+import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.client.Minecraft;
@@ -13,8 +15,6 @@ import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
 import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerBuyButton;
 import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerCancelButton;
 import net.sixik.sdmshoprework.client.screen.basic.buyer.AbstractBuyerScreen;
-import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
-import net.sixik.sdmshoprework.network.client.SendBuyShopEntryC2S;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 

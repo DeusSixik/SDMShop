@@ -2,8 +2,6 @@ package net.sixik.sdmshoprework.common.theme;
 
 import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
 
 public class ShopTheme {

@@ -21,10 +21,7 @@ import java.util.List;
 
 public class ShopFTBQuestsCondition extends AbstractShopEntryCondition {
 
-    protected List<String> questID = new ArrayList<>();
-    public ShopFTBQuestsCondition(){
-
-    }
+    protected List<String> questID;
 
     protected ShopFTBQuestsCondition(List<String> questID){
         this.questID = questID;

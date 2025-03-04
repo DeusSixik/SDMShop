@@ -1,7 +1,6 @@
 package net.sixik.sdmshoprework.common.theme;
 
 import dev.ftb.mods.ftblibrary.config.NameMap;
-import dev.ftb.mods.ftblibrary.util.PanelPositioning;
 
 public enum ShopStyle {
     LEGACY,

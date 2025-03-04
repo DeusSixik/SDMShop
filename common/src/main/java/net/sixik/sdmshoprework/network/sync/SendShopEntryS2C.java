@@ -6,6 +6,7 @@ import dev.architectury.networking.simple.MessageType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sixik.sdmshoprework.api.shop.AbstractShopEntry;
+import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sixik.sdmshoprework.common.shop.ShopBase;
 import net.sixik.sdmshoprework.common.shop.ShopEntry;
 import net.sixik.sdmshoprework.network.ShopNetwork;
@@ -50,5 +51,7 @@ public class SendShopEntryS2C extends BaseS2CMessage {
         else {
             ShopBase.CLIENT.getShopTab(tabID).createShopEntry(entry.serializeNBT());
         }
+
+        AbstractShopScreen.refreshIfOpen();
     }
 }

@@ -1,4 +1,5 @@
 package net.sixik.sdmshoprework;
+
 import com.mojang.logging.LogUtils;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.platform.Platform;
@@ -12,6 +13,8 @@ import net.sixik.sdmshoprework.common.integration.SDMShopRIntegration;
 import net.sixik.sdmshoprework.common.register.ItemsRegister;
 import net.sixik.sdmshoprework.common.register.SoundRegister;
 import net.sixik.sdmshoprework.common.shop.condition.ShopFTBQuestsCondition;
+import net.sixik.sdmshoprework.common.shop.sellerType.ItemSellerType;
+import net.sixik.sdmshoprework.common.shop.sellerType.MoneySellerType;
 import net.sixik.sdmshoprework.common.shop.type.*;
 import net.sixik.sdmshoprework.common.shop.type.integration.ShopQuestEntryType;
 import net.sixik.sdmshoprework.network.ShopNetwork;
@@ -65,6 +68,11 @@ public class SDMShopRework
 		CANCEL_SOUND = SoundRegister.registerSound("cancel_sound");
 		SoundRegister.init();
 
+//		ClientLifecycleEvent.CLIENT_SETUP.register((client) -> {
+//			SDMShopClient.init();
+//			SDMShopClient.onClientSetup(client);
+//		});
+
 		EnvExecutor.runInEnv(Env.CLIENT, () -> SDMShopClient::init);
 	}
 
@@ -83,7 +91,7 @@ public class SDMShopRework
 			ShopContentRegister.registerCondition(new ShopFTBQuestsCondition.Constructor());
 		}
 
-//        ShopContentRegister.registerIcon(new ShopItemIcon.ShopItemIconC());
+//        ShopContentRegister.rfegisterIcon(new ShopItemIcon.ShopItemIconC());
 
 		ShopContentRegister.registerType(new ShopItemEntryType.Constructor());
 		ShopContentRegister.registerType(new ShopAdvancementEntryType.Constructor());
@@ -91,5 +99,8 @@ public class SDMShopRework
 		ShopContentRegister.registerType(new ShopLocateBetaEntryType.Constructor());
 		ShopContentRegister.registerType(new ShopXPEntryType.Constructor());
 		ShopContentRegister.registerType(new ShopXPLevelEntryType.Constructor());
+
+		ShopContentRegister.registerSellerType(new ItemSellerType.Constructor());
+		ShopContentRegister.registerSellerType(new MoneySellerType.Constructor());
 	}
 }

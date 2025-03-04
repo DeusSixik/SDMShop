@@ -1,7 +1,9 @@
 package net.sixik.sdmshoprework.client.screen.legacy.createEntry;
 
-import dev.ftb.mods.ftblibrary.ui.*;
-import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
+import dev.ftb.mods.ftblibrary.ui.GuiHelper;
+import dev.ftb.mods.ftblibrary.ui.PanelScrollBar;
+import dev.ftb.mods.ftblibrary.ui.ScrollBar;
+import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.sixik.sdmshoprework.SDMShopClient;
@@ -11,7 +13,6 @@ import net.sixik.sdmshoprework.api.shop.AbstractShopEntryType;
 import net.sixik.sdmshoprework.client.screen.basic.AbstractShopScreen;
 import net.sixik.sdmshoprework.client.screen.basic.createEntry.AbstractCreateEntryButton;
 import net.sixik.sdmshoprework.client.screen.basic.createEntry.AbstractCreateEntryScreen;
-import net.sixik.sdmshoprework.client.screen.basic.widget.AbstractShopEntryButton;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,17 +1,16 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/SagaDeoMissTeam/SDMShop/issues"
 license = "All Rights Reserved"
 
 [[mods]]
 modId = "sdmshop"
 version = "${version}"
 displayName = "SDMShop"
-authors = ""
-description = '''
-
-'''
-#logoFile = ""
+authors = "SagaDeoMissTeam"
+description = """The mod adds an in-game store with which you can build your economy
+The mod is inspired by FTB Money and Oxygen Shop"""
+logoFile = "pack.png"
 
 [[dependencies.sdmshop]]
 modId = "neoforge"
@@ -32,6 +31,13 @@ modId = "architectury"
 type = "required"
 versionRange = "[13.0.8,)"
 ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.sdmshop]]
+modId = "ftblibrary"
+type = "required"
+versionRange = "[2100.1.0,)"
+ordering = "NONE"
 side = "BOTH"
 
 [[mixins]]

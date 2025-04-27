@@ -3,12 +3,13 @@
   "id": "sdmshop",
   "version": "${version}",
   "name": "SDMShop",
-  "description": "",
+  "description": "The mod adds an in-game store with which you can build your economy\nThe mod is inspired by FTB Money and Oxygen Shop",
   "authors": [
-    ""
+    "SagaDeoMissTeam"
   ],
   "contact": {
-    "homepage": ""
+    "sources": "https://github.com/SagaDeoMissTeam/SDMShop/",
+    "issues": "https://github.com/SagaDeoMissTeam/SDMShop/issues"
   },
   "license": "All-Rights-Reserved",
   "icon": "assets/sdmshop/icon.png",
@@ -25,11 +26,12 @@
     "sdmshop.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.9",
-    "minecraft": "~1.21.1",
     "java": ">=21",
+    "minecraft": "~1.21.1",
+    "fabricloader": ">=0.16.9",
     "architectury": ">=13.0.8",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "ftblibrary": ">=2100.1.0"
   },
   "suggests": {
     "another-mod": "*"

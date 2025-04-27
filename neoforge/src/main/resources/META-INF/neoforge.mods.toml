@@ -10,7 +10,7 @@ displayName = "SDMShop"
 authors = "SagaDeoMissTeam"
 description = """The mod adds an in-game store with which you can build your economy
 The mod is inspired by FTB Money and Oxygen Shop"""
-logoFile = "pack.png"
+logoFile = "assets/sdmshop/icon.png"
 
 [[dependencies.sdmshop]]
 modId = "neoforge"

@@ -1,0 +1,22 @@
+# Server-specific configuration for FTB Library. Testing only!
+
+{
+	section1: {
+		# Default: "hello"
+		test1: "hello"
+		
+		# Default: "world"
+		test2: "world"
+		
+		# Default: true
+		test3: true
+	}
+	section2: {
+		# Default: false
+		test4: false
+		
+		# Default: 1
+		# Range: 0 ~ 10
+		test5: 1
+	}
+}

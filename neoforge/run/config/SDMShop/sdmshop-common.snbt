@@ -1,0 +1,8 @@
+{
+	# Default: false
+	disable_key_bind: false
+	
+	# Default: false
+	isModern: true
+	CUSTOM: { }
+}

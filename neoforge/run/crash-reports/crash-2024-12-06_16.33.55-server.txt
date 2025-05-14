@@ -1,0 +1,118 @@
+---- Minecraft Crash Report ----
+// Don't do that.
+
+Time: 2024-12-06 16:33:55
+Description: Exception in server tick loop
+
+java.lang.NoSuchMethodError: 'net.minecraft.world.item.ItemStack net.sixik.sdmcore.impl.utils.serializer.SDMSerializerHelper.deserializeItemStack(net.sixik.sdmcore.impl.utils.serializer.data.KeyData, java.lang.String)'
+	at TRANSFORMER/generated_cc48a46@1/net.sixk.sdmshop.shop.Tovar.Tovar.deserialize(Tovar.java:51) ~[13567565700908643101.jar%23200!/:?] {re:classloading}
+	at TRANSFORMER/generated_cc48a46@1/net.sixk.sdmshop.shop.Tovar.TovarList.deserialize(TovarList.java:46) ~[13567565700908643101.jar%23200!/:?] {re:classloading}
+	at TRANSFORMER/generated_cc48a46@1/net.sixk.sdmshop.SDMShop.lambda$event$3(SDMShop.java:70) ~[13567565700908643101.jar%23200!/:?] {re:classloading}
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733) ~[?:?] {re:computing_frames}
+	at TRANSFORMER/architectury@13.0.8/dev.architectury.event.EventFactory.invokeMethod(EventFactory.java:53) ~[architectury-neoforge-13.0.8.jar%23195!/:?] {re:classloading}
+	at TRANSFORMER/architectury@13.0.8/dev.architectury.event.EventFactory$1.handleInvocation(EventFactory.java:62) ~[architectury-neoforge-13.0.8.jar%23195!/:?] {re:classloading}
+	at MC-BOOTSTRAP/com.google.common@32.1.2-jre/com.google.common.reflect.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:87) ~[guava-32.1.2-jre.jar%23129!/:?] {}
+	at TRANSFORMER/jdk.proxy3/jdk.proxy3.$Proxy80.join(Unknown Source) ~[?:?] {}
+	at TRANSFORMER/architectury@13.0.8/dev.architectury.event.forge.EventHandlerImplCommon.event(EventHandlerImplCommon.java:115) ~[architectury-neoforge-13.0.8.jar%23195!/:?] {re:classloading}
+	at MC-BOOTSTRAP/net.neoforged.bus/net.neoforged.bus.EventBus.post(EventBus.java:350) ~[bus-8.0.2.jar%23111!/:?] {}
+	at MC-BOOTSTRAP/net.neoforged.bus/net.neoforged.bus.EventBus.post(EventBus.java:315) ~[bus-8.0.2.jar%23111!/:?] {}
+	at TRANSFORMER/neoforge@21.1.84/net.neoforged.neoforge.event.EventHooks.firePlayerLoggedIn(EventHooks.java:876) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23192!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.players.PlayerList.placeNewPlayer(PlayerList.java:270) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.network.ServerConfigurationPacketListenerImpl.handleConfigurationFinished(ServerConfigurationPacketListenerImpl.java:188) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket.handle(ServerboundFinishConfigurationPacket.java:22) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket.handle(ServerboundFinishConfigurationPacket.java:8) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.network.protocol.PacketUtils.method_11072(PacketUtils.java:27) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.TickTask.run(TickTask.java:18) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:148) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:computing_frames,pl:accesstransformer:B,pl:unprotect:A,re:mixin,pl:accesstransformer:B,pl:unprotect:A,re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:computing_frames,pl:unprotect:A,re:mixin,pl:unprotect:A,re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:872) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:170) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:122) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:computing_frames,pl:accesstransformer:B,pl:unprotect:A,re:mixin,pl:accesstransformer:B,pl:unprotect:A,re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.pollTaskInternal(MinecraftServer.java:855) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.pollTask(MinecraftServer.java:849) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:111) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:computing_frames,pl:accesstransformer:B,pl:unprotect:A,re:mixin,pl:accesstransformer:B,pl:unprotect:A,re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.waitUntilNextTick(MinecraftServer.java:825) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:712) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.method_29739(MinecraftServer.java:267) ~[neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 21.0.2, GraalVM Community
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), GraalVM Community
+	Memory: 1183842304 bytes (1129 MiB) / 2101346304 bytes (2004 MiB) up to 4278190080 bytes (4080 MiB)
+	CPUs: 12
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz
+	Identifier: Intel64 Family 6 Model 158 Stepping 10
+	Microarchitecture: Coffee Lake
+	Frequency (GHz): 3.70
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: AMD Radeon RX 7800 XT
+	Graphics card #0 vendor: Advanced Micro Devices, Inc.
+	Graphics card #0 VRAM (MiB): 16368.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 32.0.12011.1036
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 2.67
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 2.67
+	Memory slot #1 type: DDR4
+	Virtual memory max (MiB): 30654.35
+	Virtual memory used (MiB): 23023.59
+	Swap memory total (MiB): 14336.00
+	Swap memory used (MiB): 195.61
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 51340.47, total: 228259.91
+	Space in storage for workdir (MiB): available: 48669.04, total: 476937.00
+	JVM Flags: 4 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/29, l='ServerLevel[New World]', x=2.30, y=-60.00, z=-2.25]]
+	Active Data Packs: vanilla, mod_data, mod/generated_cc48a46 (incompatible), mod/architectury (incompatible), mod/sdmcore, mod/sdmshop, mod/ftblibrary (incompatible), mod/sdm_ui_library, mod/neoforge, mod/sdm_economy
+	Available Data Packs: bundle, trade_rebalance, vanilla, mod/architectury (incompatible), mod/ftblibrary (incompatible), mod/generated_cc48a46 (incompatible), mod/neoforge, mod/sdm_economy, mod/sdm_ui_library, mod/sdmcore, mod/sdmshop, mod_data
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Stable
+	World Seed: 7530811252749431065
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'neoforge'; Server brand changed to 'neoforge'
+	Launched Version: 21.1.84
+	ModLauncher: 11.0.4+main.d2e20e43
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher services: 
+		sponge-mixin-0.15.2+mixin.0.8.7.jar mixin PLUGINSERVICE 
+		loader-4.0.34.jar slf4jfixer PLUGINSERVICE 
+		loader-4.0.34.jar runtime_enum_extender PLUGINSERVICE 
+		unprotect-1.2.0.jar unprotect PLUGINSERVICE 
+		at-modlauncher-10.0.1.jar accesstransformer PLUGINSERVICE 
+		loader-4.0.34.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-11.0.4.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-11.0.4.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		javafml@4.0
+		lowcodefml@4.0
+		minecraft@4.0
+	Mod List: 
+		architectury-neoforge-13.0.8.jar                  |Architectury                  |architectury                  |13.0.8              |Manifest: NOSIGNATURE
+		ftb-library-forge-404465-5893689.jar              |FTB Library                   |ftblibrary                    |2101.1.6            |Manifest: NOSIGNATURE
+		13567565700908643101.jar                          |generated_cc48a46             |generated_cc48a46             |1                   |Manifest: NOSIGNATURE
+		neoforge-21.1.84-minecraft-merged-1.21.1-loom.mapp|Minecraft                     |minecraft                     |1.21.1              |Manifest: NOSIGNATURE
+		neoforge-21.1.84-minecraft-merged-1.21.1-loom.mapp|NeoForge                      |neoforge                      |21.1.84             |Manifest: NOSIGNATURE
+		sdm-engine-core-964997-5968080.jar                |SDM Core                      |sdmcore                       |1.21.1-2.1.2        |Manifest: NOSIGNATURE
+		sdm-economy-1102542-5803155.jar                   |SDM Economy                   |sdm_economy                   |1.21-1.6.6          |Manifest: NOSIGNATURE
+		main                                              |SDMShop                       |sdmshop                       |1.1                 |Manifest: NOSIGNATURE
+		sdm-ui-lib-1095061-5762237.jar                    |SDMUILibrary                  |sdm_ui_library                |1.21-1.8.1          |Manifest: NOSIGNATURE
+	Crash Report UUID: f8460488-3d20-4b38-8ed6-a481b505a4a0
+	FML: 4.0.34
+	NeoForge: 21.1.84

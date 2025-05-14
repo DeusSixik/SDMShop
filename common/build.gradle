@@ -1,0 +1,56 @@
+architectury {
+    common rootProject.enabled_platforms.split(',')
+}
+
+dependencies {
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+    modApi "net.sixik:sdmuilibrary-common:1.21-1.9.2@jar"
+    modApi "curse.maven:ftb-library-fabric-438495:6466107"
+    modApi "curse.maven:sdm-engine-core-964997:5968080"
+    modApi "net.sixik:sdmeconomy-common:1.21.1-2.1.0"
+
+
+    api("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
+    api("io.github.spair:imgui-java-binding:${project.imguiVersion}")
+    api("io.github.spair:imgui-java-natives-windows:${project.imguiVersion}")
+    api("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
+    api("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
+
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-binding:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-windows:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url "https://maven.architectury.dev/"
+    }
+
+    maven {
+        url "https://maven.saps.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+
+    maven {
+        url "https://maven.saps.dev/snapshots"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+    maven {
+        url "https://cursemaven.com"
+    }
+
+}

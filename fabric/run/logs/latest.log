@@ -1,0 +1,140 @@
+[12:27:21] [main/INFO] (FabricLoader/GameProvider) Loading Minecraft 1.21.1 with Fabric Loader 0.16.10
+[12:27:21] [main/INFO] (FabricLoader) Loading 61 mods:
+	- architectury 13.0.8
+	- fabric-api 0.115.0+1.21.1
+	- fabric-api-base 0.4.42+6573ed8c19
+	- fabric-api-lookup-api-v1 1.6.70+b559734419
+	- fabric-biome-api-v1 13.0.31+d527f9fd19
+	- fabric-block-api-v1 1.0.22+0af3f5a719
+	- fabric-block-view-api-v2 1.0.10+6573ed8c19
+	- fabric-blockrenderlayer-v1 1.1.52+0af3f5a719
+	- fabric-client-tags-api-v1 1.1.15+6573ed8c19
+	- fabric-command-api-v1 1.2.49+f71b366f19
+	- fabric-command-api-v2 2.2.28+6ced4dd919
+	- fabric-commands-v0 0.2.66+df3654b319
+	- fabric-content-registries-v0 8.0.18+b559734419
+	- fabric-convention-tags-v1 2.1.2+7f945d5b19
+	- fabric-convention-tags-v2 2.9.2+e60e56d419
+	- fabric-crash-report-info-v1 0.2.29+0af3f5a719
+	- fabric-data-attachment-api-v1 1.4.1+9ed317f519
+	- fabric-data-generation-api-v1 20.2.25+16c4ae2519
+	- fabric-dimensions-v1 4.0.0+6fc22b9919
+	- fabric-entity-events-v1 1.7.0+2122d82819
+	- fabric-events-interaction-v0 0.7.13+ba9dae0619
+	- fabric-game-rule-api-v1 1.0.53+6ced4dd919
+	- fabric-gametest-api-v1 2.0.5+6fc22b9919
+	- fabric-item-api-v1 11.1.1+d5debaed19
+	- fabric-item-group-api-v1 4.1.6+6823f7cd19
+	- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	- fabric-keybindings-v0 0.2.45+df3654b319
+	- fabric-lifecycle-events-v1 2.5.0+01d9a51c19
+	- fabric-loot-api-v2 3.0.15+3f89f5a519
+	- fabric-loot-api-v3 1.0.3+3f89f5a519
+	- fabric-message-api-v1 6.0.13+6573ed8c19
+	- fabric-model-loading-api-v1 2.0.0+fe474d6b19
+	- fabric-networking-api-v1 4.3.0+c7469b2119
+	- fabric-object-builder-api-v1 15.2.1+40875a9319
+	- fabric-particles-v1 4.0.2+6573ed8c19
+	- fabric-recipe-api-v1 5.0.14+248df81c19
+	- fabric-registry-sync-v0 5.2.0+34f5d91419
+	- fabric-renderer-api-v1 3.4.0+c705a49c19
+	- fabric-renderer-indigo 1.7.0+c705a49c19
+	- fabric-renderer-registries-v1 3.2.68+df3654b319
+	- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19
+	- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	- fabric-rendering-v0 1.1.71+df3654b319
+	- fabric-rendering-v1 5.0.5+df16efd019
+	- fabric-resource-conditions-api-v1 4.3.0+8dc279b119
+	- fabric-resource-loader-v0 1.3.1+5b5275af19
+	- fabric-screen-api-v1 2.0.25+8b68f1c719
+	- fabric-screen-handler-api-v1 1.3.88+b559734419
+	- fabric-sound-api-v1 1.0.23+6573ed8c19
+	- fabric-transfer-api-v1 5.4.2+c24bd99419
+	- fabric-transitive-access-wideners-v1 6.2.0+45b9699719
+	- fabricloader 0.16.10
+	- ftblibrary 2101.1.13
+	- generated_8d9d722 1.0.0
+	- java 21
+	- minecraft 1.21.1
+	- mixinextras 0.4.1
+	- sdm_ui_library 1.21-1.9.2
+	- sdmcore 1.21.1-2.1.2
+	- sdmeconomy 1.21.1-2.1.0
+	- sdmshop 3.1.0
+[12:27:22] [main/INFO] (FabricLoader/Mixin) SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/C:/Users/Wobblecraft/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.4+mixin.0.8.7/6a12aacc794f1078458433116e9ed42c1cc98096/sponge-mixin-0.15.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[12:27:22] [main/INFO] (FabricLoader/Mixin) Loaded Fabric development mappings for mixin remapper!
+[12:27:22] [main/INFO] (FabricLoader/Mixin) Compatibility level set to JAVA_17
+[12:27:22] [main/INFO] (FabricLoader/Mixin) Compatibility level set to JAVA_21
+[12:27:22] [main/WARN] (FabricLoader/Mixin) Reference map 'sdmeconomy-common-common-refmap.json' for sdmeconomy.mixins.json could not be read. If this is a development environment you can ignore this message
+[12:27:23] [main/INFO] (FabricLoader/MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mix[12:27:23] [main/INFO] (FabricLoader) Loading 49 mods:
+	[12:27:25] [Datafixer Bootstrap/INFO] (Minecraft) 226 Datafixer optimizations took 621 milliseconds
+[12:27:25] [main/WARN] (PerfmonDisabled) Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
+[12:27:32] [Render thread/INFO] (Minecraft) Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[12:27:32] [Render thread/INFO] (Minecraft) Setting user: Player405
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmeconomy_f:send_create_currency
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmeconomy_f:send_delete_currency
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmeconomy_f:send_request_input
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmeconomy_f:send_request_output
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmeconomy:send_currencies
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmeconomy:send_currencies_player
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmeconomy:send_update_currency_player
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmeconomy:send_update_custom_data
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmshop:buy_tovar
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmshop:send_data
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmshop:update_tovar
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmshop:update_tab
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmshop:editmod
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmshop:sell_tovar
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmshop:open_shop
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id sdmshop:send_config
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id ftblibrary:edit_config
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id ftblibrary:edit_config_choice_packet
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id ftblibrary:edit_nbt
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id ftblibrary:sync_known_server_registries
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id ftblibrary:sync_config_from_server_packet
+[12:27:32] [Render thread/INFO] (NetworkManagerImpl) Registering C2S [12:27:33] [main/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmshop:buy_tovar
+[12:27:33] [main/INFO] (NetworkManagerImpl) Registering C2S receiver with id sdmshop:update_tovar
+[12:27:33] [main/INFO] (NetworkManagerImpl) Registering C2S[12:27:33] [Render thread/INFO] (NetworkManagerImpl) Registering S2C receiver with id architectury:spawn_entity_packet
+[12:27:33] [Render thread/INFO] (Minecraft) Backend library: LWJGL version 3.3.4-snapshot
+[12:27:35] [Render thread/INFO] (Minecraft) Reloading ResourceManager: vanilla, fabric, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-gametest-api-v1, fabric-item-api-[12:27:35] [main/INFO] (Minecraft) Loaded 1290 recipes
+[12:27:36] [main/INFO] (Minecraft) Loaded 1399 advancements
+[12:27:36] [main/INFO] (BiomeModificationImpl) Applied 0 biome modifications to 0 of 64 new biomes in 1.672 ms
+[12:27:36] [Server thread/INFO] (Minecraft) Starting minecraft server version 1.21.1
+[12:27:36] [Server thread/INFO] (Minecraft) Loading properties
+[12:27:36] [Server thread/INFO] (Minecraft) Default game type: CREATIVE
+[12:27:36] [Server thread/INFO] (Minecraft) Generating keypair
+[12:27:36] [Server thread/INFO] (Minecraft) Starting Minecraft server on *:25565
+[12:27:36] [Server thread/INFO] (Minecraft) Using default channel type
+[12:27:36] [Server thread/WARN] (Minecraft) **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[12:27:36] [Server thread/WARN] (Minecraft) The server will make no attempt to authenticate usernames. Beware.
+[12:27:36] [Server thread/WARN] (Minecraft) While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[12:27:36] [Server thread/WARN] (Minecraft) To change this, set "online-mode" to "true" in the server.properties file.
+[12:27:37] [Server thread/INFO] (Minecraft) Preparing level "world"
+[12:27:38] [Server thread/INFO] (Minecraft) Preparing start region for dimension minecraft:overworld
+[12:27:38] [Worker-Main-7/INFO] (Minecraft) Preparing spawn area: 0%
+[12:27:39] [Server thread/INFO] (Minecraft) Time elapsed: 448 ms
+[12:27:39] [Server thread/INFO] (Minecraft) Done (2.009s)! For help, type "help"
+[12:29:18] [Server thread/INFO] (Minecraft) Player405[/127.0.0.1:50427] logged in with entity id 34 at (7.5, 123.0, 3.5)
+[12:29:18] [Server thread/INFO] (Minecraft) Player405 joined the game
+screaming.horn_break
+[12:27:37] [Render thread/INFO] (Minecraft) OpenAL initialized on device OpenAL Soft on Динамики (2- fifine Headset)
+[12:27:37] [Render thread/INFO] (Minecraft) Sound engine started
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[12:27:37] [Render thread/INFO] (Minecraft) Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[12:27:37] [Render thread/WARN] (Minecraft) Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[12:29:17] [Render thread/INFO] (Minecraft) Connecting to localhost, 25565
+[12:29:19] [Render thread/INFO] (Minecraft) Loaded 2 advancements
+[12:29:19] [Render thread/INFO] (FTB Library) config has been updated! server = false - clear any cached data etc. here
+[12:29:19] [Render thread/INFO] (FTB Library) received server config settings for config: ftblibrary-server

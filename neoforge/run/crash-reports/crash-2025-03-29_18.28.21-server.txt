@@ -1,0 +1,103 @@
+---- Minecraft Crash Report ----
+// Don't do that.
+
+Time: 2025-03-29 18:28:21
+Description: Exception in server tick loop
+
+java.lang.ClassCastException: class net.sixik.sdmcore.impl.utils.serializer.data.basic.StringData cannot be cast to class net.sixik.sdmcore.impl.utils.serializer.data.KeyData (net.sixik.sdmcore.impl.utils.serializer.data.basic.StringData and net.sixik.sdmcore.impl.utils.serializer.data.KeyData are in module sdmcore@1.21.1-2.1.2 of loader 'TRANSFORMER' @26204f8f)
+	at TRANSFORMER/sdmcore@1.21.1-2.1.2/net.sixik.sdmcore.impl.utils.serializer.data.IData.asKeyMap(IData.java:40) ~[sdm-engine-core-964997-5968080.jar%23206!/:?] {re:classloading}
+	at TRANSFORMER/generated_63fac34@1/net.sixk.sdmshop.shop.Tab.TovarTab.deserialize(TovarTab.java:55) ~[13840543387250794476.jar%23210!/:?] {re:classloading}
+	at TRANSFORMER/generated_63fac34@1/net.sixk.sdmshop.SDMShop.lambda$event$2(SDMShop.java:64) ~[13840543387250794476.jar%23210!/:?] {re:classloading}
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733) ~[?:?] {re:computing_frames}
+	at TRANSFORMER/architectury@13.0.8/dev.architectury.event.EventFactory.invokeMethod(EventFactory.java:53) ~[architectury-neoforge-13.0.8.jar%23205!/:?] {re:classloading}
+	at TRANSFORMER/architectury@13.0.8/dev.architectury.event.EventFactory$1.handleInvocation(EventFactory.java:62) ~[architectury-neoforge-13.0.8.jar%23205!/:?] {re:classloading}
+	at MC-BOOTSTRAP/com.google.common@32.1.2-jre/com.google.common.reflect.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:87) ~[guava-32.1.2-jre.jar%23134!/:?] {}
+	at TRANSFORMER/jdk.proxy3/jdk.proxy3.$Proxy72.stateChanged(Unknown Source) ~[?:?] {}
+	at TRANSFORMER/architectury@13.0.8/dev.architectury.event.forge.EventHandlerImplCommon.event(EventHandlerImplCommon.java:95) ~[architectury-neoforge-13.0.8.jar%23205!/:?] {re:classloading}
+	at MC-BOOTSTRAP/net.neoforged.bus/net.neoforged.bus.EventBus.post(EventBus.java:350) ~[bus-8.0.2.jar%23116!/:?] {}
+	at MC-BOOTSTRAP/net.neoforged.bus/net.neoforged.bus.EventBus.post(EventBus.java:315) ~[bus-8.0.2.jar%23116!/:?] {}
+	at TRANSFORMER/neoforge@21.1.93/net.neoforged.neoforge.server.ServerLifecycleHooks.handleServerStarted(ServerLifecycleHooks.java:114) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23202!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:674) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.method_29739(MinecraftServer.java:267) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 21.0.2, GraalVM Community
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), GraalVM Community
+	Memory: 577818760 bytes (551 MiB) / 1749024768 bytes (1668 MiB) up to 4278190080 bytes (4080 MiB)
+	CPUs: 12
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz
+	Identifier: Intel64 Family 6 Model 158 Stepping 10
+	Microarchitecture: Coffee Lake
+	Frequency (GHz): 3.70
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: AMD Radeon RX 7800 XT
+	Graphics card #0 vendor: Advanced Micro Devices, Inc.
+	Graphics card #0 VRAM (MiB): 16368.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 32.0.12033.1030
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 2.67
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 2.67
+	Memory slot #1 type: DDR4
+	Virtual memory max (MiB): 34750.35
+	Virtual memory used (MiB): 21305.37
+	Swap memory total (MiB): 18432.00
+	Swap memory used (MiB): 906.95
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 103879.41, total: 228259.91
+	Space in storage for workdir (MiB): available: 7896.61, total: 476937.00
+	JVM Flags: 4 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions
+	Server Running: true
+	Player Count: 0 / 8; []
+	Active Data Packs: vanilla, mod_data, mod/generated_63fac34 (incompatible), mod/architectury (incompatible), mod/sdmcore, mod/sdmshop, mod/ftblibrary (incompatible), mod/sdm_ui_library, mod/sdmeconomy, mod/neoforge
+	Available Data Packs: bundle, trade_rebalance, vanilla, mod/architectury (incompatible), mod/ftblibrary (incompatible), mod/generated_63fac34 (incompatible), mod/neoforge, mod/sdm_ui_library, mod/sdmcore, mod/sdmeconomy, mod/sdmshop, mod_data
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Stable
+	World Seed: -4814395621730499118
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'neoforge'; Server brand changed to 'neoforge'
+	Launched Version: 21.1.93
+	ModLauncher: 11.0.4+main.d2e20e43
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher services: 
+		sponge-mixin-0.15.2+mixin.0.8.7.jar mixin PLUGINSERVICE 
+		loader-4.0.34.jar slf4jfixer PLUGINSERVICE 
+		loader-4.0.34.jar runtime_enum_extender PLUGINSERVICE 
+		unprotect-1.2.0.jar unprotect PLUGINSERVICE 
+		at-modlauncher-10.0.1.jar accesstransformer PLUGINSERVICE 
+		loader-4.0.34.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-11.0.4.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-11.0.4.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		javafml@4.0
+		lowcodefml@4.0
+		minecraft@4.0
+	Mod List: 
+		architectury-neoforge-13.0.8.jar                  |Architectury                  |architectury                  |13.0.8              |Manifest: NOSIGNATURE
+		ftb-library-forge-404465-5893689.jar              |FTB Library                   |ftblibrary                    |2101.1.6            |Manifest: NOSIGNATURE
+		13840543387250794476.jar                          |generated_63fac34             |generated_63fac34             |1                   |Manifest: NOSIGNATURE
+		neoforge-21.1.93-minecraft-merged-1.21.1-loom.mapp|Minecraft                     |minecraft                     |1.21.1              |Manifest: NOSIGNATURE
+		neoforge-21.1.93-minecraft-merged-1.21.1-loom.mapp|NeoForge                      |neoforge                      |21.1.93             |Manifest: NOSIGNATURE
+		sdm-engine-core-964997-5968080.jar                |SDM Core                      |sdmcore                       |1.21.1-2.1.2        |Manifest: NOSIGNATURE
+		sdmeconomy-neoforge-1.21.1-2.0.0-64c27e0664a3.jar |SDMEconomy                    |sdmeconomy                    |1.21.1-2.0.0        |Manifest: NOSIGNATURE
+		main                                              |SDMShop                       |sdmshop                       |3.0.0               |Manifest: NOSIGNATURE
+		sdmuilibrary-neoforge-1.21-1.9.0.jar              |SDMUILibrary                  |sdm_ui_library                |1.21-1.9.0          |Manifest: NOSIGNATURE
+	Crash Report UUID: 7052ae47-42b1-471c-85b0-3a51a695a0bf
+	FML: 4.0.34
+	NeoForge: 21.1.93

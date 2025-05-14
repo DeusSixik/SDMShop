@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "net/sixk/sdmshop/mixin/TextFieldMixin": {
+      "rawText": "rawText:Lnet/minecraft/class_2561;"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "net/sixk/sdmshop/mixin/TextFieldMixin": {
+        "rawText": "rawText:Lnet/minecraft/class_2561;"
+      }
+    }
+  }
+}

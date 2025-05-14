@@ -1,0 +1,43 @@
+/sdmshop edit_mode
+/sdmshop add @a basic_money 111
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/time set day
+/sdmshop reloadConfig
+/time set day
+/sdmshop reloadConfig
+/time set day
+/sdmshop reloadConfig
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/time set day
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/weather clear
+/ti
+/time set day
+/sdmshop edit_mode
+/sdmshop reloadConfig
+/ti
+/time set day
+/sdmshop reloadConfig
+/time set day
+/sdmshop reloadConfig
+/sdmshop edit_mode
+/time set day
+/sdmshop edit_mode
+/sdmshop set Player552 sdmcoin 100
+/sdmshop add Player918 sdmcoin 100
+/sdmshop set sdmcoin 100
+/sdmshop set @a sdmcoin 100
+/sdmshop set @a sdmcoin 10

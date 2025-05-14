@@ -1,0 +1,100 @@
+plugins {
+    id 'com.github.johnrengelman.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    // Files in this configuration will be bundled into your mod using the Shadow plugin.
+    // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+
+    modImplementation "curse.maven:ftb-library-fabric-438495:6466107"
+
+    modImplementation "dev.architectury:architectury-fabric:$rootProject.architectury_api_version"
+
+    modImplementation "curse.maven:sdm-engine-core-964997:5968177"
+    modImplementation "net.sixik:sdmeconomy-fabric:1.21.1-2.1.0"
+
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+
+    modImplementation("net.sixik:sdmuilibrary-fabric:1.21-1.9.2")
+
+    modImplementation("io.github.spair:imgui-java-lwjgl3:${rootProject.imguiVersion}")
+    modImplementation("io.github.spair:imgui-java-binding:${rootProject.imguiVersion}")
+    modImplementation("io.github.spair:imgui-java-natives-windows:${rootProject.imguiVersion}")
+    modImplementation("io.github.spair:imgui-java-natives-linux:${rootProject.imguiVersion}")
+    modImplementation("io.github.spair:imgui-java-natives-macos:${rootProject.imguiVersion}")
+
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-binding:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-windows:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
+
+}
+
+processResources {
+    inputs.property 'version', project.version
+
+    filesMatching('fabric.mod.json') {
+        expand version: project.version
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url "https://maven.architectury.dev/"
+    }
+
+    maven {
+        url "https://maven.saps.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+
+    maven {
+        url "https://maven.saps.dev/snapshots"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+    maven {
+        url "https://cursemaven.com"
+    }
+}

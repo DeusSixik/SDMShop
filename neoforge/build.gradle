@@ -40,23 +40,15 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     modImplementation "curse.maven:sdm-engine-core-964997:5968080"
-    modImplementation "curse.maven:ftb-library-forge-404465:6466106"
-    modImplementation "net.sixik:sdmeconomy-neoforge:1.21.1-2.1.0"
-
-
-    modImplementation("net.sixik:sdmuilibrary-neoforge:1.21-1.9.2")
+    modImplementation "curse.maven:sdm-economy-1102542:6528519"
+    modImplementation "curse.maven:ftb-library-forge-404465:6661421"
+    modImplementation "curse.maven:sdm-ui-lib-1095061:6515615"
 
     modImplementation("io.github.spair:imgui-java-lwjgl3:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-binding:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-natives-windows:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-natives-linux:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-natives-macos:${rootProject.imguiVersion}")
-
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-binding:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-windows:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
 }
 
 processResources {

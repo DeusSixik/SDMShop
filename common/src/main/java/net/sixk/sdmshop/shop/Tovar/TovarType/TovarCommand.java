@@ -10,107 +10,98 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmeconomy.api.EconomyAPI;
-import net.sixk.sdmshop.api.IConstructor;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
+
+import java.util.UUID;
 
 public class TovarCommand extends AbstractTovar {
-
-    private Icon icon = ItemIcon.getItemIcon(Items.COMMAND_BLOCK);
     public String command;
     public boolean elevatePerms;
     public boolean silent;
 
-   public TovarCommand(String command){
+    public TovarCommand(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell, String command) {
+        super(uuid, tab, currency, cost, limit, toSell);
+        this.icon = ItemIcon.getItemIcon(Items.COMMAND_BLOCK);
         this.command = command;
-   }
+    }
 
-    @Override
-    public void buy(Player player, Tovar tovar, long count) {
+    public TovarCommand(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell) {
+        super(uuid, tab, currency, cost, limit, toSell);
+    }
 
-        if ((tovar.limit < count && tovar.limit != -1)) return;
+    public void buy(Player player, AbstractTovar tovar, long count) {
+        if (tovar.limit >= count || tovar.limit == -1L) {
+            if (player instanceof ServerPlayer) {
+                ServerPlayer serverPlayer = (ServerPlayer)player;
+                if (this.command.isEmpty()) {
+                    return;
+                }
 
-        if(player instanceof ServerPlayer serverPlayer){
-            if(command.isEmpty()) return;
-            CommandSourceStack source = serverPlayer.createCommandSourceStack();
-            if (elevatePerms) source = source.withPermission(2);
-            if (silent) source = source.withSuppressedOutput();
+                CommandSourceStack source = serverPlayer.createCommandSourceStack();
+                if (this.elevatePerms) {
+                    source = source.withPermission(2);
+                }
 
-            try {
-                player.getServer().getCommands().performPrefixedCommand(source, command);
-                EconomyAPI.getPlayerCurrencyServerData().setCurrencyValue(serverPlayer, tovar.currency,EconomyAPI.getPlayerCurrencyServerData().getBalance(serverPlayer, tovar.currency).value - tovar.cost * count);
-            }catch (Exception e) {
-                e.printStackTrace();
+                if (this.silent) {
+                    source = source.withSuppressedOutput();
+                }
+
+                try {
+                    player.getServer().getCommands().performPrefixedCommand(source, this.command);
+                    EconomyAPI.getPlayerCurrencyServerData().setCurrencyValue(serverPlayer, tovar.currency, (Double)EconomyAPI.getPlayerCurrencyServerData().getBalance(serverPlayer, tovar.currency).value - (double)((long)tovar.cost * count));
+                } catch (Exception var8) {
+                    Exception e = var8;
+                    e.printStackTrace();
+                }
             }
+
+            if (tovar.limit != -1L) {
+                tovar.limit -= count;
+            }
+
         }
-
-        if (tovar.limit != -1) tovar.limit -= count;
-
     }
 
-    @Override
-    public void sell(Player player, Tovar tovar, long count) {
-            return;
+    public void sell(Player player, AbstractTovar tovar, long count) {
     }
 
-    @Override
     public String getTitel() {
-        return "Command : " + command;
+        return "Command : " + this.command;
     }
 
-    @Override
     public Icon getIcon() {
-        return icon;
+        return this.icon;
     }
 
-    @Override
     public Object getItemStack() {
         return null;
     }
 
-    @Override
     public TagKey getTag() {
         return null;
     }
 
-    @Override
     public AbstractTovar copy() {
         return null;
     }
 
-    @Override
     public String getID() {
         return "CommandType";
     }
 
-    @Override
     public boolean getisXPLVL() {
         return false;
     }
 
-    @Override
     public KeyData serialize(HolderLookup.Provider provider) {
-
-       KeyData data = new KeyData();
-
-       data.put("id",getID());
-       data.put("command",command);
-
-       return data;
+        KeyData data = super.serialize(provider);
+        data.put("id", this.getID());
+        data.put("command", this.command);
+        return data;
     }
 
-    @Override
     public void deserialize(KeyData data, HolderLookup.Provider provider) {
-
-       command = data.getData("command").asString();
-
-    }
-
-    public static class Constructor implements IConstructor<AbstractTovar> {
-        @Override
-        public AbstractTovar create() {
-            return new TovarCommand(" ");
-        }
+        this.command = data.getData("command").asString();
     }
 
 }

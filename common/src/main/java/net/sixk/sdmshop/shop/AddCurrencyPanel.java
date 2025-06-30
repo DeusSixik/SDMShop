@@ -14,7 +14,6 @@ import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixik.sdmuilibrary.client.utils.renders.ShapesRenderHelper;
 import net.sixk.sdmshop.data.config.ConfigFile;
 
-
 import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.*;
 
 
@@ -40,8 +39,6 @@ public class AddCurrencyPanel extends BaseScreen {
 
     public AddCurrencyPanel() {
 
-
-
     }
 
     @Override
@@ -60,8 +57,9 @@ public class AddCurrencyPanel extends BaseScreen {
         add(currencyNameTxt = new TextField(this).setText(Component.translatable("sdm_shop.add_currency_panel.currency_name")));
         add(currencySignTxt = new TextField(this).setText(Component.translatable("sdm_shop.add_currency_panel.currency_sign")));
         add(error = new TextField(this).setText(""));
-        add(currencyName);
-        add(currencySign);
+        add(currencyName = new TextBox(this));
+        add(currencySign = new TextBox(this));
+
 
         add(apply = new SimpleTextButton(this, Component.translatable("sdm_shop.apply"), Icon.empty()) {
 
@@ -72,13 +70,14 @@ public class AddCurrencyPanel extends BaseScreen {
 
             @Override
             public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-                if(ConfigFile.CLIENT.style){
-                    ShapesRenderHelper.drawRoundedRect(graphics,x,y,w,h,5, RGBA.create(0, 0, 0, 255 / 2));
-                }else {
+                if (ConfigFile.CLIENT.style) {
+                    ShapesRenderHelper.drawRoundedRect(graphics, x, y, w, h, 5, RGBA.create(0, 0, 0, 127));
+                } else {
                     NordColors.POLAR_NIGHT_1.draw(graphics, x, y, w, h);
-                    GuiHelper.drawHollowRect(graphics, x, y, w, h, POLAR_NIGHT_4, true);
+                    GuiHelper.drawHollowRect(graphics, x, y, w, h, NordColors.POLAR_NIGHT_4, true);
                 }
             }
+
 
             @Override
             public void onClicked(MouseButton mouseButton) {
@@ -118,12 +117,8 @@ public class AddCurrencyPanel extends BaseScreen {
 
             @Override
             public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-                if(ConfigFile.CLIENT.style){
-                    ShapesRenderHelper.drawRoundedRect(graphics,x,y,w,h,5, RGBA.create(0, 0, 0, 255 / 2));
-                }else {
-                    NordColors.POLAR_NIGHT_1.draw(graphics, x, y, w, h);
-                    GuiHelper.drawHollowRect(graphics, x, y, w, h, POLAR_NIGHT_4, true);
-                }
+                NordColors.POLAR_NIGHT_1.draw(graphics, x, y, w, h);
+                GuiHelper.drawHollowRect(graphics,x,y ,w,h, POLAR_NIGHT_4,true);
             }
 
             @Override
@@ -142,6 +137,7 @@ public class AddCurrencyPanel extends BaseScreen {
         currencySignTxt.setPos(getWidth() / 2 - 50,getHeight() / 2 );
         currencySign.setPos(getWidth() / 2 - 6,getHeight() / 2 + 10);
         currencySign.setSize(13,10);
+
 
         error.setSize(20,30);
         error.setColor(Color4I.RED);

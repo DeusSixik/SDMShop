@@ -9,11 +9,16 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
-    modApi "net.sixik:sdmuilibrary-common:1.21-1.9.2@jar"
-    modApi "curse.maven:ftb-library-fabric-438495:6466107"
+    modApi("dev.ftb.mods:ftb-library:2101.1.14") { transitive false }
+    modApi("curse.maven:sdm-economy-1102542:6528519")
     modApi "curse.maven:sdm-engine-core-964997:5968080"
-    modApi "net.sixik:sdmeconomy-common:1.21.1-2.1.0"
+    modApi("curse.maven:sdm-ui-lib-1095061:6515618")
 
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-binding:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-windows:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
+    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
 
     api("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
     api("io.github.spair:imgui-java-binding:${project.imguiVersion}")
@@ -21,11 +26,6 @@ dependencies {
     api("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
     api("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
 
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-binding:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-windows:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
 }
 
 repositories {
@@ -35,22 +35,20 @@ repositories {
     }
 
     maven {
-        url "https://maven.saps.dev/releases"
+        url "https://maven.ftb.dev/releases"
         content {
-            includeGroup "dev.latvian.mods"
             includeGroup "dev.ftb.mods"
         }
     }
 
     maven {
-        url "https://maven.saps.dev/snapshots"
+        url "https://maven.ftb.dev/snapshots"
         content {
-            includeGroup "dev.latvian.mods"
             includeGroup "dev.ftb.mods"
         }
     }
+
     maven {
         url "https://cursemaven.com"
     }
-
 }

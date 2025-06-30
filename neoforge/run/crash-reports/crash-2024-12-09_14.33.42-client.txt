@@ -5,7 +5,7 @@ Time: 2024-12-09 14:33:42
 Description: mouseClicked event handler
 
 java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "this.this$0.currencyName" is null
-	at TRANSFORMER/generated_6f0d979@1/net.sixk.sdmshop.shop.Tovar.AddTovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:228) ~[1539421088403262124.jar%23200!/:?] {re:classloading}
+	at TRANSFORMER/generated_6f0d979@1/net.sixk.sdmshop.shop.Tovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:228) ~[1539421088403262124.jar%23200!/:?] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Button.mousePressed(Button.java:71) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Panel.mousePressed(Panel.java:287) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.BaseScreen.mousePressed(BaseScreen.java:401) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
@@ -50,7 +50,7 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Thread: Render thread
 Stacktrace:
-	at TRANSFORMER/generated_6f0d979@1/net.sixk.sdmshop.shop.Tovar.AddTovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:228) ~[1539421088403262124.jar%23200!/:?] {re:classloading}
+	at TRANSFORMER/generated_6f0d979@1/net.sixk.sdmshop.shop.Tovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:228) ~[1539421088403262124.jar%23200!/:?] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Button.mousePressed(Button.java:71) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Panel.mousePressed(Panel.java:287) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.BaseScreen.mousePressed(BaseScreen.java:401) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}

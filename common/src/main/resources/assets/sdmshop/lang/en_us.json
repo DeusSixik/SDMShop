@@ -49,9 +49,5 @@
   "sdm_shop.shop_page.reset_tabs" : "Reset tabs",
   "sdm_shop.shop_page.ghost_text" : "Search...",
   "sdm_shop.tab_panel.new_tab" : "New tab",
-  "sdm_shop.tab_panel.new_tab_name" : "New tab name",
-  "sdm.shop.modern.ui.tab_categories" : "CATEGORIES",
-  "sdm.shop.modern.ui.wallet" : "WALLET",
-  "sdm.shop.addTab.selectTab" : "Select icon",
-  "sdm.shop.addTab.Icon" : "Icon"
+  "sdm_shop.tab_panel.new_tab_name" : "New tab name"
 }

@@ -1,14 +1,14 @@
 [Architectury Transformer] Architectury Runtime 5.2.87
-[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\devlibs\sdmshopa-common-3.0.0-dev.jar
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar
 [Architectury Transformer DEBUG] Preparing tiny remapper prepared transformer: dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Provided 102 classpath jar(s):
-[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\fabric-loom\1.21.1\neoforge\21.1.93\client-extra.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\fabric-loom\1.21.1\neoforge\21.1.84\client-extra.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\dev.architectury\architectury-injectables\1.0.10\62db2a366d662606d1b23ad02ccc3212ed37ec3\architectury-injectables-1.0.10.jar
-[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.12\69514e24838c0cdd0a69ed6e81ab6d05b7690c57\fabric-loader-0.16.12.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-loader\0.16.14\5778d47f536bf2c63ed2abc1a56f5a1c129e34a\fabric-loader-0.16.14.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\24.1.0\7af6a669488450c4a07c2c3254e2151df42d7d04\annotations-24.1.0.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.2\25ea2e8b0c338a877313bd4672d3fe056ea78f0d\jsr305-3.0.2.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.neoforged.fancymodloader\earlydisplay\4.0.34\82cbf8b7ca6a85aa66dfb205cb9bdd9fc03b3fc4\earlydisplay-4.0.34.jar
-[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\fabric-loom\forge\transformed-dependencies-v1\net\neoforged\fancymodloader\d3670a3bcf1bb5087ac3cd9e02f9d8d849c4ecfee420f78c67dc627d185da592\loader\4.0.34\loader-4.0.34.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\fabric-loom\forge\transformed-dependencies-v1\net\neoforged\fancymodloader\1394ffc84d244901a922aaf2767ca6b9cdfab899f663d280e602959ba7c4503f\loader\4.0.34\loader-4.0.34.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\net.neoforged\coremods\7.0.3\9147e6f638b4272b3bd5fc8f92ad37802512c6c\coremods-7.0.3.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\cpw.mods\modlauncher\11.0.4\6619d4812a3c092310d521ebc4c9503727563df7\modlauncher-11.0.4.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\cpw.mods\bootstraplauncher\2.0.2\1a2d076cbc33b0520cbacd591224427b2a20047d\bootstraplauncher-2.0.2.jar
@@ -91,31 +91,31 @@
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl-tinyfd\3.3.3\82d755ca94b102e9ca77283b9e2dc46d1b15fbe5\lwjgl-tinyfd-3.3.3.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lwjgl\lwjgl\3.3.3\29589b5f87ed335a6c7e7ee6a5775f81f97ecb84\lwjgl-3.3.3.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\org.lz4\lz4-java\1.8.0\4b986a99445e49ea5fbf5d149c4b63f6ed6c6780\lz4-java-1.8.0.jar
-[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\neoforge-21.1.93-minecraft-merged\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93\neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar
+[Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\neoforge-21.1.84-minecraft-merged\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84\neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.97.Final\54188f271e388e7f313aea995e82f58ce2cdb809\netty-transport-native-epoll-4.1.97.Final-linux-x86_64.jar
 [Architectury Transformer DEBUG]  - C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.97.Final\5514744c588190ffda076b35a9b8c9f24946a960\netty-transport-native-epoll-4.1.97.Final-linux-aarch_64.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\dev\architectury\architectury-neoforge\13.0.8\architectury-neoforge-13.0.8.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\curse\maven\sdm-engine-core-964997\5968080\sdm-engine-core-964997-5968080.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\curse\maven\ftb-library-forge-404465\5893689\ftb-library-forge-404465-5893689.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\curse\maven\sdm-economy-1102542\6363595\sdm-economy-1102542-6363595.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\net\sdm\sdmuilibrary-neoforge\1.21-1.9.0\sdmuilibrary-neoforge-1.21-1.9.0.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\io\github\spair\imgui-java-lwjgl3\1.89.0\imgui-java-lwjgl3-1.89.0.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\io\github\spair\imgui-java-binding\1.89.0\imgui-java-binding-1.89.0.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\io\github\spair\imgui-java-natives-windows\1.89.0\imgui-java-natives-windows-1.89.0.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\io\github\spair\imgui-java-natives-linux\1.89.0\imgui-java-natives-linux-1.89.0.jar
-[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge\io\github\spair\imgui-java-natives-macos\1.89.0\imgui-java-natives-macos-1.89.0.jar
-[Architectury Transformer] Read classpath in 1.808 s
-[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\devlibs\sdmshopa-common-3.0.0-dev.jar
-[Architectury Transformer DEBUG] Transforming 6 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-3.0.0-dev.jar to C:\Users\WOBBLE~1\AppData\Local\Temp\12792784366034584607.jar: 
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@282003e1
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@7fad8c79
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@71a794e5
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeAnnotations@76329302
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment@5e25a92e
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.GenerateFakeNeoForgeMod@4df828d7
-[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-3.0.0-dev.jar to C:\Users\WOBBLE~1\AppData\Local\Temp\12792784366034584607.jar with 6 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\dev\architectury\architectury-neoforge\13.0.8\architectury-neoforge-13.0.8.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\curse\maven\sdm-engine-core-964997\5968080\sdm-engine-core-964997-5968080.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\curse\maven\sdm-economy-1102542\6528519\sdm-economy-1102542-6528519.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\curse\maven\ftb-library-forge-404465\6661421\ftb-library-forge-404465-6661421.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\curse\maven\sdm-ui-lib-1095061\6515615\sdm-ui-lib-1095061-6515615.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\io\github\spair\imgui-java-lwjgl3\1.89.0\imgui-java-lwjgl3-1.89.0.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\io\github\spair\imgui-java-binding\1.89.0\imgui-java-binding-1.89.0.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\io\github\spair\imgui-java-natives-windows\1.89.0\imgui-java-natives-windows-1.89.0.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\io\github\spair\imgui-java-natives-linux\1.89.0\imgui-java-natives-linux-1.89.0.jar
+[Architectury Transformer DEBUG]  - D:\SDMShopA\.gradle\loom-cache\remapped_mods\loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_84_forge\io\github\spair\imgui-java-natives-macos\1.89.0\imgui-java-natives-macos-1.89.0.jar
+[Architectury Transformer] Read classpath in 1.805 s
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar
+[Architectury Transformer DEBUG] Transforming 6 transformer(s) from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to C:\Users\WOBBLE~1\AppData\Local\Temp\17292955437217450635.jar: 
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformExpectPlatform@16267862
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.RemapInjectables@453da22c
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformPlatformOnly@71248c21
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeAnnotations@442675e1
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment@6166e06f
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.GenerateFakeNeoForgeMod@49e202ad
+[Architectury Transformer DEBUG] Transforming from D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar to C:\Users\WOBBLE~1\AppData\Local\Temp\17292955437217450635.jar with 6 transformer(s) on dev.architectury.transformer.handler.SimpleTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
@@ -125,36 +125,43 @@
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IConstructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IItemSerializer with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/ITovarTypa with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerBuyer with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/PlayerSeller with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/config/ConfigFile with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/config/Config with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/mixin/TextFieldMixin with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/WalletRender with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$2 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopEntriesPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/CheckBox with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/WalletRender with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/BuyingWindow with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/AddCurrencyPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$3 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/SelectTypeTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopPage$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/PlayerBasket with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernAddTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ShopPageModern with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernAddTabPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernAddCurrencyPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ShopPageModern with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernSearchPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernWalletRender with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernAddProperties with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernSelectTypeTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernTovarPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernBuyingWindow with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopEntriesPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernBuyingWindow with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernPlayerBasket with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernTab with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopTitelPanel with maxs=true frames=true
@@ -163,52 +170,53 @@
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/ModNetwork with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/SellShopTovarC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendOpenShopScreenS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendConfigS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendShopDataS2C with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendEditModeS2C with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/AddTabPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/AddTabPanel$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/AddTabPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/AddTabPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/Tab with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TovarTab with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AbstractTovar with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarList with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/TabPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$4$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$2 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$4 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$9 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$8 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$4 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$7 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$9 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$8 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$6 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/AddProperties$5 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/SelectTypeTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/TagPanel with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/SelectTypeTovarPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/TabPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/TagPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/SelectTypeTovarPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/SelectTypeTovarPanel$2 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/SelectTypeTovarPanel$1 with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/TagPanel$1 with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AddTovar/SelectTypeTovarPanel$3 with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor with maxs=true frames=true
+[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/widgets/Search with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/widgets/EntryPanel with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/widgets/CheckBox with maxs=true frames=true
@@ -218,405 +226,207 @@
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/RangedWrapper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/InvWrapper with maxs=true frames=true
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/utils/item/IItemHandler with maxs=true frames=true
-[Architectury Transformer DEBUG] Closed File Systems for C:\Users\WOBBLE~1\AppData\Local\Temp\12792784366034584607.jar
-[Architectury Transformer] Listening at D:\SDMShopA\common\build\devlibs\sdmshopa-common-3.0.0-dev.jar
-[Architectury Transformer DEBUG] Temporary jar [C:\Users\WOBBLE~1\AppData\Local\Temp\12792784366034584607.jar] contains packages: net.sixk.sdmshop.shop.network, net.sixk.sdmshop.utils.item, net.sixk.sdmshop.shop.network.client, net.sixk.sdmshop.shop.Tovar.AddTovar, net.sixk.sdmshop.data.config, net.sixk.sdmshop.shop.widgets, net.sixk.sdmshop.shop.network.server, net.sixk.sdmshop.shop.modern, net.sixk.sdmshop.shop, net.sixk.sdmshop.mixin, net.sixk.sdmshop.shop.modern.widgets, net.sixk.sdmshop.shop.Tovar.TovarType, net.sixk.sdmshop, net.sixk.sdmshop.shop.Tab, net.sixk.sdmshop.shop.Tovar, net.sixk.sdmshop.api
-[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\devlibs\sdmshopa-common-3.0.0-dev.jar
+[Architectury Transformer DEBUG] Closed File Systems for C:\Users\WOBBLE~1\AppData\Local\Temp\17292955437217450635.jar
+[Architectury Transformer] Listening at D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar
+[Architectury Transformer DEBUG] Temporary jar [C:\Users\WOBBLE~1\AppData\Local\Temp\17292955437217450635.jar] contains packages: net.sixk.sdmshop.shop.network, net.sixk.sdmshop.utils.item, net.sixk.sdmshop.shop.network.client, net.sixk.sdmshop.shop.Tovar.AddTovar, net.sixk.sdmshop.data.config, net.sixk.sdmshop.shop.widgets, net.sixk.sdmshop.shop.network.server, net.sixk.sdmshop.shop.modern, net.sixk.sdmshop.shop, net.sixk.sdmshop.mixin, net.sixk.sdmshop.shop.modern.widgets, net.sixk.sdmshop.data, net.sixk.sdmshop.shop.Tovar.TovarType, net.sixk.sdmshop, net.sixk.sdmshop.shop.Tab, net.sixk.sdmshop.shop.Tovar, net.sixk.sdmshop.api
+[Architectury Transformer DEBUG] Closed File Systems for D:\SDMShopA\common\build\devlibs\sdmshopa-common-1.3.1-dev.jar
 [Architectury Transformer DEBUG] Classpath entry [D:\SDMShopA\neoforge\build\resources\main] contains packages: 
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/SDMShop.class to net/sixk/sdmshop/SDMShop.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping with Dirty Mappings...
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShop with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/SDMShop in 85.18 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/SDMShop in 120.9 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/api/IConstructor.class to net/sixk/sdmshop/api/IConstructor.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IConstructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/api/IConstructor in 16.62 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/api/IConstructor in 26.11 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/data/config/Config.class to net/sixk/sdmshop/data/config/Config.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/config/Config with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/data/config/Config in 15.29 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/data/config/Config in 28.35 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/data/config/ConfigFile.class to net/sixk/sdmshop/data/config/ConfigFile.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/data/config/ConfigFile with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/data/config/ConfigFile in 14.01 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/data/config/ConfigFile in 21.75 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/ModNetwork.class to net/sixk/sdmshop/shop/network/ModNetwork.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/ModNetwork with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/ModNetwork in 13.20 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/ModNetwork in 17.29 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S.class to net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S in 14.53 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/BuyShopTovarC2S in 20.17 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/server/SendShopDataS2C.class to net/sixk/sdmshop/shop/network/server/SendShopDataS2C.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendShopDataS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/server/SendShopDataS2C in 11.62 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/server/SendShopDataS2C in 17.05 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S.class to net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S in 10.65 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/UpdateTovarDataC2S in 17.12 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S.class to net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S in 7.937 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/UpdateTabDataC2S in 11.71 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/server/SendEditModeS2C.class to net/sixk/sdmshop/shop/network/server/SendEditModeS2C.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendEditModeS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/server/SendEditModeS2C in 9.099 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/server/SendEditModeS2C in 13.13 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/client/SellShopTovarC2S.class to net/sixk/sdmshop/shop/network/client/SellShopTovarC2S.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/client/SellShopTovarC2S with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/SellShopTovarC2S in 7.975 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/server/SendOpenShopScreenS2C.class to net/sixk/sdmshop/shop/network/server/SendOpenShopScreenS2C.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendOpenShopScreenS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/server/SendOpenShopScreenS2C in 7.042 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/network/server/SendConfigS2C.class to net/sixk/sdmshop/shop/network/server/SendConfigS2C.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/network/server/SendConfigS2C with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/server/SendConfigS2C in 7.283 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/network/client/SellShopTovarC2S in 12.04 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/ShopComands.class to net/sixk/sdmshop/shop/ShopComands.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/ShopComands with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/ShopComands in 9.516 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/ShopComands in 11.58 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/SDMShopClient.class to net/sixk/sdmshop/SDMShopClient.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/SDMShopClient with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/SDMShopClient in 8.604 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/SDMShopClient in 6.850 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor.class to net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor in 8.753 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem$Constructor in 9.418 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/AbstractTovar.class to net/sixk/sdmshop/shop/Tovar/AbstractTovar.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/AbstractTovar with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/AbstractTovar in 7.314 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/AbstractTovar in 7.745 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/api/IItemSerializer.class to net/sixk/sdmshop/api/IItemSerializer.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/api/IItemSerializer with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/api/IItemSerializer in 8.852 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/api/IItemSerializer in 7.088 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem.class to net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem in 8.227 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarItem in 7.222 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister.class to net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister in 7.263 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarTypeRegister in 10.36 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor.class to net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor in 6.169 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP$Constructor in 8.575 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP.class to net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP in 6.690 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarXP in 8.993 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor.class to net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor in 5.729 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand$Constructor in 7.805 ms
 [Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand.class to net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
 [Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
+[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x0000020cd1084b08@1e9e725a
 [Architectury Transformer DEBUG] Remapping Classes:
 [Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
 [Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
 [Architectury Transformer DEBUG] Found class transformer
 [Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand in 6.529 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tab/TovarTab.class to net/sixk/sdmshop/shop/Tab/TovarTab.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TovarTab with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tab/TovarTab in 7.096 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarList.class to net/sixk/sdmshop/shop/Tovar/TovarList.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarList with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarList in 6.427 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tab/Tab.class to net/sixk/sdmshop/shop/Tab/Tab.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/Tab with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tab/Tab in 6.996 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/Tovar.class to net/sixk/sdmshop/shop/Tovar/Tovar.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/Tovar with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/Tovar in 14.05 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ShopPageModern.class to net/sixk/sdmshop/shop/modern/ShopPageModern.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ShopPageModern with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ShopPageModern in 10.26 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ModernShopTitelPanel.class to net/sixk/sdmshop/shop/modern/ModernShopTitelPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopTitelPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ModernShopTitelPanel in 7.541 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ModernTabPanel.class to net/sixk/sdmshop/shop/modern/ModernTabPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernTabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ModernTabPanel in 10.12 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel.class to net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel in 8.767 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ModernSearchPanel.class to net/sixk/sdmshop/shop/modern/ModernSearchPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernSearchPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ModernSearchPanel in 8.202 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ModernShopEntriesPanel.class to net/sixk/sdmshop/shop/modern/ModernShopEntriesPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopEntriesPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ModernShopEntriesPanel in 8.551 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/mixin/TextFieldMixin.class to net/sixk/sdmshop/mixin/TextFieldMixin.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/mixin/TextFieldMixin with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/mixin/TextFieldMixin in 7.175 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel$1.class to net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel$1.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ModernShopPageWalletPanel$1 in 7.875 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/widgets/Search.class to net/sixk/sdmshop/shop/widgets/Search.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/widgets/Search with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/widgets/Search in 8.694 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/widgets/EntryPanel.class to net/sixk/sdmshop/shop/widgets/EntryPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/widgets/EntryPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/widgets/EntryPanel in 7.922 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tab/TabPanel.class to net/sixk/sdmshop/shop/Tab/TabPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tab/TabPanel in 8.401 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tab/TabRender.class to net/sixk/sdmshop/shop/Tab/TabRender.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tab/TabRender in 7.866 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tab/TabRender$1.class to net/sixk/sdmshop/shop/Tab/TabRender$1.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tab/TabRender$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tab/TabRender$1 in 8.356 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarPanel.class to net/sixk/sdmshop/shop/Tovar/TovarPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarPanel in 8.057 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/modern/ModernTovarPanel.class to net/sixk/sdmshop/shop/modern/ModernTovarPanel.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/modern/ModernTovarPanel with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/modern/ModernTovarPanel in 8.736 ms
-[Architectury Transformer DEBUG] Transforming from net/sixk/sdmshop/shop/Tovar/TovarPanel$1.class to net/sixk/sdmshop/shop/Tovar/TovarPanel$1.class with 6 transformer(s) on dev.architectury.transformer.handler.TinyRemapperPreparedTransformerHandler
-[Architectury Transformer DEBUG] Remapping with 1 mapping provider(s):
-[Architectury Transformer DEBUG]  - dev.architectury.transformer.transformers.TransformNeoForgeEnvironment$$Lambda/0x000001f764084910@6a79c292
-[Architectury Transformer DEBUG] Remapping Classes:
-[Architectury Transformer DEBUG] net/fabricmc/api/EnvType -> net/neoforged/api/distmarker/Dist
-[Architectury Transformer DEBUG] net/fabricmc/api/Environment -> net/neoforged/api/distmarker/OnlyIn
-[Architectury Transformer DEBUG] Found class transformer
-[Architectury Transformer DEBUG] Writing net/sixk/sdmshop/shop/Tovar/TovarPanel$1 with maxs=true frames=true
-[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarPanel$1 in 7.363 ms
+[Architectury Transformer DEBUG] Transformed net/sixk/sdmshop/shop/Tovar/TovarType/TovarCommand in 7.610 ms

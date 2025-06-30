@@ -29,30 +29,24 @@ dependencies {
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
-    modImplementation "curse.maven:ftb-library-fabric-438495:6466107"
+    modImplementation "curse.maven:ftb-library-fabric-438495:6661420"
 
     modImplementation "dev.architectury:architectury-fabric:$rootProject.architectury_api_version"
 
     modImplementation "curse.maven:sdm-engine-core-964997:5968177"
-    modImplementation "net.sixik:sdmeconomy-fabric:1.21.1-2.1.0"
 
+    modImplementation "curse.maven:sdm-economy-1102542:6528517"
+
+    modImplementation "curse.maven:sdm-ui-lib-1095061:6515618"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
-
-    modImplementation("net.sixik:sdmuilibrary-fabric:1.21-1.9.2")
 
     modImplementation("io.github.spair:imgui-java-lwjgl3:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-binding:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-natives-windows:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-natives-linux:${rootProject.imguiVersion}")
     modImplementation("io.github.spair:imgui-java-natives-macos:${rootProject.imguiVersion}")
-
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-lwjgl3:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-binding:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-windows:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-linux:${project.imguiVersion}")
-    minecraftClientRuntimeLibraries("io.github.spair:imgui-java-natives-macos:${project.imguiVersion}")
 
 }
 

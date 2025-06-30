@@ -24,10 +24,11 @@ import net.sixik.sdmuilibrary.client.utils.RenderHelper;
 import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixk.sdmshop.data.config.ConfigFile;
 import net.sixk.sdmshop.mixin.TextFieldMixin;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
+import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 import net.sixk.sdmshop.shop.Tovar.TovarList;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarCommand;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarItem;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarTypeRegister;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
 import net.sixk.sdmshop.shop.modern.widgets.ModerTextBox;
 import net.sixk.sdmshop.shop.network.client.UpdateTovarDataC2S;
@@ -35,12 +36,14 @@ import net.sixk.sdmshop.shop.widgets.CheckBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AddProperties extends Panel {
 
     public static Icon icon;
     public static String id;
-    public Tovar tovar;
+    public AbstractTovar tovar;
+    public UUID uuid;
     public static Component name;
     protected ItemStack itemStack;
     public static TagKey tag;
@@ -89,6 +92,7 @@ public class AddProperties extends Panel {
     public AddProperties(Panel panel, String tab) {
         super(panel);
         tabName = tab;
+        uuid = UUID.randomUUID();
         id = "ItemType";
         name = Component.empty();
         icon = Icons.ADD;
@@ -96,12 +100,13 @@ public class AddProperties extends Panel {
 
     }
 
-    public AddProperties(Panel panel, Tovar tovar) {
+    public AddProperties(Panel panel, AbstractTovar tovar) {
         super(panel);
         this.tovar = tovar;
-        icon = tovar.abstractTovar.getIcon();
-        name = Component.nullToEmpty(tovar.abstractTovar.getTitel());
-        id = tovar.abstractTovar.getID();
+        uuid = tovar.uuid;
+        icon = tovar.getIcon();
+        name = Component.nullToEmpty(tovar.getTitel());
+        id = tovar.getID();
         save1 = String.valueOf(tovar.limit);
         if(tovar.limit == -1) save1 = "";
         save2 = String.valueOf(tovar.cost);
@@ -110,13 +115,13 @@ public class AddProperties extends Panel {
         editMod = true;
         save3 = tovar.toSell;
         if(id.equals("ItemType")) {
-            itemStack = (ItemStack) tovar.abstractTovar.getItemStack();
-            save6 = tovar.abstractTovar.getisXPLVL();
-            tag = tovar.abstractTovar.getTag();
+            itemStack = (ItemStack) tovar.getItemStack();
+            save6 = tovar.getisXPLVL();
+            tag = tovar.getTag();
         }
         if (id.equals("XPType")) {
-            save4 = tovar.abstractTovar.getisXPLVL();
-            save5 = (int) tovar.abstractTovar.getItemStack();
+            save4 = tovar.getisXPLVL();
+            save5 = (int) tovar.getItemStack();
         }
     }
 
@@ -317,34 +322,51 @@ public class AddProperties extends Panel {
                 }
 
                 if(editMod) {
-                    Tovar newTovar = null;
+                    AbstractTovar newTovar = null;
                     switch (id){
                         case "ItemType" :
-                            newTovar =  new Tovar( tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs()).setAbstract(new TovarItem(itemStack,byTag.CheckIs(),tag));
+                            newTovar =  new TovarItem(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),itemStack,byTag.CheckIs(),tag);
                             break;
                         case "XPType" :
-                            newTovar =  new Tovar( tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs()).setAbstract(new TovarXP(Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs()));
+                            newTovar =  new TovarXP(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs());
                             break;
                         case "CommandType" :
-                            newTovar = new Tovar(tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs()).setAbstract(new TovarCommand(command.getText()));
+                            newTovar = new TovarCommand(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),command.getText());
                             break;
                     };
-
+                    TovarTypeRegister.getType(id).ifPresent(func ->{
+                        AbstractTovar w1 = func.apply(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs());
+                        w1.update(type->{
+                            if(type instanceof TovarItem tovarItem) {
+                                tovarItem.item = itemStack;
+                                tovarItem.byTag = byTag.CheckIs();
+                                tovarItem.tag = tag;
+                                return;
+                            }
+                            if (type instanceof TovarXP tovarXP){
+                                tovarXP.xpCount = Integer.parseInt(countXpLvl.getText());
+                                tovarXP.isXPLVL = isLvl.CheckIs();
+                                return;
+                            }
+                            if(type instanceof TovarCommand tovarCommand){
+                                tovarCommand.
+                            }
+                        });
+                    });
                     TovarList.CLIENT.tovarList.set(TovarList.CLIENT.tovarList.indexOf(tovar), newTovar);
 
                 }
                 else {
-
-                    Tovar newTovar = null;
+                    AbstractTovar newTovar = null;
                     switch (id){
                         case "ItemType" :
-                            newTovar =  new Tovar(tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs()).setAbstract(new TovarItem(itemStack,byTag.CheckIs(),tag));
+                            newTovar =  new TovarItem(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),itemStack,byTag.CheckIs(),tag);
                             break;
                         case "XPType" :
-                            newTovar =  new Tovar(tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs()).setAbstract(new TovarXP(Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs()));
+                            newTovar =  new TovarXP(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs());
                             break;
                         case "CommandType" :
-                            newTovar = new Tovar(tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs()).setAbstract(new TovarCommand(command.getText()));
+                            newTovar = new TovarCommand(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),command.getText());
                             break;
                     };
 

@@ -20,27 +20,29 @@ import java.util.List;
 
 public class PlayerBasket extends BaseScreen {
 
-    public static PlayerInfo info = new PlayerInfo(Minecraft.getInstance().getGameProfile(),false);
+    public static PlayerInfo info = new PlayerInfo(Minecraft.getInstance().getGameProfile(), false);
     TextField walletTxt;
     Panel walletPanel;
-    List<WalletRender> walletRenderasList = new ArrayList<>();
+    List<WalletRender> walletRenderasList = new ArrayList();
     SimpleButton addCurrency;
 
-    @Override
+    public PlayerBasket() {
+    }
+
     public boolean onInit() {
-        refreshWidgets();
-        return  true;
+        this.refreshWidgets();
+        return true;
     }
 
     @Override
     public void drawOffsetBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
         //blit(ResourceLocation texture, int x, int y, int width, int height, int textureX, int textureY, int textureW, int textureH, int textureSizeX, int textureSizeY)
-        graphics.blit(info.getSkin().texture(), x + 2 , y + 2, 15, 15, 8.0f, 8, 8, 8, 64, 64);
-        graphics.blit(info.getSkin().texture(), x + 2, y + 2, 15, 15, 40.0f, 8, 8, 8, 64, 64);
-        NordColors.POLAR_NIGHT_0.draw(graphics,x + 5,y + 25,width/2 - 20, h - 30);
-        GuiHelper.drawHollowRect(graphics,x + 4,y + 24,width/2 - 19, h - 29, NordColors.POLAR_NIGHT_4, false);
-        NordColors.POLAR_NIGHT_0.draw(graphics,x + width/2 - 10,y + 25,width/2 + 5, h - 30);
-        GuiHelper.drawHollowRect(graphics,x + width/2 - 11 ,y + 24,width/2 + 6, h - 29, NordColors.POLAR_NIGHT_4, false);
+        graphics.blit(info.getSkin().texture(), x + 2, y + 2, 15, 15, 8.0F, 8.0F, 8, 8, 64, 64);
+        graphics.blit(info.getSkin().texture(), x + 2, y + 2, 15, 15, 40.0F, 8.0F, 8, 8, 64, 64);
+        NordColors.POLAR_NIGHT_0.draw(graphics, x + 5, y + 25, this.width / 2 - 20, h - 30);
+        GuiHelper.drawHollowRect(graphics, x + 4, y + 24, this.width / 2 - 19, h - 29, NordColors.POLAR_NIGHT_4, false);
+        NordColors.POLAR_NIGHT_0.draw(graphics, x + this.width / 2 - 10, y + 25, this.width / 2 + 5, h - 30);
+        GuiHelper.drawHollowRect(graphics, x + this.width / 2 - 11, y + 24, this.width / 2 + 6, h - 29, NordColors.POLAR_NIGHT_4, false);
     }
 
 
@@ -49,22 +51,18 @@ public class PlayerBasket extends BaseScreen {
     public void addWidgets() {
         add(walletTxt = new TextField(this));
         add(walletPanel = new Panel(this) {
-
-
             @Override
             public void addWidgets() {
 
                 walletRenderasList.clear();
 
                 for (CurrencyPlayerData.PlayerCurrency w : EconomyAPI.getPlayerCurrencyClientData().currencies) {
-
                     WalletRender  walletRender = null;
-                    if(ConfigFile.CLIENT.style){
-                        walletRender = new ModernWalletRender(walletPanel,w, (float) w.balance);
-                    }else {
-                        walletRender = new WalletRender(walletPanel,w, (float) w.balance);
+                    if (ConfigFile.CLIENT.style) {
+                        walletRender = new ModernWalletRender(walletPanel, w, (float)w.balance);
+                    } else {
+                        walletRender = new WalletRender(walletPanel, w, (float)w.balance);
                     }
-
                     walletPanel.add(walletRender);
 
                     walletRenderasList.add(walletRender);
@@ -73,11 +71,13 @@ public class PlayerBasket extends BaseScreen {
 
                 if(SDMShop.isEditMode())
                     walletPanel.add(addCurrency = new SimpleButton(walletPanel, Component.translatable("sdm_shop.player_basket.add_currency"), Icons.ADD,((simpleButton, mouseButton) ->{
-                        if(ConfigFile.CLIENT.style){
-                            new ModernAddCurrencyPanel().openGui();
-                        }else {
-                            new AddCurrencyPanel().openGui();
+
+                        if (ConfigFile.CLIENT.style) {
+                            (new ModernAddCurrencyPanel()).openGui();
+                        } else {
+                            (new AddCurrencyPanel()).openGui();
                         }
+
                     })));
 
                 for (int n = 0; n < walletRenderasList.size(); n++) {

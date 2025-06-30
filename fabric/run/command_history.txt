@@ -41,3 +41,4 @@
 /sdmshop set sdmcoin 100
 /sdmshop set @a sdmcoin 100
 /sdmshop set @a sdmcoin 10
+/sdmshop edit_mode

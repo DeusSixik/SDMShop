@@ -1,14 +1,12 @@
 package net.sixk.sdmshop.shop.modern;
 
-import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
-import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmuilibrary.client.utils.RenderHelper;
 import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
+import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 import net.sixk.sdmshop.shop.Tovar.AddTovar.AddProperties;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
 import net.sixk.sdmshop.shop.modern.widgets.ModerTextBox;
 
 public class ModernAddProperties extends AddProperties {
@@ -17,7 +15,7 @@ public class ModernAddProperties extends AddProperties {
         super(panel, tab);
     }
 
-    public ModernAddProperties(Panel panel, Tovar tovar) {
+    public ModernAddProperties(Panel panel, AbstractTovar tovar) {
         super(panel, tovar);
     }
 

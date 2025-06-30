@@ -1,42 +1,53 @@
 package net.sixk.sdmshop.shop.network.client;
 
 import dev.architectury.networking.NetworkManager;
-import net.minecraft.core.HolderLookup;
+import java.util.Iterator;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.sixik.sdmcore.impl.utils.serializer.data.IData;
 import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixk.sdmshop.SDMShop;
 import net.sixk.sdmshop.shop.Tab.TovarTab;
+import net.sixk.sdmshop.shop.Tovar.TovarList;
+import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
 
 public class UpdateTabDataC2S implements CustomPacketPayload {
-
-    public static final CustomPacketPayload.Type<UpdateTabDataC2S> TYPE = new CustomPacketPayload.Type(ResourceLocation.tryBuild(SDMShop.MODID, "update_tab"));
-    public static final StreamCodec<FriendlyByteBuf, UpdateTabDataC2S> STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.TAG, UpdateTabDataC2S::getTag, UpdateTabDataC2S::new);
-
+    public static final CustomPacketPayload.Type<UpdateTabDataC2S> TYPE = new CustomPacketPayload.Type(ResourceLocation.tryBuild("sdmshop", "update_tab"));
+    public static final StreamCodec<FriendlyByteBuf, UpdateTabDataC2S> STREAM_CODEC;
     public Tag tag;
 
-    public UpdateTabDataC2S(Tag tag){
+    public UpdateTabDataC2S(Tag tag) {
         this.tag = tag;
     }
 
     public static void handle(UpdateTabDataC2S message, NetworkManager.PacketContext context) {
         context.queue(() -> {
-            TovarTab.SERVER.deserialize((KeyData) IData.valueOf(message.tag), context.registryAccess());
+            TovarTab.SERVER.deserialize((KeyData)IData.valueOf(message.tag), context.registryAccess());
+            Iterator var2 = context.getPlayer().getServer().getPlayerList().getPlayers().iterator();
+
+            while(var2.hasNext()) {
+                ServerPlayer player = (ServerPlayer)var2.next();
+                NetworkManager.sendToPlayer(player, new SendShopDataS2C(TovarList.SERVER.serialize(context.registryAccess()).asNBT(), TovarTab.SERVER.serialize(context.registryAccess()).asNBT()));
+            }
+
             SDMShop.saveData(context.getPlayer().getServer());
         });
     }
 
     public Tag getTag() {
-        return tag;
+        return this.tag;
     }
 
-    @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return TYPE;
+    }
+
+    static {
+        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.TAG, UpdateTabDataC2S::getTag, UpdateTabDataC2S::new);
     }
 }

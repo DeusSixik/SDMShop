@@ -1,17 +1,22 @@
 package net.sixk.sdmshop.shop.Tovar;
 
+import dev.ftb.mods.ftblibrary.icon.Icon;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmcore.impl.utils.serializer.data.IData;
 import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmcore.impl.utils.serializer.data.ListData;
+import net.sixk.sdmshop.shop.Tovar.TovarType.TovarTypeRegister;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TovarList  {
 
-    public  List<Tovar> tovarList = new ArrayList<>();
+    public  List<AbstractTovar> tovarList = new ArrayList<>();
     public static TovarList SERVER;
     public static TovarList CLIENT = new TovarList() ;
 
@@ -26,7 +31,7 @@ public class TovarList  {
         KeyData data = new KeyData();
 
         ListData<IData> tovarList = new ListData<>();
-        for (Tovar value : this.tovarList) {
+        for (AbstractTovar value : this.tovarList) {
             tovarList.addValue(value.serialize(provider));
         }
         data.put("tovarList",tovarList);
@@ -42,11 +47,13 @@ public class TovarList  {
         ListData<IData> tovarList = data.getData("tovarList").asList();
 
         for (IData w : tovarList.data) {
-
-            Tovar w1 = new Tovar(""," ", 0,0,true);
-            w1.deserialize(w.asKeyMap(), provider);
-            this.tovarList.add(w1);
-
+            KeyData w1 = (KeyData) w;
+            if(!w1.contains("tovarType")) continue;
+            TovarTypeRegister.getType(w1.getData("tovarType").asString()).ifPresent(func ->{
+                AbstractTovar w2 = func.apply(UUID.randomUUID(), "", "", 0, 0l, false);
+                w2.deserialize(w1, provider);
+                this.tovarList.add(w2);
+            });
         }
 
 

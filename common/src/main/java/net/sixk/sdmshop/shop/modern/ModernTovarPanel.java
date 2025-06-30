@@ -5,13 +5,12 @@ import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixik.sdmuilibrary.client.utils.renders.ShapesRenderHelper;
-import net.sixk.sdmshop.shop.BuyingWindow;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
+import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 import net.sixk.sdmshop.shop.Tovar.TovarPanel;
 
 public class ModernTovarPanel extends TovarPanel {
 
-    public ModernTovarPanel(Panel panel, Tovar tovar) {
+    public ModernTovarPanel(Panel panel, AbstractTovar tovar) {
         super(panel, tovar);
     }
 
@@ -25,7 +24,7 @@ public class ModernTovarPanel extends TovarPanel {
     @Override
     public void addWidgets() {
         super.addWidgets();
-        openBuy.setConsumer( (simpleButton, mouseButton) -> new ModernBuyingWindow(tovar).openGui() );
+        openBuy.setConsumer( (simpleButton, mouseButton) -> new ModernBuyingWindow(tovar.uuid).openGui() );
     }
 
     @Override

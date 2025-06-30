@@ -1,22 +1,32 @@
 package net.sixk.sdmshop.shop.Tovar.TovarType;
 
-import net.sixk.sdmshop.api.IConstructor;
+import com.mojang.datafixers.util.Function6;
+import net.sixk.sdmshop.SDMShop;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 public class TovarTypeRegister {
 
-    public static HashMap<String, IConstructor<AbstractTovar>> TOVAR_MAP = new HashMap<>();
+    protected static final Map<String, Function6<UUID, String, String, Integer, Long, Boolean,AbstractTovar>> TYPES = new HashMap<>();
 
-    public static AbstractTovar registerTovar(IConstructor<AbstractTovar> constructor) {
-        AbstractTovar tovar = constructor.create();
-        if(!TOVAR_MAP.containsKey(tovar.getID())) {
-            TOVAR_MAP.put(tovar.getID(), constructor);
+    public static void register(String id, Function6<UUID, String, String, Integer, Long, Boolean,AbstractTovar> func){
+        if(TYPES.containsKey(id)) {
+            SDMShop.LOGGER.error("SellerType with {} id already registered!", id);
+            return;
         }
+        TYPES.put(id, func);
+    };
 
-        return tovar;
+    public static Map<String, Function6<UUID, String, String, Integer, Long, Boolean,AbstractTovar>> getTypes(){
+        return new HashMap<>(TYPES);
     }
 
+    public static Optional<Function6<UUID, String, String, Integer, Long, Boolean,AbstractTovar>> getType(String id) {
+       return Optional.ofNullable(TYPES.get(id));
+    }
 
 }

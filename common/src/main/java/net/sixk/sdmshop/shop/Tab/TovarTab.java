@@ -1,56 +1,43 @@
 package net.sixk.sdmshop.shop.Tab;
 
-import dev.ftb.mods.ftblibrary.icon.Icon;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.item.ItemStack;
-import net.sixik.sdmcore.impl.utils.serializer.SDMSerializer;
 import net.sixik.sdmcore.impl.utils.serializer.data.IData;
 import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmcore.impl.utils.serializer.data.ListData;
-import net.sixik.sdmcore.impl.utils.serializer.data.basic.StringData;
-
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-public class TovarTab  {
-
-    public List<Tab> tabList = new ArrayList<>();
+public class TovarTab {
+    public List<Tab> tabList = new ArrayList();
     public static TovarTab SERVER;
     public static TovarTab CLIENT = new TovarTab();
 
-
-    public TovarTab(){
-
-
+    public TovarTab() {
     }
 
-
-
     public KeyData serialize(HolderLookup.Provider provider) {
-
         KeyData data = new KeyData();
-        ListData<IData> tabList = new ListData<>();
+        ListData<IData> tabList = new ListData();
+        Iterator var4 = this.tabList.iterator();
 
-        for (Tab tab : this.tabList) {
+        while(var4.hasNext()) {
+            Tab tab = (Tab)var4.next();
             tabList.addValue(tab.serialize(provider));
         }
 
         data.put("tabName", tabList);
-
         return data;
     }
 
-
     public void deserialize(KeyData data, HolderLookup.Provider provider) {
-
         this.tabList.clear();
-
         ListData<IData> tabList = data.getData("tabName").asList();
+        Iterator var4 = tabList.data.iterator();
 
-        for (IData tab : tabList.data) {
+        while(var4.hasNext()) {
+            IData tab = (IData)var4.next();
             Tab w1 = new Tab("", null);
             w1.deserialize(tab.asKeyMap(), provider);
             this.tabList.add(w1);

@@ -5,15 +5,17 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixik.sdmuilibrary.client.utils.renders.ShapesRenderHelper;
 import net.sixk.sdmshop.shop.BuyingWindow;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
+
+
+import java.util.UUID;
 
 public class ModernBuyingWindow extends BuyingWindow {
 
     public GuiGraphics graphics;
     public Theme theme;
 
-    public ModernBuyingWindow(Tovar tovar) {
-        super(tovar);
+    public ModernBuyingWindow(UUID uuid) {
+        super(uuid);
     }
 
     @Override

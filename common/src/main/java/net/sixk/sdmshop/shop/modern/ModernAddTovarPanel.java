@@ -1,7 +1,7 @@
 package net.sixk.sdmshop.shop.modern;
 
+import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 import net.sixk.sdmshop.shop.Tovar.AddTovar.AddTovarPanel;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
 import org.jetbrains.annotations.Nullable;
 
 public class ModernAddTovarPanel extends AddTovarPanel {
@@ -12,7 +12,7 @@ public class ModernAddTovarPanel extends AddTovarPanel {
         super(tab);
         base = new ModernAddProperties(this,tab);
     }
-    public ModernAddTovarPanel(Tovar tovar){
+    public ModernAddTovarPanel(AbstractTovar tovar){
         super(tovar);
         base = new ModernAddProperties(this,tovar);
     }

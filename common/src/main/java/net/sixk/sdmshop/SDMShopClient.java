@@ -13,24 +13,34 @@ import org.lwjgl.glfw.GLFW;
 
 public class SDMShopClient {
 
-    public static final String SDMSHOP_CATEGORY = "key.category.sdmshopr";
-    public static final String KEY_NAME = "key.sdmshop.shopr";
-    public static KeyMapping KEY_SHOP = new KeyMapping(KEY_NAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, SDMSHOP_CATEGORY);
+    public static KeyMapping KEY_SHOP;
 
-    public static void init(){
-        KeyMappingRegistry.register(KEY_SHOP);
-        ClientTickEvent.CLIENT_PRE.register((instance -> {
-            if (KEY_SHOP.consumeClick()) {
-                if(ConfigFile.CLIENT.disableKeyBind) return;
-                if(ConfigFile.CLIENT.style)
-                    new ShopPageModern().openGui();
-                else
-                    new ShopPage().openGui();
-            }
-        }));
+    public SDMShopClient() {
     }
 
-    public static Player getPlayer(){
+    public static void init() {
+        KeyMappingRegistry.register(KEY_SHOP);
+        ClientTickEvent.CLIENT_PRE.register((instance) -> {
+            if (KEY_SHOP.consumeClick()) {
+                if (ConfigFile.CLIENT.disableKeyBind) {
+                    return;
+                }
+
+                if (ConfigFile.CLIENT.style) {
+                    (new ShopPageModern()).openGui();
+                } else {
+                    (new ShopPage()).openGui();
+                }
+            }
+
+        });
+    }
+
+    public static Player getPlayer() {
         return Minecraft.getInstance().player;
+    }
+
+    static {
+        KEY_SHOP = new KeyMapping("key.sdmshop.shopr", InputConstants.Type.KEYSYM, 79, "key.category.sdmshopr");
     }
 }

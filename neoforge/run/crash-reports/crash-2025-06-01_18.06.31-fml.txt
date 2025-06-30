@@ -1,0 +1,132 @@
+---- Minecraft Crash Report ----
+// You should try our sister game, Minceraft!
+
+Time: 2025-06-01 18:06:31
+Description: Mod loading failures have occurred; consult the issue messages for more details
+
+net.neoforged.neoforge.logging.CrashReportExtender$ModLoadingCrashException: Mod loading has failed
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at TRANSFORMER/neoforge@21.1.93/net.neoforged.neoforge.network.registration.NetworkRegistry.register(NetworkRegistry.java:177) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23202!/:?] {re:classloading}
+-- Mod loading issue for: architectury --
+Details:
+	Mod file: /D:/SDMShopA/.gradle/loom-cache/remapped_mods/loom_mappings_1_21_1_layered_hash_40545_v2_neoforge_21_1_93_forge/dev/architectury/architectury-neoforge/13.0.8/architectury-neoforge-13.0.8.jar
+	Failure message: Architectury (architectury) encountered an error while dispatching the net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event
+		java.lang.UnsupportedOperationException: Cannot register payload sdmshop:open_shop as it is already registered.
+	Mod version: 13.0.8
+	Mod issues URL: https://github.com/shedaniel/architectury/issues
+	Exception message: java.lang.UnsupportedOperationException: Cannot register payload sdmshop:open_shop as it is already registered.
+Stacktrace:
+	at TRANSFORMER/neoforge@21.1.93/net.neoforged.neoforge.network.registration.NetworkRegistry.register(NetworkRegistry.java:177) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23202!/:?] {re:classloading}
+	at TRANSFORMER/neoforge@21.1.93/net.neoforged.neoforge.network.registration.PayloadRegistrar.register(PayloadRegistrar.java:169) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23202!/:?] {re:classloading}
+	at TRANSFORMER/neoforge@21.1.93/net.neoforged.neoforge.network.registration.PayloadRegistrar.playToClient(PayloadRegistrar.java:45) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23202!/:?] {re:classloading}
+	at TRANSFORMER/architectury@13.0.8/dev.architectury.networking.forge.NetworkManagerImpl$1.lambda$registerS2C$4(NetworkManagerImpl.java:72) ~[architectury-neoforge-13.0.8.jar%23207!/:?] {re:classloading}
+	at MC-BOOTSTRAP/net.neoforged.bus/net.neoforged.bus.ConsumerEventHandler.invoke(ConsumerEventHandler.java:26) ~[bus-8.0.2.jar%23116!/:?] {}
+	at MC-BOOTSTRAP/net.neoforged.bus/net.neoforged.bus.EventBus.post(EventBus.java:350) ~[bus-8.0.2.jar%23116!/:?] {}
+	at MC-BOOTSTRAP/net.neoforged.bus/net.neoforged.bus.EventBus.post(EventBus.java:329) ~[bus-8.0.2.jar%23116!/:?] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.ModContainer.acceptEvent(ModContainer.java:177) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.ModLoader.lambda$postEvent$13(ModLoader.java:358) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[?:?] {re:computing_frames}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.ModList.forEachModInOrder(ModList.java:174) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.ModLoader.postEvent(ModLoader.java:358) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at TRANSFORMER/neoforge@21.1.93/net.neoforged.neoforge.network.registration.NetworkRegistry.setup(NetworkRegistry.java:130) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23202!/:?] {re:classloading}
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.packs.resources.SimpleReloadInstance.method_18365(SimpleReloadInstance.java:69) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:148) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:computing_frames,pl:accesstransformer:B,pl:unprotect:A,re:mixin,pl:accesstransformer:B,pl:unprotect:A,re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:computing_frames,pl:unprotect:A,re:mixin,pl:unprotect:A,re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:122) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:computing_frames,pl:accesstransformer:B,pl:unprotect:A,re:mixin,pl:accesstransformer:B,pl:unprotect:A,re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:111) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:computing_frames,pl:accesstransformer:B,pl:unprotect:A,re:mixin,pl:accesstransformer:B,pl:unprotect:A,re:classloading,pl:accesstransformer:B,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.runTick(Minecraft.java:1155) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:mixin,pl:unprotect:A,pl:runtimedistcleaner:A,re:classloading,pl:mixin:A,pl:unprotect:A,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:mixin,pl:unprotect:A,pl:runtimedistcleaner:A,re:classloading,pl:mixin:A,pl:unprotect:A,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:230) ~[neoforge-21.1.93-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.93.jar%23201!/:?] {re:classloading,pl:unprotect:A,pl:runtimedistcleaner:A}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:124) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.loading.targets.NeoForgeClientUserdevLaunchHandler.runService(NeoForgeClientUserdevLaunchHandler.java:23) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.34/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118) ~[loader-4.0.34.jar%23109!/:4.0] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.4/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) [modlauncher-11.0.4.jar%23111!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.4/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) [modlauncher-11.0.4.jar%23111!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.4/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) [modlauncher-11.0.4.jar%23111!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.4/cpw.mods.modlauncher.Launcher.run(Launcher.java:103) [modlauncher-11.0.4.jar%23111!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.4/cpw.mods.modlauncher.Launcher.main(Launcher.java:74) [modlauncher-11.0.4.jar%23111!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.4/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) [modlauncher-11.0.4.jar%23111!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.4/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) [modlauncher-11.0.4.jar%23111!/:?] {}
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210) [bootstraplauncher-2.0.2.jar:?] {}
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69) [bootstraplauncher-2.0.2.jar:?] {}
+	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86) [dev-launch-injector-0.2.1+build.8.jar:?] {}
+	at dev.architectury.transformer.TransformerRuntime.main(TransformerRuntime.java:220) [architectury-transformer-5.2.87-runtime.jar:5.2.87] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 21.0.2, GraalVM Community
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), GraalVM Community
+	Memory: 385316992 bytes (367 MiB) / 1216348160 bytes (1160 MiB) up to 4278190080 bytes (4080 MiB)
+	CPUs: 12
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz
+	Identifier: Intel64 Family 6 Model 158 Stepping 10
+	Microarchitecture: Coffee Lake
+	Frequency (GHz): 3.70
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: AMD Radeon RX 7800 XT
+	Graphics card #0 vendor: Advanced Micro Devices, Inc.
+	Graphics card #0 VRAM (MiB): 16368.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 32.0.12033.1030
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 2.67
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 2.67
+	Memory slot #1 type: DDR4
+	Virtual memory max (MiB): 36798.35
+	Virtual memory used (MiB): 24230.05
+	Swap memory total (MiB): 20480.00
+	Swap memory used (MiB): 988.32
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 88338.09, total: 228259.91
+	Space in storage for workdir (MiB): available: 7152.19, total: 476937.00
+	JVM Flags: 4 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions
+	ModLauncher: 11.0.4+main.d2e20e43
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher services: 
+		sponge-mixin-0.15.2+mixin.0.8.7.jar mixin PLUGINSERVICE 
+		loader-4.0.34.jar slf4jfixer PLUGINSERVICE 
+		loader-4.0.34.jar runtime_enum_extender PLUGINSERVICE 
+		unprotect-1.2.0.jar unprotect PLUGINSERVICE 
+		at-modlauncher-10.0.1.jar accesstransformer PLUGINSERVICE 
+		loader-4.0.34.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-11.0.4.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-11.0.4.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		javafml@4.0
+		lowcodefml@4.0
+		minecraft@4.0
+	Mod List: 
+		architectury-neoforge-13.0.8.jar                  |Architectury                  |architectury                  |13.0.8              |Manifest: NOSIGNATURE
+		ftb-library-forge-404465-6466106.jar              |FTB Library                   |ftblibrary                    |2101.1.13           |Manifest: NOSIGNATURE
+		953803250142592252.jar                            |generated_cd34028             |generated_cd34028             |1                   |Manifest: NOSIGNATURE
+		neoforge-21.1.93-minecraft-merged-1.21.1-loom.mapp|Minecraft                     |minecraft                     |1.21.1              |Manifest: NOSIGNATURE
+		neoforge-21.1.93-minecraft-merged-1.21.1-loom.mapp|NeoForge                      |neoforge                      |21.1.93             |Manifest: NOSIGNATURE
+		sdm-engine-core-964997-5968080.jar                |SDM Core                      |sdmcore                       |1.21.1-2.1.2        |Manifest: NOSIGNATURE
+		sdmeconomy-neoforge-1.21.1-2.1.0.jar              |SDMEconomy                    |sdmeconomy                    |1.21.1-2.1.0        |Manifest: NOSIGNATURE
+		main                                              |SDMShop                       |sdmshop                       |3.1.7               |Manifest: NOSIGNATURE
+		sdmuilibrary-neoforge-1.21-1.9.2.jar              |SDMUILibrary                  |sdm_ui_library                |1.21-1.9.2          |Manifest: NOSIGNATURE
+	Crash Report UUID: 8d04bbc9-3462-483e-b666-84def0621e1c
+	FML: 4.0.34
+	NeoForge: 21.1.93

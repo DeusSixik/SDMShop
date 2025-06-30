@@ -2,7 +2,7 @@ package net.sixk.sdmshop.shop.Tovar.AddTovar;
 
 import dev.ftb.mods.ftblibrary.ui.*;
 import net.minecraft.client.gui.GuiGraphics;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
+import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -20,7 +20,7 @@ public class AddTovarPanel extends BaseScreen {
 
     }
 
-    public AddTovarPanel(Tovar tovar){
+    public AddTovarPanel(AbstractTovar tovar){
 
         base = new AddProperties(this, tovar);
         refreshWidgets();

@@ -27,7 +27,7 @@ public class AddTabPanel extends BaseScreen {
     public SimpleButton addIcon;
     public SimpleTextButton apply;
     public SimpleTextButton cancel;
-    public TextBox name  = new TextBox(this);
+    public TextBox name = new TextBox(this);
     public ItemStack item;
     public Tab tab;
     public static Icon icon;

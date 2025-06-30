@@ -6,30 +6,26 @@ import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
 import net.minecraft.client.Minecraft;
-
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.sixik.sdmeconomy.api.EconomyAPI;
 import net.sixik.sdmeconomy.economyData.CurrencyPlayerData;
-import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
-import net.sixik.sdmuilibrary.client.utils.renders.ShapesRenderHelper;
 import net.sixik.sdmuilibrary.client.utils.renders.TextRenderHelper;
-import net.sixk.sdmshop.data.config.ConfigFile;
 import net.sixk.sdmshop.mixin.TextFieldMixin;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
+import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 import net.sixk.sdmshop.shop.Tovar.TovarList;
 import net.sixk.sdmshop.shop.network.client.BuyShopTovarC2S;
 import net.sixk.sdmshop.shop.network.client.SellShopTovarC2S;
 
 import java.util.Iterator;
-
+import java.util.UUID;
 
 
 public class BuyingWindow extends BaseScreen {
 
-    public Tovar tovar;
+    public AbstractTovar tovar;
     public CurrencyPlayerData.PlayerCurrency currency;
     public TextField title;
     public TextField cost;
@@ -50,27 +46,8 @@ public class BuyingWindow extends BaseScreen {
     public long count;
     public int countItems = 0;
 
-    public BuyingWindow(Tovar tovar){
-
-        this.tovar = tovar;
-        for (CurrencyPlayerData.PlayerCurrency w1 : EconomyAPI.getPlayerCurrencyClientData().currencies) {
-            if(tovar.currency.equals(w1.currency.getName())) {
-                currency = w1;
-                break;
-            }
-        }
-        id = tovar.abstractTovar.getID();
-        switch (id) {
-            case "ItemType" :
-                ItemStack item = (ItemStack) tovar.abstractTovar.getItemStack();
-                stackCount = item.getCount();
-                this.item = item;
-                break;
-            case "XPType" :
-                stackCount = (int) tovar.abstractTovar.getItemStack();
-                break;
-        }
-
+    public BuyingWindow(UUID uuid) {
+        this.analysisTovar(uuid);
     }
 
     public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
@@ -96,11 +73,11 @@ public class BuyingWindow extends BaseScreen {
         NordColors.POLAR_NIGHT_1.draw(graphics, x + 3, y + 33, w / 2, 12);
         GuiHelper.drawHollowRect(graphics, x + 3, y + 33, w  / 2, 12, NordColors.POLAR_NIGHT_4, true);
 
-        NordColors.POLAR_NIGHT_1.draw(graphics, x + 5 + w / 2, y + 33, w / 2 - 7, 12);
-        GuiHelper.drawHollowRect(graphics, x + 5 +  w / 2, y + 33, w  / 2 - 7, 12, NordColors.POLAR_NIGHT_4, true);
-
         NordColors.POLAR_NIGHT_1.draw(graphics, x + 3, y + 47, w / 2, 12);
         GuiHelper.drawHollowRect(graphics, x + 3, y + 47, w / 2, 12, NordColors.POLAR_NIGHT_4, true);
+
+        NordColors.POLAR_NIGHT_1.draw(graphics, x + 5 + w / 2, y + 33, w / 2 - 7, 12);
+        GuiHelper.drawHollowRect(graphics, x + 5 +  w / 2, y + 33, w  / 2 - 7, 12, NordColors.POLAR_NIGHT_4, true);
 
         NordColors.POLAR_NIGHT_1.draw(graphics, x + 5 + w / 2, y + 47, w / 2 - 7, 12);
         GuiHelper.drawHollowRect(graphics, x + 5 + w / 2, y + 47, w  / 2 - 7, 12, NordColors.POLAR_NIGHT_4, true);
@@ -196,12 +173,10 @@ public class BuyingWindow extends BaseScreen {
 
             @Override
             public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-                if(ConfigFile.CLIENT.style){
-                    ShapesRenderHelper.drawRoundedRect(graphics,x,y,w,h,8,RGBA.create(0,0,0,100));
-                }else {
-                    NordColors.POLAR_NIGHT_1.draw(graphics, x, y, w, h);
-                    GuiHelper.drawHollowRect(graphics, x, y, w, h, NordColors.POLAR_NIGHT_4, true);
-                }
+
+                NordColors.POLAR_NIGHT_1.draw(graphics, x, y, w, 20);
+                GuiHelper.drawHollowRect(graphics, x, y, w, 20, NordColors.POLAR_NIGHT_4, true);
+
             }
 
             @Override
@@ -229,12 +204,8 @@ public class BuyingWindow extends BaseScreen {
         add(confirm = new SimpleTextButton(this, Component.translatable("sdm_shop.buying_window.confirm"), Icon.empty()){
             @Override
             public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-                if(ConfigFile.CLIENT.style){
-                    ShapesRenderHelper.drawRoundedRect(graphics,x,y,w,h,8,RGBA.create(0,0,0,100));
-                } else{
-                    NordColors.POLAR_NIGHT_1.draw(graphics, x, y, w, h);
-                    GuiHelper.drawHollowRect(graphics, x, y, w, h, NordColors.POLAR_NIGHT_4, true);
-                }
+                NordColors.POLAR_NIGHT_1.draw(graphics, x, y, w, 20);
+                GuiHelper.drawHollowRect(graphics, x, y, w, 20, NordColors.POLAR_NIGHT_4, true);
             }
 
             @Override
@@ -259,91 +230,108 @@ public class BuyingWindow extends BaseScreen {
 
     }
 
-    @Override
-    public void alignWidgets(){
-        String titleText = ((TextFieldMixin)this.title).getRawText().getString();
-        float titleScale = TextRenderHelper.getTextRenderSize(titleText, width - 34, 1f,50).y;
-        float titleChange = (Theme.DEFAULT.getStringWidth(titleText) - Theme.DEFAULT.getStringWidth(titleText) * titleScale) / 2;
+    public void analysisTovar(UUID uuid) {
+        Iterator var2 = TovarList.CLIENT.tovarList.iterator();
 
-        title.setScale(titleScale);
-        title.setPos((width - 34 )/ 2 -Theme.DEFAULT.getStringWidth(titleText) / 2 + 32,5);
-        if(titleScale < 0.99)title.setPos((int) ((width - 34 )/ 2 -Theme.DEFAULT.getStringWidth(titleText) / 2 + titleChange + 33) ,5);
-        title.resize(Theme.DEFAULT);
-
-        cost.setPos( (width - 34 )/ 2 - Theme.DEFAULT.getStringWidth(currency.currency.symbol.value + " " + tovar.cost) / 2 + 32, 19);
-        cost.setText(currency.currency.symbol.value + " " + tovar.cost);
-
-        if(!tovar.toSell){
-
-            moneyTxt.setText(Component.translatable("sdm_shop.buying_window.money"));
-            moneyNum.setText(String.valueOf(currency.balance));
-
-            mayBuyTxt.setText(Component.translatable("sdm_shop.buying_window.may_buy"));
-            mayBuyNum.setText(String.valueOf((int) (currency.balance / tovar.cost)));
-            receiptTxt.setText(Component.translatable("sdm_shop.buying_window.receipt_1"));
-            moneyTxt.setPos(7, 35);
-            mayBuyTxt.setPos(7, 50);
-        }else {
-            countItems = 0;
-            if(id.equals("ItemType")) {
-                Inventory inventory = Minecraft.getInstance().player.getInventory();
-                if(tovar.abstractTovar.getisXPLVL()){
-                    for (int a = 0; a<inventory.getContainerSize(); a++) {
-                        if (inventory.getItem(a) != null ){
-                            if (inventory.getItem(a).is(tovar.abstractTovar.getTag())){
-                                countItems += inventory.getItem(a).getCount();
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < inventory.getContainerSize(); i++) {
-                        if (inventory.getItem(i).is(item.getItem()) && ItemStack.isSameItemSameComponents(inventory.getItem(i), item)) {
-                            countItems += inventory.getItem(i).getCount();
-                        }
-                    }
-                }
+        while(var2.hasNext()) {
+            AbstractTovar t = (AbstractTovar) var2.next();
+            if (t.uuid == uuid) {
+                this.tovar = t;
             }
-            else {
-                if(tovar.abstractTovar.getisXPLVL()) countItems = Minecraft.getInstance().player.experienceLevel;
-                else  countItems = Minecraft.getInstance().player.totalExperience;
-            }
-
-            moneyTxt.setText(Component.translatable("sdm_shop.buying_window.count_in_inventory"));
-            moneyTxt.setScale(0.8f);
-            moneyNum.setText(String.valueOf(countItems));
-
-
-            mayBuyTxt.setText(Component.translatable("sdm_shop.buying_window.may_sell"));
-            mayBuyTxt.setScale(0.5f);
-            mayBuyNum.setText(String.valueOf(countItems / stackCount));
-            receiptTxt.setText(Component.translatable("sdm_shop.buying_window.receipt_2"));
-            moneyTxt.setPos(7, 37);
-            mayBuyTxt.setPos(7, 51);
         }
 
-        moneyNum.setPos(width / 2 + 7, 36);
+        var2 = EconomyAPI.getPlayerCurrencyClientData().currencies.iterator();
 
-        mayBuyNum.setPos(width / 2 + 7, 50);
+        while(var2.hasNext()) {
+            CurrencyPlayerData.PlayerCurrency w1 = (CurrencyPlayerData.PlayerCurrency)var2.next();
+            if (this.tovar.currency.equals(w1.currency.getName())) {
+                this.currency = w1;
+                break;
+            }
+        }
 
-        limitTxt.setPos(width / 2 - Theme.DEFAULT.getStringWidth(((TextFieldMixin)limitTxt).getRawText().getString()) / 2, 63);
-
-        if(tovar.limit == -1) limit.setText(Component.translatable("sdm_shop.buying_window.unlimited"));
-        limit.setPos(width / 2 - Theme.DEFAULT.getStringWidth(((TextFieldMixin)limit).getRawText().getString()) / 2, 78);
-
-        countTxt.setPos(3, 89);
-        countTxt.setSize(width  - 5, 12);
-
-        receiptTxt.setPos(7, 106);
-
-        receipt.setPos(width / 2 + 7, 106);
-
-
-        cancel.setPosAndSize(width/2 + 3,height - 22, width/2 - 5, 20);
+        id = tovar.getID();
+        switch (this.id) {
+            case "ItemType":
+                ItemStack item = (ItemStack)tovar.abstractTovar.getItemStack();
+                this.stackCount = item.getCount();
+                this.item = item;
+                break;
+            case "XPType":
+                this.stackCount = (Integer)tovar.abstractTovar.getItemStack();
+        }
 
     }
 
+    @Override
+    public void alignWidgets(){
+        String titleText = ((TextFieldMixin)this.title).getRawText().getString();
+        float titleScale = TextRenderHelper.getTextRenderSize(titleText, width - 34, 1.0F, 50).y;
+        float titleChange = ((float)Theme.DEFAULT.getStringWidth(titleText) - (float)Theme.DEFAULT.getStringWidth(titleText) * titleScale) / 2.0F;
+            this.title.setScale(titleScale);
+            this.title.setPos((width - 34) / 2 - Theme.DEFAULT.getStringWidth(titleText) / 2 + 32, 5);
+            if ((double)titleScale < 0.99) {
+            this.title.setPos((int)((float)((width - 34) / 2 - Theme.DEFAULT.getStringWidth(titleText) / 2) + titleChange + 33.0F), 5);
+        }
 
+            this.title.resize(Theme.DEFAULT);
+            this.cost.setPos((width - 34) / 2 - Theme.DEFAULT.getStringWidth(currency.currency.symbol.value + " " + tovar.cost) / 2 + 32, 19);
+            this.cost.setText(currency.currency.symbol.value + " " + tovar.cost);
+            if (!tovar.toSell) {
+                moneyTxt.setText(Component.translatable("sdm_shop.buying_window.money"));
+                moneyNum.setText(String.valueOf(currency.balance));
+                mayBuyTxt.setText(Component.translatable("sdm_shop.buying_window.may_buy"));
+                mayBuyNum.setText(String.valueOf((int)(currency.balance / (double)tovar.cost)));
+                receiptTxt.setText(Component.translatable("sdm_shop.buying_window.receipt_1"));
+                moneyTxt.setPos(7, 35);
+                mayBuyTxt.setPos(7, 50);
+            } else {
+                countItems = 0;
+                if (id.equals("ItemType")) {
+                    Inventory inventory = Minecraft.getInstance().player.getInventory();
+                    int i;
+                    if (tovar.abstractTovar.getisXPLVL()) {
+                        for(i = 0; i < inventory.getContainerSize(); ++i) {
+                            if (inventory.getItem(i) != null && inventory.getItem(i).is(tovar.abstractTovar.getTag())) {
+                                countItems += inventory.getItem(i).getCount();
+                            }
+                        }
+                    } else {
+                        for(i = 0; i < inventory.getContainerSize(); ++i) {
+                            if (inventory.getItem(i).is(item.getItem()) && ItemStack.isSameItemSameComponents(inventory.getItem(i),item)) {
+                                this.countItems += inventory.getItem(i).getCount();
+                            }
+                        }
+                    }
+                } else if (tovar.abstractTovar.getisXPLVL()) {
+                    countItems = Minecraft.getInstance().player.experienceLevel;
+                } else {
+                    countItems = Minecraft.getInstance().player.totalExperience;
+                }
 
+                moneyTxt.setText(Component.translatable("sdm_shop.buying_window.count_in_inventory"));
+                moneyTxt.setScale(0.8F);
+                moneyNum.setText(String.valueOf(this.countItems));
+                mayBuyTxt.setText(Component.translatable("sdm_shop.buying_window.may_sell"));
+                mayBuyTxt.setScale(0.5F);
+                mayBuyNum.setText(String.valueOf(this.countItems / this.stackCount));
+                receiptTxt.setText(Component.translatable("sdm_shop.buying_window.receipt_2"));
+                moneyTxt.setPos(7, 37);
+                mayBuyTxt.setPos(7, 51);
+            }
+
+        moneyNum.setPos(width / 2 + 7, 36);
+        mayBuyNum.setPos(width / 2 + 7, 50);
+        limitTxt.setPos(width / 2 - Theme.DEFAULT.getStringWidth(((TextFieldMixin)limitTxt).getRawText().getString()) / 2, 63);
+        if (tovar.limit == -1L) {
+            limit.setText(Component.translatable("sdm_shop.buying_window.unlimited"));
+        }
+
+        limit.setPos(width / 2 - Theme.DEFAULT.getStringWidth(((TextFieldMixin)limit).getRawText().getString()) / 2, 78);
+        countTxt.setPos(3, 89);
+        countTxt.setSize(width - 5, 12);
+        receiptTxt.setPos(7, 106);
+        receipt.setPos(width / 2 + 7, 106);
+        cancel.setPosAndSize(width / 2 + 3, height - 22, width / 2 - 5, 20);
+    }
 }

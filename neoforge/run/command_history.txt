@@ -5,39 +5,3 @@
 /sdmshop set Dev test 12
 /sdmshop set Dev test 222
 /sdmshop set Dev test2 222
-/sdmshop edit_mode
-/weather clear
-/sdmshop set Dev basic_money 100
-/gamemode survival
-/gamemode creative
-/gamemode survival
-/gamemode creative
-/sdmshop open_shop
-/sdmshop open_shop @a
-/sdmshop open_shop @
-/sdmshop open_shop @a
-/sdmshop open_shop @e
-/sdmshop open_shop @n
-/sdmshop open_shop @p
-/sdmshop open_shop @r
-/sdmshop open_shop @s
-/sdmshop open_shop Dev
-/sdmshop
-/sdmshop add Dev basic_money 12
-/sdmshop reloadConfig
-/time set day
-/sdmshop edit_mode
-/sdmshop reloadConfig
-/sdmshop add Dev basic_money 12
-/sdmshop add Dev sdmcoin 100
-/sdmshop set Dev sdmcoin 12
-/sdmshop set Dev sdmcoin 100
-/sdmshop add Dev sdmcoin 0
-/sdmshop add Dev sdmcoin 1
-/sdmshop set Dev sdmcoin 100
-/sdmshop set Dev sdmcoin 101
-/sdmshop set Dev sdmcoin 1
-/sdmshop edit_mode
-/sdmshop reloadConfig
-/sdmshop set Dev sdmcoin 125
-/sdmshop reloadConfig

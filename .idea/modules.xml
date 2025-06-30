@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/forge/SDMShop.forge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/forge/SDMShop.forge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/forge/SDMShop.forge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/forge/SDMShop.forge.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/sdmshop.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/sdmshop.common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/sdmshop.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/sdmshop.common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/sdmshop.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/sdmshop.common.test.iml" />

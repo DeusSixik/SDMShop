@@ -10,90 +10,87 @@ import net.minecraft.world.item.Items;
 import net.sixik.sdmcore.impl.utils.serializer.data.IData;
 import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmeconomy.api.EconomyAPI;
-import net.sixk.sdmshop.api.IConstructor;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
-import net.sixk.sdmshop.shop.Tovar.Tovar;
+
+import java.util.UUID;
+
 
 public class TovarXP extends AbstractTovar {
+    public int xpCount;
+    public boolean isXPLVL;
 
-    private int xpCount;
-    private boolean isXPLVL;
-    private Icon icon = ItemIcon.getItemIcon(Items.EXPERIENCE_BOTTLE);
-
-    public TovarXP(int xpCount, boolean isXPLVL){
+    public TovarXP(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell, int xpCount, boolean isXPLVL) {
+        super(uuid, tab, currency, cost, limit, toSell);
+        this.icon = ItemIcon.getItemIcon(Items.EXPERIENCE_BOTTLE);
         this.xpCount = xpCount;
         this.isXPLVL = isXPLVL;
     }
 
-    @Override
-    public void buy(Player player, Tovar tovar, long count) {
-
-        long playerMoney = EconomyAPI.getPlayerCurrencyServerData().getBalance(player, tovar.currency).value.longValue();
-        long needMoney = tovar.cost * count;
-
-        if ((tovar.limit < count && tovar.limit != -1)) return;
-
-        if(isXPLVL){
-            if (player instanceof ServerPlayer serverPlayer) {
-
-                needMoney = tovar.cost * count;
-
-                serverPlayer.setExperienceLevels((int) (player.experienceLevel + (xpCount * count)));
-
-            }
-        }
-        else {
-            int experience = (int) (getPlayerXP(player) + (xpCount * count));
-            player.totalExperience = experience;
-            player.experienceLevel = getLevelForExperience(experience);
-            int expForLevel = getExperienceForLevel(player.experienceLevel);
-            player.experienceProgress = (float) (experience - expForLevel) / (float) player.getXpNeededForNextLevel();
-        }
-
-        EconomyAPI.getPlayerCurrencyServerData().setCurrencyValue(player, tovar.currency, playerMoney - needMoney);
-        if (tovar.limit != -1) tovar.limit -= count;
-
+    public TovarXP(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell) {
+        super(uuid, tab, currency, cost, limit, toSell);
     }
 
-    @Override
-    public void sell(Player player, Tovar tovar, long count) {
-
-        if ((tovar.limit < count && tovar.limit != -1)) return;
-
-        if(isXPLVL){
-            if(player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.setExperienceLevels((int) (player.experienceLevel - (xpCount* count)));
-
+    public void buy(Player player, AbstractTovar tovar, long count) {
+        long playerMoney = (EconomyAPI.getPlayerCurrencyServerData().getBalance(player, tovar.currency).value).longValue();
+        long needMoney = (long)tovar.cost * count;
+        if (tovar.limit >= count || tovar.limit == -1L) {
+            if (this.isXPLVL) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    needMoney = (long)tovar.cost * count;
+                    serverPlayer.setExperienceLevels((int)((long)player.experienceLevel + (long)this.xpCount * count));
+                }
+            } else {
+                int experience = (int)((long)getPlayerXP(player) + (long)this.xpCount * count);
+                player.totalExperience = experience;
+                player.experienceLevel = getLevelForExperience(experience);
+                int expForLevel = getExperienceForLevel(player.experienceLevel);
+                player.experienceProgress = (float)(experience - expForLevel) / (float)player.getXpNeededForNextLevel();
             }
-        }
-        else {
-            int experience = (int) (getPlayerXP(player) - (xpCount * count));
-            player.totalExperience = experience;
-            player.experienceLevel = getLevelForExperience(experience);
-            int expForLevel = getExperienceForLevel(player.experienceLevel);
-            player.experienceProgress = (float) (experience - expForLevel) / (float) player.getXpNeededForNextLevel();
-        }
 
-        EconomyAPI.getPlayerCurrencyServerData().addCurrencyValue(player, tovar.currency, tovar.cost * count);
-        if (tovar.limit != -1) tovar.limit -= count;
+            EconomyAPI.getPlayerCurrencyServerData().setCurrencyValue(player, tovar.currency, (double)(playerMoney - needMoney));
+            if (tovar.limit != -1L) {
+                tovar.limit -= count;
+            }
 
+        }
+    }
+
+    public void sell(Player player, AbstractTovar tovar, long count) {
+        if (tovar.limit >= count || tovar.limit == -1L) {
+            if (this.isXPLVL) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.setExperienceLevels((int)((long)player.experienceLevel - (long)this.xpCount * count));
+                }
+            } else {
+                int experience = (int)((long)getPlayerXP(player) - (long)this.xpCount * count);
+                player.totalExperience = experience;
+                player.experienceLevel = getLevelForExperience(experience);
+                int expForLevel = getExperienceForLevel(player.experienceLevel);
+                player.experienceProgress = (float)(experience - expForLevel) / (float)player.getXpNeededForNextLevel();
+            }
+
+            EconomyAPI.getPlayerCurrencyServerData().addCurrencyValue(player, tovar.currency, (double)((long)tovar.cost * count));
+            if (tovar.limit != -1L) {
+                tovar.limit -= count;
+            }
+
+        }
     }
 
     public static int getPlayerXP(Player player) {
-        return (int) (getExperienceForLevel(player.experienceLevel) + (player.experienceProgress * player.getXpNeededForNextLevel()));
+        return (int)((float)getExperienceForLevel(player.experienceLevel) + player.experienceProgress * (float)player.getXpNeededForNextLevel());
     }
 
     public static int getLevelForExperience(int targetXp) {
         int level = 0;
 
-        while (true) {
-            final int xpToNextLevel = xpBarCap(level);
-
+        while(true) {
+            int xpToNextLevel = xpBarCap(level);
             if (targetXp < xpToNextLevel) {
                 return level;
             }
 
-            level++;
+            ++level;
             targetXp -= xpToNextLevel;
         }
     }
@@ -101,99 +98,64 @@ public class TovarXP extends AbstractTovar {
     public static int getExperienceForLevel(int level) {
         if (level == 0) {
             return 0;
-        }
-
-        if (level <= 15) {
+        } else if (level <= 15) {
             return sum(level, 7, 2);
+        } else {
+            return level <= 30 ? 315 + sum(level - 15, 37, 5) : 1395 + sum(level - 30, 112, 9);
         }
-
-        if (level <= 30) {
-            return 315 + sum(level - 15, 37, 5);
-        }
-
-        return 1395 + sum(level - 30, 112, 9);
     }
 
     public static int xpBarCap(int level) {
         if (level >= 30) {
             return 112 + (level - 30) * 9;
+        } else {
+            return level >= 15 ? 37 + (level - 15) * 5 : 7 + level * 2;
         }
-
-        if (level >= 15) {
-            return 37 + (level - 15) * 5;
-        }
-
-        return 7 + level * 2;
     }
 
     private static int sum(int n, int a0, int d) {
         return n * (2 * a0 + (n - 1) * d) / 2;
     }
 
-    @Override
     public String getTitel() {
-
-        if(isXPLVL) return "Level : " + xpCount ;
-        else return "Xp : " + xpCount;
+        return this.isXPLVL ? "Level : " + this.xpCount : "Xp : " + this.xpCount;
     }
 
-    @Override
     public Icon getIcon() {
-        return icon;
+        return this.icon;
     }
 
-    @Override
     public Object getItemStack() {
-        return xpCount;
+        return this.xpCount;
     }
 
-    @Override
     public TagKey getTag() {
         return null;
     }
 
-    @Override
     public AbstractTovar copy() {
         return null;
     }
 
-    @Override
     public String getID() {
         return "XPType";
     }
 
-    @Override
     public boolean getisXPLVL() {
-        return isXPLVL;
+        return this.isXPLVL;
     }
 
-    @Override
     public KeyData serialize(HolderLookup.Provider provider) {
-
-        KeyData data = new KeyData();
-
-        data.put("id",getID());
-        data.put("xpCount", xpCount);
-        data.put("isXPLVL", IData.valueOf(isXPLVL?1:0));
-
-        return  data;
-
+        KeyData data = super.serialize(provider);
+        data.put("id", this.getID());
+        data.put("xpCount", this.xpCount);
+        data.put("isXPLVL", IData.valueOf(this.isXPLVL ? 1 : 0));
+        return data;
     }
 
-
-    @Override
     public void deserialize(KeyData data, HolderLookup.Provider provider) {
-
-        xpCount = data.getData("xpCount").asInt();
-        isXPLVL = data.getData("isXPLVL").asInt()==1 ;
-
+        this.xpCount = data.getData("xpCount").asInt();
+        this.isXPLVL = data.getData("isXPLVL").asInt() == 1;
     }
 
-
-    public static class Constructor implements IConstructor<AbstractTovar>{
-        @Override
-        public AbstractTovar create() {
-            return new TovarXP(0, true);
-        }
-    }
 }

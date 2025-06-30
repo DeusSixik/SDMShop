@@ -11,7 +11,7 @@ java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "string
 	at TRANSFORMER/sdmcore@1.21.1-2.1.2/net.sixik.sdmcore.impl.utils.serializer.SDMSerializerHelper.dataToNBT(SDMSerializerHelper.java:195) ~[sdm-engine-core-964997-5968080.jar%23196!/:?] {re:classloading}
 	at TRANSFORMER/sdmcore@1.21.1-2.1.2/net.sixik.sdmcore.impl.utils.serializer.SDMSerializerHelper.dataToNBT(SDMSerializerHelper.java:189) ~[sdm-engine-core-964997-5968080.jar%23196!/:?] {re:classloading}
 	at TRANSFORMER/sdmcore@1.21.1-2.1.2/net.sixik.sdmcore.impl.utils.serializer.data.IData.asNBT(IData.java:71) ~[sdm-engine-core-964997-5968080.jar%23196!/:?] {re:classloading}
-	at TRANSFORMER/generated_90637a3@1/net.sixk.sdmshop.shop.Tovar.AddTovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:238) ~[15503938831500395516.jar%23200!/:?] {re:classloading}
+	at TRANSFORMER/generated_90637a3@1/net.sixk.sdmshop.shop.Tovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:238) ~[15503938831500395516.jar%23200!/:?] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Button.mousePressed(Button.java:71) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Panel.mousePressed(Panel.java:287) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.BaseScreen.mousePressed(BaseScreen.java:401) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
@@ -60,7 +60,7 @@ Stacktrace:
 	at TRANSFORMER/sdmcore@1.21.1-2.1.2/net.sixik.sdmcore.impl.utils.serializer.SDMSerializerHelper.dataToNBT(SDMSerializerHelper.java:195) ~[sdm-engine-core-964997-5968080.jar%23196!/:?] {re:classloading}
 	at TRANSFORMER/sdmcore@1.21.1-2.1.2/net.sixik.sdmcore.impl.utils.serializer.SDMSerializerHelper.dataToNBT(SDMSerializerHelper.java:189) ~[sdm-engine-core-964997-5968080.jar%23196!/:?] {re:classloading}
 	at TRANSFORMER/sdmcore@1.21.1-2.1.2/net.sixik.sdmcore.impl.utils.serializer.data.IData.asNBT(IData.java:71) ~[sdm-engine-core-964997-5968080.jar%23196!/:?] {re:classloading}
-	at TRANSFORMER/generated_90637a3@1/net.sixk.sdmshop.shop.Tovar.AddTovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:238) ~[15503938831500395516.jar%23200!/:?] {re:classloading}
+	at TRANSFORMER/generated_90637a3@1/net.sixk.sdmshop.shop.Tovar.AddTovarPanel$1.onClicked(AddTovarPanel.java:238) ~[15503938831500395516.jar%23200!/:?] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Button.mousePressed(Button.java:71) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.Panel.mousePressed(Panel.java:287) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}
 	at TRANSFORMER/ftblibrary@2101.1.6/dev.ftb.mods.ftblibrary.ui.BaseScreen.mousePressed(BaseScreen.java:401) ~[ftb-library-forge-404465-5893689.jar%23198!/:2101.1.6] {re:classloading}

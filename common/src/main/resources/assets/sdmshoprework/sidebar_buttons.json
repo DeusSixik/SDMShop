@@ -1,9 +1,0 @@
-{
-	"shop": {
-		"group": "ftblibrary:info",
-		"icon": "sdmshoprework:icons/money_bag",
-		"x": 100,
-		"click": "sdmshoprework:open_gui",
-		"loading_screen": true
-	}
-}

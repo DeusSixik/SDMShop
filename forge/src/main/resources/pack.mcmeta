@@ -1,7 +1,6 @@
 {
-    "pack": {
-        "description": "sdmshoprework resources",
-        "pack_format": 15
-        ,"forge:server_data_pack_format": 12
-    }
+  "pack": {
+    "description": "sdmshop resources",
+    "pack_format": 15
+  }
 }

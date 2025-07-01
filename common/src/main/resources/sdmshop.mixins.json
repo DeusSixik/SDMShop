@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "net.sixik.sdmshop.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "accessors.ConfigGroupAccess",
+    "accessors.EditConfigScreenAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

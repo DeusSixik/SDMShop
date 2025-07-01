@@ -1,73 +1,24 @@
 architectury {
-    common(rootProject.enabled_platforms.split(","))
+    common rootProject.enabled_platforms.split(',')
 }
-
-repositories {
-    mavenLocal()
-    maven {
-        url "https://maven.architectury.dev/"
-    }
-
-    maven {
-        url "https://maven.saps.dev/releases"
-        content {
-            includeGroup "dev.latvian.mods"
-            includeGroup "dev.ftb.mods"
-        }
-    }
-
-    maven {
-        url "https://maven.saps.dev/snapshots"
-        content {
-            includeGroup "dev.latvian.mods"
-            includeGroup "dev.ftb.mods"
-        }
-    }
-    maven {
-        url "https://cursemaven.com"
-    }
-
-    maven { url 'https://jitpack.io' }
-    maven { url 'https://maven.refinedev.xyz/public-repo' }
-}
-
 
 dependencies {
-    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
-    // Do NOT use other classes from fabric loader
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-    modApi files("../libs/sdm_economy-1.20.1-1.6.0.jar")
-    modApi files("../libs/sdm_ui_lib-1.20.1-1.8.2.jar")
-    modApi files("../libs/sdm-market-6.1.0.jar")
-    modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
-    modApi ("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+
+    modApi("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
+    modApi ("curse.maven:sdm-economy-1102542:6689080")
+    modApi ("curse.maven:sdm-ui-lib-1095061:6086204")
 
     modApi ("curse.maven:kubejs-238086:5853326")
     modApi ("curse.maven:rhino-416294:5655836")
 
-    modApi ("curse.maven:quality-food-973932:5736769")
+    modApi ("curse.maven:game-stages-268655:5790361")
+    modApi ("curse.maven:ftb-quests-forge-289412:6431737")
 
-    compileOnly ("com.github.MilkBowl:VaultAPI:1.7") {
-        exclude group: "org.bukkit", module: "bukkit"
-    }
-    compileOnly ('com.github.spigotmc:spigot-api:1.8.1-R4') {}
-
-    compileOnly (files("./libs/AuctionHouse-1.20.4-3.7.1.jar"))
-
-}
-
-publishing {
-    publications {
-        mavenCommon(MavenPublication) {
-            artifactId = rootProject.archives_base_name
-            from components.java
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
+//    compileOnlyApi "curse.maven:sdm-shop-948942:6340166"
 }

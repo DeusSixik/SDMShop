@@ -1,31 +1,40 @@
 {
   "schemaVersion": 1,
-  "id": "sdmshoprework",
+  "id": "sdmshop",
   "version": "${version}",
-
-  "name": "SDM Shop Rework",
+  "name": "SDMShop",
   "description": "",
-  "authors": [],
-  "contact": {},
-
-  "license": "All Rights Reserved",
-  "icon": "icon.png",
-
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "homepage": ""
+  },
+  "license": "MIT",
+  "icon": "assets/sdmshop/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.sixik.sdmshoprework.fabric.SDMShopReworkFabric"
+      "net.sixik.sdmshop.fabric.SDMShopFabric"
+    ],
+    "client": [
+      "net.sixik.sdmshop.fabric.client.SDMShopFabricClient"
     ]
   },
   "mixins": [
-    "sdmshoprework.mixins.json",
-    "sdmshoprework-common.mixins.json"
+    "sdmshop.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.5",
-    "minecraft": ">=1.20.1",
-    "ftblibrary": ">=2001.1.4",
-    "sdm_economy": ">=1.20.1-1.1.3",
-    "sdm_ui_lib": ">=1.20.1-1.8.2"
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "architectury": ">=9.2.14",
+    "fabric-api": "*",
+    "sdm_ui_lib" : ">=1.20.1-1.8.3",
+    "ftblibrary" : ">=2001.2.9",
+    "sdmeconomy" : ">=2.2.0"
+  },
+  "suggests": {
+    "another-mod": "*"
   }
 }

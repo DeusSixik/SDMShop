@@ -19,15 +19,15 @@ public class TovarXP extends AbstractTovar {
     public int xpCount;
     public boolean isXPLVL;
 
-    public TovarXP(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell, int xpCount, boolean isXPLVL) {
-        super(uuid, tab, currency, cost, limit, toSell);
+    public TovarXP(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell, int xpCount, boolean isXPLVL) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
         this.icon = ItemIcon.getItemIcon(Items.EXPERIENCE_BOTTLE);
         this.xpCount = xpCount;
         this.isXPLVL = isXPLVL;
     }
 
-    public TovarXP(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell) {
-        super(uuid, tab, currency, cost, limit, toSell);
+    public TovarXP(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
     }
 
     public void buy(Player player, AbstractTovar tovar, long count) {

@@ -19,14 +19,14 @@ public class TovarCommand extends AbstractTovar {
     public boolean elevatePerms;
     public boolean silent;
 
-    public TovarCommand(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell, String command) {
-        super(uuid, tab, currency, cost, limit, toSell);
+    public TovarCommand(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell, String command) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
         this.icon = ItemIcon.getItemIcon(Items.COMMAND_BLOCK);
         this.command = command;
     }
 
-    public TovarCommand(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell) {
-        super(uuid, tab, currency, cost, limit, toSell);
+    public TovarCommand(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
     }
 
     public void buy(Player player, AbstractTovar tovar, long count) {

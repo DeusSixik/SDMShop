@@ -52,7 +52,7 @@ public abstract class AbstractTovar implements IItemSerializer {
         KeyData data = new KeyData();
 
         data.put("uuid", uuid.toString());
-        data.put("")
+        //data.put("icon", getIcon())
         data.put("tovarType", getID());
         data.put("tab", IData.valueOf(tab));
         data.put("cost", IData.valueOf(cost));

@@ -1,6 +1,7 @@
 package net.sixik.sdmshop.client.screen.modern.panels;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
+import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.SimpleTextButton;
@@ -17,6 +18,8 @@ import net.sixik.sdmshop.client.screen.base.AbstractShopPanel;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.client.screen.base.panels.AbstractShopMoneyPanel;
 import net.sixik.sdmshop.client.screen.base.widgets.AbstractShopEntrySearch;
+import net.sixik.sdmshop.client.screen.modern.wallet.OpenWalletButton;
+import net.sixik.sdmshop.client.screen.modern.wallet.PlayerWallet;
 import net.sixik.sdmshop.currencies.SDMCoin;
 import net.sixik.sdmshop.utils.ShopUtils;
 import net.sixik.sdmshop.utils.ShopUtilsClient;
@@ -214,6 +217,10 @@ public class ModernShopPanels {
                     list.add(Component.literal("Coming soon money menu..."));
                 }
             });
+            add(this.openWalletButton = new OpenWalletButton(this,Component.empty(), Icon.empty(),((simpleButton, mouseButton) -> {
+                (new PlayerWallet()).openGui();
+            })));
+
             setProperty();
         }
 
@@ -244,9 +251,13 @@ public class ModernShopPanels {
             w1 = this.width - w;
             w2 = w1 / 2;
 
-            this.moneyCountField.setX(w2);
-            this.moneyCountField.setText(textMoney);
-            this.moneyCountField.setY(this.height - Theme.DEFAULT.getFontHeight() - 2);
+            //this.moneyCountField.setX(w2);
+            //this.moneyCountField.setText(textMoney);
+            //this.moneyCountField.setY(this.height - Theme.DEFAULT.getFontHeight() - 2);
+
+            this.openWalletButton.setSize(this.height - moneyTitleField.height - 4,this.height - moneyTitleField.height - 4);
+            this.openWalletButton.setX(this.width/2 - this.openWalletButton.width/2);
+            this.openWalletButton.setY(moneyTitleField.posY + Theme.DEFAULT.getFontHeight() + 1);
         }
 
         @Override

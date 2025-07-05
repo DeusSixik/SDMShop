@@ -39,6 +39,8 @@ public class SelectTypeTovarPanel extends Panel {
     @Override
     public void addWidgets() {
 
+        // Унифицируй это. Хотя ты и сам знаешь
+
         add(addItem = new SimpleButton(this, Component.literal("Item"), ItemIcon.getItemIcon(Items.CRAFTING_TABLE), (simpleButton, mouseButton) -> {
             AddProperties.id = "ItemType";
             AddProperties.shift = 0;

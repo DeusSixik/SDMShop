@@ -20,6 +20,7 @@ import net.sixk.sdmshop.shop.network.client.BuyShopTovarC2S;
 import net.sixk.sdmshop.shop.network.client.SellShopTovarC2S;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -46,6 +47,10 @@ public class BuyingWindow extends BaseScreen {
     public long count;
     public int countItems = 0;
 
+    /**
+     * Странное решение передавать UUID товара в место самого {@link AbstractTovar} <br>
+     * Решение странное так как в {@link BuyingWindow#analysisTovar(UUID)} ты его по UUID ищеш
+    */
     public BuyingWindow(UUID uuid) {
         this.analysisTovar(uuid);
     }
@@ -137,11 +142,13 @@ public class BuyingWindow extends BaseScreen {
                     } else {
                         if(Integer.valueOf(countTxt.getText()) > (int) (currency.balance / tovar.cost)) countTxt.setText(String.valueOf((int) (currency.balance / tovar.cost)));
                     }
-                    if((int) (currency.balance / tovar.cost) != 0  && !tovar.toSell)spawnButton();
-                    if(tovar.toSell)spawnButton();
+                    if((int) (currency.balance / tovar.cost) != 0  && !tovar.toSell) spawnButton();
+                    if(tovar.toSell) spawnButton();
                 } else {
                     receipt.setText("");
                     count = 0;
+
+                    //Используй widgets.removeIf(...)
                     Iterator<Widget> w = widgets.iterator();
                     while (w.hasNext()){
                         Widget w1 = w.next();
@@ -192,14 +199,16 @@ public class BuyingWindow extends BaseScreen {
 
     public void spawnButton(){
 
-            Iterator<Widget> w = widgets.iterator();
-            while (w.hasNext()) {
-                Widget w1 = w.next();
-                if (w1.equals(confirm)) {
-                    w.remove();
-                    break;
-                }
+
+        //Используй widgets.removeIf(...)
+        Iterator<Widget> w = widgets.iterator();
+        while (w.hasNext()) {
+            Widget w1 = w.next();
+            if (w1.equals(confirm)) {
+                w.remove();
+                break;
             }
+        }
 
         add(confirm = new SimpleTextButton(this, Component.translatable("sdm_shop.buying_window.confirm"), Icon.empty()){
             @Override
@@ -211,8 +220,10 @@ public class BuyingWindow extends BaseScreen {
             @Override
             public void onClicked(MouseButton mouseButton) {
 
-                if (!tovar.toSell)NetworkManager.sendToServer(new BuyShopTovarC2S(TovarList.CLIENT.tovarList.indexOf(tovar),Integer.valueOf(countTxt.getText())));
-                    else NetworkManager.sendToServer(new SellShopTovarC2S(TovarList.CLIENT.tovarList.indexOf(tovar),Integer.valueOf(countTxt.getText())));
+                if (!tovar.toSell)
+                    NetworkManager.sendToServer(new BuyShopTovarC2S(TovarList.CLIENT.tovarList.indexOf(tovar), Integer.valueOf(countTxt.getText())));
+                else
+                    NetworkManager.sendToServer(new SellShopTovarC2S(TovarList.CLIENT.tovarList.indexOf(tovar), Integer.valueOf(countTxt.getText())));
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -231,25 +242,25 @@ public class BuyingWindow extends BaseScreen {
     }
 
     public void analysisTovar(UUID uuid) {
-        Iterator var2 = TovarList.CLIENT.tovarList.iterator();
 
-        while(var2.hasNext()) {
-            AbstractTovar t = (AbstractTovar) var2.next();
+        //Используй Objects.equals(obj1, obj2) в место сравнения через == или obj1.equals(obj2) так как могут быть не точности
+        for (AbstractTovar t : TovarList.CLIENT.tovarList) {
             if (t.uuid == uuid) {
                 this.tovar = t;
             }
         }
 
-        var2 = EconomyAPI.getPlayerCurrencyClientData().currencies.iterator();
 
-        while(var2.hasNext()) {
-            CurrencyPlayerData.PlayerCurrency w1 = (CurrencyPlayerData.PlayerCurrency)var2.next();
-            if (this.tovar.currency.equals(w1.currency.getName())) {
+
+        //Используй EconomyAPI.getPlayerCurrencyClientData().getCurrency(currencyName) в место этой поебени
+        for (CurrencyPlayerData.PlayerCurrency w1 : EconomyAPI.getPlayerCurrencyClientData().currencies) {
+            if (Objects.equals(this.tovar.currency, w1.currency.getName())) {
                 this.currency = w1;
                 break;
             }
         }
 
+        //Нужна унифицированя логика. Хотя и сам знаешь (❁´◡`❁)
         id = tovar.getID();
         switch (this.id) {
             case "ItemType":
@@ -265,6 +276,12 @@ public class BuyingWindow extends BaseScreen {
 
     @Override
     public void alignWidgets(){
+
+
+        /* Почини табуляций !!!!!!!!!
+        (╯°□°）╯︵ ┻━┻
+        */
+
         String titleText = ((TextFieldMixin)this.title).getRawText().getString();
         float titleScale = TextRenderHelper.getTextRenderSize(titleText, width - 34, 1.0F, 50).y;
         float titleChange = ((float)Theme.DEFAULT.getStringWidth(titleText) - (float)Theme.DEFAULT.getStringWidth(titleText) * titleScale) / 2.0F;
@@ -287,6 +304,9 @@ public class BuyingWindow extends BaseScreen {
                 mayBuyTxt.setPos(7, 50);
             } else {
                 countItems = 0;
+
+                // Унифицируй логику. Хотя и сам знаеш
+
                 if (id.equals("ItemType")) {
                     Inventory inventory = Minecraft.getInstance().player.getInventory();
                     int i;

@@ -35,6 +35,13 @@ public class EntryPanel extends Panel {
         w1 = 0;
         w2 = 0;
 
+        /*
+            Боже ужас какой.
+            Запиши ты TovarList.CLIENT.tovarList.get(w)) в переменную. Хватит это вызывать каждый раз когда тебе нужен элемент.
+            Ты 4 раза подряд вызываешь!!!!
+            ( •_•)>⌐■-■
+         */
+
         for(int w = 0; w < TovarList.CLIENT.tovarList.size(); ++w) {
             if (ConfigFile.CLIENT.style) {
                 tovarRender = new ModernTovarPanel(this, TovarList.CLIENT.tovarList.get(w));

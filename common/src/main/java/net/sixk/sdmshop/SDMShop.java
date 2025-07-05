@@ -24,6 +24,7 @@ import net.sixk.sdmshop.shop.Tovar.TovarType.TovarCommand;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarItem;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarTypeRegister;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
+import net.sixk.sdmshop.shop.currency.SDMCoin;
 import net.sixk.sdmshop.shop.network.ModNetwork;
 import net.sixk.sdmshop.shop.network.server.SendEditModeS2C;
 import net.sixk.sdmshop.utils.ShopNetworkUtils;
@@ -44,7 +45,7 @@ public class SDMShop {
         ModNetwork.init();
         modEvents();
         CommandRegistrationEvent.EVENT.register(ShopComands::registerCommands);
-        CustomCurrencies.CURRENCIES.put("sdmcoin", () -> (new Currency("sdmcoin")).canDelete(false));
+        CustomCurrencies.CURRENCIES.put("sdmcoin", SDMCoin::new);
         EnvExecutor.runInEnv(Env.CLIENT, () -> SDMShopClient::init);
 
         TovarTypeRegister.register("ItemType",TovarItem::new);

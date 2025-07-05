@@ -38,6 +38,9 @@ public class SendShopDataS2C implements CustomPacketPayload{
             TovarList.CLIENT.deserializeNBT((CompoundTag) message.tovarTag, context.registryAccess());
             TovarTab.CLIENT.deserializeNBT((CompoundTag) message.tabTag, context.registryAccess());
 
+            /*
+                Мб стоило бы это отдельный методом сделать
+            */
             Screen screen = Minecraft.getInstance().screen;
             if (screen instanceof ScreenWrapper screenWrapper) {
                 BaseScreen patt3$temp = screenWrapper.getGui();

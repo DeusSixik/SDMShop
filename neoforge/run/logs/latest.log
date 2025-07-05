@@ -1,55 +1,56 @@
-[19:31:14] [main/INFO] (Launcher) ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, 21.1.84, --assetIndex, 1.21.1-17, --assetsDir, C:\Users\Wobblecraft\.gradle\caches\fabric-loom\assets, --gameDir, ., --fml.neoForgeVersion, 21.1.84, --fml.fmlVersion, 4.0.34, --fml.mcVersion, 1.21.1, --fml.neoFormVersion, 20240808.144430]
-[19:31:14] [main/INFO] (Launcher) JVM identified as GraalVM Community OpenJDK 64-Bit Server VM 21.0.2+13-jvmci-23.1-b30
-[19:31:14] [main/INFO] (Launcher) ModLauncher 11.0.4+main.d2e20e43 starting: java version 21.0.2 by GraalVM Community; OS Windows 10 arch amd64 version 10.0
-[19:31:14] [main/INFO] (ImmediateWindowHandler) Loading ImmediateWindowProvider fmlearlywindow
-[19:31:14] [main/INFO] (EARLYDISPLAY) Trying GL version 4.6
-[19:31:14] [main/INFO] (EARLYDISPLAY) Requested GL version 4.6 got version 4.6
-[19:31:14] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/Wobblecraft/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23119!/ Service=ModLauncher Env=CLIENT
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar" [locator: neoforge devenv provider ([C:\Users\Wobblecraft\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\neoforge-21.1.84-minecraft-merged\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84\neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar])]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar" [locator: neoforge devenv provider ([C:\Users\Wobblecraft\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\neoforge-21.1.84-minecraft-merged\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84\neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar])]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "main" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "architectury-neoforge-13.0.8.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "sdm-engine-core-964997-5968080.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "sdm-economy-1102542-6528519.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "ftb-library-forge-404465-6661421.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "sdm-ui-lib-1095061-6515615.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [main/INFO] (ModDiscoverer) Found mod file "17292955437217450635.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:14] [pool-5-thread-1/INFO] (EARLYDISPLAY) GL info: AMD Radeon RX 7800 XT GL version 4.6.0 Core Profile Context 24.12.1.241127, ATI Technologies Inc.
-[19:31:14] [main/INFO] (ModDiscoverer) Found gamelibrary file "mixinextras-neoforge-0.4.1.jar" [locator: userdev mods and services, reader: mod manifest]
-[19:31:15] [main/WARN] (JarSelector) Attempted to select a dependency jar for JarJar which was passed in as source: library:mixinextras.neoforge. Using Mod File: C:\Users\Wobblecraft\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-neoforge\0.4.1\eff97772ecd0dcf8e52cdbafd3b3ccec425f8314\mixinextras-neoforge-0.4.1.jar
-[19:31:15] [main/INFO] (JarInJarDependencyLocator) Found 1 dependencies adding them to mods collection
-[19:31:15] [main/INFO] (ModDiscoverer) Found library file "neoforge-coremods-21.1.84.jar" [parent: neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar, locator: jarinjar, reader: mod manifest]
-[19:31:15] [main/INFO] (ModDiscoverer) 
+[14:34:15] [main/INFO] (Launcher) ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, 21.1.84, --assetIndex, 1.21.1-17, --assetsDir, C:\Users\Sixik\.gradle\caches\fabric-loom\assets, --gameDir, ., --fml.neoForgeVersion, 21.1.84, --fml.fmlVersion, 4.0.34, --fml.mcVersion, 1.21.1, --fml.neoFormVersion, 20240808.144430]
+[14:34:15] [main/INFO] (Launcher) JVM identified as Azul Systems, Inc. OpenJDK 64-Bit Server VM 21.0.7+6-LTS
+[14:34:15] [main/INFO] (Launcher) ModLauncher 11.0.4+main.d2e20e43 starting: java version 21.0.7 by Azul Systems, Inc.; OS Windows 10 arch amd64 version 10.0
+[14:34:15] [main/INFO] (ImmediateWindowHandler) Loading ImmediateWindowProvider fmlearlywindow
+[14:34:15] [main/INFO] (EARLYDISPLAY) Trying GL version 4.6
+[14:34:16] [main/INFO] (EARLYDISPLAY) Requested GL version 4.6 got version 4.6
+[14:34:16] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/Sixik/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23119!/ Service=ModLauncher Env=CLIENT
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar" [locator: neoforge devenv provider ([C:\Users\Sixik\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\neoforge-21.1.84-minecraft-merged\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84\neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar])]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar" [locator: neoforge devenv provider ([C:\Users\Sixik\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\neoforge-21.1.84-minecraft-merged\1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84\neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar])]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "main" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [pool-5-thread-1/INFO] (EARLYDISPLAY) GL info: NVIDIA GeForce GTX 1060 6GB/PCIe/SSE2 GL version 4.6.0 NVIDIA 576.02, NVIDIA Corporation
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "architectury-neoforge-13.0.8.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "sdm-engine-core-964997-5968080.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "sdm-economy-1102542-6528519.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "ftb-library-forge-404465-6661421.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "sdm-ui-lib-1095061-6515615.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) Found mod file "7961683593602172314.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) Found gamelibrary file "mixinextras-neoforge-0.4.1.jar" [locator: userdev mods and services, reader: mod manifest]
+[14:34:16] [main/WARN] (JarSelector) Attempted to select a dependency jar for JarJar which was passed in as source: library:mixinextras.neoforge. Using Mod File: C:\Users\Sixik\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-neoforge\0.4.1\eff97772ecd0dcf8e52cdbafd3b3ccec425f8314\mixinextras-neoforge-0.4.1.jar
+[14:34:16] [main/INFO] (JarInJarDependencyLocator) Found 1 dependencies adding them to mods collection
+[14:34:16] [main/INFO] (ModDiscoverer) Found library file "neoforge-coremods-21.1.84.jar" [parent: neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar, locator: jarinjar, reader: mod manifest]
+[14:34:16] [main/INFO] (ModDiscoverer) 
      Mod List:
 		Name Version (Mod Id)
 
 		Architectury 13.0.8 (architectury)
 		FTB Library 2101.1.14 (ftblibrary)
-		generated_fc0d1d8 1 (generated_fc0d1d8)
+		generated_191495d 1 (generated_191495d)
 		Minecraft 1.21.1 (minecraft)
 		NeoForge 21.1.84 (neoforge)
 		SDM Core 1.21.1-2.1.2 (sdmcore)
 		SDMEconomy 1.21.1-2.1.0 (sdmeconomy)
 		SDMShop 1.3.1 (sdmshop)
 		SDMUILibrary 1.21-1.9.2 (sdm_ui_library)
-[19:31:15] [main/INFO] (mixin) Compatibility level set to JAVA_21
-[19:31:15] [main/INFO] (LaunchServiceHandler) Launching target 'forgeclientuserdev' with arguments [--version, 21.1.84, --gameDir, ., --assetsDir, C:\Users\Wobblecraft\.gradle\caches\fabric-loom\assets, --assetIndex, 1.21.1-17]
-[19:31:15] [main/INFO] (unprotect) Found 8254 Minecraft classes
-[19:31:16] [main/INFO] (MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.4.1).
-[21èþí.2025 19:31:17.786] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 229 Datafixer optimizations took 319 milliseconds
-[21èþí.2025 19:31:18.681] [main/WARN] [oshi.driver.windows.perfmon.PerfmonDisabled/]: Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
-[21èþí.2025 19:31:24.932] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[21èþí.2025 19:31:24.935] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
-[21èþí.2025 19:31:24.939] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[21èþí.2025 19:31:24.941] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[21èþí.2025 19:31:24.943] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[21èþí.2025 19:31:25.111] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Wobblecraft/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/neoforge-21.1.84-minecraft-merged/1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84/neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[21èþí.2025 19:31:25.111] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Wobblecraft/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/neoforge-21.1.84-minecraft-merged/1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84/neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[21èþí.2025 19:31:25.148] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
-[21èþí.2025 19:31:25.164] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
-[21èþí.2025 19:31:25.283] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.3+5
-[21èþí.2025 19:31:25.527] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.84, for MC 1.21.1
-[21èþí.2025 19:31:26.671] [Render thread/INFO] [net.neoforged.neoforge.gametest.GameTestHooks/]: Enabled Gametest Namespaces: []
-[21èþí.2025 19:31:27.052] [Render thread/FATAL] [net.neoforged.neoforge.common.NeoForgeMod/]: Preparing crash report with UUID a64d72d3-806d-4b2e-acf7-fd4cdc9d9e0d
-[21èþí.2025 19:31:27.064] [Render thread/FATAL] [net.neoforged.neoforge.common.NeoForgeMod/]: Preparing crash report with UUID 92e42aeb-ce28-474b-9f70-85bb3256a964
+[14:34:17] [main/INFO] (mixin) Compatibility level set to JAVA_21
+[14:34:17] [main/INFO] (LaunchServiceHandler) Launching target 'forgeclientuserdev' with arguments [--version, 21.1.84, --gameDir, ., --assetsDir, C:\Users\Sixik\.gradle\caches\fabric-loom\assets, --assetIndex, 1.21.1-17]
+[14:34:17] [main/INFO] (unprotect) Found 8254 Minecraft classes
+[14:34:18] [main/INFO] (MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.4.1).
+[02Ð¸ÑŽÐ».2025 14:34:19.800] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 229 Datafixer optimizations took 357 milliseconds
+[02Ð¸ÑŽÐ».2025 14:34:20.005] [main/WARN] [oshi.util.platform.windows.PerfDataUtil/]: Failed to update counter. Error code: 0x800007D5
+[02Ð¸ÑŽÐ».2025 14:34:20.007] [main/WARN] [oshi.util.platform.windows.PerfCounterQuery/]: Disabling further attempts to query Paging File.
+[02Ð¸ÑŽÐ».2025 14:34:32.260] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[02Ð¸ÑŽÐ».2025 14:34:32.262] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[02Ð¸ÑŽÐ».2025 14:34:32.265] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[02Ð¸ÑŽÐ».2025 14:34:32.268] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[02Ð¸ÑŽÐ».2025 14:34:32.269] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[02Ð¸ÑŽÐ».2025 14:34:32.420] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Sixik/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/neoforge-21.1.84-minecraft-merged/1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84/neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[02Ð¸ÑŽÐ».2025 14:34:32.421] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Sixik/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/neoforge-21.1.84-minecraft-merged/1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84/neoforge-21.1.84-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40545-v2-neoforge-21.1.84.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[02Ð¸ÑŽÐ».2025 14:34:32.453] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[02Ð¸ÑŽÐ».2025 14:34:32.462] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[02Ð¸ÑŽÐ».2025 14:34:32.550] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.3+5
+[02Ð¸ÑŽÐ».2025 14:34:32.785] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.84, for MC 1.21.1
+[02Ð¸ÑŽÐ».2025 14:34:33.940] [Render thread/INFO] [net.neoforged.neoforge.gametest.GameTestHooks/]: Enabled Gametest Namespaces: []
+[02Ð¸ÑŽÐ».2025 14:34:34.248] [Render thread/FATAL] [net.neoforged.neoforge.common.NeoForgeMod/]: Preparing crash report with UUID 02ae8132-3d1f-44a9-a179-85af80111f23
+[02Ð¸ÑŽÐ».2025 14:34:34.261] [Render thread/FATAL] [net.neoforged.neoforge.common.NeoForgeMod/]: Preparing crash report with UUID 24c9fbfa-9cd3-4aec-87d4-7b83ec14632c

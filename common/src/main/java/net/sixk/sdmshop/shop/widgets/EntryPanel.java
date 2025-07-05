@@ -48,7 +48,7 @@ public class EntryPanel extends Panel {
             }
 
             if ((Objects.equals(tab, (TovarList.CLIENT.tovarList.get(w)).tab) || Objects.equals(tab, "All")) && ((TovarList.CLIENT.tovarList.get(w)).limit != 0L || SDMShop.isEditMode())) {
-                String i = (TovarList.CLIENT.tovarList.get(w)).abstractTovar.getTitel().toLowerCase();
+                String i = (TovarList.CLIENT.tovarList.get(w)).getTitel().toLowerCase();
                 if (Search.searchContent.isEmpty() || i.contains(Search.searchContent.toLowerCase())) {
                     add(tovarRender);
                     tovarRenderList.add(tovarRender);

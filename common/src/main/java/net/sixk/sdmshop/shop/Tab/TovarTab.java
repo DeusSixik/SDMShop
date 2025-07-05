@@ -1,15 +1,14 @@
 package net.sixk.sdmshop.shop.Tab;
 
 import net.minecraft.core.HolderLookup;
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
-import net.sixik.sdmcore.impl.utils.serializer.data.ListData;
+import net.minecraft.nbt.CompoundTag;
+import net.sixk.sdmshop.api.DataSerializerCompound;
+import net.sixk.sdmshop.utils.ShopNBTUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class TovarTab {
+public class TovarTab implements DataSerializerCompound {
     public List<Tab> tabList = new ArrayList();
     public static TovarTab SERVER;
     public static TovarTab CLIENT = new TovarTab();
@@ -17,31 +16,19 @@ public class TovarTab {
     public TovarTab() {
     }
 
-    public KeyData serialize(HolderLookup.Provider provider) {
-        KeyData data = new KeyData();
-        ListData<IData> tabList = new ListData();
-        Iterator var4 = this.tabList.iterator();
-
-        while(var4.hasNext()) {
-            Tab tab = (Tab)var4.next();
-            tabList.addValue(tab.serialize(provider));
-        }
-
-        data.put("tabName", tabList);
-        return data;
+    @Override
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        CompoundTag nbt = new CompoundTag();
+        ShopNBTUtils.putList(nbt, "tabName", this.tabList, s -> s.serializeNBT(provider));
+        return nbt;
     }
 
-    public void deserialize(KeyData data, HolderLookup.Provider provider) {
-        this.tabList.clear();
-        ListData<IData> tabList = data.getData("tabName").asList();
-        Iterator var4 = tabList.data.iterator();
-
-        while(var4.hasNext()) {
-            IData tab = (IData)var4.next();
+    @Override
+    public void deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
+        this.tabList = ShopNBTUtils.getList(nbt, "tabName", (tag) -> {
             Tab w1 = new Tab("", null);
-            w1.deserialize(tab.asKeyMap(), provider);
-            this.tabList.add(w1);
-        }
-
+            w1.deserializeNBT((CompoundTag) tag, provider);
+            return w1;
+        });
     }
 }

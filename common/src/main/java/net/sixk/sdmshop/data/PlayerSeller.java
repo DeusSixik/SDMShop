@@ -1,10 +1,11 @@
 package net.sixk.sdmshop.data;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
-import net.sixik.sdmcore.impl.utils.serializer.SDMSerializer;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
+import net.sixk.sdmshop.api.DataSerializerCompound;
 
-public class PlayerSeller implements SDMSerializer<KeyData> {
+public class PlayerSeller implements DataSerializerCompound {
 
     public Player player;
 
@@ -16,12 +17,12 @@ public class PlayerSeller implements SDMSerializer<KeyData> {
 
 
     @Override
-    public KeyData serialize() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return null;
     }
 
     @Override
-    public void deserialize(KeyData data) {
+    public void deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
 
     }
 }

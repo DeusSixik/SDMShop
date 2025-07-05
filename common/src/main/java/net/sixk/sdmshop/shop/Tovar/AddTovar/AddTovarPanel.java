@@ -1,6 +1,8 @@
 package net.sixk.sdmshop.shop.Tovar.AddTovar;
 
-import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.BaseScreen;
+import dev.ftb.mods.ftblibrary.ui.Panel;
+import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 import org.jetbrains.annotations.Nullable;

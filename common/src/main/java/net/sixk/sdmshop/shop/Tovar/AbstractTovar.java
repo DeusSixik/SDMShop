@@ -2,18 +2,15 @@ package net.sixk.sdmshop.shop.Tovar;
 
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
-
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
-import net.sixk.sdmshop.api.IItemSerializer;
-import net.sixk.sdmshop.shop.Tovar.TovarType.TovarTypeRegister;
+import net.sixk.sdmshop.api.DataSerializerCompound;
 
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public abstract class AbstractTovar implements IItemSerializer {
+public abstract class AbstractTovar implements DataSerializerCompound {
 
     public Icon icon;
     public String tab;
@@ -47,33 +44,36 @@ public abstract class AbstractTovar implements IItemSerializer {
         func.accept(this);
     };
 
-    public KeyData serialize(HolderLookup.Provider provider) {
-
-        KeyData data = new KeyData();
-
-        data.put("uuid", uuid.toString());
-        data.put("")
-        data.put("tovarType", getID());
-        data.put("tab", IData.valueOf(tab));
-        data.put("cost", IData.valueOf(cost));
-        data.put("limit", IData.valueOf(limit));
-        data.put("currency", currency);
-        data.put("toSell", IData.valueOf(toSell?1:0));
-
-        return data;
+    @Override
+    public final CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        CompoundTag nbt = new CompoundTag();
+        nbt.putString("id", getID());
+        nbt.putUUID("uuid", uuid);
+        nbt.putString("tovarType", getID());
+        nbt.putString("tab", tab);
+        nbt.putInt("cost", cost);
+        nbt.putLong("limit", limit);
+        nbt.putString("currency", currency);
+        nbt.putBoolean("toSell", toSell);
+        _serializeNBT(nbt, provider);
+        return nbt;
     }
 
+    public void  _serializeNBT(CompoundTag nbt, HolderLookup.Provider provider){}
+    public void  _deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {}
 
-    public void deserialize(KeyData data, HolderLookup.Provider provider) {
+    @Override
+    public final void deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
 
-        KeyData d1 = data.getData("tovarType").asKeyMap();
+        if(nbt.contains("uuid")) uuid = nbt.getUUID("uuid");
+        else                     uuid = UUID.randomUUID();
 
-        uuid = data.contains("uuid") ? UUID.fromString(data.getData("uuid").asString()) : UUID.randomUUID();
-        tab = data.getData("tab").asString();
-        cost = data.getData("cost").asInt();
-        limit = data.getData("limit").asLong();
-        currency = data.getData("currency").asString();
-        toSell = data.getData("toSell").asInt()==1;
+        tab = nbt.getString("tab");
+        cost = nbt.getInt("cost");
+        limit = nbt.getLong("limit");
+        currency = nbt.getString("currency");
+        toSell = nbt.getBoolean("toSell");
 
+        _deserializeNBT(nbt, provider);
     }
 }

@@ -8,12 +8,11 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.LevelResource;
-import net.sixik.sdmcore.impl.utils.serializer.DataIO;
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
 import net.sixik.sdmeconomy.api.CustomCurrencies;
 import net.sixik.sdmeconomy.api.EconomyAPI;
 import net.sixik.sdmeconomy.economy.Currency;
@@ -27,8 +26,10 @@ import net.sixk.sdmshop.shop.Tovar.TovarType.TovarTypeRegister;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
 import net.sixk.sdmshop.shop.network.ModNetwork;
 import net.sixk.sdmshop.shop.network.server.SendEditModeS2C;
-import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
+import net.sixk.sdmshop.utils.ShopNetworkUtils;
 import org.slf4j.Logger;
+
+import java.io.IOException;
 
 public class SDMShop {
     public static final String MODID = "sdmshop";
@@ -41,20 +42,17 @@ public class SDMShop {
     public static void init() {
         Config.init();
         ModNetwork.init();
-        event();
+        modEvents();
         CommandRegistrationEvent.EVENT.register(ShopComands::registerCommands);
-        CustomCurrencies.CURRENCIES.put("sdmcoin", () -> {
-            return (new Currency("sdmcoin")).canDelete(false);
-        });
-        EnvExecutor.runInEnv(Env.CLIENT, () -> {
-            return SDMShopClient::init;
-        });
+        CustomCurrencies.CURRENCIES.put("sdmcoin", () -> (new Currency("sdmcoin")).canDelete(false));
+        EnvExecutor.runInEnv(Env.CLIENT, () -> SDMShopClient::init);
+
         TovarTypeRegister.register("ItemType",TovarItem::new);
         TovarTypeRegister.register("XPType",TovarXP::new);
         TovarTypeRegister.register("CommandType",TovarCommand::new);
     }
 
-    public static void event() {
+    public static void modEvents() {
         LifecycleEvent.SERVER_STARTED.register((server) -> {
             TovarTab.SERVER = new TovarTab();
             TovarList.SERVER = new TovarList();
@@ -63,35 +61,31 @@ public class SDMShop {
                 saveData(server);
             }
 
-            IData w1 = DataIO.read(server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarTab.sdm").toString());
-            if (w1 != null) {
-                TovarTab.SERVER.deserialize(w1.asKeyMap(), server.registryAccess());
+            try {
+                CompoundTag w1 = NbtIo.read(server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarTab.sdm"));
+                if (w1 != null) {
+                    TovarTab.SERVER.deserializeNBT(w1, server.registryAccess());
+                }
+            } catch (IOException e) {
+                LOGGER.error(e.toString());
             }
 
         });
-        LifecycleEvent.SERVER_STOPPED.register((server) -> {
-            if (!server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").toFile().exists()) {
-                server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").toFile().mkdir();
-            }
-
-            if (TovarTab.SERVER != null) {
-                DataIO.write(TovarTab.SERVER.serialize(server.registryAccess()), server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarTab.sdm").toString());
-            }
-
-            if (TovarList.SERVER != null) {
-                DataIO.write(TovarList.SERVER.serialize(server.registryAccess()), server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarList.sdm").toString());
-            }
-
-        });
+        LifecycleEvent.SERVER_STOPPED.register(SDMShop::saveData);
         PlayerEvent.PLAYER_JOIN.register((serverPlayer) -> {
-            IData w2 = DataIO.read(serverPlayer.getServer().getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarList.sdm").toString());
-            if (w2 != null && !isSerialize) {
-                isSerialize = true;
-                TovarList.SERVER.deserialize(w2.asKeyMap(), serverPlayer.getServer().registryAccess());
-            }
 
-            NetworkManager.sendToPlayer(serverPlayer, new SendShopDataS2C(TovarList.SERVER.serialize(serverPlayer.registryAccess()).asNBT(), TovarTab.SERVER.serialize(serverPlayer.registryAccess()).asNBT()));
-            NetworkManager.sendToPlayer(serverPlayer, new SendEditModeS2C(isEditMode(serverPlayer)));
+            try {
+                CompoundTag w2 = NbtIo.read(serverPlayer.getServer().getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarList.sdm"));
+                if (w2 != null && !isSerialize) {
+                    isSerialize = true;
+                    TovarList.SERVER.deserializeNBT(w2, serverPlayer.getServer().registryAccess());
+                }
+
+                ShopNetworkUtils.sendShopDataS2C(serverPlayer, serverPlayer.registryAccess());
+                NetworkManager.sendToPlayer(serverPlayer, new SendEditModeS2C(isEditMode(serverPlayer)));
+            } catch (IOException e) {
+                LOGGER.error(e.toString());
+            }
         });
     }
 
@@ -101,11 +95,19 @@ public class SDMShop {
         }
 
         if (TovarTab.SERVER != null) {
-            DataIO.write(TovarTab.SERVER.serialize(server.registryAccess()), server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarTab.sdm").toString());
+            try {
+                NbtIo.write(TovarTab.SERVER.serializeNBT(server.registryAccess()), server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarTab.sdm"));
+            } catch (IOException e) {
+                LOGGER.error(e.toString());
+            }
         }
 
         if (TovarList.SERVER != null) {
-            DataIO.write(TovarList.SERVER.serialize(server.registryAccess()), server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarList.sdm").toString());
+            try {
+                NbtIo.write(TovarList.SERVER.serializeNBT(server.registryAccess()), server.getWorldPath(LevelResource.ROOT).resolve("SDMShopData").resolve("SDMTovarList.sdm"));
+            } catch (IOException e) {
+                LOGGER.error(e.toString());
+            }
         }
 
     }
@@ -122,12 +124,10 @@ public class SDMShop {
 
     public static boolean isEditMode() {
         CompoundTag nbt = EconomyAPI.getCustomData(SDMShopClient.getPlayer());
-        return nbt.contains("edit_mode") ? nbt.getBoolean("edit_mode") : false;
+        return nbt.contains("edit_mode") && nbt.getBoolean("edit_mode");
     }
 
     public static void setEditMode(ServerPlayer player, boolean value) {
-        EconomyAPI.updateCustomData(player, (s) -> {
-            s.putBoolean("edit_mode", value);
-        });
+        EconomyAPI.updateCustomData(player, (s) -> s.putBoolean("edit_mode", value));
     }
 }

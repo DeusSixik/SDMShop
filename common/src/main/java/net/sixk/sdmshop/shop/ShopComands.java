@@ -5,7 +5,6 @@ import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import dev.architectury.networking.NetworkManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -19,11 +18,9 @@ import net.sixik.sdmeconomy.economy.Currency;
 import net.sixik.sdmeconomy.economyData.CurrencyPlayerData;
 import net.sixk.sdmshop.SDMShop;
 import net.sixk.sdmshop.data.config.Config;
-import net.sixk.sdmshop.shop.Tab.TovarTab;
-import net.sixk.sdmshop.shop.Tovar.TovarList;
 import net.sixk.sdmshop.shop.network.server.SendConfigS2C;
 import net.sixk.sdmshop.shop.network.server.SendOpenShopScreenS2C;
-import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
+import net.sixk.sdmshop.utils.ShopNetworkUtils;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -148,7 +145,7 @@ public class ShopComands {
             for (ServerPlayer player : players) {
                 EconomyAPI.getPlayerCurrencyServerData().addCurrencyValue(player, currency, (double) money);
                 EconomyAPI.syncPlayer(player);
-                NetworkManager.sendToPlayer(player, new SendShopDataS2C(TovarList.SERVER.serialize(Minecraft.getInstance().level.registryAccess()).asNBT(), TovarTab.SERVER.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
+                ShopNetworkUtils.sendShopDataS2C(player, player.getServer().registryAccess());
                 (context.getSource()).sendSuccess(() -> {
                     MutableComponent var10000 = Component.literal(player.getScoreboardName() + ": ");
                     Optional var10001 = EconomyAPI.getPlayerCurrencyServerData().getPlayerCurrency(player, currency);
@@ -178,7 +175,8 @@ public class ShopComands {
     public static void setMoney(Player player, String currency, long money) {
         EconomyAPI.getPlayerCurrencyServerData().setCurrencyValue(player, currency, (double) money);
         EconomyAPI.syncPlayer((ServerPlayer) player);
-        NetworkManager.sendToPlayer((ServerPlayer) player, new SendShopDataS2C(TovarList.SERVER.serialize(Minecraft.getInstance().level.registryAccess()).asNBT(), TovarTab.SERVER.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
+
+        ShopNetworkUtils.sendShopDataS2C((ServerPlayer) player, player.registryAccess());
     }
 
     public static long getMoney(Player player, String currency) {

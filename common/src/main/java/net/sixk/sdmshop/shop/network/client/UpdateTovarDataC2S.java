@@ -1,21 +1,16 @@
 package net.sixk.sdmshop.shop.network.client;
 
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixk.sdmshop.SDMShop;
-import net.sixk.sdmshop.shop.Tab.TovarTab;
 import net.sixk.sdmshop.shop.Tovar.TovarList;
-import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
-
-import java.util.Iterator;
+import net.sixk.sdmshop.utils.ShopNetworkUtils;
 
 public class UpdateTovarDataC2S implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<UpdateTovarDataC2S> TYPE = new CustomPacketPayload.Type(ResourceLocation.tryBuild("sdmshop", "update_tovar"));
@@ -28,13 +23,9 @@ public class UpdateTovarDataC2S implements CustomPacketPayload {
 
     public static void handle(UpdateTovarDataC2S message, NetworkManager.PacketContext context) {
         context.queue(() -> {
-            TovarList.SERVER.deserialize((KeyData)IData.valueOf(message.tag), context.registryAccess());
-            Iterator var2 = context.getPlayer().getServer().getPlayerList().getPlayers().iterator();
+            TovarList.SERVER.deserializeNBT((CompoundTag) message.tag, context.registryAccess());
 
-            while(var2.hasNext()) {
-                ServerPlayer player = (ServerPlayer)var2.next();
-                NetworkManager.sendToPlayer(player, new SendShopDataS2C(TovarList.SERVER.serialize(context.registryAccess()).asNBT(), TovarTab.SERVER.serialize(context.registryAccess()).asNBT()));
-            }
+            ShopNetworkUtils.sendShopDataS2C(context.getPlayer().getServer(), context.registryAccess());
 
             SDMShop.saveData(context.getPlayer().getServer());
         });

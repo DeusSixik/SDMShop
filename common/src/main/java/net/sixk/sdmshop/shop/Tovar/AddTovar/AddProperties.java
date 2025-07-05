@@ -325,17 +325,17 @@ public class AddProperties extends Panel {
                     AbstractTovar newTovar = null;
                     switch (id){
                         case "ItemType" :
-                            newTovar =  new TovarItem(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),itemStack,byTag.CheckIs(),tag);
+                            newTovar =  new TovarItem(uuid, icon, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),itemStack,byTag.CheckIs(),tag);
                             break;
                         case "XPType" :
-                            newTovar =  new TovarXP(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs());
+                            newTovar =  new TovarXP(uuid, icon, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs());
                             break;
                         case "CommandType" :
-                            newTovar = new TovarCommand(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),command.getText());
+                            newTovar = new TovarCommand(uuid, icon, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),command.getText());
                             break;
                     };
                     TovarTypeRegister.getType(id).ifPresent(func ->{
-                        AbstractTovar w1 = func.apply(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs());
+                        AbstractTovar w1 = func.apply(uuid, icon, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs());
                         w1.update(type->{
                             if(type instanceof TovarItem tovarItem) {
                                 tovarItem.item = itemStack;
@@ -349,7 +349,7 @@ public class AddProperties extends Panel {
                                 return;
                             }
                             if(type instanceof TovarCommand tovarCommand){
-                                tovarCommand.
+
                             }
                         });
                     });
@@ -360,19 +360,20 @@ public class AddProperties extends Panel {
                     AbstractTovar newTovar = null;
                     switch (id){
                         case "ItemType" :
-                            newTovar =  new TovarItem(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),itemStack,byTag.CheckIs(),tag);
+                            newTovar =  new TovarItem(uuid, icon, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),itemStack,byTag.CheckIs(),tag);
                             break;
                         case "XPType" :
-                            newTovar =  new TovarXP(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs());
+                            newTovar =  new TovarXP(uuid, icon, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),Integer.valueOf(countXpLvl.getText()),isLvl.CheckIs());
                             break;
                         case "CommandType" :
-                            newTovar = new TovarCommand(uuid, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),command.getText());
+                            newTovar = new TovarCommand(uuid, icon, tabName, currencyName, Integer.valueOf(itemCost.getText()), lim, isSell.CheckIs(),command.getText());
                             break;
                     };
 
                     TovarList.CLIENT.tovarList.add(newTovar);
                 }
-                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarList.CLIENT.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
+
+                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarList.CLIENT.serializeNBT(Minecraft.getInstance().level.registryAccess())));
                 closeGui();
             }
         });

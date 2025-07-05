@@ -8,7 +8,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixk.sdmshop.SDMShop;
-import net.sixk.sdmshop.shop.Tab.AddTabPanel;
 import net.sixk.sdmshop.shop.Tab.TabPanel;
 
 public class ModernTabPanel extends Panel {

@@ -6,15 +6,14 @@ import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.sixik.sdmcore.impl.utils.serializer.SDMSerializerHelper;
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmeconomy.api.EconomyAPI;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
+import net.sixk.sdmshop.utils.ShopNBTUtils;
 import net.sixk.sdmshop.utils.item.ItemHandlerHelper;
 
 import java.util.ArrayList;
@@ -235,22 +234,22 @@ public class TovarItem extends AbstractTovar {
         return this.byTag;
     }
 
-    public KeyData serialize(HolderLookup.Provider provider) {
-        KeyData data = super.serialize(provider);
+    @Override
+    public void _serializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
 
-        SDMSerializerHelper.serializeItemStack(data, "item", this.item, provider);
-        data.put("id", this.getID());
+        ShopNBTUtils.serializeItemStack(nbt, "item", this.item, provider);
+
         if (this.tag != null) {
-            data.put("tag", this.tag.location().toString());
+            nbt.putString("tag", this.tag.location().toString());
         }
 
-        data.put("byTag", IData.valueOf(this.byTag ? 1 : 0));
-        return data;
+        nbt.putBoolean("byTag", this.byTag);
     }
 
-    public void deserialize(KeyData data, HolderLookup.Provider provider) {
-        if (data.contains("tag")) {
-            String t1 = data.getData("tag").asString();
+    @Override
+    public void _deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
+        if(nbt.contains("tag")) {
+            String t1 = nbt.getString("tag");
 
             for (Pair<TagKey<Item>, HolderSet.Named<Item>> tagKeyNamedPair : BuiltInRegistries.ITEM.getTags().toList()) {
                 if ((tagKeyNamedPair.getFirst()).location().toString().equals(t1)) {
@@ -260,8 +259,7 @@ public class TovarItem extends AbstractTovar {
             }
         }
 
-        this.item = SDMSerializerHelper.deserializeItemStack(data, "item", provider);
-        this.byTag = data.getData("byTag").asInt() == 1;
+        this.item = ShopNBTUtils.deserializeItemStack(nbt, "item", provider);
+        this.byTag = nbt.getBoolean("byTag");
     }
-
 }

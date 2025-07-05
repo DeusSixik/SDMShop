@@ -14,7 +14,8 @@ import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixik.sdmuilibrary.client.utils.renders.ShapesRenderHelper;
 import net.sixk.sdmshop.data.config.ConfigFile;
 
-import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.*;
+import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.POLAR_NIGHT_0;
+import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.POLAR_NIGHT_4;
 
 
 public class AddCurrencyPanel extends BaseScreen {

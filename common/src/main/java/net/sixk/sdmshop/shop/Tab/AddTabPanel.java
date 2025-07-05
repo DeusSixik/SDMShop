@@ -111,7 +111,8 @@ public class AddTabPanel extends BaseScreen {
                 } else {
                     TovarTab.CLIENT.tabList.set(TovarTab.CLIENT.tabList.indexOf(tab),new Tab(name.getText(),item));
                 }
-                NetworkManager.sendToServer(new UpdateTabDataC2S(TovarTab.CLIENT.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
+                NetworkManager.sendToServer(new UpdateTabDataC2S(TovarTab.CLIENT.serializeNBT(Minecraft.getInstance().level.registryAccess())));
+
                 getGui().closeGui();
             }
         });

@@ -39,7 +39,7 @@ public class TovarPanel extends Panel {
     }
 
     public void drawIcon(GuiGraphics graphics, int x, int y, int w, int h) {
-        tovar.abstractTovar.getIcon().draw(graphics, x, y, 20, 20);
+        tovar.getIcon().draw(graphics, x, y, 20, 20);
     }
 
     public void addWidgets() {
@@ -54,7 +54,7 @@ public class TovarPanel extends Panel {
             editMod.setPosAndSize(3, 3, 6, 6);
             add(delete = new SimpleButton(this, Component.translatable("sdm_shop.delete"), Icons.REMOVE, (simpleButton, mouseButton) -> {
                 TovarList.CLIENT.tovarList.remove(TovarList.CLIENT.tovarList.indexOf(tovar));
-                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarList.CLIENT.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
+                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarList.CLIENT.serializeNBT(Minecraft.getInstance().level.registryAccess())));
                 getGui().refreshWidgets();
             }));
             delete.setPosAndSize(19, 3, 6, 6);

@@ -1,9 +1,6 @@
 package net.sixk.sdmshop.shop.network.server;
 
 import dev.architectury.networking.NetworkManager;
-
-
-
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

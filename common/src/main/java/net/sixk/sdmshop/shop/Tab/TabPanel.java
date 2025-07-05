@@ -1,18 +1,9 @@
 package net.sixk.sdmshop.shop.Tab;
 
-import dev.architectury.networking.NetworkManager;
-import dev.ftb.mods.ftblibrary.icon.Icon;
-import dev.ftb.mods.ftblibrary.ui.*;
-import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
-import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.sixk.sdmshop.shop.network.client.UpdateTabDataC2S;
+import dev.ftb.mods.ftblibrary.ui.Panel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.*;
 
 public class TabPanel extends Panel {    public static String selectedTab = "All";
     public List<TabRender> tabRenderList = new ArrayList();

@@ -97,7 +97,7 @@ public class BuyingWindow extends BaseScreen {
         NordColors.POLAR_NIGHT_1.draw(graphics, x + 5 + w / 2, y + 103, w / 2 - 7, 12);
         GuiHelper.drawHollowRect(graphics, x + 5 +  w / 2, y + 103, w  / 2 - 7, 12, NordColors.POLAR_NIGHT_4, true);
 
-        tovar.abstractTovar.getIcon().draw(graphics, x + 6, y + 7, 20, 20);
+        tovar.getIcon().draw(graphics, x + 6, y + 7, 20, 20);
     }
 
 
@@ -106,7 +106,7 @@ public class BuyingWindow extends BaseScreen {
     @Override
     public void addWidgets() {
 
-        add(title = new TextField(this).setText(tovar.abstractTovar.getTitel()));
+        add(title = new TextField(this).setText(tovar.getTitel()));
         add(cost = new TextField(this));
         add(moneyTxt = new TextField(this));
         add(moneyNum = new TextField(this));
@@ -253,12 +253,12 @@ public class BuyingWindow extends BaseScreen {
         id = tovar.getID();
         switch (this.id) {
             case "ItemType":
-                ItemStack item = (ItemStack)tovar.abstractTovar.getItemStack();
+                ItemStack item = (ItemStack)tovar.getItemStack();
                 this.stackCount = item.getCount();
                 this.item = item;
                 break;
             case "XPType":
-                this.stackCount = (Integer)tovar.abstractTovar.getItemStack();
+                this.stackCount = (Integer)tovar.getItemStack();
         }
 
     }
@@ -290,9 +290,9 @@ public class BuyingWindow extends BaseScreen {
                 if (id.equals("ItemType")) {
                     Inventory inventory = Minecraft.getInstance().player.getInventory();
                     int i;
-                    if (tovar.abstractTovar.getisXPLVL()) {
+                    if (tovar.getisXPLVL()) {
                         for(i = 0; i < inventory.getContainerSize(); ++i) {
-                            if (inventory.getItem(i) != null && inventory.getItem(i).is(tovar.abstractTovar.getTag())) {
+                            if (inventory.getItem(i) != null && inventory.getItem(i).is(tovar.getTag())) {
                                 countItems += inventory.getItem(i).getCount();
                             }
                         }
@@ -303,7 +303,7 @@ public class BuyingWindow extends BaseScreen {
                             }
                         }
                     }
-                } else if (tovar.abstractTovar.getisXPLVL()) {
+                } else if (tovar.getisXPLVL()) {
                     countItems = Minecraft.getInstance().player.experienceLevel;
                 } else {
                     countItems = Minecraft.getInstance().player.totalExperience;

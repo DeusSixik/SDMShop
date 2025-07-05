@@ -77,8 +77,8 @@ public class TabRender extends Panel {
                 TovarList.CLIENT.tovarList.removeIf(t -> t.tab.equals(tab.name));
 
                 TovarTab.CLIENT.tabList.remove(tab);
-                NetworkManager.sendToServer(new UpdateTabDataC2S(TovarTab.CLIENT.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
-                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarTab.CLIENT.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
+                NetworkManager.sendToServer(new UpdateTabDataC2S(TovarTab.CLIENT.serializeNBT(Minecraft.getInstance().level.registryAccess())));
+                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarTab.CLIENT.serializeNBT(Minecraft.getInstance().level.registryAccess())));
                 getGui().refreshWidgets();
             }));
             del.setPosAndSize(62, 11, 6, 6);

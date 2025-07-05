@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.sixk.sdmshop.data.config.ConfigFile;
 import net.sixk.sdmshop.shop.ShopPage;
 import net.sixk.sdmshop.shop.modern.ShopPageModern;
-import org.lwjgl.glfw.GLFW;
 
 public class SDMShopClient {
 

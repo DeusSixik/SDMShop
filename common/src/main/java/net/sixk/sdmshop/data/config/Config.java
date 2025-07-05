@@ -1,8 +1,9 @@
 package net.sixk.sdmshop.data.config;
 
 import dev.architectury.platform.Platform;
-import dev.ftb.mods.ftblibrary.snbt.config.*;
-
+import dev.ftb.mods.ftblibrary.snbt.config.BooleanValue;
+import dev.ftb.mods.ftblibrary.snbt.config.ConfigUtil;
+import dev.ftb.mods.ftblibrary.snbt.config.SNBTConfig;
 
 import java.nio.file.Path;
 

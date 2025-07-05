@@ -9,11 +9,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.sixik.sdmeconomy.utils.CurrencyHelper;
 import net.sixk.sdmshop.SDMShop;
-import net.sixk.sdmshop.shop.Tab.TovarTab;
 import net.sixk.sdmshop.shop.Tovar.TovarList;
-import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
-
-import java.util.Iterator;
+import net.sixk.sdmshop.utils.ShopNetworkUtils;
 
 public class SellShopTovarC2S implements CustomPacketPayload {
 
@@ -29,13 +26,9 @@ public class SellShopTovarC2S implements CustomPacketPayload {
 
     public static void handle(SellShopTovarC2S message, NetworkManager.PacketContext context) {
         context.queue(() -> {
-            (TovarList.SERVER.tovarList.get(message.index)).abstractTovar.sell(context.getPlayer(), TovarList.SERVER.tovarList.get(message.index), (long)message.count);
-            Iterator var2 = context.getPlayer().getServer().getPlayerList().getPlayers().iterator();
+            (TovarList.SERVER.tovarList.get(message.index)).sell(context.getPlayer(), TovarList.SERVER.tovarList.get(message.index), (long)message.count);
 
-            while(var2.hasNext()) {
-                ServerPlayer player = (ServerPlayer)var2.next();
-                NetworkManager.sendToPlayer(player, new SendShopDataS2C(TovarList.SERVER.serialize(context.registryAccess()).asNBT(), TovarTab.SERVER.serialize(context.registryAccess()).asNBT()));
-            }
+            ShopNetworkUtils.sendShopDataS2C(context.getPlayer().getServer(), context.registryAccess());
 
             CurrencyHelper.syncPlayer((ServerPlayer)context.getPlayer());
             SDMShop.saveData(context.getPlayer().getServer());

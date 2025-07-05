@@ -53,7 +53,7 @@ public class WalletRender extends Panel {
                     }
 
                 });
-                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarList.CLIENT.serialize(Minecraft.getInstance().level.registryAccess()).asNBT()));
+                NetworkManager.sendToServer(new UpdateTovarDataC2S(TovarList.CLIENT.serializeNBT(Minecraft.getInstance().level.registryAccess())));
                 getGui().refreshWidgets();
             }));
             delete.setPosAndSize(59, 2, 6, 6);

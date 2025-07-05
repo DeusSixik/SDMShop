@@ -1,61 +1,50 @@
 package net.sixk.sdmshop.shop.Tovar;
 
+import com.mojang.datafixers.util.Function7;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.player.Player;
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
-import net.sixik.sdmcore.impl.utils.serializer.data.ListData;
+import net.minecraft.nbt.CompoundTag;
+import net.sixk.sdmshop.api.DataSerializerCompound;
 import net.sixk.sdmshop.shop.Tovar.TovarType.TovarTypeRegister;
-import net.sixk.sdmshop.shop.Tovar.TovarType.TovarXP;
+import net.sixk.sdmshop.utils.ShopNBTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-public class TovarList  {
+public class TovarList implements DataSerializerCompound {
 
-    public  List<AbstractTovar> tovarList = new ArrayList<>();
+    public List<AbstractTovar> tovarList = new ArrayList<>();
     public static TovarList SERVER;
     public static TovarList CLIENT = new TovarList() ;
 
-    public TovarList(){
+    public TovarList(){}
 
+    @Override
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        CompoundTag nbt = new CompoundTag();
 
+        ShopNBTUtils.putList(nbt, "tovarList", tovarList, s -> s.serializeNBT(provider));
+
+        return nbt;
     }
 
+    @Override
+    public void deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
+        tovarList = ShopNBTUtils.getList(nbt, "tovarList", tag -> {
+            if(tag instanceof CompoundTag nbt1) {
+                if(!nbt1.contains("tovarType")) return null;
 
-    public KeyData serialize(HolderLookup.Provider provider) {
+                Optional<Function7<UUID, Icon, String, String, Integer, Long, Boolean, AbstractTovar>> opt = TovarTypeRegister.getType(nbt1.getString("tovarType"));
+                if(opt.isEmpty()) return null;
 
-        KeyData data = new KeyData();
+                AbstractTovar w2 = opt.get().apply(UUID.randomUUID(), Icon.empty(), "", "", 0, 0L, false);
+                w2.deserializeNBT(nbt1, provider);
+                return w2;
+            }
 
-        ListData<IData> tovarList = new ListData<>();
-        for (AbstractTovar value : this.tovarList) {
-            tovarList.addValue(value.serialize(provider));
-        }
-        data.put("tovarList",tovarList);
-        return data;
-
-    }
-
-
-    public void deserialize(KeyData data, HolderLookup.Provider provider) {
-
-        tovarList.clear();
-
-        ListData<IData> tovarList = data.getData("tovarList").asList();
-
-        for (IData w : tovarList.data) {
-            KeyData w1 = (KeyData) w;
-            if(!w1.contains("tovarType")) continue;
-            TovarTypeRegister.getType(w1.getData("tovarType").asString()).ifPresent(func ->{
-                AbstractTovar w2 = func.apply(UUID.randomUUID(), "", "", 0, 0l, false);
-                w2.deserialize(w1, provider);
-                this.tovarList.add(w2);
-            });
-        }
-
-
+            return null;
+        });
     }
 }

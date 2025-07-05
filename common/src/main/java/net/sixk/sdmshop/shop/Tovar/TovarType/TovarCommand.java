@@ -1,14 +1,12 @@
 package net.sixk.sdmshop.shop.Tovar.TovarType;
 
 import dev.ftb.mods.ftblibrary.icon.Icon;
-import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmeconomy.api.EconomyAPI;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 
@@ -19,14 +17,13 @@ public class TovarCommand extends AbstractTovar {
     public boolean elevatePerms;
     public boolean silent;
 
-    public TovarCommand(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell, String command) {
-        super(uuid, tab, currency, cost, limit, toSell);
-        this.icon = ItemIcon.getItemIcon(Items.COMMAND_BLOCK);
+    public TovarCommand(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell, String command) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
         this.command = command;
     }
 
-    public TovarCommand(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell) {
-        super(uuid, tab, currency, cost, limit, toSell);
+    public TovarCommand(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
     }
 
     public void buy(Player player, AbstractTovar tovar, long count) {
@@ -93,15 +90,13 @@ public class TovarCommand extends AbstractTovar {
         return false;
     }
 
-    public KeyData serialize(HolderLookup.Provider provider) {
-        KeyData data = super.serialize(provider);
-        data.put("id", this.getID());
-        data.put("command", this.command);
-        return data;
+    @Override
+    public void _serializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
+        nbt.putString("command", this.command);
     }
 
-    public void deserialize(KeyData data, HolderLookup.Provider provider) {
-        this.command = data.getData("command").asString();
+    @Override
+    public void _deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
+        this.command = nbt.getString("command");
     }
-
 }

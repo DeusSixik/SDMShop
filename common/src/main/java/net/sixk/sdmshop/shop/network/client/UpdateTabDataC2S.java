@@ -1,25 +1,22 @@
 package net.sixk.sdmshop.shop.network.client;
 
 import dev.architectury.networking.NetworkManager;
-import java.util.Iterator;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixk.sdmshop.SDMShop;
 import net.sixk.sdmshop.shop.Tab.TovarTab;
-import net.sixk.sdmshop.shop.Tovar.TovarList;
-import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
+import net.sixk.sdmshop.utils.ShopDebugUtils;
+import net.sixk.sdmshop.utils.ShopNetworkUtils;
 
 public class UpdateTabDataC2S implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<UpdateTabDataC2S> TYPE = new CustomPacketPayload.Type(ResourceLocation.tryBuild("sdmshop", "update_tab"));
     public static final StreamCodec<FriendlyByteBuf, UpdateTabDataC2S> STREAM_CODEC;
-    public Tag tag;
+    private final Tag tag;
 
     public UpdateTabDataC2S(Tag tag) {
         this.tag = tag;
@@ -27,13 +24,11 @@ public class UpdateTabDataC2S implements CustomPacketPayload {
 
     public static void handle(UpdateTabDataC2S message, NetworkManager.PacketContext context) {
         context.queue(() -> {
-            TovarTab.SERVER.deserialize((KeyData)IData.valueOf(message.tag), context.registryAccess());
-            Iterator var2 = context.getPlayer().getServer().getPlayerList().getPlayers().iterator();
+            ShopDebugUtils.log("[UpdateTabDataC2S::handle]: {} | IsCompound {}", message.tag, message.tag instanceof CompoundTag);
 
-            while(var2.hasNext()) {
-                ServerPlayer player = (ServerPlayer)var2.next();
-                NetworkManager.sendToPlayer(player, new SendShopDataS2C(TovarList.SERVER.serialize(context.registryAccess()).asNBT(), TovarTab.SERVER.serialize(context.registryAccess()).asNBT()));
-            }
+            TovarTab.SERVER.deserializeNBT((CompoundTag) message.tag, context.registryAccess());
+
+            ShopNetworkUtils.sendShopDataS2C(context.getPlayer().getServer(), context.registryAccess());
 
             SDMShop.saveData(context.getPlayer().getServer());
         });

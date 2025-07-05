@@ -1,15 +1,11 @@
 package net.sixk.sdmshop.shop.modern;
 
-import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixik.sdmuilibrary.client.utils.renders.ShapesRenderHelper;
 import net.sixk.sdmshop.shop.Tab.AddTabPanel;
 import net.sixk.sdmshop.shop.modern.widgets.ModerTextBox;
-
-import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.*;
-import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.POLAR_NIGHT_4;
 
 public class ModernAddTabPanel extends AddTabPanel {
 

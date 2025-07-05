@@ -6,7 +6,6 @@ import net.sixik.sdmuilibrary.client.utils.misc.RGBA;
 import net.sixik.sdmuilibrary.client.utils.renders.ShapesRenderHelper;
 import net.sixk.sdmshop.shop.BuyingWindow;
 
-
 import java.util.UUID;
 
 public class ModernBuyingWindow extends BuyingWindow {
@@ -33,7 +32,7 @@ public class ModernBuyingWindow extends BuyingWindow {
 
         ShapesRenderHelper.drawRoundedRect(graphics,x + 3,y + 3,27,27,8, RGBA.create(0,0,0,100) );
 
-        tovar.abstractTovar.getIcon().draw(graphics, x + 7, y + 7, 20, 20);
+        tovar.getIcon().draw(graphics, x + 7, y + 7, 20, 20);
 
         ShapesRenderHelper.drawRoundedRect(graphics,x + 32, y + 3, w - 34, 12,6, RGBA.create(0,0,0,100) );
 

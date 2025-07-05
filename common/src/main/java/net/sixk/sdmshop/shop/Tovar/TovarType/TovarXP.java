@@ -1,14 +1,11 @@
 package net.sixk.sdmshop.shop.Tovar.TovarType;
 
 import dev.ftb.mods.ftblibrary.icon.Icon;
-import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
-import net.sixik.sdmcore.impl.utils.serializer.data.IData;
-import net.sixik.sdmcore.impl.utils.serializer.data.KeyData;
 import net.sixik.sdmeconomy.api.EconomyAPI;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 
@@ -19,15 +16,14 @@ public class TovarXP extends AbstractTovar {
     public int xpCount;
     public boolean isXPLVL;
 
-    public TovarXP(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell, int xpCount, boolean isXPLVL) {
-        super(uuid, tab, currency, cost, limit, toSell);
-        this.icon = ItemIcon.getItemIcon(Items.EXPERIENCE_BOTTLE);
+    public TovarXP(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell, int xpCount, boolean isXPLVL) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
         this.xpCount = xpCount;
         this.isXPLVL = isXPLVL;
     }
 
-    public TovarXP(UUID uuid, String tab, String currency, Integer cost, long limit, boolean toSell) {
-        super(uuid, tab, currency, cost, limit, toSell);
+    public TovarXP(UUID uuid, Icon icon, String tab, String currency, Integer cost, long limit, boolean toSell) {
+        super(uuid, icon, tab, currency, cost, limit, toSell);
     }
 
     public void buy(Player player, AbstractTovar tovar, long count) {
@@ -145,17 +141,15 @@ public class TovarXP extends AbstractTovar {
         return this.isXPLVL;
     }
 
-    public KeyData serialize(HolderLookup.Provider provider) {
-        KeyData data = super.serialize(provider);
-        data.put("id", this.getID());
-        data.put("xpCount", this.xpCount);
-        data.put("isXPLVL", IData.valueOf(this.isXPLVL ? 1 : 0));
-        return data;
+    @Override
+    public void _serializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
+        nbt.putInt("xpCount", xpCount);
+        nbt.putBoolean("isXPLVL", isXPLVL);
     }
 
-    public void deserialize(KeyData data, HolderLookup.Provider provider) {
-        this.xpCount = data.getData("xpCount").asInt();
-        this.isXPLVL = data.getData("isXPLVL").asInt() == 1;
+    @Override
+    public void _deserializeNBT(CompoundTag nbt, HolderLookup.Provider provider) {
+        this.xpCount = nbt.getInt("xpCount");
+        this.isXPLVL = nbt.getBoolean("isXPLVL");
     }
-
 }

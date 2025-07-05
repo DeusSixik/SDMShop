@@ -1,6 +1,9 @@
 package net.sixk.sdmshop.shop.network;
 
-import net.sixk.sdmshop.shop.network.client.*;
+import net.sixk.sdmshop.shop.network.client.BuyShopTovarC2S;
+import net.sixk.sdmshop.shop.network.client.SellShopTovarC2S;
+import net.sixk.sdmshop.shop.network.client.UpdateTabDataC2S;
+import net.sixk.sdmshop.shop.network.client.UpdateTovarDataC2S;
 import net.sixk.sdmshop.shop.network.server.SendEditModeS2C;
 import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
 

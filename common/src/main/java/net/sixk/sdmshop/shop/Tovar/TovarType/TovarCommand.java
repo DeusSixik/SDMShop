@@ -1,12 +1,14 @@
 package net.sixk.sdmshop.shop.Tovar.TovarType;
 
 import dev.ftb.mods.ftblibrary.icon.Icon;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.sixik.sdmeconomy.api.EconomyAPI;
 import net.sixk.sdmshop.shop.Tovar.AbstractTovar;
 

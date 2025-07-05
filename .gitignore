@@ -8,3 +8,4 @@ neoforge/run/
 .gradle/
 .idea/
 .gradle
+build/

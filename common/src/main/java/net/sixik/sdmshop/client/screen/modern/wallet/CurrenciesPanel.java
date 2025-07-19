@@ -12,7 +12,7 @@ import net.sixik.sdmuilib.client.utils.misc.RGBA;
 
 public class CurrenciesPanel extends Panel {
 
-    public CurrencyReder currencyReder;
+    public CurrencyRender currencyRender;
 
     public CurrenciesPanel(Panel panel) {
         super(panel);
@@ -23,8 +23,8 @@ public class CurrenciesPanel extends Panel {
         int i = 0;
         for (CurrencyPlayerData.PlayerCurrency currency : EconomyAPI.getPlayerCurrencyClientData().currencies) {
             i++;
-            add(currencyReder = new CurrencyReder(this,currency));
-            currencyReder.setPosAndSize(2,2*i,parent.width/2 -4,20);
+            add(currencyRender = new CurrencyRender(this,currency));
+            currencyRender.setPosAndSize(2,2*i,parent.width/2 -11,20);
         }
     }
 

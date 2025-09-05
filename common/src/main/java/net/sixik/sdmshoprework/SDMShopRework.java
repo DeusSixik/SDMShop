@@ -18,6 +18,8 @@ import net.sixik.sdmshoprework.common.shop.type.integration.ShopQuestEntryType;
 import net.sixik.sdmshoprework.network.ShopNetwork;
 import org.slf4j.Logger;
 
+import java.text.DecimalFormat;
+
 public class SDMShopRework
 {
 	public static final String MODID = "sdmshoprework";
@@ -69,8 +71,19 @@ public class SDMShopRework
 
 	}
 
+	private static final DecimalFormat df = new DecimalFormat("#.0");
+
 	public static String moneyString(long money) {
-		return String.format("◎ %,d", money);
+		if (money < 1000) {
+			return String.format("◎ %d", money);
+		}
+		if (money < 1_000_000) {
+			return "◎ " + df.format(money / 1000.0) + "k";
+		}
+		if (money < 1_000_000_000) {
+			return "◎ " + df.format(money / 1_000_000.0) + "m";
+		}
+		return "◎ " + df.format(money / 1_000_000_000.0) + "b";
 	}
 
 	public static String moneyString(String money) {

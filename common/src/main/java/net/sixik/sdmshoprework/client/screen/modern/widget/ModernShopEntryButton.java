@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
+import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshoprework.SDMShopRework;
@@ -33,27 +34,27 @@ public class ModernShopEntryButton extends AbstractShopEntryButton {
     }
 
     @Override
+    public void addMouseOverText(TooltipList list) {
+        super.addMouseOverText(list);
+        if (entry != null) {
+            list.add(Component.literal(String.format("◎ %,d", entry.entryPrice)));
+        }
+    }
+
+    @Override
     public void draw(PoseStack graphics, Theme theme, int x, int y, int w, int h) {
         GuiHelper.setupDrawing();
-        int s = h >= 16 ? 16 : 8;
         this.drawBackground(graphics, theme, x, y, w, h);
 
-        int size = 0;
-
-
-
-
-
         if(entry != null) {
-            size = 16;
+            int size = 16;
             this.drawIcon(graphics, theme, x + size / 2, y + 2, w - size, h - size);
 
             RGBA.create(0,0,0,255 / 3).drawRoundFill(graphics, x + 2,y + w + 2, w - 4,8, 2);
 
-            Vector2 pos = new Vector2(0,0);
-            int centeredX = 0;
-            Vector2f textSize = new Vector2f(0,0);
-            int textWidth = 0;
+            Vector2 pos;
+            Vector2f textSize;
+            int textWidth;
 
             Component component = entry.isSell ?
                     Component.translatable("sdm.shop.entry.sell") :
@@ -62,7 +63,7 @@ public class ModernShopEntryButton extends AbstractShopEntryButton {
 
             textSize = TextRenderHelper.getTextRenderSize(component.getString(), w, 0.7f, 50);
             textWidth = (int) TextRenderHelper.getTextWidth(component.getString(), textSize.y);
-            centeredX = x + 2 + (w - 4 - textWidth) / 2;
+            int centeredX = x + 2 + (w - 4 - textWidth) / 2;
             pos = new Vector2(centeredX, y + h - Minecraft.getInstance().font.lineHeight - 1);
 
 
@@ -75,22 +76,22 @@ public class ModernShopEntryButton extends AbstractShopEntryButton {
 
             String textMoney = SDMShopRework.moneyString(entry.entryPrice);
 
+            float textScale = 0.7f;
+            textWidth = (int) TextRenderHelper.getTextWidth(textMoney, textScale);
 
-            textSize = TextRenderHelper.getTextRenderSize(textMoney, w - 4, 0.7f, 50);
+            int textX = x + 2 + (w - 4 - textWidth) / 2;
 
-            textWidth = (int) TextRenderHelper.getTextWidth(textMoney, textSize.y);
+            pos = new Vector2(textX, y + w + 2 + 1);
 
-            centeredX = x + 2 + (w - 4 - textWidth) / 2;
+            GLRenderHelper.pushScissor(graphics, x + 2, y + w + 2, w - 4, 8);
 
-            pos = new Vector2(centeredX, y + w + 2 + 1);
-            GLRenderHelper.pushScissor(graphics, pos.x, pos.y, w - 4, h - 4);
-
-            GLRenderHelper.pushTransform(graphics, pos, new Vector2(1, 1), textSize.y, 0);
+            GLRenderHelper.pushTransform(graphics, pos, new Vector2(1, 1), textScale, 0);
             theme.drawString(graphics, textMoney, pos.x, pos.y, theme.getContentColor(this.getWidgetType()), 2);
             GLRenderHelper.popTransform(graphics);
+            
             GLRenderHelper.popScissor(graphics);
         } else {
-            size = this.height / 2;
+            int size = this.height / 2;
             this.drawIcon(graphics, theme, x + size / 2, y + size / 2, w - size, h - size);
         }
     }

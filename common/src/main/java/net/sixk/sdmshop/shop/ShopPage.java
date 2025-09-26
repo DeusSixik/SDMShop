@@ -55,9 +55,9 @@ public class ShopPage extends BaseScreen {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();
         if (s) {
-            alpha += 0.005F;
+            alpha += 1f / Minecraft.getInstance().getFps();
         } else {
-            alpha -= 0.005F;
+            alpha -= 1f / Minecraft.getInstance().getFps();
         }
 
         if (alpha >= 1.0F || alpha <= 0.5F) {
@@ -84,6 +84,7 @@ public class ShopPage extends BaseScreen {
             }
         });
         add(tabPanel);
+        System.out.println(SDMShop.isEditMode());
         if (SDMShop.isEditMode()) {
             add(addTovarTab = new SimpleButton(this, Component.translatable("sdm_shop.shop_page.add_tab"), Icons.ADD, (simpleButton, mouseButton) -> {
                 (new AddTabPanel()).openGui();

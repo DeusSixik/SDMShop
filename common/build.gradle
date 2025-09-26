@@ -10,7 +10,7 @@ dependencies {
 
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
     modApi("dev.ftb.mods:ftb-library:2101.1.14") { transitive false }
-    modApi("curse.maven:sdm-economy-1102542:6528519")
+    modApi("curse.maven:sdm-economy-1102542:6770946")
     modApi "curse.maven:sdm-engine-core-964997:5968080"
     modApi("curse.maven:sdm-ui-lib-1095061:6515618")
 

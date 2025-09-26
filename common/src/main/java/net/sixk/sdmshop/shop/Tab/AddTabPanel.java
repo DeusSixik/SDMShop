@@ -23,7 +23,6 @@ import static dev.ftb.mods.ftblibrary.ui.misc.NordColors.*;
 public class AddTabPanel extends BaseScreen {
 
     public TextField title;
-    public TextField iconTxt;
     public SimpleButton addIcon;
     public SimpleTextButton apply;
     public SimpleTextButton cancel;
@@ -69,9 +68,8 @@ public class AddTabPanel extends BaseScreen {
     public void addWidgets() {
 
         add(title = new TextField(this));
-        add(iconTxt = new TextField(this));
         add(name);
-        add(addIcon = new SimpleButton(this, Component.translatable("sdm.shop.addTab.selectTab"), icon == null ? Icons.ADD : Icon.empty(), ((simpleButton, mouseButton) -> {
+        add(addIcon = new SimpleButton(this, Component.translatable("sdm.shop.addTab.addIconButton"), icon == null ? Icons.ADD : Icon.empty(), ((simpleButton, mouseButton) -> {
 
             ItemStackConfig item = new ItemStackConfig(false, false);
             AddTabPanel gui = (AddTabPanel) getGui();
@@ -143,8 +141,6 @@ public class AddTabPanel extends BaseScreen {
         cancel.setPosAndSize(getWidth() / 2 + 2, getHeight() / 2 + 24,37,12);
 
         title.setText(Component.translatable("sdm_shop.tab_panel.new_tab"));
-        iconTxt.setText(Component.translatable("sdm.shop.addTab.Icon"));
-        iconTxt.setPos(getWidth() /2 - 67,getHeight() / 2 - 21);
         if(tab != null) title.setText(Component.translatable("sdm_shop.tab_panel.new_tab_name"));
         title.setPos(getWidth() / 2 - title.getWidth() / 2 + 2 ,getHeight() / 2 - 35);
 

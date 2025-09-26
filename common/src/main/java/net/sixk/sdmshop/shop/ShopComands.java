@@ -41,41 +41,55 @@ public class ShopComands {
             )
             .then(Commands.literal("pay")
                 .then(Commands.argument("player", EntityArgument.player())
+                    .then(Commands.argument("currency", StringArgumentType.string()).suggests((context, builder) -> {
+                                for (String key : (EconomyAPI.getAllCurrency().value).currencies.stream().map(Currency::getName).toList()) {
+                                    builder.suggest(key);
+                                }
+                                return builder.buildFuture();
+                            })
+                            .then(Commands.argument("money", LongArgumentType.longArg(1L))
+                                    .executes(context -> pay(context, (context.getSource()).getPlayerOrException(), EntityArgument.getPlayer(context, "player"), LongArgumentType.getLong(context, "money")))
+                            )
+
+                    )
+
                 )
-                .then(Commands.argument("currency", StringArgumentType.string()).suggests((context, builder) -> {
-                    for (String key : (EconomyAPI.getAllCurrency().value).currencies.stream().map(Currency::getName).toList()) {
-                    builder.suggest(key);
-                    }
-                    return builder.buildFuture();
-                    })
-                )
-                .then(Commands.argument("money", LongArgumentType.longArg(1L)))
-                    .executes(context -> pay(context, (context.getSource()).getPlayerOrException(), EntityArgument.getPlayer(context, "player"), LongArgumentType.getLong(context, "money")))
             )
             .then(Commands.literal("add")
                     .requires(source -> source.hasPermission(2))
-                    .then(Commands.argument("player", EntityArgument.players()).then(Commands.argument("currency", StringArgumentType.string()).suggests((context, builder) -> {
-                           for (String key : (EconomyAPI.getAllCurrency().value).currencies.stream().map(Currency::getName).toList()) {
-                               builder.suggest(key);
-                           }
-                           return builder.buildFuture();
-                        }))
+                    .then(Commands.argument("player", EntityArgument.players())
+                            .then(Commands.argument("currency", StringArgumentType.string()).suggests((context, builder) -> {
+                                   for (String key : (EconomyAPI.getAllCurrency().value).currencies.stream().map(Currency::getName).toList()) {
+                                       builder.suggest(key);
+                                   }
+                                   return builder.buildFuture();
+                                })
+                                .then(Commands.argument("money", LongArgumentType.longArg())
+                                        .executes((context) -> add(context, EntityArgument.getPlayers(context, "player"), LongArgumentType.getLong(context, "money")))
+                                )
+                            )
+
+
                     )
-                    .then(Commands.argument("money", LongArgumentType.longArg()))
-                        .executes((context) -> add(context, EntityArgument.getPlayers(context, "player"), LongArgumentType.getLong(context, "money")))
+
             )
             .then(Commands.literal("set")
                     .requires(source -> source.hasPermission(2))
-                    .then(Commands.argument("player", EntityArgument.players()))
-                        .then(Commands.argument("currency", StringArgumentType.string()).suggests((context, builder) -> {
-                               for (String key : (EconomyAPI.getAllCurrency().value).currencies.stream().map(Currency::getName).toList()) {
-                                   builder.suggest(key);
-                               }
-                               return builder.buildFuture();
-                            })
-                        )
-                            .then(Commands.argument("money", LongArgumentType.longArg(0L)))
-                                .executes((context) -> set(context, EntityArgument.getPlayers(context, "player"), LongArgumentType.getLong(context, "money")))
+                    .then(Commands.argument("player", EntityArgument.players())
+                            .then(Commands.argument("currency", StringArgumentType.string()).suggests((context, builder) -> {
+                                        for (String key : (EconomyAPI.getAllCurrency().value).currencies.stream().map(Currency::getName).toList()) {
+                                            builder.suggest(key);
+                                        }
+                                        return builder.buildFuture();
+                                    })
+                                .then(Commands.argument("money", LongArgumentType.longArg(0L))
+                                        .executes((context) -> set(context, EntityArgument.getPlayers(context, "player"), LongArgumentType.getLong(context, "money")))
+                                )
+
+                            )
+                    )
+
+
             )
             .then(Commands.literal("open_shop")
                 .requires(source -> source.hasPermission(2))

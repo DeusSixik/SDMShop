@@ -49,5 +49,6 @@
   "sdm_shop.shop_page.reset_tabs" : "Reset tabs",
   "sdm_shop.shop_page.ghost_text" : "Search...",
   "sdm_shop.tab_panel.new_tab" : "New tab",
-  "sdm_shop.tab_panel.new_tab_name" : "New tab name"
+  "sdm_shop.tab_panel.new_tab_name" : "New tab name",
+  "sdm.shop.addTab.addIconButton" : "Select icon"
 }

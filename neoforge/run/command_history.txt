@@ -5,3 +5,7 @@
 /sdmshop set Dev test 12
 /sdmshop set Dev test 222
 /sdmshop set Dev test2 222
+/sdmshop edit_mode
+/sdmshop set @a sdmcoin 12
+/sdmshop edit_mode
+/sdmshop open_shop

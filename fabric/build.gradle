@@ -35,7 +35,7 @@ dependencies {
 
     modImplementation "curse.maven:sdm-engine-core-964997:5968177"
 
-    modImplementation "curse.maven:sdm-economy-1102542:6528517"
+    modImplementation "curse.maven:sdm-economy-1102542:6770945"
 
     modImplementation "curse.maven:sdm-ui-lib-1095061:6515618"
 

@@ -48,5 +48,6 @@
   "sdm_shop.shop_page.reset_tabs" : "Сбросить вкладки",
   "sdm_shop.shop_page.ghost_text" : "Поиск...",
   "sdm_shop.tab_panel.new_tab" : "Новая вкладка",
-  "sdm_shop.tab_panel.new_tab_name" : "Новое имя вкладки"
+  "sdm_shop.tab_panel.new_tab_name" : "Новое имя вкладки",
+  "sdm.shop.addTab.addIconButton" : "Выбрать иконку"
 }

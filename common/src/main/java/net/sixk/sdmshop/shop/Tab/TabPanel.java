@@ -26,10 +26,6 @@ public class TabPanel extends Panel {
             tabRender.setPos(0, 20 * n);
         }
 
-        /*
-            А ЗАЧЕМ ?????
-            В одном теле цикла нельзя ?
-         */
         for(n = 0; n < this.tabRenderList.size(); ++n) {
             (this.tabRenderList.get(n)).setSize(this.width - 1, 20);
         }

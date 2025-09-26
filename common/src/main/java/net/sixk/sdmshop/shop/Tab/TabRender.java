@@ -17,6 +17,7 @@ import net.sixk.sdmshop.SDMShop;
 import net.sixk.sdmshop.data.config.ConfigFile;
 import net.sixk.sdmshop.mixin.TextFieldMixin;
 import net.sixk.sdmshop.shop.Tovar.TovarList;
+import net.sixk.sdmshop.shop.modern.ModernAddTabPanel;
 import net.sixk.sdmshop.shop.network.client.UpdateTabDataC2S;
 import net.sixk.sdmshop.shop.network.client.UpdateTovarDataC2S;
 
@@ -69,6 +70,9 @@ public class TabRender extends Panel {
         add(tabName = new TextField(this));
         if (SDMShop.isEditMode()) {
             add(edit = new SimpleButton(this, Component.literal("edit"), Icons.SETTINGS, (simpleButton, mouseButton) -> {
+               if(ConfigFile.CLIENT.style)
+                (new ModernAddTabPanel(tab)).openGui();
+               else
                 (new AddTabPanel(tab)).openGui();
             }));
             edit.setPosAndSize(62, 3, 6, 6);

@@ -4,7 +4,9 @@ import net.sixk.sdmshop.shop.network.client.BuyShopTovarC2S;
 import net.sixk.sdmshop.shop.network.client.SellShopTovarC2S;
 import net.sixk.sdmshop.shop.network.client.UpdateTabDataC2S;
 import net.sixk.sdmshop.shop.network.client.UpdateTovarDataC2S;
+import net.sixk.sdmshop.shop.network.server.SendConfigS2C;
 import net.sixk.sdmshop.shop.network.server.SendEditModeS2C;
+import net.sixk.sdmshop.shop.network.server.SendOpenShopScreenS2C;
 import net.sixk.sdmshop.shop.network.server.SendShopDataS2C;
 
 public class ModNetwork {
@@ -18,6 +20,8 @@ public class ModNetwork {
         dev.ftb.mods.ftblibrary.util.NetworkHelper.registerC2S(UpdateTabDataC2S.TYPE,UpdateTabDataC2S.STREAM_CODEC,UpdateTabDataC2S::handle);
         dev.ftb.mods.ftblibrary.util.NetworkHelper.registerS2C(SendEditModeS2C.TYPE, SendEditModeS2C.STREAM_CODEC,SendEditModeS2C::handle);
         dev.ftb.mods.ftblibrary.util.NetworkHelper.registerC2S(SellShopTovarC2S.TYPE, SellShopTovarC2S.STREAM_CODEC,SellShopTovarC2S::handle);
+        dev.ftb.mods.ftblibrary.util.NetworkHelper.registerS2C(SendOpenShopScreenS2C.TYPE, SendOpenShopScreenS2C.STREAM_CODEC,SendOpenShopScreenS2C::handle);
+        dev.ftb.mods.ftblibrary.util.NetworkHelper.registerS2C(SendConfigS2C.TYPE, SendConfigS2C.STREAM_CODEC,SendConfigS2C::handle);
 
     }
 

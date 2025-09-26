@@ -40,12 +40,15 @@ public class ModernShopPageWalletPanel  extends Panel {
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.disableBlend();
-        if(s) {
-            alpha += 0.005f;
-        }else {
-            alpha -= 0.005f;
+        if (s) {
+            alpha += 1f / Minecraft.getInstance().getFps();
+        } else {
+            alpha -= 1f / Minecraft.getInstance().getFps();
         }
-        if(alpha >= 1 || alpha <= 0.5f) s = !s;
+
+        if (alpha >= 1.0F || alpha <= 0.5F) {
+            s = !s;
+        }
     }
 
     public ModernShopPageWalletPanel(Panel panel) {
@@ -76,7 +79,7 @@ public class ModernShopPageWalletPanel  extends Panel {
     public void setProperty(){
 
 
-        Vector2f size = TextRenderHelper.getTextRenderSize(Component.translatable("sdm.shop.modern.ui.wallet").getString(), (int) this.width, 1.0f, 50);
+        Vector2f size = TextRenderHelper.getTextRenderSize(Component.translatable("sdm_shop.player_basket.wallet").getString(), (int) this.width, 1.0f, 50);
 
 
         int w1 = (int) (this.width - size.x);
@@ -86,7 +89,7 @@ public class ModernShopPageWalletPanel  extends Panel {
         titel.setSize(this.width, this.height);
         titel.setMaxWidth(this.width);
 
-        titel.setText(Component.translatable("sdm.shop.modern.ui.wallet"));
+        titel.setText(Component.translatable("sdm_shop.player_basket.wallet"));
         titel.setScale(size.y);
     }
 }

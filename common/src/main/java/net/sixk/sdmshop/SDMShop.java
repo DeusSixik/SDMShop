@@ -116,11 +116,13 @@ public class SDMShop {
     public static boolean isEditMode(Player player) {
         CompoundTag nbt = EconomyAPI.getCustomData(player);
         if (nbt.contains("edit_mode")) {
+            System.out.println("1:" + nbt.getBoolean("edit_mode"));
             return nbt.getBoolean("edit_mode");
         } else {
             nbt.putBoolean("edit_mode", false);
             return false;
         }
+
     }
 
     public static boolean isEditMode() {

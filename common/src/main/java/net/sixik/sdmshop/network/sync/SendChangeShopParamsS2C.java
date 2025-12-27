@@ -19,7 +19,7 @@ public class SendChangeShopParamsS2C extends BaseS2CMessage {
     private final CompoundTag nbt;
 
     public SendChangeShopParamsS2C(BaseShop shop) {
-        this(shop.getId(), shop.getShopParams().serialize());
+        this(shop.getId(), shop.getParams().serialize());
     }
 
     public SendChangeShopParamsS2C(UUID shopId, CompoundTag nbt) {
@@ -56,7 +56,7 @@ public class SendChangeShopParamsS2C extends BaseS2CMessage {
         ShopDebugUtils.log("ShopParams: {}", nbt);
 
 
-        shop.getShopParams().deserialize(nbt);
+        shop.getParams().deserialize(nbt);
         shop.onChange();
 
     }

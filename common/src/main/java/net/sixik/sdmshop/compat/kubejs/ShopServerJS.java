@@ -48,19 +48,19 @@ public interface ShopServerJS {
     }
 
     default @Nullable ShopTab getShopTabByUUID(BaseShop shop, UUID tabId) {
-        return shop.findTabByUUID(tabId).orElse(null);
+        return shop.getTabOptional(tabId).orElse(null);
     }
 
     default @Nullable ShopEntry getShopEntryByUUID(BaseShop shop, UUID entryId) {
-        return shop.findShopEntryByUUID(entryId).orElse(null);
+        return shop.getEntryOptional(entryId).orElse(null);
     }
 
     default @Nullable List<ShopTab> getShopTabs(BaseShop shop) {
-        return shop.getTabsList();
+        return shop.getTabs();
     }
 
     default @Nullable List<ShopEntry> getShopEntries(BaseShop shop) {
-        return shop.getEntriesList();
+        return shop.getEntries();
     }
 
     default @Nullable ShopLimiter getLimiter() {

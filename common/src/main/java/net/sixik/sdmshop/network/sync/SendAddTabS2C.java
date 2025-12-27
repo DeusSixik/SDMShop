@@ -47,7 +47,7 @@ public class SendAddTabS2C extends BaseS2CMessage {
 
         ShopTab shopTab = new ShopTab(shop);
         shopTab.deserialize(nbt);
-        shop.getTabsList().add(shopTab);
+        shop.getTabs().add(shopTab);
         shop.onChange();
     }
 }

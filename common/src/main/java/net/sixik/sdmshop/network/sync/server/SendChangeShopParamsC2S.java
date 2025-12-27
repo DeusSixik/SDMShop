@@ -20,7 +20,7 @@ public class SendChangeShopParamsC2S extends BaseC2SMessage {
     private final CompoundTag nbt;
 
     public SendChangeShopParamsC2S(BaseShop shop) {
-        this(shop.getId(), shop.getShopParams().serialize());
+        this(shop.getId(), shop.getParams().serialize());
     }
 
     public SendChangeShopParamsC2S(UUID shopId, CompoundTag nbt) {
@@ -51,7 +51,7 @@ public class SendChangeShopParamsC2S extends BaseC2SMessage {
         SDMShopServer.InstanceOptional().flatMap(sdmShopServer -> sdmShopServer.getShop(shopId)).ifPresent(shop -> {
             ShopDebugUtils.log("ShopParams: {}", nbt);
 
-            shop.getShopParams().deserialize(nbt);
+            shop.getParams().deserialize(nbt);
             ShopNetworkUtils.changeShop(shop, new SendChangeShopParamsS2C(shopId, nbt), packetContext);
         });
     }

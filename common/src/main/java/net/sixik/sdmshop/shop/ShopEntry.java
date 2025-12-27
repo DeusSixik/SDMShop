@@ -342,10 +342,15 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
     @Override
     public boolean updateLimit(@Nullable Player player, int count) {
-        // 1. Если лимит выключен - разрешаем, но не записываем.
+
+        /*
+            If the limit is disabled, we allow it, but do not record it.
+         */
         if (!isLimiterActive()) return true;
 
-        // 2. Если лимит уже достигнут - запрещаем.
+        /*
+            If the limit has already been reached, we prohibit it.
+         */
         if (isLimitReached(player)) return false;
 
         Optional<ShopLimiter> limiterOpt = getShopLimiter();
@@ -353,18 +358,23 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
         ShopLimiter limiter = limiterOpt.get();
 
-        // Вычисляем сколько реально списываем (чтобы не уйти в минус, если count пришел кривой)
+        /*
+            We calculate how much we actually write off (so as not to go into the red if the count is skewed).
+         */
         int left = getObjectLimitLeft(player);
-        // Если left == MAX_VALUE (ошибка логики), берем count
+
+        /*
+            If left == MAX_VALUE (logic error), take count
+         */
         int v = (left == Integer.MAX_VALUE) ? count : Math.min(count, left);
 
-        // 3. ЗАПИСЬ В БАЗУ
-        // ВНИМАНИЕ: Для ShopTab используем addTabData!
-        // В старом коде ты писал в EntryData, это ошибка.
+        /*
+            Write to database
+         */
         if (player == null) {
-            limiter.addTabData(uuid, v);
+            limiter.addEntryData(uuid, v);
         } else {
-            limiter.addTabData(uuid, player.getGameProfile().getId(), v);
+            limiter.addEntryData(uuid, player.getGameProfile().getId(), v);
         }
 
         return true;

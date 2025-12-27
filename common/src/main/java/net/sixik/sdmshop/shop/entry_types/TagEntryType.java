@@ -202,7 +202,7 @@ public class TagEntryType extends AbstractEntryType implements CustomIcon {
         }
 
         if (showRandomIconFromTag) {
-            if (tick % ShopUtilsClient.getShop().getShopParams().getChangeIconSpeed() == 0) {
+            if (tick % ShopUtilsClient.getShop().getParams().getChangeIconSpeed() == 0) {
                 currentRenderIndex = (currentRenderIndex + 1) % size;
             }
             return ItemIcon.getItemIcon(tag.get(currentRenderIndex).value());

@@ -60,7 +60,7 @@ public class SendAddTabC2S extends BaseC2SMessage {
 
         ShopTab tab = new ShopTab(shop);
         tab.deserialize(nbt);
-        shop.getTabsList().add(tab);
+        shop.getTabs().add(tab);
         ShopNetworkUtils.changeShop(shop, new SendAddTabS2C(shopId, nbt), packetContext);
     }
 }

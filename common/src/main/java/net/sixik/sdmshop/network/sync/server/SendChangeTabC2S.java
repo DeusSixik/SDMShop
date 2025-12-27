@@ -52,7 +52,7 @@ public class SendChangeTabC2S extends BaseC2SMessage {
         if(optShop.isEmpty()) return;
         BaseShop shop = optShop.get();
 
-        shop.findTabByUUID(tabId).ifPresent(shopTab -> {
+        shop.getTabOptional(tabId).ifPresent(shopTab -> {
             shopTab.deserialize(nbt);
             ShopNetworkUtils.changeShop(shop, new SendChangeTabS2C(shopId, tabId, nbt), packetContext);
         });

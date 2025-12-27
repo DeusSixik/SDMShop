@@ -55,7 +55,7 @@ public class SendAddEntryC2S extends BaseC2SMessage {
 
         ShopEntry entry = new ShopEntry(shop);
         entry.deserialize(nbt);
-        shop.getEntriesList().add(entry);
+        shop.getEntries().add(entry);
         ShopNetworkUtils.changeShop(shop, new SendAddEntryS2C(shopId, nbt), packetContext);
     }
 }

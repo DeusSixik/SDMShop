@@ -36,7 +36,7 @@ public abstract class AbstractBuyerScreen extends BaseScreen implements RefreshS
         this.shopScreen = shopScreen;
         this.shopEntry = shopEntry.getShopEntry();
         if(this.shopEntry != null)
-            this.shopTab = shopScreen.currentShop.findTabByUUID(this.shopEntry.getTab()).orElseThrow(TabNotFoundException::new);
+            this.shopTab = shopScreen.currentShop.getTabOptional(this.shopEntry.getTab()).orElseThrow(TabNotFoundException::new);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class SendAddEntryS2C extends BaseS2CMessage {
 
         ShopEntry entry = new ShopEntry(shop);
         entry.deserialize(nbt);
-        shop.getEntriesList().add(entry);
+        shop.getEntries().add(entry);
         shop.onChange();
     }
 }

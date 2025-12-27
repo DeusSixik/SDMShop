@@ -6,6 +6,7 @@ import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.Widget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.sixik.sdmshop.api.ShopBase;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.client.screen.base.widgets.AbstractShopEntryButton;
@@ -62,9 +63,9 @@ public class ModernShopScreen extends AbstractShopScreen {
 
             boolean isClientEdit = ShopUtils.isEditModeClient();
 
-            boolean showBuyedEntries = currentShop.getShopParams().showEntryWitchCantBuy();
+            boolean showBuyedEntries = currentShop.getParams().showEntryWitchCantBuy();
 
-            for (ShopEntry entry : currentShop.findShopEntriesByTab(selectedTab)) {
+            for (ShopEntry entry : currentShop.getEntriesByTab(selectedTab)) {
 
                 boolean canExecute = entry.getEntryType().canExecute(Minecraft.getInstance().player, entry, 1);
                 boolean needHide = showBuyedEntries && !canExecute;
@@ -166,7 +167,7 @@ public class ModernShopScreen extends AbstractShopScreen {
         List<Widget> widgetList = new ArrayList<>();
         boolean isEditMode = ShopUtils.isEditModeClient();
         int y = 0;
-        for (ShopTab shopTab : currentShop.getTabsList()) {
+        for (ShopTab shopTab : currentShop.getTabs()) {
 
             if((shopTab.isLockedAll(shopTab) || shopTab.isLimitReached(Minecraft.getInstance().player)) && !isEditMode) continue;
 
@@ -272,7 +273,7 @@ public class ModernShopScreen extends AbstractShopScreen {
     }
 
     @Override
-    public void onShopChange(final BaseShop shop) {
+    public void handle(ShopBase base) {
         onRefresh();
     }
 

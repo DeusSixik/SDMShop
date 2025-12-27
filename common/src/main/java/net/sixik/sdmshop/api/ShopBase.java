@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.shop.ShopEntry;
+import net.sixik.sdmshop.shop.ShopParams;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.HashUtils;
 import net.sixik.sdmshop.utils.ListHelper;
@@ -20,8 +21,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import static net.sixik.sdmshop.old_api.MoveType.*;
 
 public interface ShopBase {
 
@@ -34,11 +33,17 @@ public interface ShopBase {
 
     UUID getId();
 
+    default String getIdString() {
+        return getId().toString();
+    }
+
+    ShopParams getParams();
+
     boolean isDirty();
 
     void setDirty(final boolean value);
 
-    List<ShopChangeListener> getListeners();
+    List<ShopChangeListener> getShopChangeListeners();
 
     /**
      * He says that there have been changes and subscribers need to be notified. It will work immediately without any checks
@@ -56,7 +61,7 @@ public interface ShopBase {
     }
 
     default void onChangeMethod() {
-        final List<ShopChangeListener> listeners = getListeners();
+        final List<ShopChangeListener> listeners = getShopChangeListeners();
 
         /*
             In order not to create an Iterator, we use 'for' with index
@@ -96,6 +101,11 @@ public interface ShopBase {
     String getVersion();
 
     /**
+     * Version for data validation
+     */
+    void setVersion(final String version);
+
+    /**
      * Calculates the Hash for the data so that its validity can be verified
      */
     default String calculateVersion() {
@@ -128,12 +138,12 @@ public interface ShopBase {
     /**
      * Saving/loading data
      */
-    Codec<ShopBase> codec();
+    <T extends ShopBase> Codec<T> codec();
 
     /**
      * Send/Read data from network
      */
-    default Codec<ShopBase> codecNetwork() {
+    default <T extends ShopBase> Codec<T> codecNetwork() {
         return codec();
     }
 
@@ -151,6 +161,15 @@ public interface ShopBase {
 
     default Optional<ShopTab> getTabOptional(final UUID tabId) {
         return Optional.ofNullable(getTab(tabId));
+    }
+
+    @Nullable
+    default ShopTab getTab(final ShopEntry entry) {
+       return getTab(entry.getTab());
+    }
+
+    default Optional<ShopTab> getTabOptional(final ShopEntry entry) {
+       return getTabOptional(entry.getTab());
     }
 
     @Nullable
@@ -192,6 +211,10 @@ public interface ShopBase {
 
     List<EntryChangeListener> getEntryChangeListeners();
 
+    default boolean addEntry(final ShopEntry entry) {
+        return addEntry(null, entry);
+    }
+
     default boolean addEntry(@Nullable final ShopTab tab, final ShopEntry entry) {
         if (entry == null) return false;
 
@@ -210,9 +233,13 @@ public interface ShopBase {
     }
 
     default RemoveResult removeEntry(final ShopEntry entryBase) {
+        return removeEntry(entryBase.getId());
+    }
+
+    default RemoveResult removeEntry(final UUID entryBase) {
         if (entryBase == null) return RemoveResult.FAIL;
 
-        final int idx = indexOfEntry(entryBase.getId());
+        final int idx = indexOfEntry(entryBase);
         if (idx < 0) return RemoveResult.FAIL;
 
         final ShopEntry removed = getEntries().remove(idx);
@@ -223,6 +250,58 @@ public interface ShopBase {
         onEntryRemove(removed, tab);
         setDirty(true);
         return new RemoveResult(true);
+    }
+
+    default RemoveResult removeEntry(final java.util.function.Predicate<ShopEntry> entryPredicate,
+                                     final java.util.function.Consumer<ShopEntry> onFind) {
+        if (entryPredicate == null) return RemoveResult.FAIL;
+        if (onFind == null) return removeEntry(entryPredicate);
+
+        final java.util.List<Integer> removedIndices = new java.util.ArrayList<>();
+        final java.util.List<ShopEntry> list = getEntries();
+
+        for (int i = 0; i < list.size(); i++) {
+            final ShopEntry entry = list.get(i);
+            if (entryPredicate.test(entry)) {
+                onFind.accept(entry);
+
+                final ShopEntry removed = list.remove(i);
+                removedIndices.add(i);
+
+                final ShopTab tab = getTab(removed.getTab());
+                if (tab == null) throw new NullPointerException("Tab is null!");
+                onEntryRemove(removed, tab);
+
+                setDirty(true);
+                return new RemoveResult(true, removedIndices);
+            }
+        }
+
+        return new RemoveResult(false, removedIndices);
+    }
+
+    default RemoveResult removeEntry(final java.util.function.Predicate<ShopEntry> entryPredicate) {
+        if (entryPredicate == null) return RemoveResult.FAIL;
+
+        final java.util.List<Integer> removedIndices = new java.util.ArrayList<>();
+        final java.util.List<ShopEntry> list = getEntries();
+
+        for (int i = 0; i < list.size(); i++) {
+            final ShopEntry entry = list.get(i);
+            if (entryPredicate.test(entry)) {
+                final ShopEntry removed = list.remove(i);
+                removedIndices.add(i);
+
+                final ShopTab tab = getTab(removed.getTab());
+                if (tab == null) throw new NullPointerException("Tab is null!");
+                onEntryRemove(removed, tab);
+
+                setDirty(true);
+                return new RemoveResult(true, removedIndices);
+            }
+        }
+
+        return new RemoveResult(false, removedIndices);
     }
 
     default void entryChange(final UUID entryId, final java.util.function.Consumer<ShopEntry> consumer) {
@@ -279,8 +358,8 @@ public interface ShopBase {
 
     List<TabChangeListener> getTabChangeListeners();
 
-    default void addTab(final ShopTab tab) {
-        if (tab == null) return;
+    default boolean addTab(final ShopTab tab) {
+        if (tab == null) return false;
 
         final int idx = indexOfTab(tab.getId());
         if (idx >= 0) getTabs().set(idx, tab);
@@ -288,12 +367,17 @@ public interface ShopBase {
 
         onTabAdd(tab);
         setDirty(true);
+        return true;
     }
 
     default RemoveResult removeTab(final ShopTab tab) {
+        return removeTab(tab.getId());
+    }
+
+    default RemoveResult removeTab(final UUID tab) {
         if (tab == null) return RemoveResult.FAIL;
 
-        final int idx = indexOfTab(tab.getId());
+        final int idx = indexOfTab(tab);
         if (idx < 0) return RemoveResult.FAIL;
 
         final ShopTab removed = getTabs().remove(idx);
@@ -343,48 +427,6 @@ public interface ShopBase {
         for (int i = 0; i < list.size(); i++) {
             list.get(i).handle(this, tab);
         }
-    }
-
-    @FunctionalInterface
-    interface ShopChangeListener {
-
-        void handle(ShopBase base);
-    }
-
-    @FunctionalInterface
-    interface EntryAddListener {
-
-        void handle(final ShopBase shop, final ShopEntry entry, final ShopTab tab);
-    }
-
-    @FunctionalInterface
-    interface EntryRemoveListener {
-
-        void handle(final ShopBase shop, final ShopEntry entry, final ShopTab tab);
-    }
-
-    @FunctionalInterface
-    interface EntryChangeListener {
-
-        void handle(final ShopBase shop, final ShopEntry entry, final ShopTab tab);
-    }
-
-    @FunctionalInterface
-    interface TabAddListener {
-
-        void handle(final ShopBase shop, final ShopTab tab);
-    }
-
-    @FunctionalInterface
-    interface TabRemoveListener {
-
-        void handle(final ShopBase shop, final ShopTab tab);
-    }
-
-    @FunctionalInterface
-    interface TabChangeListener {
-
-        void handle(final ShopBase shop, final ShopTab tab);
     }
 
     default boolean swapEntries(final UUID entryFrom, final UUID entryTo, final MoveType type) {
@@ -555,5 +597,47 @@ public interface ShopBase {
         ShopDebugUtils.log("Moved tab {} {}: {} -> {}",
                 tabId, direction, index, newIndex);
         return true;
+    }
+
+    @FunctionalInterface
+    interface ShopChangeListener {
+
+        void handle(ShopBase base);
+    }
+
+    @FunctionalInterface
+    interface EntryAddListener {
+
+        void handle(final ShopBase shop, final ShopEntry entry, final ShopTab tab);
+    }
+
+    @FunctionalInterface
+    interface EntryRemoveListener {
+
+        void handle(final ShopBase shop, final ShopEntry entry, final ShopTab tab);
+    }
+
+    @FunctionalInterface
+    interface EntryChangeListener {
+
+        void handle(final ShopBase shop, final ShopEntry entry, final ShopTab tab);
+    }
+
+    @FunctionalInterface
+    interface TabAddListener {
+
+        void handle(final ShopBase shop, final ShopTab tab);
+    }
+
+    @FunctionalInterface
+    interface TabRemoveListener {
+
+        void handle(final ShopBase shop, final ShopTab tab);
+    }
+
+    @FunctionalInterface
+    interface TabChangeListener {
+
+        void handle(final ShopBase shop, final ShopTab tab);
     }
 }

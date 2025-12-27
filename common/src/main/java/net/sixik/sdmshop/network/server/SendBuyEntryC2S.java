@@ -60,10 +60,10 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
             return;
         }
 
-        final ShopEntry entry = shop.findShopEntryByUUID(entryId).orElse(null);
+        final ShopEntry entry = shop.getEntryOptional(entryId).orElse(null);
         if (entry == null) return;
 
-        final ShopTab tab = shop.findTabByEntry(entry).orElse(null);
+        final ShopTab tab = shop.getTabOptional(entry).orElse(null);
         if (tab == null) return;
 
         context.queue(() -> processPurchase(player, shop, tab, entry));

@@ -57,7 +57,7 @@ public class SendChangeEntryC2S extends BaseC2SMessage {
         if(optShop.isEmpty()) return;
         BaseShop shop = optShop.get();
 
-        shop.findShopEntryByUUID(entryUuid).ifPresent(entry -> {
+        shop.getEntryOptional(entryUuid).ifPresent(entry -> {
             entry.deserialize(nbt);
             ShopNetworkUtils.changeShop(shop, new SendChangeEntryS2C(shopId, entryUuid, nbt), packetContext);
         });

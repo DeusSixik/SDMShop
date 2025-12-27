@@ -7,11 +7,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.sixik.sdmshop.api.ShopBase;
 import net.sixik.sdmshop.old_api.screen.BuyerScreenSupport;
 import net.sixik.sdmshop.old_api.screen.EntryCreateScreenSupport;
 import net.sixik.sdmshop.old_api.screen.InfoButtonSupport;
 import net.sixik.sdmshop.old_api.screen.RefreshSupport;
-import net.sixik.sdmshop.old_api.shop.ShopChangeListener;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.panels.AbstractShopEntryPanel;
 import net.sixik.sdmshop.client.screen.base.panels.AbstractShopTabPanel;
@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class AbstractShopScreen extends BaseScreen implements EntryCreateScreenSupport, ShopChangeListener, BuyerScreenSupport, RefreshSupport, InfoButtonSupport {
+public abstract class AbstractShopScreen extends BaseScreen implements EntryCreateScreenSupport, ShopBase.ShopChangeListener, BuyerScreenSupport, RefreshSupport, InfoButtonSupport {
 
     @Override public boolean drawDefaultBackground(GuiGraphics graphics) { return false; }
 
@@ -56,14 +56,14 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
         var value = super.onInit() && _init();
 
         if(value)
-            currentShop.addListener(this);
+            currentShop.getShopChangeListeners().add(this);
 
         return value;
     }
 
     @Override
     public void onClosed() {
-        currentShop.removeListener(this);
+        currentShop.getShopChangeListeners().remove(this);
         super.onClosed();
     }
 
@@ -75,7 +75,7 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
     protected void onConstruct() {
         if(selectedTab != null) return;
 
-        for (ShopTab shopTab : currentShop.getTabsList()) {
+        for (ShopTab shopTab : currentShop.getTabs()) {
             if(!shopTab.isLockedAll(shopTab) || ShopUtils.isEditModeClient()) {
                 selectedTab = shopTab.getId();
                 break;
@@ -93,15 +93,15 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
     }
 
     public Optional<ShopTab> getCurrentTab() {
-        return currentShop.findTabByUUID(selectedTab);
+        return currentShop.getTabOptional(selectedTab);
     }
 
     public Optional<ShopTab> getSelectedTabId() {
-        return currentShop.findTabByUUID(selectedShopTab);
+        return currentShop.getTabOptional(selectedShopTab);
     }
 
     public Optional<ShopEntry> getSelectedEntryId() {
-        return currentShop.findShopEntryByUUID(selectedEntryId);
+        return currentShop.getEntryOptional(selectedEntryId);
     }
 
     public void selectTab(UUID uuid) {

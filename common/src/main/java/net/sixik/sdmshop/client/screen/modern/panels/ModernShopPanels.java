@@ -100,7 +100,7 @@ public class ModernShopPanels {
 
 
                         ConfigGroup g = group.getOrCreateSubgroup("shop");
-                        shopScreen.currentShop.getShopParams().getConfig(g);
+                        shopScreen.currentShop.getParams().getConfig(g);
                         new SDMEditConfigScreen(group).openGui();
                     }
                 }

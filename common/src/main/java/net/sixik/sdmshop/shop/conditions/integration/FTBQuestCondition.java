@@ -14,6 +14,8 @@ import net.sixik.sdmshop.old_api.shop.ShopObject;
 
 public class FTBQuestCondition extends AbstractShopCondition {
 
+    public static final String QUEST_ID_KEY = "quest_id";
+
     protected long questID;
 
     public FTBQuestCondition() {
@@ -40,8 +42,9 @@ public class FTBQuestCondition extends AbstractShopCondition {
 
     @Override
     public void getConfig(ConfigGroup configGroup) {
-        configGroup.add("quest_id", new ConfigQuestObject((v) -> v instanceof Quest obj), FTBQuestsAPIImpl.INSTANCE.getQuestFile(false).get(questID), v -> {
-            if(v == null) return; questID = v.id;
+        configGroup.add("quest_id", new ConfigQuestObject<>((v) -> v instanceof Quest obj), FTBQuestsAPIImpl.INSTANCE.getQuestFile(true).get(questID), v -> {
+                    if (v == null) return;
+                    questID = v.id;
                 }, null)
                 .setNameKey("sdm.shop.conditions.quest_id");
     }
@@ -54,12 +57,12 @@ public class FTBQuestCondition extends AbstractShopCondition {
     @Override
     public CompoundTag serialize() {
         CompoundTag nbt = new CompoundTag();
-        nbt.putLong("quest_id", questID);
+        nbt.putLong(QUEST_ID_KEY, questID);
         return nbt;
     }
 
     @Override
     public void deserialize(CompoundTag tag) {
-        this.questID = tag.getLong("questID");
+        this.questID = tag.getLong(QUEST_ID_KEY);
     }
 }

@@ -118,7 +118,9 @@ public class FBTQuestEntryType extends AbstractEntryType {
 
     @Override
     public void getConfig(ConfigGroup group) {
-        group.add("quest_id", new ConfigQuestObject((v) -> v instanceof Quest obj), FTBQuestsAPIImpl.INSTANCE.getQuestFile(false).get(questID), v -> questID = v.id, null);
+        group.add("quest_id", new ConfigQuestObject<>((v) -> v instanceof Quest obj), FTBQuestsAPIImpl.INSTANCE.getQuestFile(true).get(questID), v -> {
+            if (v != null) questID = v.id;
+        }, null);
     }
 
     @Override

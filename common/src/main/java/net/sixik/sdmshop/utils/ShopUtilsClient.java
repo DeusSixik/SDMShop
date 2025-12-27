@@ -36,7 +36,7 @@ public class ShopUtilsClient {
     public static boolean moveShopEntry(BaseShop shop, UUID entry, MoveType type) {
         if(shop.moveEntry(entry, type)) {
             shop.onChange();
-            new SendMoveEntryC2S(shop.getUuid(), entry, EMPTY, type).sendToServer();
+            new SendMoveEntryC2S(shop.getId(), entry, EMPTY, type).sendToServer();
             return true;
         }
 
@@ -46,7 +46,7 @@ public class ShopUtilsClient {
     public static boolean moveShopTab(BaseShop shop, UUID entry, MoveType type) {
         if(shop.moveTab(entry, type)) {
             shop.onChange();
-            new SendMoveTabC2S(shop.getUuid(), entry, EMPTY, type).sendToServer();
+            new SendMoveTabC2S(shop.getId(), entry, EMPTY, type).sendToServer();
             return true;
         }
 
@@ -56,7 +56,7 @@ public class ShopUtilsClient {
     public static boolean swapShopEntries(BaseShop shop, UUID from, UUID to, MoveType type) {
         if(shop.swapEntries(from, to, type)) {
             shop.onChange();
-            new SendMoveEntryC2S(shop.getUuid(), from, to, type).sendToServer();
+            new SendMoveEntryC2S(shop.getId(), from, to, type).sendToServer();
             return true;
         }
         return false;
@@ -69,27 +69,27 @@ public class ShopUtilsClient {
     }
 
     public static void addEntry(BaseShop shop, ShopEntry entry) {
-        if(shop.addShopEntry(entry)) {
+        if(shop.addEntry(entry)) {
             shop.onChange();
             new SendAddEntryC2S(shop, entry).sendToServer();
         }
     }
 
     public static void removeEntry(BaseShop shop, ShopEntry entry) {
-        if(shop.removeShopEntry(entry).success()) {
+        if(shop.removeEntry(entry).success()) {
             shop.onChange();
             new SendRemoveEntryC2S(shop, entry).sendToServer();
         }
     }
 
     public static void syncEntry(BaseShop shop, ShopEntry entry) {
-        new SendChangeEntryC2S(shop.getUuid(), entry.getId(), entry.serialize()).sendToServer();
+        new SendChangeEntryC2S(shop.getId(), entry.getId(), entry.serialize()).sendToServer();
     }
 
     public static boolean swapShopTabs(BaseShop shop, UUID from, UUID to, MoveType type) {
         if(shop.swapTabs(from,to, type)) {
             shop.onChange();
-            new SendMoveTabC2S(shop.getUuid(), from, to, type).sendToServer();
+            new SendMoveTabC2S(shop.getId(), from, to, type).sendToServer();
             return true;
         }
         return false;
@@ -102,21 +102,21 @@ public class ShopUtilsClient {
     }
 
     public static void addTab(BaseShop shop, ShopTab tab) {
-        if(shop.addShopTab(tab)) {
+        if(shop.addTab(tab)) {
             shop.onChange();
             new SendAddTabC2S(shop, tab).sendToServer();
         }
     }
 
     public static void removeTab(BaseShop shop, ShopTab tab) {
-        if(shop.removeShopTab(tab).success()) {
+        if(shop.removeTab(tab).success()) {
             shop.onChange();
             new SendRemoveTabC2S(shop, tab).sendToServer();
         }
     }
 
     public static void syncTab(BaseShop shop, ShopTab tab) {
-        new SendChangeTabC2S(shop.getUuid(), tab.getId(), tab.serialize()).sendToServer();
+        new SendChangeTabC2S(shop.getId(), tab.getId(), tab.serialize()).sendToServer();
     }
 
     public static void addFavorite(ShopEntry entry) {

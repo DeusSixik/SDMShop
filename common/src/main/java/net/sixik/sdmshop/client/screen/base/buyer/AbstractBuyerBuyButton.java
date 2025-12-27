@@ -22,9 +22,9 @@ public abstract class AbstractBuyerBuyButton extends SimpleTextButton {
         if(mouseButton.isLeft()){
             var screen = getBuyerScreen();
 
-            ShopDebugUtils.log("Send buy packet: {}, {}, {}", screen.shopScreen.currentShop.getUuid(), screen.shopEntry.getId(), screen.count);
+            ShopDebugUtils.log("Send buy packet: {}, {}, {}", screen.shopScreen.currentShop.getId(), screen.shopEntry.getId(), screen.count);
 
-            new SendBuyEntryC2S(screen.shopScreen.currentShop.getUuid(), screen.shopEntry.getId(), screen.count).sendToServer();
+            new SendBuyEntryC2S(screen.shopScreen.currentShop.getId(), screen.shopEntry.getId(), screen.count).sendToServer();
             screen.shopScreen.onRefresh();
             screen.closeGui();
         }

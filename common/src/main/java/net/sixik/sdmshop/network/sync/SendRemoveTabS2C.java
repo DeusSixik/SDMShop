@@ -42,14 +42,14 @@ public class SendRemoveTabS2C extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         @Nullable BaseShop shop = SDMShopClient.CurrentShop;
-        if(shop == null || !Objects.equals(shop.getUuid(), shopId)) return;
+        if(shop == null || !Objects.equals(shop.getId(), shopId)) return;
 
-        if(!shop.removeShopTab(tabUuid).success()) {
+        if(!shop.removeTab(tabUuid).success()) {
             SDMShop.LOGGER.error("Can't remove shop tab {}", tabUuid);
             return;
         }
 
-        if(!shop.removeShopEntry(s -> Objects.equals(s.getTab(), tabUuid), entry -> {
+        if(!shop.removeEntry(s -> Objects.equals(s.getTab(), tabUuid), entry -> {
             SDMShopClient.userData.getEntries().remove(entry.getId());
         }).success()) {
             SDMShop.LOGGER.error("Can't remove shop tab entries {}", tabUuid);

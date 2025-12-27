@@ -16,6 +16,7 @@ import net.sixik.sdmshop.client.screen.modern.panels.ModernShopPanels;
 import net.sixik.sdmshop.client.screen.modern.panels.ModernShopTabPanel;
 import net.sixik.sdmshop.client.screen.modern.widgets.ModernShopEntryButton;
 import net.sixik.sdmshop.client.screen.modern.widgets.ModernShopTabButton;
+import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.ShopUtils;
@@ -67,7 +68,7 @@ public class ModernShopScreen extends AbstractShopScreen {
 
                 boolean canExecute = entry.getEntryType().canExecute(Minecraft.getInstance().player, entry, 1);
                 boolean needHide = showBuyedEntries && !canExecute;
-                boolean needHideClient = SDMShopClient.userData.showEntryWitchCantBuy(currentShop.getUuid()) && !canExecute;
+                boolean needHideClient = SDMShopClient.userData.showEntryWitchCantBuy(currentShop.getId()) && !canExecute;
 
                 if((needHide || needHideClient) && !isClientEdit) continue;
 
@@ -165,7 +166,7 @@ public class ModernShopScreen extends AbstractShopScreen {
         List<Widget> widgetList = new ArrayList<>();
         boolean isEditMode = ShopUtils.isEditModeClient();
         int y = 0;
-        for (ShopTab shopTab : currentShop.getShopTabs()) {
+        for (ShopTab shopTab : currentShop.getTabsList()) {
 
             if((shopTab.isLockedAll(shopTab) || shopTab.isLimitReached(Minecraft.getInstance().player)) && !isEditMode) continue;
 
@@ -271,7 +272,7 @@ public class ModernShopScreen extends AbstractShopScreen {
     }
 
     @Override
-    public void onShopChange() {
+    public void onShopChange(final BaseShop shop) {
         onRefresh();
     }
 

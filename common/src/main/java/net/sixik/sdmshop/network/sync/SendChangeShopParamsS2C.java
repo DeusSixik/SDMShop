@@ -19,7 +19,7 @@ public class SendChangeShopParamsS2C extends BaseS2CMessage {
     private final CompoundTag nbt;
 
     public SendChangeShopParamsS2C(BaseShop shop) {
-        this(shop.getUuid(), shop.getShopParams().serialize());
+        this(shop.getId(), shop.getShopParams().serialize());
     }
 
     public SendChangeShopParamsS2C(UUID shopId, CompoundTag nbt) {
@@ -48,8 +48,8 @@ public class SendChangeShopParamsS2C extends BaseS2CMessage {
         ShopDebugUtils.log("SendChangeShopParamsS2C ACCEPT");
 
         BaseShop shop = ShopUtilsClient.getShop();
-        if(shop == null || !Objects.equals(shop.getUuid(), shopId)) {
-            ShopDebugUtils.error("Can't sync shop params! {}, {}", shop != null ? shop.getUuid() : "null", shopId);
+        if(shop == null || !Objects.equals(shop.getId(), shopId)) {
+            ShopDebugUtils.error("Can't sync shop params! {}, {}", shop != null ? shop.getId() : "null", shopId);
             return;
         }
 

@@ -186,7 +186,7 @@ public class SyncAndOpenShopASK extends AbstractASKRequest {
         if(opt.isEmpty()) return new CompoundTag[0];
         CompoundTag nbt = new CompoundTag();
         nbt.putInt(STAGE_KEY, CLEAR_STAGE);
-        nbt.putUUID(SHOP_ID_KEY, opt.get().getUuid());
+        nbt.putUUID(SHOP_ID_KEY, opt.get().getId());
         return new CompoundTag[] { nbt };
     }
 

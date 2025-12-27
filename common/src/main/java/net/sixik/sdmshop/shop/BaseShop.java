@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
+public class BaseShop implements DataSerializerCompoundTag, ConfigSupport{
 
     public static int SPLITTER_SIZE = 20;
 
@@ -30,12 +30,12 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
 
     protected final ResourceLocation registryId;
     protected final UUID uuid;
-    protected List<ShopEntry> shopEntries = new ObjectArrayList<>();
-    protected List<ShopTab> shopTabs = new ObjectArrayList<>();
+    protected final List<ShopEntry> shopEntries = new ObjectArrayList<>();
+    protected final List<ShopTab> shopTabs = new ObjectArrayList<>();
 
     protected final ShopParams shopParams = new ShopParams();
 
-    protected List<ShopChangeListener> changeListeners = new ObjectArrayList<>();
+    protected final List<ShopChangeListener> changeListeners = new ObjectArrayList<>();
 
     public BaseShop(ResourceLocation registryId, UUID uuid) {
         this.registryId = registryId;
@@ -52,7 +52,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
     }
 
     public BaseShop onChange() {
-        changeListeners.forEach(ShopChangeListener::onShopChange);
+        changeListeners.forEach(s -> s.onShopChange(this));
         return this;
     }
 
@@ -83,8 +83,8 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
 
     @Override
     public void deserialize(CompoundTag tag) {
-        getShopEntries().clear();
-        getShopTabs().clear();
+        getEntriesList().clear();
+        getTabsList().clear();
 
         if(tag.contains(ENTRIES_KEY)) {
             ListTag entriesList = (ListTag) tag.get(ENTRIES_KEY);
@@ -93,7 +93,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
                 try {
                     ShopEntry entry = new ShopEntry(this);
                     entry.deserialize((CompoundTag) tag1);
-                    getShopEntries().add(entry);
+                    getEntriesList().add(entry);
                 } catch (Exception e) {
                     SDMEconomy.printStackTrace("Error when read ShopEntry", e);
                 }
@@ -107,7 +107,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
                 try {
                     ShopTab entry = new ShopTab(this);
                     entry.deserialize((CompoundTag) tag1);
-                    getShopTabs().add(entry);
+                    getTabsList().add(entry);
                 } catch (Exception e) {
                     SDMEconomy.printStackTrace("Error when read ShopTab", e);
                 }
@@ -121,15 +121,15 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
         return registryId;
     }
 
-    public UUID getUuid() {
+    public UUID getId() {
         return uuid;
     }
 
-    public List<ShopEntry> getShopEntries() {
+    public List<ShopEntry> getEntriesList() {
         return shopEntries;
     }
 
-    public List<ShopTab> getShopTabs() {
+    public List<ShopTab> getTabsList() {
         return shopTabs;
     }
 
@@ -147,13 +147,13 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
     }
 
     protected Optional<ShopTab> findTab(UUID uuid) {
-        return getShopTabs().stream()
+        return getTabsList().stream()
                 .filter(s -> s.uuid.equals(uuid))
                 .findFirst();
     }
 
     public Optional<ShopEntry> findShopEntryByUUID(UUID uuid) {
-        return getShopEntries().stream()
+        return getEntriesList().stream()
                 .filter(s -> Objects.equals(s.uuid, uuid))
                 .findFirst();
     }
@@ -165,24 +165,24 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
     }
 
     public List<ShopEntry> findShopEntriesByTab(UUID uuid) {
-        return getShopEntries().stream()
+        return getEntriesList().stream()
                 .filter(s -> s.ownerTab.equals(uuid))
                 .toList();
     }
 
-    public boolean addShopTab(ShopTab shopTab) {
-        getShopTabs().add(shopTab);
+    public boolean addTab(ShopTab shopTab) {
+        getTabsList().add(shopTab);
         return true;
     }
 
-    public RemoveResult removeShopTab(UUID uuid) {
+    public RemoveResult removeTab(UUID uuid) {
         List<Integer> removedIndices = new ArrayList<>();
         boolean removed = false;
 
-        for (int i = 0; i < getShopTabs().size(); i++) {
-            ShopTab tab = getShopTabs().get(i);
+        for (int i = 0; i < getTabsList().size(); i++) {
+            ShopTab tab = getTabsList().get(i);
             if (tab.uuid.equals(uuid)) {
-                getShopTabs().remove(i);
+                getTabsList().remove(i);
                 removed = true;
                 break;
             }
@@ -191,14 +191,14 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
         return new RemoveResult(removed, removedIndices);
     }
 
-    public RemoveResult removeShopTab(ShopTab shopTab) {
+    public RemoveResult removeTab(ShopTab shopTab) {
         List<Integer> removedIndices = new ArrayList<>();
         boolean removed = false;
 
-        for (int i = 0; i < getShopTabs().size(); i++) {
-            ShopTab tab = getShopTabs().get(i);
+        for (int i = 0; i < getTabsList().size(); i++) {
+            ShopTab tab = getTabsList().get(i);
             if (tab == shopTab || tab.uuid.equals(shopTab.uuid)) {
-                getShopTabs().remove(i);
+                getTabsList().remove(i);
                 removed = true;
                 break;
             }
@@ -207,19 +207,19 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
         return new RemoveResult(removed, removedIndices);
     }
 
-    public boolean addShopEntry(ShopEntry shopEntry) {
-        getShopEntries().add(shopEntry);
+    public boolean addEntry(ShopEntry shopEntry) {
+        getEntriesList().add(shopEntry);
         return true;
     }
 
-    public RemoveResult removeShopEntry(UUID uuid) {
+    public RemoveResult removeEntry(UUID uuid) {
         List<Integer> removedIndices = new ArrayList<>();
         boolean removed = false;
 
-        for (int i = 0; i < getShopEntries().size(); i++) {
-            ShopEntry entry = getShopEntries().get(i);
+        for (int i = 0; i < getEntriesList().size(); i++) {
+            ShopEntry entry = getEntriesList().get(i);
             if (entry.uuid.equals(uuid)) {
-                getShopEntries().remove(i);
+                getEntriesList().remove(i);
                 removed = true;
                 break;
             }
@@ -228,14 +228,14 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
         return new RemoveResult(removed, removedIndices);
     }
 
-    public RemoveResult removeShopEntry(ShopEntry shopEntry) {
+    public RemoveResult removeEntry(ShopEntry shopEntry) {
         List<Integer> removedIndices = new ArrayList<>();
         boolean removed = false;
 
-        for (int i = 0; i < getShopEntries().size(); i++) {
-            ShopEntry entry = getShopEntries().get(i);
+        for (int i = 0; i < getEntriesList().size(); i++) {
+            ShopEntry entry = getEntriesList().get(i);
             if (entry == shopEntry || entry.uuid.equals(shopEntry.uuid)) {
-                getShopEntries().remove(i);
+                getEntriesList().remove(i);
                 removed = true;
                 break;
             }
@@ -244,15 +244,15 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
         return new RemoveResult(removed, removedIndices);
     }
 
-    public RemoveResult removeShopEntry(Predicate<ShopEntry> entryPredicate, Consumer<ShopEntry> onFind) {
+    public RemoveResult removeEntry(Predicate<ShopEntry> entryPredicate, Consumer<ShopEntry> onFind) {
         List<Integer> removedIndices = new ArrayList<>();
         boolean removed = false;
 
-        for (int i = 0; i < getShopEntries().size(); i++) {
-            ShopEntry entry = getShopEntries().get(i);
+        for (int i = 0; i < getEntriesList().size(); i++) {
+            ShopEntry entry = getEntriesList().get(i);
             if (entryPredicate.test(entry)) {
                 onFind.accept(entry);
-                getShopEntries().remove(i);
+                getEntriesList().remove(i);
                 removed = true;
                 break;
             }
@@ -261,14 +261,14 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
         return new RemoveResult(removed, removedIndices);
     }
 
-    public RemoveResult removeShopEntry(Predicate<ShopEntry> entryPredicate) {
+    public RemoveResult removeEntry(Predicate<ShopEntry> entryPredicate) {
         List<Integer> removedIndices = new ArrayList<>();
         boolean removed = false;
 
-        for (int i = 0; i < getShopEntries().size(); i++) {
-            ShopEntry entry = getShopEntries().get(i);
+        for (int i = 0; i < getEntriesList().size(); i++) {
+            ShopEntry entry = getEntriesList().get(i);
             if (entryPredicate.test(entry)) {
-                getShopEntries().remove(i);
+                getEntriesList().remove(i);
                 removed = true;
                 break;
             }
@@ -433,19 +433,19 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport {
             if(isTab) {
                 ShopTab shopTab = new ShopTab(this);
                 shopTab.deserialize(compoundTag);
-                getShopTabs().add(shopTab);
+                getTabsList().add(shopTab);
             } else {
                 ShopEntry shopEntry = new ShopEntry(this);
                 shopEntry.deserialize(compoundTag);
-                getShopEntries().add(shopEntry);
+                getEntriesList().add(shopEntry);
             }
         }
     }
 
 
     public void clearData() {
-        getShopEntries().clear();
-        getShopTabs().clear();
+        getEntriesList().clear();
+        getTabsList().clear();
 
         onChange();
     }

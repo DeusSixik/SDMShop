@@ -46,7 +46,7 @@ public class SendChangeTabS2C extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         @Nullable BaseShop shop = SDMShopClient.CurrentShop;
-        if(shop == null || !Objects.equals(shop.getUuid(), shopId)) return;
+        if(shop == null || !Objects.equals(shop.getId(), shopId)) return;
 
         shop.findTabByUUID(tabId).ifPresent(shopTab -> {
             shopTab.deserialize(nbt);

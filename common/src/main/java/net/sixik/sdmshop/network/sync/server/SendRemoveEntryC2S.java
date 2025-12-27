@@ -22,7 +22,7 @@ public class SendRemoveEntryC2S extends BaseC2SMessage {
     private final UUID entryUuid;
 
     public SendRemoveEntryC2S(BaseShop shop, ShopEntry entry) {
-        this(shop.getUuid(), entry.getId());
+        this(shop.getId(), entry.getId());
     }
 
     public SendRemoveEntryC2S(UUID shopId, UUID entryUuid) {
@@ -54,7 +54,7 @@ public class SendRemoveEntryC2S extends BaseC2SMessage {
         if(optShop.isEmpty()) return;
 
         BaseShop shop = optShop.get();
-        if(!shop.removeShopEntry(entryUuid).success()) {
+        if(!shop.removeEntry(entryUuid).success()) {
             SDMShop.LOGGER.warn("Can't remove shop entry {} he not exists!", entryUuid);
             return;
         }

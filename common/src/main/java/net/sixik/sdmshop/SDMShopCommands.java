@@ -3,7 +3,6 @@ package net.sixik.sdmshop;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.LiteralMessage;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
-import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.ChatFormatting;
@@ -101,13 +100,13 @@ public class SDMShopCommands {
         if (profiles != null) {
             for(ServerPlayer profile : profiles) {
                 new SyncAndOpenShopASK(null).startRequest(profile,
-                        SDMShopServer.Instance().getShop(SDMShopServer.fromString(shopId)).get().getUuid()
+                        SDMShopServer.Instance().getShop(SDMShopServer.fromString(shopId)).get().getId()
                 );
 //                (new SendOpenShopS2C(true)).sendTo(profile);
             }
         } else if (source.getPlayer() != null) {
             new SyncAndOpenShopASK(null).startRequest(source.getPlayer(),
-                    SDMShopServer.Instance().getShop(SDMShopServer.fromString(shopId)).get().getUuid()
+                    SDMShopServer.Instance().getShop(SDMShopServer.fromString(shopId)).get().getId()
             );
 
 //            (new SendOpenShopS2C(true)).sendTo(source.getPlayer());

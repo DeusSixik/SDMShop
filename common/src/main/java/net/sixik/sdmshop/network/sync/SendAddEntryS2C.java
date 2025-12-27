@@ -43,11 +43,11 @@ public class SendAddEntryS2C extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         @Nullable BaseShop shop = SDMShopClient.CurrentShop;
-        if(shop == null || !Objects.equals(shop.getUuid(), shopId)) return;
+        if(shop == null || !Objects.equals(shop.getId(), shopId)) return;
 
         ShopEntry entry = new ShopEntry(shop);
         entry.deserialize(nbt);
-        shop.getShopEntries().add(entry);
+        shop.getEntriesList().add(entry);
         shop.onChange();
     }
 }

@@ -23,7 +23,7 @@ public class SendChangeEntryC2S extends BaseC2SMessage {
     private final CompoundTag nbt;
 
     public SendChangeEntryC2S(BaseShop shop, ShopEntry entry) {
-        this(shop.getUuid(), entry.getId(), entry.serialize());
+        this(shop.getId(), entry.getId(), entry.serialize());
     }
 
     public SendChangeEntryC2S(UUID shopId, UUID entryUuid, CompoundTag nbt) {

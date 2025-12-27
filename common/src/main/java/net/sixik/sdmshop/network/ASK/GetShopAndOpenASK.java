@@ -38,7 +38,7 @@ public class GetShopAndOpenASK extends AbstractASKRequest {
             if(opt.isEmpty()) {
                 packetContext.getPlayer().sendSystemMessage(Component.literal("Can't open shop. Because not found! [" + id + "]").withStyle(ChatFormatting.RED));
             } else {
-                new SyncAndOpenShopASK(null).startRequest((ServerPlayer) packetContext.getPlayer(), opt.get().getUuid());
+                new SyncAndOpenShopASK(null).startRequest((ServerPlayer) packetContext.getPlayer(), opt.get().getId());
             }
         }
     }

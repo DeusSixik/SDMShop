@@ -43,11 +43,11 @@ public class SendAddTabS2C extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         @Nullable BaseShop shop = SDMShopClient.CurrentShop;
-        if(shop == null || !Objects.equals(shop.getUuid(), shopId)) return;
+        if(shop == null || !Objects.equals(shop.getId(), shopId)) return;
 
         ShopTab shopTab = new ShopTab(shop);
         shopTab.deserialize(nbt);
-        shop.getShopTabs().add(shopTab);
+        shop.getTabsList().add(shopTab);
         shop.onChange();
     }
 }

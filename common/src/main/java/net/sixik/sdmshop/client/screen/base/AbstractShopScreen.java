@@ -75,7 +75,7 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
     protected void onConstruct() {
         if(selectedTab != null) return;
 
-        for (ShopTab shopTab : currentShop.getShopTabs()) {
+        for (ShopTab shopTab : currentShop.getTabsList()) {
             if(!shopTab.isLockedAll(shopTab) || ShopUtils.isEditModeClient()) {
                 selectedTab = shopTab.getId();
                 break;

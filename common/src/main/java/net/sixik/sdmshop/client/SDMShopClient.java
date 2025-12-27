@@ -171,7 +171,7 @@ public class SDMShopClient {
         @Override
         public void getConfig(ConfigGroup group) {
             if(CurrentShop == null) return;
-            ShopParams value = paramsMap.computeIfAbsent(CurrentShop.getUuid(), s -> new ShopParams());
+            ShopParams value = paramsMap.computeIfAbsent(CurrentShop.getId(), s -> new ShopParams());
             value.getClientConfig(group);
         }
     }

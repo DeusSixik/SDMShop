@@ -20,7 +20,7 @@ public class SendChangeShopParamsC2S extends BaseC2SMessage {
     private final CompoundTag nbt;
 
     public SendChangeShopParamsC2S(BaseShop shop) {
-        this(shop.getUuid(), shop.getShopParams().serialize());
+        this(shop.getId(), shop.getShopParams().serialize());
     }
 
     public SendChangeShopParamsC2S(UUID shopId, CompoundTag nbt) {

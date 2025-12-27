@@ -65,7 +65,7 @@ public class SDMShopServer implements DataSaver {
 
         if(opt.isEmpty()) return false;
         BaseShop shop = opt.get();
-        ShopMap.remove(shop.getUuid());
+        ShopMap.remove(shop.getId());
         removeFile(shop);
         save(server);
         return true;
@@ -92,7 +92,7 @@ public class SDMShopServer implements DataSaver {
 
     public BaseShop createShop(ResourceLocation shopId) {
         BaseShop shop = new BaseShop(shopId, UUID.randomUUID());
-        ShopMap.put(shop.getUuid(), shop);
+        ShopMap.put(shop.getId(), shop);
 
         save(server);
         return shop;
@@ -115,7 +115,7 @@ public class SDMShopServer implements DataSaver {
     }
 
     public List<UUID> getAllShopUUIDs() {
-        return ShopMap.values().stream().map(BaseShop::getUuid).toList();
+        return ShopMap.values().stream().map(BaseShop::getId).toList();
     }
 
     protected void createDefault() {
@@ -123,10 +123,10 @@ public class SDMShopServer implements DataSaver {
         if(Platform.isDevelopmentEnvironment()) {
             UUID ownerTab = UUID.randomUUID();
 
-            defaultShop.addShopTab(new ShopTab(defaultShop, ownerTab));
+            defaultShop.addTab(new ShopTab(defaultShop, ownerTab));
 
             for (int i = 0; i < 100; i++) {
-                defaultShop.addShopEntry(new ShopEntry(defaultShop, ownerTab));
+                defaultShop.addEntry(new ShopEntry(defaultShop, ownerTab));
             }
         }
     }
@@ -174,7 +174,7 @@ public class SDMShopServer implements DataSaver {
 
         getShop(shopId).ifPresent(shop -> {
             try {
-                File file = new File(data.toFile(), shop.getUuid().toString() + ".data");
+                File file = new File(data.toFile(), shop.getId().toString() + ".data");
                 NbtIo.write(shop.serialize(), file);
             } catch (IOException e) {
                 SDMEconomy.printStackTrace("Error writing file " + ShopLimiter.FILE_NAME, e);
@@ -196,7 +196,7 @@ public class SDMShopServer implements DataSaver {
                         UUID uuid = nbt.getUUID("uuid");
                         BaseShop shopBase = new BaseShop(registryId, uuid);
                         shopBase.deserialize(nbt);
-                        ShopMap.put(shopBase.getUuid(), shopBase);
+                        ShopMap.put(shopBase.getId(), shopBase);
                     }
                 } catch (Exception e) {
                     SDMEconomy.printStackTrace("Error reading file " + String.valueOf(file), e);
@@ -225,7 +225,7 @@ public class SDMShopServer implements DataSaver {
     }
 
     protected void removeFile(BaseShop base) {
-        Path data = SDMShopPaths.getModFolder().resolve(SHOP_FOLDER_DATA).resolve(base.getUuid().toString() + ".data");
+        Path data = SDMShopPaths.getModFolder().resolve(SHOP_FOLDER_DATA).resolve(base.getId().toString() + ".data");
         if(!data.toFile().exists())
             return;
 

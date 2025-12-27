@@ -22,7 +22,7 @@ public class SendAddEntryC2S extends BaseC2SMessage {
     private final CompoundTag nbt;
 
     public SendAddEntryC2S(BaseShop shop, ShopEntry entry) {
-        this(shop.getUuid(), entry.serialize());
+        this(shop.getId(), entry.serialize());
     }
 
     public SendAddEntryC2S(UUID shopId, CompoundTag nbt) {
@@ -55,7 +55,7 @@ public class SendAddEntryC2S extends BaseC2SMessage {
 
         ShopEntry entry = new ShopEntry(shop);
         entry.deserialize(nbt);
-        shop.getShopEntries().add(entry);
+        shop.getEntriesList().add(entry);
         ShopNetworkUtils.changeShop(shop, new SendAddEntryS2C(shopId, nbt), packetContext);
     }
 }

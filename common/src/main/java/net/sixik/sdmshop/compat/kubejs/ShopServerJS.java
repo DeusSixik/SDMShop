@@ -56,11 +56,11 @@ public interface ShopServerJS {
     }
 
     default @Nullable List<ShopTab> getShopTabs(BaseShop shop) {
-        return shop.getShopTabs();
+        return shop.getTabsList();
     }
 
     default @Nullable List<ShopEntry> getShopEntries(BaseShop shop) {
-        return shop.getShopEntries();
+        return shop.getEntriesList();
     }
 
     default @Nullable ShopLimiter getLimiter() {

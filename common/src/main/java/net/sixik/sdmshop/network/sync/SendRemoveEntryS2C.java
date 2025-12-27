@@ -42,9 +42,9 @@ public class SendRemoveEntryS2C extends BaseS2CMessage {
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
         @Nullable BaseShop shop = SDMShopClient.CurrentShop;
-        if(shop == null || !Objects.equals(shop.getUuid(), shopId)) return;
+        if(shop == null || !Objects.equals(shop.getId(), shopId)) return;
 
-        if(!shop.removeShopEntry(entryUuid).success()) {
+        if(!shop.removeEntry(entryUuid).success()) {
             SDMShop.LOGGER.warn("Can't remove shop entry {} he not exists!", entryUuid);
         } else {
             if(SDMShopClient.userData.getEntries().remove(entryUuid)) {

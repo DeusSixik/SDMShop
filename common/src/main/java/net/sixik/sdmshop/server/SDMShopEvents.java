@@ -2,11 +2,7 @@ package net.sixik.sdmshop.server;
 
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
-import net.sixik.sdmshop.SDMShopConstants;
-import net.sixik.sdmshop.network.async.AsyncServerTasks;
 import net.sixik.sdmshop.network.sync.SendLimiterS2C;
-
-import java.util.UUID;
 
 public class SDMShopEvents {
 
@@ -18,9 +14,9 @@ public class SDMShopEvents {
         });
 
         PlayerEvent.PLAYER_JOIN.register(serverPlayer -> {
-            for (UUID allShopUUID : SDMShopServer.Instance().getAllShopUUIDs()) {
-                AsyncServerTasks.syncShopByCache(serverPlayer, SDMShopServer.Instance().getShop(allShopUUID).get());
-            }
+//            for (UUID allShopUUID : SDMShopServer.Instance().getAllShopUUIDs()) {
+//                AsyncServerTasks.syncShopByCache(serverPlayer, SDMShopServer.Instance().getShop(allShopUUID).get());
+//            }
 
             new SendLimiterS2C(SDMShopServer.Instance().getShopLimiter().serializeClient(serverPlayer)).sendTo(serverPlayer);
         });

@@ -622,13 +622,13 @@ public interface ShopBase {
     @FunctionalInterface
     interface EntryBuyListener {
 
-        void handle(final ShopBase base, final ShopEntry entry, final ShopTab tab, final ServerPlayer player);
+        void handle(final ShopBase base, final ShopEntry entry, final ShopTab tab, final ServerPlayer player, int count);
     }
 
     @FunctionalInterface
     interface EntrySellListener {
 
-        void handle(final ShopBase base, final ShopEntry entry, final ShopTab tab, final ServerPlayer player);
+        void handle(final ShopBase base, final ShopEntry entry, final ShopTab tab, final ServerPlayer player, int count);
     }
 
     @FunctionalInterface

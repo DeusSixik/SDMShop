@@ -22,6 +22,7 @@ public class ShopConfig {
     public static final BooleanValue SEND_NOTIFY;
     public static final StringValue DEFAULT_SHOP_ID;
     public static final BooleanValue SHOW_ADMIN_MESSAGES;
+    public static final BooleanValue USE_CACHED_SHOP_DATA;
 
 
     static {
@@ -31,5 +32,8 @@ public class ShopConfig {
         SEND_NOTIFY = CONFIG.addBoolean("send_notify", true);
         DEFAULT_SHOP_ID = CONFIG.addString("default_shop_id", "default");
         SHOW_ADMIN_MESSAGES = CONFIG.addBoolean("show_admin_messages", true);
+
+        var group = CONFIG.addGroup("caching");
+        USE_CACHED_SHOP_DATA = group.addBoolean("use_cached_shop_data", true).comment("Allows you to reduce the load on the network by caching store data on the player's client. In this case, the player will be able to copy your store data without any obstacles.");
     }
 }

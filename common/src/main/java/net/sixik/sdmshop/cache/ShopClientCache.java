@@ -149,12 +149,7 @@ public class ShopClientCache {
 
             final Path tmp = serverCacheFolder.resolve(shopId.toString() + EXTENSION + ".tmp");
 
-            try (var out = Files.newOutputStream(tmp,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.TRUNCATE_EXISTING,
-                    StandardOpenOption.WRITE)) {
-                net.minecraft.nbt.NbtIo.writeCompressed(tag, out);
-            }
+            net.minecraft.nbt.NbtIo.write(tag, tmp.toFile());
 
             try {
                 Files.move(tmp, file,

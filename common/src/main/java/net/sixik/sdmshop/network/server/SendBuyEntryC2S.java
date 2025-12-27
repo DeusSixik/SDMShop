@@ -125,8 +125,8 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
             return;
         }
 
-        if(entry.getType().isSell()) ShopEvents.ENTRY_SELL_EVENT.invoker().handle(shop, entry, tab, player);
-        else ShopEvents.ENTRY_BUY_EVENT.invoker().handle(shop, entry, tab, player);
+        if(entry.getType().isSell()) ShopEvents.ENTRY_SELL_EVENT.invoker().handle(shop, entry, tab, player, safeCount);
+        else ShopEvents.ENTRY_BUY_EVENT.invoker().handle(shop, entry, tab, player, safeCount);
 
         /*
             UPDATING DATA (Only after a successful transaction!)

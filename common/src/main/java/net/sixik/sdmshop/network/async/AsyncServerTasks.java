@@ -45,7 +45,10 @@ public class AsyncServerTasks {
             return buf;
         }).thenAcceptAsync(response -> {
             boolean isDataCorrect = response.readBoolean();
-            if(isDataCorrect) return;
+            if(isDataCorrect) {
+                System.out.println("Player have cache");
+                return;
+            }
 
             AsyncBridge.askPlayer(player, SYNC_SHOP, buf -> {
                 buf.writeResourceLocation(shopBase.getRegistryId());

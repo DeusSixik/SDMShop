@@ -2,6 +2,7 @@ package net.sixik.sdmshop.compat;
 
 import dev.architectury.platform.Platform;
 import net.sixik.sdmshop.compat.ftbquests.FTBIntegrationHelper;
+import net.sixik.sdmshop.compat.kubejs.SDMShopKubeJS;
 
 public class SDMShopIntegration {
 
@@ -18,6 +19,9 @@ public class SDMShopIntegration {
         }
         pstLoaded = Platform.isModLoaded("skilltree");
 
+        if(kubejsLoaded) {
+            SDMShopKubeJS.initPlugin();
+        }
     }
 
     public static boolean isFtbQuestLoaded() {

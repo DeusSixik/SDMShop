@@ -4,16 +4,25 @@ import com.mojang.logging.LogUtils;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.sixik.sdmeconomy.currencies.CustomCurrencies;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.compat.SDMShopIntegration;
 import net.sixik.sdmshop.config.ShopConfig;
 import net.sixik.sdmshop.currencies.SDMCoin;
 import net.sixik.sdmshop.network.SDMShopNetwork;
+import net.sixik.sdmshop.network.async.AsyncBridge;
+import net.sixik.sdmshop.network.async.AsyncServerTasks;
+import net.sixik.sdmshop.network.async.BlobTransfer;
 import net.sixik.sdmshop.registers.ShopContentRegister;
 import net.sixik.sdmshop.registers.ShopItemRegisters;
 import net.sixik.sdmshop.server.SDMShopEvents;
+import net.sixik.sdmshop.server.SDMShopServer;
+import net.sixik.sdmshop.shop.BaseShop;
 import org.slf4j.Logger;
+
+import java.util.UUID;
 
 public final class SDMShop {
     public static final String MODID = "sdmshop";
@@ -32,6 +41,10 @@ public final class SDMShop {
         CommandRegistrationEvent.EVENT.register(SDMShopCommands::registerCommands);
         ShopItemRegisters.ITEMS.register();
         SDMShopIntegration.init();
+
+        AsyncBridge.init();
+        BlobTransfer.init();
+        AsyncServerTasks.init();
 
         EnvExecutor.runInEnv(Env.CLIENT, () -> SDMShopClient::init);
     }

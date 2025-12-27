@@ -3,7 +3,6 @@ package net.sixik.sdmshop.registers;
 import dev.ftb.mods.ftblibrary.config.NameMap;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.old_api.Constructor;
-import net.sixik.sdmshop.old_api.network.AbstractASKRequest;
 import net.sixik.sdmshop.old_api.shop.AbstractEntrySellerType;
 import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.old_api.shop.AbstractShopCondition;
@@ -23,7 +22,6 @@ public class ShopContentRegister {
     protected static final Map<String, Constructor<? extends AbstractShopCondition>> CONDITIONS = new LinkedHashMap<>();
     protected static final Map<String, Supplier<AbstractEntrySellerType<?>>> SELLER_TYPES = new LinkedHashMap<>();
     protected static final Map<String, Function<ShopEntry, AbstractEntryType>> ENTRY_TYPES = new LinkedHashMap<>();
-    protected static final Map<String, Function<Void, AbstractASKRequest>> REQUESTS = new HashMap<>();
 
     public static void registerCondition(String id, Constructor<? extends AbstractShopCondition> function) {
         if(CONDITIONS.containsKey(id))
@@ -49,15 +47,6 @@ public class ShopContentRegister {
         SDMShop.LOGGER.info("Registered entry type [{}]", id);
     }
 
-    public static String registerRequest(String id, Function<Void, AbstractASKRequest> func) {
-        if(REQUESTS.containsKey(id))
-            throw new RuntimeException("Entry Type with " + id + " id already registered!");
-
-        REQUESTS.put(id, func);
-        SDMShop.LOGGER.info("Registered ASK request [{}]", id);
-        return id;
-    }
-
     public static Map<String, Constructor<? extends AbstractShopCondition>> getConditions() {
         return new HashMap<>(CONDITIONS);
     }
@@ -68,10 +57,6 @@ public class ShopContentRegister {
 
     public static Map<String, Function<ShopEntry, AbstractEntryType>> getEntryTypes() {
         return new HashMap<>(ENTRY_TYPES);
-    }
-
-    public static Map<String, Function<Void, AbstractASKRequest>> getRequests() {
-        return new HashMap<>(REQUESTS);
     }
 
     public static Optional<Supplier<AbstractEntrySellerType<?>>> getSellerType(String id) {
@@ -88,10 +73,6 @@ public class ShopContentRegister {
 
     public static Optional<Function<ShopEntry, AbstractEntryType>> getEntryType(String id) {
         return Optional.ofNullable(ENTRY_TYPES.getOrDefault(id, null));
-    }
-
-    public static Optional<Function<Void, AbstractASKRequest>> getRequest(String id) {
-        return Optional.ofNullable(REQUESTS.getOrDefault(id, null));
     }
 
     public static void init() {

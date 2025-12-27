@@ -21,15 +21,14 @@ import net.sixik.sdmeconomy.currencies.data.CurrencyPlayerData;
 import net.sixik.sdmeconomy.utils.CurrencyHelper;
 import net.sixik.sdmeconomy.utils.ErrorCodes;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.old_api.LimiterSupport;
+import net.sixik.sdmshop.network.async.AsyncClientTasks;
 import net.sixik.sdmshop.currencies.SDMCoin;
-import net.sixik.sdmshop.network.ASK.GetShopAndOpenASK;
-import net.sixik.sdmshop.network.ASK.SyncAndOpenShopASK;
+import net.sixik.sdmshop.network.async.AsyncServerTasks;
 import net.sixik.sdmshop.network.economy.ShopChangeMoneyC2S;
 import net.sixik.sdmshop.network.server.ChangeEditModeC2S;
+import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;
-import net.sixik.sdmshop.shop.limiter.ShopLimiter;
 import net.sixik.sdmshop.shop.limiter.ShopLimiterAttachType;
 import net.sixik.sdmshop.shop.limiter.ShopLimiterData;
 import net.sixik.sdmshop.utils.config.ConfigBuilder;
@@ -176,15 +175,17 @@ public class ShopUtils {
     }
 
     public static void sendOpenShop(MinecraftServer server, String shopId) {
-       new SyncAndOpenShopASK(null).startRequest(server, shopId);
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            AsyncServerTasks.openShop(player, SDMShopServer.parseLocation(shopId));
+        }
     }
 
     public static void sendOpenShop(ServerPlayer player, String shopId) {
-        new SyncAndOpenShopASK(null).startRequest(player, shopId);
+        AsyncServerTasks.openShop(player, SDMShopServer.parseLocation(shopId));
     }
 
     public static void openShopClient(String shopId) {
-        new GetShopAndOpenASK(null).execute(shopId);
+        AsyncClientTasks.openShop(SDMShopServer.parseLocation(shopId));
     }
 
     public static <T> ConfigValue<T> addConfig(ConfigGroup group, Function<ConfigGroup, ConfigValue<T>> fun, Component[] components) {

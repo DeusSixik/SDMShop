@@ -5,6 +5,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.sixik.sdmshop.SDMShop;
 
 import java.util.Map;
 import java.util.concurrent.*;
@@ -12,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
 public class AsyncBridge {
-    public static final ResourceLocation CHANNEL = new ResourceLocation("my_mod", "async_bridge");
+    public static final ResourceLocation CHANNEL = new ResourceLocation(SDMShop.MODID, "async_bridge");
 
     private static final Map<Long, CompletableFuture<FriendlyByteBuf>> PENDING = new ConcurrentHashMap<>();
     private static final Map<String, Function<FriendlyByteBuf, FriendlyByteBuf>> HANDLERS = new ConcurrentHashMap<>();
@@ -24,41 +25,65 @@ public class AsyncBridge {
         NetworkManager.registerReceiver(NetworkManager.Side.S2C, CHANNEL, AsyncBridge::onPacket);
     }
 
-    // --- API ---
 
     /**
-     * Клиент -> Сервер: Отправляет запрос и ждет ответ.
-     * @param subject Уникальный ID хендлера (например, "GetMana")
-     * @param writer Функция записи данных запроса
+     * Client -> Server: Sends a request and waits for a response.
+     *
+     * @param subject Unique handler ID (for example, "OpenShop")
+     * @param writer  Request data recording function
      */
-    public static CompletableFuture<FriendlyByteBuf> askServer(String subject, Function<FriendlyByteBuf, FriendlyByteBuf> writer) {
+    public static CompletableFuture<FriendlyByteBuf> askServer(
+            final String subject,
+            final Function<FriendlyByteBuf, FriendlyByteBuf> writer
+    ) {
         return sendInternal(subject, writer, buf -> NetworkManager.sendToServer(CHANNEL, buf));
     }
 
     /**
-     * Сервер -> Клиент: Запрос конкретному игроку.
+     * Server -> Client: Request to a specific player.
      */
-    public static CompletableFuture<FriendlyByteBuf> askPlayer(ServerPlayer player, String subject, Function<FriendlyByteBuf, FriendlyByteBuf> writer) {
+    public static CompletableFuture<FriendlyByteBuf> askPlayer(
+            final ServerPlayer player,
+            final String subject,
+            final Function<FriendlyByteBuf, FriendlyByteBuf> writer) {
         return sendInternal(subject, writer, buf -> NetworkManager.sendToPlayer(player, CHANNEL, buf));
     }
 
     /**
-     * Регистрация логики обработки запроса (на стороне получателя).
-     * @param subject ID запроса (например, "GetMana")
-     * @param processor Функция: принимает входной buf, возвращает buf с ответом (или null, если void)
+     * Registration of request processing logic (on the recipient's side).
+     *
+     * @param subject   Unique handler ID (for example, "OpenShop")
+     * @param processor Function: takes input buf, returns buf with response (or null if void)
      */
-    public static void registerHandler(String subject, Function<FriendlyByteBuf, FriendlyByteBuf> processor) {
+    public static void registerHandler(
+            final String subject,
+            final Function<FriendlyByteBuf, FriendlyByteBuf> processor
+    ) {
         HANDLERS.put(subject, processor);
     }
 
-    // --- Internals ---
+    public static void completeExternal(
+            final long id,
+            final FriendlyByteBuf fullData
+    ) {
+        CompletableFuture<FriendlyByteBuf> future = PENDING.remove(id);
+        if (future != null) {
+            future.complete(fullData);
+        }
+    }
 
-    private static CompletableFuture<FriendlyByteBuf> sendInternal(String subject, Function<FriendlyByteBuf, FriendlyByteBuf> writer, java.util.function.Consumer<FriendlyByteBuf> sender) {
+    private static CompletableFuture<FriendlyByteBuf> sendInternal(
+            final String subject,
+            final Function<FriendlyByteBuf, FriendlyByteBuf> writer,
+            final java.util.function.Consumer<FriendlyByteBuf> sender) {
         long reqId = ID_GEN.incrementAndGet();
         CompletableFuture<FriendlyByteBuf> future = new CompletableFuture<>();
 
         PENDING.put(reqId, future);
-        // Safety: удаляем зависшие запросы через 5 сек
+
+        /*
+            Safety: we delete frozen requests after 5 seconds
+         */
         SCHEDULER.schedule(() -> {
             if (PENDING.remove(reqId) != null) {
                 future.completeExceptionally(new TimeoutException("Packet timed out: " + subject));
@@ -67,7 +92,7 @@ public class AsyncBridge {
 
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
         buf.writeLong(reqId);
-        buf.writeBoolean(true); // true = это ЗАПРОС
+        buf.writeBoolean(true); // true = this is a REQUEST
         buf.writeUtf(subject);
         writer.apply(buf);
 
@@ -75,40 +100,84 @@ public class AsyncBridge {
         return future;
     }
 
-    private static void onPacket(FriendlyByteBuf buf, NetworkManager.PacketContext context) {
-        long id = buf.readLong();
-        boolean isRequest = buf.readBoolean();
+    private static void onPacket(
+            final FriendlyByteBuf buf,
+            final NetworkManager.PacketContext context
+    ) {
+        final long id = buf.readLong();
+        final boolean isRequest = buf.readBoolean();
 
         if (isRequest) {
-            // Это ВХОДЯЩИЙ запрос (кто-то нас спрашивает)
-            String subject = buf.readUtf();
-            Function<FriendlyByteBuf, FriendlyByteBuf> handler = HANDLERS.get(subject);
+            final String subject = buf.readUtf();
+            final Function<FriendlyByteBuf, FriendlyByteBuf> handler = HANDLERS.get(subject);
 
-            // Выполняем в основном потоке (thread-safe)
-            context.queue(() -> {
-                if (handler != null) {
-                    FriendlyByteBuf responsePayload = handler.apply(buf); // buf здесь уже содержит аргументы
+            if (handler != null) {
 
-                    // Шлем ответ
-                    FriendlyByteBuf reply = new FriendlyByteBuf(Unpooled.buffer());
-                    reply.writeLong(id);
-                    reply.writeBoolean(false); // false = это ОТВЕТ
-                    if (responsePayload != null) reply.writeBytes(responsePayload);
+                /*
+                    Make a copy of the incoming data
+                 */
+                final FriendlyByteBuf inputCopy = new FriendlyByteBuf(buf.copy());
 
-                    if (context.getPlayer() instanceof ServerPlayer sp) {
-                        NetworkManager.sendToPlayer(sp, CHANNEL, reply);
-                    } else {
-                        NetworkManager.sendToServer(CHANNEL, reply);
+                context.queue(() -> {
+                    try {
+
+                        /*
+                            Execute logic (may return null here)
+                         */
+                        FriendlyByteBuf responsePayload = handler.apply(inputCopy);
+
+                        /*
+                            If the response is HUGE (and not null) -> helmet via BlobTransfer
+                         */
+                        if (responsePayload != null && responsePayload.readableBytes() > 2_000_000) {
+                            if (context.getPlayer() instanceof ServerPlayer sp) {
+                                BlobTransfer.sendToPlayer(sp, id, responsePayload);
+                            } else {
+                                BlobTransfer.sendToServer(id, responsePayload);
+                            }
+                        }
+
+                        /*
+                            If the response is small or NULL -> regular packet helmet
+                         */
+                        else {
+                            FriendlyByteBuf reply = new FriendlyByteBuf(Unpooled.buffer());
+                            reply.writeLong(id);
+                            reply.writeBoolean(false); // This is the answer
+
+                            /*
+                                We only write data if it exists.
+                             */
+                            if (responsePayload != null) {
+                                reply.writeBytes(responsePayload);
+                            }
+
+                            if (context.getPlayer() instanceof ServerPlayer sp) {
+                                NetworkManager.sendToPlayer(sp, CHANNEL, reply);
+                            } else {
+                                NetworkManager.sendToServer(CHANNEL, reply);
+                            }
+                        }
+                    } catch (Exception e) {
+                        SDMShop.LOGGER.error(e.getMessage(), e);
+                    } finally {
+                        inputCopy.release();
+                        /*
+                            If responsePayload was created but not sent (e.g., exception),
+                            it should also be released, but Netty usually handles GC
+                            if it is a heap buffer.
+                         */
                     }
-                }
-            });
+                });
+            }
         } else {
-            // Это ВХОДЯЩИЙ ответ (нам ответили)
+            /*
+                Response reception logic
+             */
             CompletableFuture<FriendlyByteBuf> future = PENDING.remove(id);
             if (future != null) {
-                // Копируем буфер, т.к. Netty уничтожит оригинал
-                FriendlyByteBuf safeCopy = new FriendlyByteBuf(buf.copy());
-                future.complete(safeCopy);
+                FriendlyByteBuf responseCopy = new FriendlyByteBuf(buf.copy());
+                future.complete(responseCopy);
             }
         }
     }

@@ -15,7 +15,7 @@ import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.sixik.sdmshop.currencies.SDMCoin;
-import net.sixik.sdmshop.network.ASK.SyncAndOpenShopASK;
+import net.sixik.sdmshop.network.async.AsyncServerTasks;
 import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.utils.ShopUtils;
 
@@ -99,17 +99,10 @@ public class SDMShopCommands {
 
         if (profiles != null) {
             for(ServerPlayer profile : profiles) {
-                new SyncAndOpenShopASK(null).startRequest(profile,
-                        SDMShopServer.Instance().getShop(SDMShopServer.parseLocation(shopId)).get().getId()
-                );
-//                (new SendOpenShopS2C(true)).sendTo(profile);
+                AsyncServerTasks.openShop(profile, SDMShopServer.parseLocation(shopId));
             }
         } else if (source.getPlayer() != null) {
-            new SyncAndOpenShopASK(null).startRequest(source.getPlayer(),
-                    SDMShopServer.Instance().getShop(SDMShopServer.parseLocation(shopId)).get().getId()
-            );
-
-//            (new SendOpenShopS2C(true)).sendTo(source.getPlayer());
+            AsyncServerTasks.openShop(source.getPlayer(), SDMShopServer.parseLocation(shopId));
         }
 
         return 1;

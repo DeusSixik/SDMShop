@@ -3,17 +3,11 @@ package net.sixik.sdmshop.network;
 import dev.architectury.networking.simple.MessageType;
 import dev.architectury.networking.simple.SimpleNetworkManager;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.network.ASK.ASK_base.ShopDataSyncASKC2S;
-import net.sixik.sdmshop.network.ASK.ASK_base.ShopDataSyncASKS2C;
-import net.sixik.sdmshop.network.ASK.GetShopAndOpenASK;
-import net.sixik.sdmshop.network.ASK.SyncAndOpenShopASK;
-import net.sixik.sdmshop.network.ASK.SyncShopASK;
 import net.sixik.sdmshop.network.economy.ShopChangeMoneyC2S;
 import net.sixik.sdmshop.network.server.ChangeEditModeC2S;
 import net.sixik.sdmshop.network.server.SendBuyEntryC2S;
 import net.sixik.sdmshop.network.sync.*;
 import net.sixik.sdmshop.network.sync.server.*;
-import net.sixik.sdmshop.registers.ShopContentRegister;
 
 public class SDMShopNetwork {
 
@@ -54,13 +48,6 @@ public class SDMShopNetwork {
     public static final MessageType CHANGE_PARAMS_S2C = NET.registerS2C("shop_change_params_s2c", SendChangeShopParamsS2C::new);
 
     public static final MessageType RESET_LIMITER_C2S = NET.registerC2S("shop_reset_limiter_c2s", SendResetLimiterC2S::new);
-
-    public static final MessageType ASK_TO_SERVER = NET.registerC2S("ask_to_server", ShopDataSyncASKC2S::new);
-    public static final MessageType ASK_TO_CLIENT = NET.registerS2C("ask_to_client", ShopDataSyncASKS2C::new);
-
-    public static final String SYNC_SHOP_REQUEST = ShopContentRegister.registerRequest("sync_shop", SyncShopASK::new);
-    public static final String SYNC_SHOP_AND_OPEN_REQUEST = ShopContentRegister.registerRequest("sync_shop_and_open", SyncAndOpenShopASK::new);
-    public static final String GET_SHOP_AND_OPEN = ShopContentRegister.registerRequest("get_shop_and_open", GetShopAndOpenASK::new);
 
     public static void init() {
 

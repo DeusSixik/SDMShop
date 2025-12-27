@@ -1,22 +1,13 @@
 package net.sixik.sdmshop.server;
 
-import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Items;
-import net.sixik.sdmshop.network.ASKHandler;
 import net.sixik.sdmshop.network.sync.SendLimiterS2C;
-import net.sixik.sdmshop.utils.ShopItemHelper;
 
 public class SDMShopEvents {
 
     public static void init() {
-        LifecycleEvent.SERVER_BEFORE_START.register(s -> {
-            new SDMShopServer(s);
-            new ASKHandler(s);
-        });
+        LifecycleEvent.SERVER_BEFORE_START.register(SDMShopServer::new);
 
         LifecycleEvent.SERVER_STOPPED.register(s -> {
             SDMShopServer.Instance().save(s);

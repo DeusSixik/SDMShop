@@ -17,7 +17,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.SDMShopPaths;
+import net.sixik.sdmshop.client.screen.modern.ModernShopScreen;
+import net.sixik.sdmshop.network.async.AsyncBridge;
+import net.sixik.sdmshop.network.async.AsyncClientTasks;
 import net.sixik.sdmshop.old_api.ConfigSupport;
+import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopParams;
 import net.sixik.sdmshop.shop.limiter.ShopLimiter;
@@ -47,6 +51,7 @@ public class SDMShopClient {
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, SHOP_CATEGORY);
 
     public static void init() {
+        AsyncClientTasks.init();
         ClientLifecycleEvent.CLIENT_SETUP.register(SDMShopClient::onClientSetup);
         ClientTickEvent.CLIENT_PRE.register(SDMShopClient::keyInput);
         CustomClickEvent.EVENT.register(SDMShopClient::customClick);
@@ -75,10 +80,9 @@ public class SDMShopClient {
     }
 
     public static void openGui(String shopId) {
-//        openGui(Config.STYLE.get(), isOpenCommand);
-
-        ShopUtils.openShopClient(shopId);
+        AsyncClientTasks.openShop(SDMShopServer.parseLocation(shopId));
     }
+
 
 //    public static void openGui(ShopStyle shopStyle, boolean isOpenCommand) {
 //        new SendGetMoneyC2S().sendToServer();

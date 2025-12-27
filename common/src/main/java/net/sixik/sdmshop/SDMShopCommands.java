@@ -100,13 +100,13 @@ public class SDMShopCommands {
         if (profiles != null) {
             for(ServerPlayer profile : profiles) {
                 new SyncAndOpenShopASK(null).startRequest(profile,
-                        SDMShopServer.Instance().getShop(SDMShopServer.fromString(shopId)).get().getId()
+                        SDMShopServer.Instance().getShop(SDMShopServer.parseLocation(shopId)).get().getId()
                 );
 //                (new SendOpenShopS2C(true)).sendTo(profile);
             }
         } else if (source.getPlayer() != null) {
             new SyncAndOpenShopASK(null).startRequest(source.getPlayer(),
-                    SDMShopServer.Instance().getShop(SDMShopServer.fromString(shopId)).get().getId()
+                    SDMShopServer.Instance().getShop(SDMShopServer.parseLocation(shopId)).get().getId()
             );
 
 //            (new SendOpenShopS2C(true)).sendTo(source.getPlayer());

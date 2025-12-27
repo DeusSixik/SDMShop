@@ -33,7 +33,7 @@ public class GetShopAndOpenASK extends AbstractASKRequest {
         else {
             String id = data.getString(SHOP_ID_KEY_RESOURCE);
 
-            Optional<BaseShop> opt = SDMShopServer.Instance().getShop(SDMShopServer.fromString(id));
+            Optional<BaseShop> opt = SDMShopServer.Instance().getShop(SDMShopServer.parseLocation(id));
 
             if(opt.isEmpty()) {
                 packetContext.getPlayer().sendSystemMessage(Component.literal("Can't open shop. Because not found! [" + id + "]").withStyle(ChatFormatting.RED));
@@ -51,7 +51,7 @@ public class GetShopAndOpenASK extends AbstractASKRequest {
     }
 
     public void execute(String shopId) {
-        sendToServer(task(SDMShopServer.fromString(shopId)));
+        sendToServer(task(SDMShopServer.parseLocation(shopId)));
     }
 
     public void execute(ResourceLocation shopId) {

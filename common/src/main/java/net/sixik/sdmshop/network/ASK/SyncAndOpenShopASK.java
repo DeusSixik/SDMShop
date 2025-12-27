@@ -200,7 +200,7 @@ public class SyncAndOpenShopASK extends AbstractASKRequest {
     }
 
     protected CompoundTag[] task(String shopId) {
-        ResourceLocation id = SDMShopServer.fromString(shopId);
+        ResourceLocation id = SDMShopServer.parseLocation(shopId);
         var opt = SDMShopServer.Instance().getShop(id);
         if(opt.isEmpty()) return new CompoundTag[0];
         CompoundTag nbt = new CompoundTag();

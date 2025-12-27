@@ -25,22 +25,19 @@ import java.util.*;
 public class SDMShopServer implements DataSaver {
 
     public static final Path SHOP_FOLDER_DATA = Path.of("shops");
+    private static final String LIMITER_FILE_NAME = "limiter.data";
 
     private static SDMShopServer _instance;
 
-    public static SDMShopServer Instance() {
-        return _instance;
-    }
+    protected final Map<UUID, BaseShop> shopsByUUID = new HashMap<>();
+    protected final Map<ResourceLocation, BaseShop> shopsByRes = new HashMap<>();
 
-    public static Optional<SDMShopServer> InstanceOptional() {
-        return Optional.ofNullable(_instance);
-    }
-
-    protected @Nullable BaseShop defaultShop;
-    protected Map<UUID, BaseShop> ShopMap = new HashMap<>();
     protected MinecraftServer server;
-
     protected ShopLimiter shopLimiter;
+    protected @Nullable BaseShop defaultShop;
+
+    public static SDMShopServer Instance() { return _instance; }
+    public static Optional<SDMShopServer> InstanceOptional() { return Optional.ofNullable(_instance); }
 
     public SDMShopServer(MinecraftServer server) {
         this.server = server;
@@ -49,41 +46,16 @@ public class SDMShopServer implements DataSaver {
         load(server);
     }
 
-    public boolean removeShop(String shopId) {
-        ResourceLocation res = ResourceLocation.tryParse(shopId);
-        return removeShop(res == null ? new ResourceLocation(SDMShop.MODID, shopId) : res);
-    }
-
-    public boolean removeShop(ResourceLocation shopId) {
-        Optional<BaseShop> opt = Optional.empty();
-        for (Map.Entry<UUID, BaseShop> entry : ShopMap.entrySet()) {
-            if(Objects.equals(entry.getValue().getRegistryId().toString(), shopId.toString())) {
-                opt = Optional.of(entry.getValue());
-                break;
-            }
-        }
-
-        if(opt.isEmpty()) return false;
-        BaseShop shop = opt.get();
-        ShopMap.remove(shop.getId());
-        removeFile(shop);
-        save(server);
-        return true;
-    }
-
-    public static ResourceLocation fromString(String id) {
-        ResourceLocation res = ResourceLocation.tryParse(id);
-
-        if(res != null && Objects.equals(res.getNamespace(), "minecraft"))
-            res = new ResourceLocation(SDMShop.MODID, res.getPath());
-
-        return res == null ? new ResourceLocation(SDMShop.MODID, id) : res;
-    }
-
     public boolean exists(String id) {
-        ResourceLocation res = ResourceLocation.tryParse(id);
-        ResourceLocation res1 = res == null ? new ResourceLocation(SDMShop.MODID, id) : res;
-        return ShopMap.values().stream().anyMatch(s -> Objects.equals(s.getRegistryId().toString(), res1.toString()));
+        return shopsByRes.containsKey(parseLocation(id));
+    }
+
+    public Optional<BaseShop> getShop(ResourceLocation shopId) {
+        return Optional.ofNullable(shopsByRes.get(shopId));
+    }
+
+    public Optional<BaseShop> getShop(UUID uuid) {
+        return Optional.ofNullable(shopsByUUID.get(uuid));
     }
 
     public BaseShop createShop(String id) {
@@ -91,145 +63,193 @@ public class SDMShopServer implements DataSaver {
     }
 
     public BaseShop createShop(ResourceLocation shopId) {
-        BaseShop shop = new BaseShop(shopId, UUID.randomUUID());
-        ShopMap.put(shop.getId(), shop);
+        if (shopsByRes.containsKey(shopId)) {
+            return shopsByRes.get(shopId);
+        }
 
-        save(server);
+        BaseShop shop = new BaseShop(shopId, UUID.randomUUID());
+        registerInternal(shop);
+
+        saveShopToFile(shop);
+
         return shop;
     }
 
-    public Optional<BaseShop> getShop(ResourceLocation shopId) {
-       return ShopMap.values().stream().filter(s -> Objects.equals(s.getRegistryId(), shopId)).findFirst();
+    public boolean removeShop(String shopId) {
+        return removeShop(parseLocation(shopId));
     }
 
-    public Optional<BaseShop> getShop(UUID uuid) {
-        return Optional.ofNullable(ShopMap.get(uuid));
+    public boolean removeShop(ResourceLocation shopId) {
+        BaseShop shop = shopsByRes.get(shopId);
+        if (shop == null) return false;
+
+        shopsByUUID.remove(shop.getId());
+        shopsByRes.remove(shop.getRegistryId());
+
+        deleteShopFile(shop);
+        return true;
     }
 
     public Optional<BaseShop> getFirstShop() {
-        return Optional.ofNullable(ShopMap.values().stream().toList().get(0));
+        Iterator<BaseShop> it = shopsByUUID.values().iterator();
+        return it.hasNext() ? Optional.of(it.next()) : Optional.empty();
     }
 
     public List<String> getAllShopIDs() {
-        return ShopMap.values().stream().map(BaseShop::getRegistryId).map(ResourceLocation::toString).toList();
+        return shopsByRes.keySet().stream().map(ResourceLocation::toString).toList();
     }
 
     public List<UUID> getAllShopUUIDs() {
-        return ShopMap.values().stream().map(BaseShop::getId).toList();
-    }
-
-    protected void createDefault() {
-        defaultShop = createShop(SDMShopConstants.DEFAULT_SHOP);
-        if(Platform.isDevelopmentEnvironment()) {
-            UUID ownerTab = UUID.randomUUID();
-
-            defaultShop.addTab(new ShopTab(defaultShop, ownerTab));
-
-            for (int i = 0; i < 100; i++) {
-                defaultShop.addEntry(new ShopEntry(defaultShop, ownerTab));
-            }
-        }
+        return new ArrayList<>(shopsByUUID.keySet());
     }
 
     public ShopLimiter getShopLimiter() {
         return shopLimiter;
     }
 
-    @Override
-    public void save(MinecraftServer server) {
-        Path data = SDMShopPaths.getModFolder().resolve(SHOP_FOLDER_DATA);
-        if(!data.toFile().exists())
-            if(!data.toFile().mkdirs()) {
-                SDMShop.LOGGER.error("Error when create shop folder [{}]", data);
-                return;
+    private void registerInternal(BaseShop shop) {
+        shopsByUUID.put(shop.getId(), shop);
+        shopsByRes.put(shop.getRegistryId(), shop);
+    }
+
+    public static ResourceLocation parseLocation(String id) {
+        ResourceLocation res = ResourceLocation.tryParse(id);
+        if (res == null) return new ResourceLocation(SDMShop.MODID, id);
+        return "minecraft".equals(res.getNamespace()) ? new ResourceLocation(SDMShop.MODID, res.getPath()) : res;
+    }
+
+    private void createDefault() {
+        defaultShop = createShop(SDMShopConstants.DEFAULT_SHOP);
+        if (Platform.isDevelopmentEnvironment()) {
+            UUID ownerTab = UUID.randomUUID();
+            defaultShop.addTab(new ShopTab(defaultShop, ownerTab));
+            for (int i = 0; i < 100; i++) {
+                defaultShop.addEntry(new ShopEntry(defaultShop, ownerTab));
             }
-
-        for (Map.Entry<UUID, BaseShop> uuidBaseShopEntry : ShopMap.entrySet()) {
-            try {
-                File file = new File(data.toFile(), uuidBaseShopEntry.getKey().toString() + ".data");
-                NbtIo.write(uuidBaseShopEntry.getValue().serialize(), file);
-            } catch (Exception e) {
-                SDMEconomy.printStackTrace("Error writing file " + uuidBaseShopEntry.getKey() + ".data", e);
-            }
-        }
-
-        data = server.getWorldPath(LevelResource.ROOT).resolve("SDMShop").resolve(ShopLimiter.LIMITER_FOLDER);
-
-        if(!data.toFile().exists())
-            if(!data.toFile().mkdirs()) {
-                SDMShop.LOGGER.error("Error when create limiter folder [{}]", data);
-                return;
-            }
-
-        try {
-            File file = new File(data.toFile(), ShopLimiter.FILE_NAME);
-            NbtIo.write(shopLimiter.serialize(), file);
-        } catch (Exception e) {
-            SDMEconomy.printStackTrace("Error writing file " + ShopLimiter.FILE_NAME, e);
+            saveShopToFile(defaultShop);
         }
     }
 
-    public void saveShop(MinecraftServer server, UUID shopId) {
-        Path data = SDMShopPaths.getModFolder().resolve(SHOP_FOLDER_DATA);
-
-        getShop(shopId).ifPresent(shop -> {
-            try {
-                File file = new File(data.toFile(), shop.getId().toString() + ".data");
-                NbtIo.write(shop.serialize(), file);
-            } catch (IOException e) {
-                SDMEconomy.printStackTrace("Error writing file " + ShopLimiter.FILE_NAME, e);
-            }
-        });
+    @Override
+    public void save(MinecraftServer server) {
+        saveAllShops();
+        saveLimiter(server);
     }
 
     @Override
     public void load(MinecraftServer server) {
-        Path data = SDMShopPaths.getModFolder().resolve(SHOP_FOLDER_DATA);
-        if(!data.toFile().exists()) {
-            createDefault();
-        } else {
-            for (File file : data.toFile().listFiles()) {
-                try {
-                    CompoundTag nbt = NbtIo.read(file);
-                    if (nbt != null) {
-                        ResourceLocation registryId = new ResourceLocation(nbt.getString("id"));
-                        UUID uuid = nbt.getUUID("uuid");
-                        BaseShop shopBase = new BaseShop(registryId, uuid);
-                        shopBase.deserialize(nbt);
-                        ShopMap.put(shopBase.getId(), shopBase);
-                    }
-                } catch (Exception e) {
-                    SDMEconomy.printStackTrace("Error reading file " + String.valueOf(file), e);
-                }
-            }
+        loadAllShops();
+        loadLimiter(server);
+    }
 
-            if (ShopMap.size() == 1) {
-                defaultShop = ShopMap.values().stream().toList().get(0);
+    public void saveAllShops() {
+        Path root = getShopsDir();
+        ensureDir(root);
+        for (BaseShop shop : shopsByUUID.values()) {
+            saveShopToFile(shop, root);
+        }
+    }
+
+    public void saveShop(MinecraftServer server, UUID shopId) {
+        BaseShop shop = shopsByUUID.get(shopId);
+        if (shop != null) saveShopToFile(shop);
+    }
+
+    public void saveShopToFile(BaseShop shop) {
+        saveShopToFile(shop, getShopsDir());
+    }
+
+    public void saveShopToFile(BaseShop shop, Path dir) {
+        try {
+            File file = new File(dir.toFile(), shop.getId().toString() + ".data");
+            NbtIo.write(shop.serialize(), file);
+        } catch (IOException e) {
+            SDMShop.LOGGER.error("Error writing shop " + shop.getId(), e);
+        }
+    }
+
+    public void loadAllShops() {
+        shopsByUUID.clear();
+        shopsByRes.clear();
+
+        Path dir = getShopsDir();
+        if (!dir.toFile().exists()) {
+            createDefault();
+            return;
+        }
+
+        File[] files = dir.toFile().listFiles((d, name) -> name.endsWith(".data"));
+        if (files == null) return;
+
+        for (File file : files) {
+            try {
+                CompoundTag nbt = NbtIo.read(file);
+                if (nbt != null) {
+                    ResourceLocation registryId = new ResourceLocation(nbt.getString("id"));
+                    UUID uuid = nbt.getUUID("uuid");
+                    BaseShop shop = new BaseShop(registryId, uuid);
+                    shop.deserialize(nbt);
+                    registerInternal(shop);
+                }
+            } catch (Exception e) {
+                SDMShop.LOGGER.error("Error reading shop file " + file.getName(), e);
             }
         }
 
-        data = server.getWorldPath(LevelResource.ROOT).resolve("SDMShop").resolve(ShopLimiter.LIMITER_FOLDER);
+        if (defaultShop == null && !shopsByUUID.isEmpty()) {
+            ResourceLocation defId = new ResourceLocation(SDMShop.MODID, SDMShopConstants.DEFAULT_SHOP);
+            defaultShop = shopsByRes.getOrDefault(defId, getFirstShop().orElse(null));
+        }
+    }
 
-        if(data.toFile().exists()) {
+    public void deleteShopFile(BaseShop shop) {
+        Path path = getShopsDir().resolve(shop.getId().toString() + ".data");
+        File file = path.toFile();
+        if (file.exists() && !file.delete()) {
+            SDMShop.LOGGER.error("Failed to delete shop file: {}", path);
+        }
+    }
 
+    public Path getShopsDir() {
+        Path p = SDMShopPaths.getModFolder().resolve(SHOP_FOLDER_DATA);
+        ensureDir(p);
+        return p;
+    }
+
+    public void saveLimiter(MinecraftServer server) {
+        Path dir = getLimiterDir(server);
+        try {
+            File file = new File(dir.toFile(), LIMITER_FILE_NAME);
+            NbtIo.write(shopLimiter.serialize(), file);
+        } catch (Exception e) {
+            SDMShop.LOGGER.error("Error writing limiter file", e);
+        }
+    }
+
+    public void loadLimiter(MinecraftServer server) {
+        Path dir = getLimiterDir(server);
+        File file = new File(dir.toFile(), LIMITER_FILE_NAME);
+
+        if (file.exists()) {
             try {
-                File file = new File(data.toFile(), ShopLimiter.FILE_NAME);
                 CompoundTag nbt = NbtIo.read(file);
-                if (nbt != null) {
-                    shopLimiter.deserialize(nbt);
-                }
+                if (nbt != null) shopLimiter.deserialize(nbt);
             } catch (Exception e) {
-                SDMEconomy.printStackTrace("Error writing file " + ShopLimiter.FILE_NAME, e);
+                SDMShop.LOGGER.error("Error reading limiter file", e);
             }
         }
     }
 
-    protected void removeFile(BaseShop base) {
-        Path data = SDMShopPaths.getModFolder().resolve(SHOP_FOLDER_DATA).resolve(base.getId().toString() + ".data");
-        if(!data.toFile().exists())
-            return;
+    public Path getLimiterDir(MinecraftServer server) {
+        Path p = server.getWorldPath(LevelResource.ROOT).resolve("SDMShop").resolve(ShopLimiter.LIMITER_FOLDER);
+        ensureDir(p);
+        return p;
+    }
 
-        data.toFile().delete();
-
+    public void ensureDir(Path path) {
+        File f = path.toFile();
+        if (!f.exists() && !f.mkdirs()) {
+            SDMShop.LOGGER.error("Error creating directory [{}]", path);
+        }
     }
 }

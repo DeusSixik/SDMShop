@@ -10,6 +10,7 @@ import net.sixik.sdmshop.api.ShopApi;
 import net.sixik.sdmshop.network.SDMShopNetwork;
 import net.sixik.sdmshop.network.sync.SendLimiterS2C;
 import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
+import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.shop.limiter.ShopLimiter;
 import net.sixik.sdmshop.utils.ShopAdminUtils;
 import net.sixik.sdmshop.utils.ShopUtils;
@@ -54,9 +55,10 @@ public class SendResetLimiterC2S extends BaseC2SMessage {
         ShopAdminUtils.info(player, "Limiter data for type %s with id %s cleared", type.name(), objectId);
 
         final ShopLimiter limiter = ShopApi.getLimiter();
-        for (final ServerPlayer p : packetContext.getPlayer().getServer().getPlayerList().getPlayers()) {
+        for (final ServerPlayer p : player.getServer().getPlayerList().getPlayers()) {
             new SendLimiterS2C(limiter.serializeClient(p)).sendTo(p);
         }
 
+        SDMShopServer.Instance().saveLimiter(player.getServer());
     }
 }

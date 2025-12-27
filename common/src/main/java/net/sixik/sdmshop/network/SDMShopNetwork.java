@@ -53,7 +53,7 @@ public class SDMShopNetwork {
     public static final MessageType CHANGE_PARAMS_C2S = NET.registerC2S("shop_change_params_c2s", SendChangeShopParamsC2S::new);
     public static final MessageType CHANGE_PARAMS_S2C = NET.registerS2C("shop_change_params_s2c", SendChangeShopParamsS2C::new);
 
-
+    public static final MessageType RESET_LIMITER_C2S = NET.registerC2S("shop_reset_limiter_c2s", SendResetLimiterC2S::new);
 
     public static final MessageType ASK_TO_SERVER = NET.registerC2S("ask_to_server", ShopDataSyncASKC2S::new);
     public static final MessageType ASK_TO_CLIENT = NET.registerS2C("ask_to_client", ShopDataSyncASKS2C::new);

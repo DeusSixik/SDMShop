@@ -50,13 +50,15 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         add(this.textBox = new TextBox(this) {
             @Override
             public boolean isValid(String txt) {
-                return parse(null, txt, 1, offerSize);
+                return isDigitsInRange(txt, 1, offerSize);
             }
 
             @Override
             public void onTextChanged() {
-                if(!getText().isEmpty())
-                    count = Integer.parseInt(getText());
+                final String t = getText();
+                if (isDigitsInRange(t, 1, offerSize)) {
+                    count = Integer.parseInt(t);
+                }
             }
 
             @Override

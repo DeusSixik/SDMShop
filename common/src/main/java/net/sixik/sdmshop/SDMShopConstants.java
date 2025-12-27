@@ -13,6 +13,7 @@ public class SDMShopConstants {
     public static final String MOVE_DOWN_KEY = "sdm.shop.context.edit.move.down";
     public static final String FAVORITE_KEY = "sdm.shop.context.entry.favorite";
     public static final String UN_FAVORITE_KEY = "sdm.shop.context.user.unfavorite";
+    public static final String RESET_LIMITER_KEY = "sdm.shop.context.edit.reset_limiter";
 
     public static final String ACCEPT_KEY = "sdm.shop.ui.button.accept";
     public static final String CANCEL_KEY = "sdm.shop.ui.button.cancel";

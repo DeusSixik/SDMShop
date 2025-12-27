@@ -72,6 +72,7 @@
   "sdm.shop.context.user.unfavorite": "Убрать из избранного",
   "sdm.shop.context.edit.settings.tooltip": "Левый клик открывает меню клиентских настроек.\nПравый клик открывает меню серверных настроек.\n\nПараметры применяются только к этому магазину!",
   "sdm.shop.context.setting": "Настройки",
+  "sdm.shop.context.edit.reset_limiter" : "Сбросить Данный Лимита",
 
   "sdm.shop.entry.creator.contextmenu.info": "Подробнее...",
 

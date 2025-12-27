@@ -60,7 +60,7 @@ public abstract class AbstractBuyerScreen extends BaseScreen implements RefreshS
     protected boolean parse(@Nullable Consumer<Integer> callback, String string, int min, int max) {
         try {
             int v = Long.decode(string).intValue();
-            if (v >= (Integer)min && v <= (Integer)max) {
+            if (v >= min && v <= max) {
                 if (callback != null) {
                     callback.accept(v);
                 }
@@ -72,5 +72,23 @@ public abstract class AbstractBuyerScreen extends BaseScreen implements RefreshS
         }
 
         return false;
+    }
+
+    protected static boolean isDigitsInRange(String s, int min, int max) {
+        if (s == null || s.isEmpty()) return false;
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c < '0' || c > '9') return false;
+        }
+
+        long v;
+        try {
+            v = Long.parseLong(s);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return v >= min && v <= max;
     }
 }

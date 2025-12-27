@@ -72,6 +72,7 @@
   "sdm.shop.context.user.unfavorite" : "Unfavorite",
   "sdm.shop.context.edit.settings.tooltip" : "Clicking the left mouse button opens the client settings menu. \nRight-clicking opens the server settings menu.\n\nThe parameters apply only to this store!",
   "sdm.shop.context.setting" : "Settings",
+  "sdm.shop.context.edit.reset_limiter" : "Reset Limits Data",
 
   "sdm.shop.entry.creator.contextmenu.info" : "More...",
 

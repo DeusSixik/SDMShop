@@ -21,6 +21,7 @@ public class ShopConfig {
     public static final BooleanValue DISABLE_KEYBIND;
     public static final BooleanValue SEND_NOTIFY;
     public static final StringValue DEFAULT_SHOP_ID;
+    public static final BooleanValue SHOW_ADMIN_MESSAGES;
 
 
     static {
@@ -29,5 +30,6 @@ public class ShopConfig {
         DISABLE_KEYBIND = CONFIG.addBoolean("disable_key_bind", false);
         SEND_NOTIFY = CONFIG.addBoolean("send_notify", true);
         DEFAULT_SHOP_ID = CONFIG.addString("default_shop_id", "default");
+        SHOW_ADMIN_MESSAGES = CONFIG.addBoolean("show_admin_messages", true);
     }
 }

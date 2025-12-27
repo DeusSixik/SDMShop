@@ -13,8 +13,10 @@ import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.SDMShopConstants;
+import net.sixik.sdmshop.network.sync.server.SendResetLimiterC2S;
 import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
+import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.ShopUtils;
@@ -95,6 +97,10 @@ public class AbstractShopTabButton extends SimpleTextButton {
                     }
 
                     ShopUtilsClient.removeTab(shop, shopTab);
+                }));
+
+                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.RESET_LIMITER_KEY), Icons.BOOK_RED, (b) -> {
+                    new SendResetLimiterC2S(shopTab.getId(), ShopObjectTypes.SHOP_TAB).sendToServer();
                 }));
 
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_UP_KEY), Icons.UP, (b) -> {

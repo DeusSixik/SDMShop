@@ -15,11 +15,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.SDMShopConstants;
+import net.sixik.sdmshop.network.sync.server.SendResetLimiterC2S;
 import net.sixik.sdmshop.old_api.CustomIcon;
 import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.old_api.ShopEntryType;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
+import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.utils.ShopEntryTypeCreator;
@@ -151,6 +153,10 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
 
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.DELETE_KEY), Icons.REMOVE, (b) -> {
                     ShopUtilsClient.removeEntry(shop, shopEntry);
+                }));
+
+                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.RESET_LIMITER_KEY), Icons.BOOK_RED, (b) -> {
+                    new SendResetLimiterC2S(shopEntry.getId(), ShopObjectTypes.SHOP_ENTRY).sendToServer();
                 }));
 
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_UP_KEY), Icons.UP, (b) -> {

@@ -5,6 +5,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmeconomy.utils.ErrorCodes;
+import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
+import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
 
 import java.nio.file.Path;
@@ -65,6 +67,14 @@ public class ShopLimiter implements DataSerializerCompoundTag {
         tabData.clear();
         entryData.clear();
         return ErrorCodes.SUCCESS;
+    }
+
+    public ErrorCodes resetAllData(final UUID id, ShopObjectTypes types) {
+        return switch (types) {
+            case SHOP_ENTRY -> resetEntryDataAll(id);
+            case SHOP_TAB -> resetTabDataAll(id);
+            default -> throw new IllegalStateException("Unexpected value: " + types);
+        };
     }
 
     public ErrorCodes resetAllData(Player player) {

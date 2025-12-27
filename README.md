@@ -1,4 +1,4 @@
-# SDM Shop (7.10+)
+# SDM Shop (7.1.10+)
 
 ## KubeJS
 ### Server Events `SDMShopEvents`

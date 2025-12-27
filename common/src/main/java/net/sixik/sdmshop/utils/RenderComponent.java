@@ -7,8 +7,8 @@ import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.sixik.sdmshop.api.ConfigSupport;
-import net.sixik.sdmshop.api.IconRenderSupport;
+import net.sixik.sdmshop.old_api.ConfigSupport;
+import net.sixik.sdmshop.old_api.IconRenderSupport;
 import net.sixik.sdmshop.registers.ShopItemRegisters;
 import net.sixik.sdmshop.utils.config.ConfigIconItemStack;
 

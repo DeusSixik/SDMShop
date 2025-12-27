@@ -10,8 +10,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
-import net.sixik.sdmshop.api.shop.EntryTypeProperty;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.shop.EntryTypeProperty;
 import net.sixik.sdmshop.shop.ShopEntry;
 import org.apache.commons.lang3.NotImplementedException;
 

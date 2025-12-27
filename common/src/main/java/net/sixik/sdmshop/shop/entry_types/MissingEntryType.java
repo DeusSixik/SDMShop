@@ -8,8 +8,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.sixik.sdmshop.api.CustomIcon;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.CustomIcon;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.shop.ShopEntry;
 import org.jetbrains.annotations.Nullable;
 

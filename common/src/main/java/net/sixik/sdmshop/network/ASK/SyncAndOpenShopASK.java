@@ -9,7 +9,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.SDMShopConstants;
-import net.sixik.sdmshop.api.network.AbstractASKRequest;
+import net.sixik.sdmshop.old_api.network.AbstractASKRequest;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.modern.ModernShopScreen;
 import net.sixik.sdmshop.network.SDMShopNetwork;

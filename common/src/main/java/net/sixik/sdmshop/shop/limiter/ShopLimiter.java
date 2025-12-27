@@ -12,6 +12,8 @@ import java.util.*;
 
 public class ShopLimiter implements DataSerializerCompoundTag {
 
+    private static final Map<UUID, Integer> NULL_MAP = new HashMap<>(0);
+
     public static final Path LIMITER_FOLDER = Path.of("limiter");
     public static final String FILE_NAME = "limiter.data";
 
@@ -55,6 +57,26 @@ public class ShopLimiter implements DataSerializerCompoundTag {
         } else {
             playerEntryData.remove(tabId);
         }
+
+        return ErrorCodes.SUCCESS;
+    }
+
+    public ErrorCodes resetAllDataGlobal() {
+        tabData.clear();
+        entryData.clear();
+        return ErrorCodes.SUCCESS;
+    }
+
+    public ErrorCodes resetAllData(Player player) {
+        return resetAllData(player.getGameProfile().getId());
+    }
+
+    public ErrorCodes resetAllData(UUID playerId) {
+        if(!playerEntryData.containsKey(playerId) || playerTabData.containsKey(playerId))
+            return ErrorCodes.NOT_FOUND;
+
+        playerEntryData.getOrDefault(playerId, NULL_MAP).clear();
+        playerTabData.getOrDefault(playerId, NULL_MAP).clear();
 
         return ErrorCodes.SUCCESS;
     }
@@ -165,6 +187,12 @@ public class ShopLimiter implements DataSerializerCompoundTag {
         entryData.merge(uuid, count, Integer::sum);
     }
 
+    public void addOrSetEntryData(UUID uuid, int count) {
+        if(entryData.containsKey(uuid))
+            addEntryData(uuid, count);
+        else entryData.put(uuid, count);
+    }
+
     public void addEntryData(UUID uuid, Player player, int count) {
         addEntryData(uuid, player.getGameProfile().getId(), count);
     }
@@ -173,6 +201,15 @@ public class ShopLimiter implements DataSerializerCompoundTag {
         playerEntryData
                 .computeIfAbsent(uuid, k -> new HashMap<>())
                 .merge(playerId, count, Integer::sum);
+    }
+
+    public void addOrSetEntryData(UUID uuid, UUID playerId, int count) {
+        final Map<UUID, Integer> map = playerEntryData.computeIfAbsent(uuid, k -> new HashMap<>());
+        if(map.containsKey(playerId))
+            map.merge(playerId, count, Integer::sum);
+        else map.put(playerId, count);
+
+        playerEntryData.put(uuid, map);
     }
 
     public void setEntryData(UUID uuid, int count) {

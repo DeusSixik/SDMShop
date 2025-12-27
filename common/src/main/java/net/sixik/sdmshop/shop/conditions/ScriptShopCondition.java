@@ -2,8 +2,8 @@ package net.sixik.sdmshop.shop.conditions;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import net.minecraft.nbt.CompoundTag;
-import net.sixik.sdmshop.api.shop.AbstractShopCondition;
-import net.sixik.sdmshop.api.shop.ShopObject;
+import net.sixik.sdmshop.old_api.shop.AbstractShopCondition;
+import net.sixik.sdmshop.old_api.shop.ShopObject;
 
 @Deprecated
 public class ScriptShopCondition extends AbstractShopCondition {

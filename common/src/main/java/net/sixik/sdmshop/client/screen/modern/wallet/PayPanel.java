@@ -22,8 +22,6 @@ public class PayPanel extends Panel {
         for (PlayerInfo onlinePlayer : Minecraft.getInstance().getConnection().getOnlinePlayers()) {
             if(onlinePlayer.getProfile().getId().equals(Minecraft.getInstance().getUser().getGameProfile().getId())) continue;
             i++;
-            System.out.println(onlinePlayer.getProfile().getId());
-            System.out.println(Minecraft.getInstance().getUser().getGameProfile().getId());
             add(payCardRender = new PayCardRender(this,onlinePlayer));
             payCardRender.setPosAndSize(2,2 *i,parent.width/2 - 11,20);
         }

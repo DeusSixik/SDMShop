@@ -2,7 +2,7 @@ package net.sixik.sdmshop.shop;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import net.minecraft.nbt.CompoundTag;
-import net.sixik.sdmshop.api.ConfigSupport;
+import net.sixik.sdmshop.old_api.ConfigSupport;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
 
 public class ShopParams implements DataSerializerCompoundTag, ConfigSupport {

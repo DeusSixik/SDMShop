@@ -5,7 +5,7 @@ import dev.ftb.mods.ftblibrary.icon.Icons;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.sixik.sdmshop.api.MoveType;
+import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.network.sync.server.*;
 import net.sixik.sdmshop.shop.BaseShop;
@@ -83,7 +83,7 @@ public class ShopUtilsClient {
     }
 
     public static void syncEntry(BaseShop shop, ShopEntry entry) {
-        new SendChangeEntryC2S(shop.getUuid(), entry.getUuid(), entry.serialize()).sendToServer();
+        new SendChangeEntryC2S(shop.getUuid(), entry.getId(), entry.serialize()).sendToServer();
     }
 
     public static boolean swapShopTabs(BaseShop shop, UUID from, UUID to, MoveType type) {
@@ -116,20 +116,20 @@ public class ShopUtilsClient {
     }
 
     public static void syncTab(BaseShop shop, ShopTab tab) {
-        new SendChangeTabC2S(shop.getUuid(), tab.getUuid(), tab.serialize()).sendToServer();
+        new SendChangeTabC2S(shop.getUuid(), tab.getId(), tab.serialize()).sendToServer();
     }
 
     public static void addFavorite(ShopEntry entry) {
-        SDMShopClient.userData.getEntries().add(entry.getUuid());
+        SDMShopClient.userData.getEntries().add(entry.getId());
         SDMShopClient.userData.save();
     }
 
     public static void removeFavorite(ShopEntry entry) {
-        SDMShopClient.userData.getEntries().remove(entry.getUuid());
+        SDMShopClient.userData.getEntries().remove(entry.getId());
         SDMShopClient.userData.save();
     }
 
     public static boolean isFavorite(ShopEntry entry) {
-        return entry != null && SDMShopClient.userData.getEntries().contains(entry.getUuid());
+        return entry != null && SDMShopClient.userData.getEntries().contains(entry.getId());
     }
 }

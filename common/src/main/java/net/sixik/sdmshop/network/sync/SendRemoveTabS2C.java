@@ -49,8 +49,8 @@ public class SendRemoveTabS2C extends BaseS2CMessage {
             return;
         }
 
-        if(!shop.removeShopEntry(s -> Objects.equals(s.getOwnerTab(), tabUuid), entry -> {
-            SDMShopClient.userData.getEntries().remove(entry.getUuid());
+        if(!shop.removeShopEntry(s -> Objects.equals(s.getTab(), tabUuid), entry -> {
+            SDMShopClient.userData.getEntries().remove(entry.getId());
         }).success()) {
             SDMShop.LOGGER.error("Can't remove shop tab entries {}", tabUuid);
         } else {

@@ -9,8 +9,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.sixik.sdmshop.api.shop.AbstractShopCondition;
-import net.sixik.sdmshop.api.shop.ShopObject;
+import net.sixik.sdmshop.old_api.shop.AbstractShopCondition;
+import net.sixik.sdmshop.old_api.shop.ShopObject;
 
 public class FTBQuestCondition extends AbstractShopCondition {
 

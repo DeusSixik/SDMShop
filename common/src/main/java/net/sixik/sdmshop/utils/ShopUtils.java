@@ -21,7 +21,7 @@ import net.sixik.sdmeconomy.currencies.data.CurrencyPlayerData;
 import net.sixik.sdmeconomy.utils.CurrencyHelper;
 import net.sixik.sdmeconomy.utils.ErrorCodes;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.api.LimiterSupport;
+import net.sixik.sdmshop.old_api.LimiterSupport;
 import net.sixik.sdmshop.currencies.SDMCoin;
 import net.sixik.sdmshop.network.ASK.GetShopAndOpenASK;
 import net.sixik.sdmshop.network.ASK.SyncAndOpenShopASK;
@@ -213,34 +213,52 @@ public class ShopUtils {
     }
 
     public static ShopLimiterData getShopLimit(ShopTab shopTab, ShopEntry shopEntry, Player player) {
-        int tabLimit = -1;
-        int entryLimit = -1;
-        ShopLimiter shopLimiter = LimiterSupport.getShopLimiterStatic().orElse(null);
 
-        if(shopLimiter == null) return new ShopLimiterData(ShopLimiterAttachType.None, 0);
+        /*
+            By default, we assume that there is no limit (Infinity)
+         */
+        int tabLimit = Integer.MAX_VALUE;
+        int entryLimit = Integer.MAX_VALUE;
 
-
-        if (shopTab.getObjectLimit() > 0) {
-            tabLimit = shopLimiter.containsTabData(shopTab.getUuid()) ? shopTab.getObjectLimitLeft(player) : shopTab.getObjectLimit();
-        }
-        if (shopEntry.getObjectLimit() > 0) {
-            entryLimit = shopLimiter.containsEntryData(shopEntry.getUuid()) ? shopEntry.getObjectLimitLeft(player) : shopEntry.getObjectLimit();
-        }
-
-        ShopDebugUtils.log("getShopLimit() tab: {}, entry: {}", tabLimit, entryLimit);
-
-        if (tabLimit == -1 && entryLimit == -1) {
-            return new ShopLimiterData(ShopLimiterAttachType.None, -1);
+        /*
+            If the Tab has a limiter enabled, we get the remainder.
+            getObjectLimitLeft will return the correct remainder or MAX_VALUE.
+         */
+        if (shopTab.isLimiterActive()) {
+            tabLimit = shopTab.getObjectLimitLeft(player);
         }
 
-        if (tabLimit == -1) {
+        /*
+            If the Entry has a limiter enabled
+         */
+        if (shopEntry.isLimiterActive()) {
+            entryLimit = shopEntry.getObjectLimitLeft(player);
+        }
+
+        /*
+            If both are unlimited
+         */
+        if (tabLimit == Integer.MAX_VALUE && entryLimit == Integer.MAX_VALUE) {
+            return new ShopLimiterData(ShopLimiterAttachType.None, Integer.MAX_VALUE);
+        }
+
+        /*
+            If the Tab is unlimited, we refund the Entry limit.
+         */
+        if (tabLimit == Integer.MAX_VALUE) {
             return new ShopLimiterData(ShopLimiterAttachType.Entry, entryLimit);
         }
 
-        if (entryLimit == -1) {
+        /*
+            If the Entry is unlimited, we will refund the Tab limit.
+         */
+        if (entryLimit == Integer.MAX_VALUE) {
             return new ShopLimiterData(ShopLimiterAttachType.Tab, tabLimit);
         }
 
+        /*
+            If both have a limit, we return the one that is lower (stricter)
+         */
         if (tabLimit <= entryLimit) {
             return new ShopLimiterData(ShopLimiterAttachType.Tab, tabLimit);
         } else {

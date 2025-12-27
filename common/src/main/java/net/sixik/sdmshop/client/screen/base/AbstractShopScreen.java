@@ -7,11 +7,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.sixik.sdmshop.api.screen.BuyerScreenSupport;
-import net.sixik.sdmshop.api.screen.EntryCreateScreenSupport;
-import net.sixik.sdmshop.api.screen.InfoButtonSupport;
-import net.sixik.sdmshop.api.screen.RefreshSupport;
-import net.sixik.sdmshop.api.shop.ShopChangeListener;
+import net.sixik.sdmshop.old_api.screen.BuyerScreenSupport;
+import net.sixik.sdmshop.old_api.screen.EntryCreateScreenSupport;
+import net.sixik.sdmshop.old_api.screen.InfoButtonSupport;
+import net.sixik.sdmshop.old_api.screen.RefreshSupport;
+import net.sixik.sdmshop.old_api.shop.ShopChangeListener;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.panels.AbstractShopEntryPanel;
 import net.sixik.sdmshop.client.screen.base.panels.AbstractShopTabPanel;
@@ -77,7 +77,7 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
 
         for (ShopTab shopTab : currentShop.getShopTabs()) {
             if(!shopTab.isLockedAll(shopTab) || ShopUtils.isEditModeClient()) {
-                selectedTab = shopTab.getUuid();
+                selectedTab = shopTab.getId();
                 break;
             }
         }

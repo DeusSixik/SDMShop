@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.sixik.sdmshop.api.network.AbstractASKRequest;
+import net.sixik.sdmshop.old_api.network.AbstractASKRequest;
 import net.sixik.sdmshop.config.ShopConfig;
 import net.sixik.sdmshop.network.SDMShopNetwork;
 import net.sixik.sdmshop.server.SDMShopServer;

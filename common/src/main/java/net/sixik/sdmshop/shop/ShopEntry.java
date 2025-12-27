@@ -6,8 +6,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.sixik.sdmeconomy.SDMEconomy;
-import net.sixik.sdmshop.api.*;
-import net.sixik.sdmshop.api.shop.*;
+import net.sixik.sdmshop.old_api.*;
+import net.sixik.sdmshop.old_api.shop.*;
 import net.sixik.sdmshop.registers.ShopContentRegister;
 import net.sixik.sdmshop.shop.entry_types.ItemEntryType;
 import net.sixik.sdmshop.shop.limiter.ShopLimiter;
@@ -220,11 +220,11 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
         return price;
     }
 
-    public UUID getUuid() {
+    public UUID getId() {
         return uuid;
     }
 
-    public UUID getOwnerTab() {
+    public UUID getTab() {
         return ownerTab;
     }
 
@@ -282,7 +282,7 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
     @Override
     public int getObjectLimitLeft(@Nullable Player player) {
-        if(!isLimiterActive()) return -1;
+        if(!isLimiterActive()) return Integer.MAX_VALUE;
 
         Optional<ShopLimiter> optLimiter = getShopLimiter();
 
@@ -293,25 +293,15 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
         ShopLimiter limiter = optLimiter.get();
 
-        Optional<Integer> result = Optional.empty();
+        int used = 0;
 
-        if(limiter.containsEntryData(uuid)) {
-            if (getLimiterType().isGlobal()) {
-                result = limiter.getEntryData(uuid);
-                ShopDebugUtils.log("Entry Limiter Global: {}", result.orElse(-404));
-            } else if (player != null && getLimiterType().isPlayer()) {
-                result = limiter.getEntryData(uuid, player.getGameProfile().getId());
-                ShopDebugUtils.log("Entry Limiter Local: {} {}", player.getName(), result.orElse(-404));
-            }
-        } else result = Optional.of(getObjectLimit());
-
-        if(result.isEmpty()) {
-            ShopDebugUtils.error("Entry Result limiter empty!");
-            return 0;
+        if (getLimiterType().isGlobal()) {
+            used = limiter.getEntryData(uuid).orElse(0);
+        } else if (player != null && getLimiterType().isPlayer()) {
+            used = limiter.getEntryData(uuid, player).orElse(0);
         }
 
-        return result.map(integer -> Math.clamp(getObjectLimit() - integer, 0, getObjectLimit()))
-                .orElse(-1);
+        return Math.max(0, getObjectLimit() - used);
     }
 
     @Override
@@ -352,15 +342,31 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
     @Override
     public boolean updateLimit(@Nullable Player player, int count) {
-        if(getObjectLimit() == 0 || isLimitReached(player)) return false;
-        Optional<ShopLimiter> limiter = getShopLimiter();
+        // 1. Если лимит выключен - разрешаем, но не записываем.
+        if (!isLimiterActive()) return true;
 
-        if(limiter.isEmpty()) return false;
-        ShopLimiter value = limiter.get();
-        int v = Math.min(count, getObjectLimitLeft(player));
+        // 2. Если лимит уже достигнут - запрещаем.
+        if (isLimitReached(player)) return false;
 
-        if(player == null)  value.addEntryData(uuid, v);
-        else                value.addEntryData(uuid, player.getGameProfile().getId(), v);
+        Optional<ShopLimiter> limiterOpt = getShopLimiter();
+        if (limiterOpt.isEmpty()) return false;
+
+        ShopLimiter limiter = limiterOpt.get();
+
+        // Вычисляем сколько реально списываем (чтобы не уйти в минус, если count пришел кривой)
+        int left = getObjectLimitLeft(player);
+        // Если left == MAX_VALUE (ошибка логики), берем count
+        int v = (left == Integer.MAX_VALUE) ? count : Math.min(count, left);
+
+        // 3. ЗАПИСЬ В БАЗУ
+        // ВНИМАНИЕ: Для ShopTab используем addTabData!
+        // В старом коде ты писал в EntryData, это ошибка.
+        if (player == null) {
+            limiter.addTabData(uuid, v);
+        } else {
+            limiter.addTabData(uuid, player.getGameProfile().getId(), v);
+        }
+
         return true;
     }
 

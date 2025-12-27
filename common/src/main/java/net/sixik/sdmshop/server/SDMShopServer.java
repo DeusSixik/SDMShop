@@ -10,7 +10,7 @@ import net.sixik.sdmeconomy.SDMEconomy;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.SDMShopPaths;
-import net.sixik.sdmshop.api.DataSaver;
+import net.sixik.sdmshop.old_api.DataSaver;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;

@@ -22,7 +22,7 @@ public class SendRemoveEntryC2S extends BaseC2SMessage {
     private final UUID entryUuid;
 
     public SendRemoveEntryC2S(BaseShop shop, ShopEntry entry) {
-        this(shop.getUuid(), entry.getUuid());
+        this(shop.getUuid(), entry.getId());
     }
 
     public SendRemoveEntryC2S(UUID shopId, UUID entryUuid) {

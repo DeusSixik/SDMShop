@@ -2,11 +2,11 @@ package net.sixik.sdmshop.registers;
 
 import dev.ftb.mods.ftblibrary.config.NameMap;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.api.Constructor;
-import net.sixik.sdmshop.api.network.AbstractASKRequest;
-import net.sixik.sdmshop.api.shop.AbstractEntrySellerType;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
-import net.sixik.sdmshop.api.shop.AbstractShopCondition;
+import net.sixik.sdmshop.old_api.Constructor;
+import net.sixik.sdmshop.old_api.network.AbstractASKRequest;
+import net.sixik.sdmshop.old_api.shop.AbstractEntrySellerType;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.shop.AbstractShopCondition;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.conditions.integration.StageCondition;
 import net.sixik.sdmshop.shop.entry_types.*;

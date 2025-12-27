@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.SDMShopPaths;
-import net.sixik.sdmshop.api.ConfigSupport;
+import net.sixik.sdmshop.old_api.ConfigSupport;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopParams;
 import net.sixik.sdmshop.shop.limiter.ShopLimiter;

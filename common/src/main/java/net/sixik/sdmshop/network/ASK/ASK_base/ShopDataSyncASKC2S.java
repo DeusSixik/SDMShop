@@ -6,7 +6,7 @@ import dev.architectury.networking.simple.MessageType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.api.network.AbstractASKRequest;
+import net.sixik.sdmshop.old_api.network.AbstractASKRequest;
 import net.sixik.sdmshop.network.ASKHandler;
 import net.sixik.sdmshop.network.SDMShopNetwork;
 import net.sixik.sdmshop.registers.ShopContentRegister;

@@ -6,7 +6,7 @@ import dev.ftb.mods.ftblibrary.ui.Widget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.sixik.sdmshop.api.screen.ShopUIRenderComponent;
+import net.sixik.sdmshop.old_api.screen.ShopUIRenderComponent;
 import net.sixik.sdmuilib.client.utils.GLHelper;
 import net.sixik.sdmuilib.client.utils.math.Vector2;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;

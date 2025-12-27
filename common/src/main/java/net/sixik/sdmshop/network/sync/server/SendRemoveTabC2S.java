@@ -22,7 +22,7 @@ public class SendRemoveTabC2S extends BaseC2SMessage {
     private final UUID tabUuid;
 
     public SendRemoveTabC2S(BaseShop shop, ShopTab tab) {
-        this(shop.getUuid(), tab.getUuid());
+        this(shop.getUuid(), tab.getId());
     }
 
     public SendRemoveTabC2S(UUID shopId, UUID tabUuid) {
@@ -54,7 +54,7 @@ public class SendRemoveTabC2S extends BaseC2SMessage {
         BaseShop shop = optShop.get();
 
         if(shop.removeShopTab(tabUuid).success() &&
-           shop.removeShopEntry(s -> Objects.equals(s.getOwnerTab(), tabUuid)).success()) {
+           shop.removeShopEntry(s -> Objects.equals(s.getTab(), tabUuid)).success()) {
 
             ShopNetworkUtils.changeShop(shop, new SendRemoveTabS2C(shopId, tabUuid), packetContext);
         }

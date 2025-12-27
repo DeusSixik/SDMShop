@@ -6,7 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.registers.ShopContentRegister;

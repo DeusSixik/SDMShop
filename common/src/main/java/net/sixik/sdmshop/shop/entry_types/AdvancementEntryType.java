@@ -17,9 +17,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
-import net.sixik.sdmshop.api.CustomIcon;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
-import net.sixik.sdmshop.api.shop.EntryTypeProperty;
+import net.sixik.sdmshop.old_api.CustomIcon;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.shop.EntryTypeProperty;
 import net.sixik.sdmshop.shop.ShopEntry;
 import org.jetbrains.annotations.Nullable;
 

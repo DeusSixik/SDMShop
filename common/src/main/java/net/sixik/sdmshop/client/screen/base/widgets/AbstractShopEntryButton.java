@@ -15,9 +15,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.SDMShopConstants;
-import net.sixik.sdmshop.api.CustomIcon;
-import net.sixik.sdmshop.api.MoveType;
-import net.sixik.sdmshop.api.ShopEntryType;
+import net.sixik.sdmshop.old_api.CustomIcon;
+import net.sixik.sdmshop.old_api.MoveType;
+import net.sixik.sdmshop.old_api.ShopEntryType;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.shop.BaseShop;
@@ -87,10 +87,10 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                 if (ShopInputHelper.isControl()) {
 
                     if (screen.selectedEntryId == null) {
-                        screen.selectedEntryId = shopEntry.getUuid();
+                        screen.selectedEntryId = shopEntry.getId();
                         return;
                     }
-                    else if (Objects.equals(screen.selectedEntryId, shopEntry.getUuid())) {
+                    else if (Objects.equals(screen.selectedEntryId, shopEntry.getId())) {
                         screen.selectedEntryId = null;
                         return;
                     } else {
@@ -98,7 +98,7 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                         MoveType type = ShopInputHelper.isMoveInsert() ? MoveType.Insert : ShopInputHelper.isMoveSwap() ? MoveType.Swap : null;
 
                         if(type != null) {
-                            ShopUtilsClient.swapShopEntries(shop, screen.selectedEntryId, shopEntry.getUuid(), type);
+                            ShopUtilsClient.swapShopEntries(shop, screen.selectedEntryId, shopEntry.getId(), type);
                             screen.selectedEntryId = null;
                         }
                         return;
@@ -141,10 +141,10 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                  }));
 
                 TooltipList d1List = new TooltipList();
-                d1List.add(Component.literal("Copy " + shopEntry.getUuid()));
+                d1List.add(Component.literal("Copy " + shopEntry.getId()));
                 ContextMenuItem cont = new ContextMenuItem(Component.translatable(SDMShopConstants.COPY_ID_KEY), Icons.INFO, (b) -> {
-                    Minecraft.getInstance().keyboardHandler.setClipboard(shopEntry.getUuid().toString());
-                    Minecraft.getInstance().player.sendSystemMessage(Component.literal("Copy Shop Entry " + shopEntry.getUuid()));
+                    Minecraft.getInstance().keyboardHandler.setClipboard(shopEntry.getId().toString());
+                    Minecraft.getInstance().player.sendSystemMessage(Component.literal("Copy Shop Entry " + shopEntry.getId()));
                 });
                 cont.addMouseOverText(d1List);
                 contextMenu.add(cont);
@@ -154,10 +154,10 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
                 }));
 
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_UP_KEY), Icons.UP, (b) -> {
-                    ShopUtilsClient.moveShopEntry(shop, shopEntry.getUuid(), MoveType.Up);
+                    ShopUtilsClient.moveShopEntry(shop, shopEntry.getId(), MoveType.Up);
                 }));
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_DOWN_KEY), Icons.DOWN, (b) -> {
-                    ShopUtilsClient.moveShopEntry(shop, shopEntry.getUuid(), MoveType.Down);
+                    ShopUtilsClient.moveShopEntry(shop, shopEntry.getId(), MoveType.Down);
                 }));
 
             }
@@ -200,7 +200,7 @@ public abstract class AbstractShopEntryButton extends SimpleTextButton {
     }
 
     public boolean isSelected(){
-        return getShopScreen().selectedEntryId != null && shopEntry != null && Objects.equals(getShopScreen().selectedEntryId, shopEntry.getUuid());
+        return getShopScreen().selectedEntryId != null && shopEntry != null && Objects.equals(getShopScreen().selectedEntryId, shopEntry.getId());
     }
 
     public void drawSelected(GuiGraphics graphics, int x, int y, int w, int h) {

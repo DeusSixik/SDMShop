@@ -3,15 +3,13 @@ package net.sixik.sdmshop.client.screen.base.buyer;
 import dev.ftb.mods.ftblibrary.ui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.player.LocalPlayer;
-import net.sixik.sdmshop.api.screen.RefreshSupport;
+import net.sixik.sdmshop.old_api.screen.RefreshSupport;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.client.screen.base.widgets.AbstractShopEntryButton;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.shop.exceptions.TabNotFoundException;
 import net.sixik.sdmshop.shop.limiter.ShopLimiterData;
-import net.sixik.sdmshop.shop.limiter.ShopLimiterAttachType;
 import net.sixik.sdmshop.utils.ShopUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +36,7 @@ public abstract class AbstractBuyerScreen extends BaseScreen implements RefreshS
         this.shopScreen = shopScreen;
         this.shopEntry = shopEntry.getShopEntry();
         if(this.shopEntry != null)
-            this.shopTab = shopScreen.currentShop.findTabByUUID(this.shopEntry.getOwnerTab()).orElseThrow(TabNotFoundException::new);
+            this.shopTab = shopScreen.currentShop.findTabByUUID(this.shopEntry.getTab()).orElseThrow(TabNotFoundException::new);
     }
 
     @Override

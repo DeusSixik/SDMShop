@@ -41,7 +41,7 @@ public class ModernShopTabButton extends AbstractShopTabButton {
 
         if(shopTab != null) {
 
-            if (getShopScreen().selectedTab != null && Objects.equals(getShopScreen().selectedTab, shopTab.getUuid())) {
+            if (getShopScreen().selectedTab != null && Objects.equals(getShopScreen().selectedTab, shopTab.getId())) {
                 RGBA.create(255,255,255, 255 / 3).drawRoundFill(graphics, textX + 4, y + 2, this.width - k * 3 - 2, h - 4, 2);
             } else
                 RGBA.create(0,0,0, 255 / 3).drawRoundFill(graphics, textX + 4, y + 2, this.width - k * 3 - 2, h - 4, 2);

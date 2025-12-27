@@ -5,7 +5,7 @@ import dev.ftb.mods.ftblibrary.ui.ScrollBar;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.client.screen.base.create_entry.AbstractCreateEntryButton;

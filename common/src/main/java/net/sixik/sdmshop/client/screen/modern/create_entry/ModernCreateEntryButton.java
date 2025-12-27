@@ -8,7 +8,7 @@ import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.client.screen.base.create_entry.AbstractCreateEntryButton;
 import net.sixik.v2.color.RGBA;
 import net.sixik.v2.render.RenderHelper;

@@ -6,13 +6,11 @@ import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.Widget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.sixik.sdmshop.api.screen.InfoButtonSupport;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.client.screen.base.widgets.AbstractShopEntryButton;
 import net.sixik.sdmshop.client.screen.modern.buyer.ModernBuyerScreen;
 import net.sixik.sdmshop.client.screen.modern.create_entry.ModernCreateEntryScreen;
-import net.sixik.sdmshop.client.screen.modern.madal.ModernShopInfoModalPanel;
 import net.sixik.sdmshop.client.screen.modern.panels.ModernShopEntriesPanel;
 import net.sixik.sdmshop.client.screen.modern.panels.ModernShopPanels;
 import net.sixik.sdmshop.client.screen.modern.panels.ModernShopTabPanel;
@@ -23,12 +21,10 @@ import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.ShopUtils;
 import net.sixik.sdmuilib.client.utils.math.Vector2;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 public class ModernShopScreen extends AbstractShopScreen {
 

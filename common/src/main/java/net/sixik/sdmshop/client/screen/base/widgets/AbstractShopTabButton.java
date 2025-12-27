@@ -1,7 +1,6 @@
 package net.sixik.sdmshop.client.screen.base.widgets;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
-import dev.ftb.mods.ftblibrary.config.ui.EditConfigScreen;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.icon.Icons;
@@ -14,7 +13,7 @@ import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.SDMShopConstants;
-import net.sixik.sdmshop.api.MoveType;
+import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopTab;
@@ -66,7 +65,7 @@ public class AbstractShopTabButton extends SimpleTextButton {
 
         if(mouseButton.isLeft()) {
             if(isEdit()) ShopUtilsClient.addTab(shop, new ShopTab(shop));
-            else         screen.selectTab(shopTab.getUuid());
+            else         screen.selectTab(shopTab.getId());
 
             return;
         }
@@ -90,7 +89,7 @@ public class AbstractShopTabButton extends SimpleTextButton {
 
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.DELETE_KEY), Icons.REMOVE, (b) -> {
                     if (screen.selectedTab != null) {
-                        if (Objects.equals(screen.selectedTab, shopTab.getUuid())) {
+                        if (Objects.equals(screen.selectedTab, shopTab.getId())) {
                             screen.selectedTab = null;
                         }
                     }
@@ -99,10 +98,10 @@ public class AbstractShopTabButton extends SimpleTextButton {
                 }));
 
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_UP_KEY), Icons.UP, (b) -> {
-                    ShopUtilsClient.moveShopTab(shop, shopTab.getUuid(), MoveType.Up);
+                    ShopUtilsClient.moveShopTab(shop, shopTab.getId(), MoveType.Up);
                 }));
                 contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_DOWN_KEY), Icons.DOWN, (b) -> {
-                    ShopUtilsClient.moveShopTab(shop, shopTab.getUuid(), MoveType.Down);
+                    ShopUtilsClient.moveShopTab(shop, shopTab.getId(), MoveType.Down);
                 }));
 
                 screen.openContextMenu(contextMenu);

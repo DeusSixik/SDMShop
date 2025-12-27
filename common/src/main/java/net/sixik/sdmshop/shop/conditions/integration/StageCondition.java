@@ -8,8 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.sixik.sdmshop.api.shop.AbstractShopCondition;
-import net.sixik.sdmshop.api.shop.ShopObject;
+import net.sixik.sdmshop.old_api.shop.AbstractShopCondition;
+import net.sixik.sdmshop.old_api.shop.ShopObject;
 import net.sixik.sdmshop.utils.ShopNBTUtils;
 import net.sixik.sdmshop.utils.StagesUtils;
 

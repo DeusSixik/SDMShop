@@ -94,8 +94,12 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
 
     protected void updateLimitData() {
         this.limitData = getShopLimit();
-        this.limitValue = limitData.value();
-        this.offerSize = getMaxEntryOfferSize(limitValue >= 0 ? limitValue : -1);
+        this.limitValue = limitData.value(); // Тут может быть 10, 0 или MAX_VALUE
+
+        // Передаем limitValue как есть.
+        // Если getMaxEntryOfferSize внутри делает Math.min(moneyCanBuy, limit),
+        // то с MAX_VALUE это сработает идеально.
+        this.offerSize = getMaxEntryOfferSize(limitValue);
     }
 
     public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
@@ -147,7 +151,7 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         pos.setPosition(pos.x, pos.y + lineHeight + 1 + 2);
         ShopRenderUtils.drawLabel(graphics, theme, pos, size, entryType.getString(), String.valueOf(offerSize));
 
-        if(limitValue >= 0){
+        if(limitValue >= 0 && limitValue != Integer.MAX_VALUE){
             pos.setPosition(pos.x, pos.y + (lineHeight + 1 + 2) * 2);
             ShopRenderUtils.drawLabel(graphics, theme, pos, size, Component.translatable("sdm.shop.modern.ui.buyer.entry.limit").getString(), String.valueOf(limitValue));
 

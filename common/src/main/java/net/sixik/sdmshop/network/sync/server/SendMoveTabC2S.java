@@ -5,7 +5,7 @@ import dev.architectury.networking.simple.BaseC2SMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.api.MoveType;
+import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.network.SDMShopNetwork;
 import net.sixik.sdmshop.network.sync.SendMoveTabS2C;
 import net.sixik.sdmshop.server.SDMShopServer;

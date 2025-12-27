@@ -8,7 +8,7 @@ import dev.ftb.mods.ftblibrary.ui.SimpleTextButton;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.SDMShopConstants;
-import net.sixik.sdmshop.api.shop.AbstractEntryType;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.shop.BaseShop;

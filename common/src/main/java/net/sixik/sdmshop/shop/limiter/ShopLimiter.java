@@ -6,7 +6,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmeconomy.utils.ErrorCodes;
 import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
-import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
 
 import java.nio.file.Path;

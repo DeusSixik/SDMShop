@@ -20,6 +20,7 @@ import net.sixik.sdmshop.utils.ShopDebugUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -610,6 +611,12 @@ public interface ShopBase {
         ShopDebugUtils.log("Moved tab {} {}: {} -> {}",
                 tabId, direction, index, newIndex);
         return true;
+    }
+
+    CompoundTag serializeOrCache();
+
+    static boolean isVersionNull(final String version) {
+        return Objects.equals(version, NULL_HASH);
     }
 
     @FunctionalInterface

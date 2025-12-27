@@ -1,6 +1,5 @@
 package net.sixik.sdmshop.shop;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
@@ -13,21 +12,17 @@ import net.sixik.sdmeconomy.SDMEconomy;
 import net.sixik.sdmshop.api.ShopBase;
 import net.sixik.sdmshop.old_api.ConfigSupport;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
+import net.sixik.sdmshop.utils.HashUtils;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopBase {
 
-    public static final Codec<BaseShop> CODEC = RecordCodecBuilder.create(instance ->  instance
-            .group(
-                ResourceLocation.CODEC.fieldOf("id").forGetter(BaseShop::getRegistryId),
-                Codec.STRING.fieldOf("uid").forGetter(BaseShop::getIdString),
-                CompoundTag.CODEC.fieldOf("shop").forGetter(BaseShop::serialize)
-            )
-            .apply(instance, BaseShop::new));
-
-    public static int SPLITTER_SIZE = 20;
+    public static final Codec<BaseShop> CODEC = RecordCodecBuilder.create(instance -> instance
+            .group(CompoundTag.CODEC.fieldOf("shop").forGetter(BaseShop::serialize))
+        .apply(instance, BaseShop::new));
 
     public static final String ENTRIES_KEY = "shop_entries";
     public static final String TABS_KEY = "shop_tabs";
@@ -51,15 +46,21 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
     private final List<ShopBase.TabRemoveListener> tabRemoveListeners = new ObjectArrayList<>();
     private final List<ShopBase.TabChangeListener> tabChangeListeners = new ObjectArrayList<>();
 
-    public BaseShop(ResourceLocation registryId, String uuid, CompoundTag data) {
-        this.registryId = registryId;
-        this.uuid = UUID.fromString(uuid);
+    public BaseShop(CompoundTag data) {
+        this.registryId = ResourceLocation.tryParse(data.getString("id"));
+        this.uuid = data.getUUID("uuid");
         deserialize(data);
     }
 
     public BaseShop(ResourceLocation registryId, UUID uuid) {
         this.registryId = registryId;
         this.uuid = uuid;
+    }
+
+    @Override
+    public void onChangeMethod() {
+        cachedNBT = serialize();
+        version = calculateVersion();
     }
 
     @Override
@@ -163,6 +164,14 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
     }
 
     @Override
+    public CompoundTag serializeOrCache() {
+        if(cachedNBT == null)
+            cachedNBT = serialize();
+
+        return (CompoundTag) cachedNBT;
+    }
+
+    @Override
     public CompoundTag serialize() {
         CompoundTag nbt = new CompoundTag();
 
@@ -192,7 +201,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
         getEntries().clear();
         getTabs().clear();
 
-        if(tag.contains(ENTRIES_KEY)) {
+        if (tag.contains(ENTRIES_KEY)) {
             ListTag entriesList = (ListTag) tag.get(ENTRIES_KEY);
 
             for (Tag tag1 : entriesList) {
@@ -206,7 +215,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
             }
         }
 
-        if(tag.contains(TABS_KEY)) {
+        if (tag.contains(TABS_KEY)) {
             ListTag entriesList = (ListTag) tag.get(TABS_KEY);
 
             for (Tag tag1 : entriesList) {
@@ -221,5 +230,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
         }
 
         shopParams.deserialize(tag.getCompound(PARAMS_KEY));
+
+        this.version = calculateVersion();
     }
 }

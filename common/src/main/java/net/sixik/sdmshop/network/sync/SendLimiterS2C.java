@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.network.SDMShopNetwork;
-import net.sixik.sdmshop.server.SDMShopServer;
 
 public class SendLimiterS2C extends BaseS2CMessage {
 

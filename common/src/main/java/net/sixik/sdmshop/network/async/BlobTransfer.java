@@ -3,6 +3,8 @@ package net.sixik.sdmshop.network.async;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,8 +25,12 @@ public class BlobTransfer {
 
     private static final Map<Long, ByteBuf> INCOMING_BUFFERS = new ConcurrentHashMap<>();
 
-    public static void init() {
+    public static void initServer() {
         NetworkManager.registerReceiver(NetworkManager.Side.C2S, CHANNEL, BlobTransfer::onPacket);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void initClient() {
         NetworkManager.registerReceiver(NetworkManager.Side.S2C, CHANNEL, BlobTransfer::onPacket);
     }
 

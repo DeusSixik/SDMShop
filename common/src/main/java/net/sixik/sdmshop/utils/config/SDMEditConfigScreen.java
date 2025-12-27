@@ -2,8 +2,8 @@ package net.sixik.sdmshop.utils.config;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.ui.EditConfigScreen;
-import net.sixik.sdmshop.old_api.screen.ConfigScreenRefresher;
 import net.sixik.sdmshop.mixin.accessors.EditConfigScreenAccessor;
+import net.sixik.sdmshop.old_api.screen.ConfigScreenRefresher;
 
 public class SDMEditConfigScreen extends EditConfigScreen implements ConfigScreenRefresher {
 

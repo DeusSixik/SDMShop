@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.registers.ShopContentRegister;
 import net.sixik.sdmshop.shop.conditions.integration.FTBQuestCondition;
-import net.sixik.sdmshop.shop.conditions.integration.StageCondition;
 import net.sixik.sdmshop.shop.entry_types.integration.FBTQuestEntryType;
 import net.sixik.sdmshop.utils.ShopUtils;
 

@@ -17,15 +17,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.old_api.CustomIcon;
-import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.client.render.BuyerRenderVariable;
 import net.sixik.sdmshop.client.screen.base.buyer.AbstractBuyerScreen;
+import net.sixik.sdmshop.old_api.CustomIcon;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.shop.ShopEntry;
-import net.sixik.sdmshop.utils.ShopDebugUtils;
-import net.sixik.sdmshop.utils.ShopNBTUtils;
 import net.sixik.sdmshop.utils.ShopItemHelper;
+import net.sixik.sdmshop.utils.ShopNBTUtils;
 import net.sixik.sdmuilib.client.utils.TextHelper;
 import org.jetbrains.annotations.Nullable;
 

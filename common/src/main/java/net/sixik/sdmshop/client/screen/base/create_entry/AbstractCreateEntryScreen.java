@@ -7,8 +7,8 @@ import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import dev.ftb.mods.ftblibrary.ui.misc.NordColors;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.sixik.sdmshop.old_api.screen.RefreshSupport;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
+import net.sixik.sdmshop.old_api.screen.RefreshSupport;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

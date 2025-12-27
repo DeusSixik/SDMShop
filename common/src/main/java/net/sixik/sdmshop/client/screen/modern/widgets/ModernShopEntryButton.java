@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.client.screen.base.widgets.AbstractShopEntryButton;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.utils.ShopRenderUtils;
-import net.sixik.sdmshop.utils.ShopUtilsClient;
 import net.sixik.sdmuilib.client.utils.GLHelper;
 import net.sixik.sdmuilib.client.utils.TextHelper;
 import net.sixik.sdmuilib.client.utils.math.Vector2;

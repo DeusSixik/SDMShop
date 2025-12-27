@@ -17,7 +17,6 @@ import net.sixik.sdmshop.client.screen.modern.panels.ModernShopPanels;
 import net.sixik.sdmshop.client.screen.modern.panels.ModernShopTabPanel;
 import net.sixik.sdmshop.client.screen.modern.widgets.ModernShopEntryButton;
 import net.sixik.sdmshop.client.screen.modern.widgets.ModernShopTabButton;
-import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.ShopUtils;

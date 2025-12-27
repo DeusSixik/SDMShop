@@ -5,9 +5,9 @@ import dev.architectury.networking.simple.BaseS2CMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.network.SDMShopNetwork;
+import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.shop.BaseShop;
 import org.jetbrains.annotations.Nullable;
 

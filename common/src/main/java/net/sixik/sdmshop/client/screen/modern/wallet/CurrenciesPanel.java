@@ -4,8 +4,6 @@ import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmeconomy.api.EconomyAPI;
-import net.sixik.sdmeconomy.currencies.BaseCurrency;
-import net.sixik.sdmeconomy.currencies.data.CurrencyData;
 import net.sixik.sdmeconomy.currencies.data.CurrencyPlayerData;
 import net.sixik.sdmuilib.client.utils.RenderHelper;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;

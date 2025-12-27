@@ -2,8 +2,6 @@ package net.sixik.sdmshop;
 
 public class SDMShopConstants {
 
-    public static final String CACHE_FOLDER = "cache";
-
     public static final String EDIT_KEY = "sdm.shop.context.edit";
     public static final String SETTINGS_KEY = "sdm.shop.context.setting";
     public static final String DUPLICATE_KEY = "sdm.shop.context.edit.duplicate";

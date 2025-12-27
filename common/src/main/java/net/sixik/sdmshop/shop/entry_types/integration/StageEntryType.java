@@ -7,8 +7,8 @@ import dev.ftb.mods.ftblibrary.icon.Icons;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.compat.SDMShopIntegration;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.utils.StagesUtils;
 

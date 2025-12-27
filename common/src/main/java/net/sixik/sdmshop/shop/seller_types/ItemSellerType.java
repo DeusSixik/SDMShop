@@ -16,8 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.sixik.sdmshop.old_api.shop.AbstractEntrySellerType;
 import net.sixik.sdmshop.shop.ShopEntry;
-import net.sixik.sdmshop.utils.ShopNBTUtils;
 import net.sixik.sdmshop.utils.ShopItemHelper;
+import net.sixik.sdmshop.utils.ShopNBTUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;

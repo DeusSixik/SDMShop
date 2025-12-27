@@ -40,6 +40,10 @@ subprojects {
                 includeGroup "dev.ftb.mods"
             }
         }
+        maven {
+            url = 'https://maven.blamejared.com'
+            name = 'BlameJared Maven'
+        }
     }
 
     dependencies {

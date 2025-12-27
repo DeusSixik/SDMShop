@@ -23,7 +23,7 @@ public class ShopContentRegister {
     protected static final Map<String, Constructor<? extends AbstractShopCondition>> CONDITIONS = new LinkedHashMap<>();
     protected static final Map<String, Supplier<AbstractEntrySellerType<?>>> SELLER_TYPES = new LinkedHashMap<>();
     protected static final Map<String, Function<ShopEntry, AbstractEntryType>> ENTRY_TYPES = new LinkedHashMap<>();
-    protected static final Map<String, Function<Void, AbstractASKRequest>> REQUESTS = new LinkedHashMap<>();
+    protected static final Map<String, Function<Void, AbstractASKRequest>> REQUESTS = new HashMap<>();
 
     public static void registerCondition(String id, Constructor<? extends AbstractShopCondition> function) {
         if(CONDITIONS.containsKey(id))

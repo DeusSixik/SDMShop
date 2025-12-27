@@ -2,6 +2,7 @@ package net.sixik.sdmshop.utils;
 
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,6 +14,17 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public class ShopItemHelper {
+
+    public static int countItem(final Container container, final ItemStack itemStack, boolean strictNbt, boolean ignoreDamage) {
+        int count = 0;
+        for (int i = 0; i < container.getContainerSize(); i++) {
+            ItemStack slotItem = container.getItem(i);
+            if (matches(itemStack, slotItem, strictNbt, ignoreDamage)) {
+                count += slotItem.getCount();
+            }
+        }
+        return count;
+    }
 
     public static int countItem(final Container container, final ItemStack itemStack, final boolean ignoreNbt) {
         return countItemByPredicate(container, v -> equals(v, itemStack, ignoreNbt));
@@ -85,7 +97,7 @@ public class ShopItemHelper {
 
     public static boolean equalsNbt(final ItemStack item1, final ItemStack item2) {
         if(!item1.hasTag() || !item2.hasTag()) return false;
-        return Objects.equals(item1.getTag(), item2.getTag());
+        return NbtUtils.compareNbt(item1.getTag(), item2.getTag(), true);
     }
 
     private static long distributeItems(final Container container, final ItemStack itemStack, long left) {
@@ -143,6 +155,63 @@ public class ShopItemHelper {
         }
 
         return false;
+    }
+
+    private static boolean checkNbtRunning(ItemStack s1, ItemStack s2) {
+        return ItemStack.isSameItemSameTags(s1, s2);
+    }
+
+    public static boolean matches(ItemStack shopItem, ItemStack playerItem, boolean strictNbt, boolean ignoreDamage) {
+        if (playerItem.isEmpty() || shopItem.isEmpty()) return false;
+        if (!playerItem.is(shopItem.getItem())) return false;
+
+        // Если нам важен NBT (по умолчанию true для безопасности)
+        if (strictNbt) {
+            // Если у магазинного предмета нет NBT, то и у игрока не должно быть (иначе продадим зачарованный меч как палку)
+            if (!shopItem.hasTag()) {
+                return !playerItem.hasTag();
+            }
+
+            // Если NBT есть, проверяем совпадение
+            // Для инструментов можно игнорировать Damage, если это настроено
+            if (ignoreDamage && playerItem.isDamageableItem()) {
+                return ItemStack.isSameItemSameTags(shopItem, playerItem) ||
+                        (playerItem.getDamageValue() != shopItem.getDamageValue() && checkNbtRunning(shopItem, playerItem));
+            }
+
+            return ItemStack.isSameItemSameTags(shopItem, playerItem);
+        }
+
+        return true;
+    }
+
+    public static boolean shrinkItem(final Container container, final ItemStack itemStack, final int amount, boolean strictNbt, boolean ignoreDamage) {
+        if (amount <= 0) return false;
+
+        // Сначала проверяем, есть ли нужное количество (избегаем частичного удаления)
+        if (countItem(container, itemStack, strictNbt, ignoreDamage) < amount) {
+            return false;
+        }
+
+        int remainingToRemove = amount;
+
+        for (int i = 0; i < container.getContainerSize() && remainingToRemove > 0; i++) {
+            ItemStack slotItem = container.getItem(i);
+
+            if (matches(itemStack, slotItem, strictNbt, ignoreDamage)) {
+                int count = slotItem.getCount();
+                if (count <= remainingToRemove) {
+                    remainingToRemove -= count;
+                    container.setItem(i, ItemStack.EMPTY);
+                } else {
+                    slotItem.shrink(remainingToRemove); // Используем нативный метод
+                    remainingToRemove = 0;
+                    // setItem не нужен, так как мы изменили объект по ссылке, но для надежности можно оставить
+                    container.setChanged();
+                }
+            }
+        }
+        return remainingToRemove == 0;
     }
 
 

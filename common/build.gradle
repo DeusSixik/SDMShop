@@ -20,5 +20,7 @@ dependencies {
     modApi ("curse.maven:game-stages-268655:5790361")
     modApi ("curse.maven:ftb-quests-forge-289412:6431737")
 
+//    modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-common-1.20.1:14.0.59'
+
 //    compileOnlyApi "curse.maven:sdm-shop-948942:6340166"
 }

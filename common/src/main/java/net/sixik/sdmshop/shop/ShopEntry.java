@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.sixik.sdmeconomy.SDMEconomy;
+import net.sixik.sdmshop.api.data.EntryAdditionalProperty;
 import net.sixik.sdmshop.old_api.*;
 import net.sixik.sdmshop.old_api.shop.*;
 import net.sixik.sdmshop.registers.ShopContentRegister;
@@ -33,6 +34,7 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
     protected int limitValue = 0;
     protected LimiterType limiterType = LimiterType.LocalPlayer;
 
+    protected EntryAdditionalProperty scriptData = new EntryAdditionalProperty();
 
     protected Component title = Component.empty();
     protected List<String> descriptions = new ArrayList<>();
@@ -213,11 +215,11 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
     }
 
     public long getCount() {
-        return count;
+        return count + scriptData.getCount();
     }
 
     public double getPrice() {
-        return price;
+        return price + scriptData.getPrice();
     }
 
     public UUID getId() {
@@ -306,7 +308,7 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
     @Override
     public int getObjectLimit() {
-        return limitValue;
+        return limitValue + scriptData.getLimit();
     }
 
     @Override
@@ -388,5 +390,9 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
     @Override
     public final ShopObjectTypes getShopType() {
         return ShopObjectTypes.SHOP_ENTRY;
+    }
+
+    public EntryAdditionalProperty getScriptData() {
+        return scriptData;
     }
 }

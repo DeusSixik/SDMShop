@@ -46,6 +46,8 @@ dependencies {
     modCompileOnlyApi ("curse.maven:kubejs-238086:5853326")
     modCompileOnlyApi ("curse.maven:rhino-416294:5655836")
 
+//    modRuntimeOnly "curse.maven:crafttweaker-239197:6914010"
+
     compileOnlyApi "curse.maven:sdm-shop-948942:6340166"
 
     modApi("dev.ftb.mods:ftb-library-forge:${rootProject.ftb_library_version}") { transitive false }

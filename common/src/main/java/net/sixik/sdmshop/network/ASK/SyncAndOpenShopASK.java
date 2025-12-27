@@ -43,7 +43,6 @@ public class SyncAndOpenShopASK extends AbstractASKRequest {
     }
 
     @Override
-    @Environment(EnvType.SERVER)
     public void onServerTakeRequest(CompoundTag data, NetworkManager.PacketContext packetContext) {
         if(data == null) {
             logError("Server Request: NBT Data is null!");
@@ -73,7 +72,6 @@ public class SyncAndOpenShopASK extends AbstractASKRequest {
         }
     }
 
-    @Environment(EnvType.SERVER)
     private void handleClearStage(CompoundTag data, UUID shopId, ServerPlayer player, CompoundTag responseData) {
         Optional<BaseShop> shop = SDMShopServer.Instance().getShop(shopId);
         if (shop.isEmpty()) {
@@ -106,7 +104,6 @@ public class SyncAndOpenShopASK extends AbstractASKRequest {
         sendTo(player, packetsToSend.toArray(new CompoundTag[0]));
     }
 
-    @Environment(EnvType.SERVER)
     private void handleSendDataStage(CompoundTag data, ServerPlayer player, CompoundTag responseData) {
         if (!data.contains(SYNC_KEY) || data.getInt(SYNC_KEY) <= 0) {
             responseData.putInt(STAGE_KEY, OPEN_STAGE);

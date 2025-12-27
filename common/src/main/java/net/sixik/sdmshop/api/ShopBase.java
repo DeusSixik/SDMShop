@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.shop.ShopEntry;
@@ -56,7 +57,7 @@ public interface ShopBase {
      * Checks if there are changes in the store and calls the method for subscribers
      */
     default void onChange() {
-        if(!isDirty()) return;
+        if (!isDirty()) return;
         onChangeMethod();
     }
 
@@ -69,6 +70,7 @@ public interface ShopBase {
         for (int i = 0; i < listeners.size(); i++) {
             listeners.get(i).handle(this);
         }
+        ShopEvents.SHOP_CHANGE_EVENT.invoker().handle(this);
         onChangeEvent();
 
         setDirty(false);
@@ -83,7 +85,8 @@ public interface ShopBase {
     /**
      * Perhaps something needs to be done after all the listeners have done their business.
      */
-    default void onChangeEvent() { }
+    default void onChangeEvent() {
+    }
 
     /**
      * The cached NBT in order not to read it again if the data is not updated
@@ -109,10 +112,10 @@ public interface ShopBase {
      * Calculates the Hash for the data so that its validity can be verified
      */
     default String calculateVersion() {
-        if(!isDirty()) {
+        if (!isDirty()) {
             final Tag nbt = getCachedNbt();
-            if(nbt != null) {
-                if(getVersion().isEmpty() && nbt instanceof CompoundTag compoundTag) {
+            if (nbt != null) {
+                if (getVersion().isEmpty() && nbt instanceof CompoundTag compoundTag) {
                     return HashUtils.calculateHash(compoundTag);
                 }
                 return NULL_HASH;
@@ -121,7 +124,7 @@ public interface ShopBase {
 
         final DataResult<Tag> result = codecNetwork().encodeStart(NbtOps.INSTANCE, this);
         final Tag nbt = result.getOrThrow(false, SDMShop.LOGGER::error);
-        if(!(nbt instanceof CompoundTag compoundTag)) return NULL_HASH;
+        if (!(nbt instanceof CompoundTag compoundTag)) return NULL_HASH;
         return HashUtils.calculateHash(compoundTag);
     }
 
@@ -165,11 +168,11 @@ public interface ShopBase {
 
     @Nullable
     default ShopTab getTab(final ShopEntry entry) {
-       return getTab(entry.getTab());
+        return getTab(entry.getTab());
     }
 
     default Optional<ShopTab> getTabOptional(final ShopEntry entry) {
-       return getTabOptional(entry.getTab());
+        return getTabOptional(entry.getTab());
     }
 
     @Nullable
@@ -334,6 +337,7 @@ public interface ShopBase {
         for (int i = 0; i < listeners.size(); i++) {
             listeners.get(i).handle(this, entry, tab);
         }
+        ShopEvents.ENTRY_ADD_EVENT.invoker().handle(this, entry, tab);
     }
 
     default void onEntryRemove(final ShopEntry entry, final ShopTab tab) {
@@ -342,6 +346,7 @@ public interface ShopBase {
         for (int i = 0; i < listeners.size(); i++) {
             listeners.get(i).handle(this, entry, tab);
         }
+        ShopEvents.ENTRY_REMOVE_EVENT.invoker().handle(this, entry, tab);
     }
 
     default void onEntryChange(final ShopEntry entry, final ShopTab tab) {
@@ -350,6 +355,7 @@ public interface ShopBase {
         for (int i = 0; i < listeners.size(); i++) {
             listeners.get(i).handle(this, entry, tab);
         }
+        ShopEvents.ENTRY_CHANGE_EVENT.invoker().handle(this, entry, tab);
     }
 
     List<TabAddListener> getTabAddListeners();
@@ -413,6 +419,7 @@ public interface ShopBase {
         for (int i = 0; i < list.size(); i++) {
             list.get(i).handle(this, tab);
         }
+        ShopEvents.TAB_ADD_EVENT.invoker().handle(this, tab);
     }
 
     default void onTabRemove(final ShopTab tab) {
@@ -420,6 +427,7 @@ public interface ShopBase {
         for (int i = 0; i < list.size(); i++) {
             list.get(i).handle(this, tab);
         }
+        ShopEvents.TAB_REMOVE_EVENT.invoker().handle(this, tab);
     }
 
     default void onTabChange(final ShopTab tab) {
@@ -427,6 +435,7 @@ public interface ShopBase {
         for (int i = 0; i < list.size(); i++) {
             list.get(i).handle(this, tab);
         }
+        ShopEvents.TAB_CHANGE_EVENT.invoker().handle(this, tab);
     }
 
     default boolean swapEntries(final UUID entryFrom, final UUID entryTo, final MoveType type) {
@@ -453,7 +462,9 @@ public interface ShopBase {
         switch (type) {
             case Swap -> ListHelper.swap(entries, i1, i2);
             case Insert -> ListHelper.insert(entries, i1, i2);
-            default -> { return false; }
+            default -> {
+                return false;
+            }
         }
 
         final ShopEntry e1 = entries.get(i2);
@@ -490,7 +501,9 @@ public interface ShopBase {
         switch (type) {
             case Swap -> ListHelper.swap(tabs, i1, i2);
             case Insert -> ListHelper.insert(tabs, i1, i2);
-            default -> { return false; }
+            default -> {
+                return false;
+            }
         }
 
         final ShopTab t1 = tabs.get(i2);
@@ -597,6 +610,18 @@ public interface ShopBase {
         ShopDebugUtils.log("Moved tab {} {}: {} -> {}",
                 tabId, direction, index, newIndex);
         return true;
+    }
+
+    @FunctionalInterface
+    interface EntryBuyListener {
+
+        void handle(final ShopBase base, final ShopEntry entry, final ShopTab tab, final ServerPlayer player);
+    }
+
+    @FunctionalInterface
+    interface EntrySellListener {
+
+        void handle(final ShopBase base, final ShopEntry entry, final ShopTab tab, final ServerPlayer player);
     }
 
     @FunctionalInterface

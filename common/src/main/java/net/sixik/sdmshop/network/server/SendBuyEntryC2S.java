@@ -9,6 +9,7 @@ import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.config.ShopConfig;
 import net.sixik.sdmshop.network.SDMShopNetwork;
 import net.sixik.sdmshop.network.sync.SendLimiterS2C;
+import net.sixik.sdmshop.api.ShopEvents;
 import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
@@ -124,6 +125,9 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
             return;
         }
 
+        if(entry.getType().isSell()) ShopEvents.ENTRY_SELL_EVENT.invoker().handle(shop, entry, tab, player);
+        else ShopEvents.ENTRY_BUY_EVENT.invoker().handle(shop, entry, tab, player);
+
         /*
             UPDATING DATA (Only after a successful transaction!)
          */
@@ -151,10 +155,8 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
         if (tab.isLimiterActive()) {
             if (tab.getLimiterType().isPlayer()) {
                 limiter.addTabData(tab.getId(), playerId, count);
-                System.out.println("TAB PLAYER: " + count);
             } else {
                 limiter.addTabData(tab.getId(), count); // Global
-                System.out.println("TAB GLOBAL: " + count);
             }
         }
 
@@ -164,10 +166,8 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
         if (entry.isLimiterActive()) {
             if (entry.getLimiterType().isPlayer()) {
                 limiter.addOrSetEntryData(entry.getId(), playerId, count);
-                System.out.println("ENTRY LOCAL: " + count);
             } else {
                 limiter.addOrSetEntryData(entry.getId(), count); // Global
-                System.out.println("ENTRY GLOBAL: " + count);
             }
         }
     }

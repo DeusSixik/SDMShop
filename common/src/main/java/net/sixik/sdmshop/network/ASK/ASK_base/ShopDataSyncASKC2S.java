@@ -42,12 +42,16 @@ public class ShopDataSyncASKC2S extends BaseC2SMessage {
 
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
-        Optional<Function<Void, AbstractASKRequest>> opt = ShopContentRegister.getRequest(id);
-        if(opt.isEmpty()) {
-            SDMShop.LOGGER.error("Request is null");
-            return;
+        try {
+            Optional<Function<Void, AbstractASKRequest>> opt = ShopContentRegister.getRequest(id);
+            if (opt.isEmpty()) {
+                SDMShop.LOGGER.error("Request is null");
+                return;
+            }
+            opt.get().apply(null).onServerTakeRequest(nbt, packetContext);
+            ASKHandler.getInstance().getNextRequest(packetContext.getPlayer()).ifPresent(s -> s.waitRequest(false));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        opt.get().apply(null).onServerTakeRequest(nbt, packetContext);
-        ASKHandler.getInstance().getNextRequest(packetContext.getPlayer()).ifPresent(s -> s.waitRequest(false));
     }
 }

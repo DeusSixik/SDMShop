@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.sixik.sdmshop.network.ASK.SyncAndOpenShopASK;
 import net.sixik.sdmshop.network.ASKHandler;
 
 import java.util.function.Supplier;

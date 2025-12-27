@@ -36,6 +36,8 @@ import java.util.Objects;
 public class ItemEntryType extends AbstractEntryType implements CustomIcon {
 
     protected ItemStack itemStack;
+    protected boolean strictNbt = true;
+    protected boolean ignoreDamage = true;
 
     public ItemEntryType(ShopEntry shopEntry) {
         this(shopEntry, Items.AIR.getDefaultInstance());
@@ -55,42 +57,50 @@ public class ItemEntryType extends AbstractEntryType implements CustomIcon {
 
     @Override
     public boolean onBuy(Player player, ShopEntry entry, int countBuy) {
-        if(countBuy <= 0) {
-            ShopDebugUtils.error("Can't buy. Because count <= 0: {}", countBuy);
+        if(countBuy <= 0) return false;
+        final long totalCount = entry.getCount() * countBuy;
+        if (totalCount > Integer.MAX_VALUE) {
             return false;
         }
-        return ShopItemHelper.giveItems(player, itemStack, entry.getCount() * countBuy);
+
+        return ShopItemHelper.giveItems(player, itemStack, totalCount);
     }
 
     @Override
     public boolean onSell(Player player, ShopEntry entry, int countBuy) {
-        if (countBuy <= 0) {
-            SDMShop.LOGGER.error("Count buy <= 0: {}", countBuy);
+        if (countBuy <= 0) return false;
+
+        long totalNeeded = (long) entry.getCount() * countBuy;
+        if (totalNeeded > Integer.MAX_VALUE) return false; // Защита
+
+        // ВАЖНО: Используем strictNbt = true.
+        // Это решает проблему "Осколков души" и "Зачарованных органов".
+        // Если itemStack (в магазине) чистый, мы ищем у игрока ТОЛЬКО чистые предметы.
+        int available = ShopItemHelper.countItem(player.getInventory(), itemStack, strictNbt, ignoreDamage);
+
+        if (available < totalNeeded) {
+            // Можно отправить сообщение игроку "Недостаточно предметов"
             return false;
         }
 
-        boolean ignoreNbt = !itemStack.hasTag();
+        boolean success = ShopItemHelper.shrinkItem(player.getInventory(), itemStack, (int) totalNeeded, strictNbt, ignoreDamage);
 
-        int amountItems = ShopItemHelper.countItem(player.getInventory(), itemStack, ignoreNbt);
-
-        int amount = amountItems >= entry.getCount() * countBuy ? (int) (entry.getCount() * countBuy) : 0;
-        if(amountItems == 0 || amount == 0) {
-            SDMShop.LOGGER.error("Count buy amountItems || amount == 0");
-            return false;
+        if (success) {
+            // Обязательно обновляем инвентарь клиента, иначе будут "фантомные" предметы
+            player.containerMenu.broadcastChanges();
         }
 
-        if (amount <= 0) {
-            SDMShop.LOGGER.error("Count buy amount <= 0");
-            return false;
-        }
-        return ShopItemHelper.shrinkItem(player.getInventory(), itemStack, amount, ignoreNbt);
+        return success;
     }
 
     @Override
     public boolean canExecute(Player player, ShopEntry entry, int countBuy) {
-        if(entry.type.isSell()) {
-            int countItems = ShopItemHelper.countItem(player.getInventory(), itemStack, !itemStack.hasTag());
-            return countItems >= (entry.getCount() * countBuy);
+        if (entry.getType().isSell()) {
+            long totalNeeded = entry.getCount() * countBuy;
+            if (totalNeeded > Integer.MAX_VALUE) return false;
+
+            int countItems = ShopItemHelper.countItem(player.getInventory(), itemStack, strictNbt, ignoreDamage);
+            return countItems >= totalNeeded;
         } else {
             double playerMoney = entry.getEntrySellerType().getMoney(player, entry);
             double needMoney = entry.getPrice() * countBuy;
@@ -101,9 +111,9 @@ public class ItemEntryType extends AbstractEntryType implements CustomIcon {
     @Override
     public int howMany(Player player, ShopEntry entry) {
         if(entry.getType().isSell()){
-            int countItems = ShopItemHelper.countItem(player.getInventory(), itemStack, !itemStack.hasTag());
-            var t = (int) (countItems / entry.getCount());
-            return t;
+            int countItems = ShopItemHelper.countItem(player.getInventory(), itemStack, strictNbt, ignoreDamage);
+            if (entry.getCount() == 0) return 0;
+            return Math.toIntExact(countItems / entry.getCount());
         } else {
             double playerMoney = entry.getEntrySellerType().getMoney(player, entry);
             if(entry.getPrice() == 0) return Byte.MAX_VALUE * 4;
@@ -148,12 +158,18 @@ public class ItemEntryType extends AbstractEntryType implements CustomIcon {
     public CompoundTag serialize() {
         CompoundTag nbt = new CompoundTag();
         ShopNBTUtils.putItemStack(nbt, "itemStack", itemStack);
+        nbt.putBoolean("strictNbt", strictNbt);
+        nbt.putBoolean("ignoreDamage", ignoreDamage);
         return nbt;
     }
 
     @Override
     public void deserialize(CompoundTag tag) {
         this.itemStack = ShopNBTUtils.getItemStack(tag, "itemStack");
+        if(tag.contains("ignoreDamage"))
+            ignoreDamage = tag.getBoolean("ignoreDamage");
+        if(tag.contains("strictNbt"))
+            strictNbt = tag.getBoolean("strictNbt");
     }
 
     @Override
@@ -162,6 +178,8 @@ public class ItemEntryType extends AbstractEntryType implements CustomIcon {
             itemStack = v;
             updateIcon(itemStack);
         }, ItemStack.EMPTY, true, false);
+        group.addBool("ignoreDamage", ignoreDamage, v -> ignoreDamage = v, true);
+        group.addBool("strictNbt", strictNbt, v -> strictNbt = v, true);
     }
 
     @Override

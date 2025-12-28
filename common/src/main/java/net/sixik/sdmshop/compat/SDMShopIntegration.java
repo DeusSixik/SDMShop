@@ -15,7 +15,7 @@ public class SDMShopIntegration {
         gameStagesLoaded = Platform.isModLoaded("gamestages");
         kubejsLoaded = Platform.isModLoaded("kubejs");
         if(Platform.isModLoaded("ftbquests")){
-            FTBIntegrationHelper.main();
+            FTBIntegrationHelper.init();
         }
         pstLoaded = Platform.isModLoaded("skilltree");
 

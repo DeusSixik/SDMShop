@@ -1,6 +1,5 @@
 package net.sixik.sdmshop.cache;
 
-import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -9,7 +8,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmshop.SDMShop;
-import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.SDMShopPaths;
 import net.sixik.sdmshop.api.ShopBase;
 import net.sixik.sdmshop.shop.BaseShop;
@@ -22,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 @Environment(EnvType.CLIENT)
 public class ShopClientCache {

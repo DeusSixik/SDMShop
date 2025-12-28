@@ -14,7 +14,7 @@ public class FTBIntegrationHelper {
 
     public static boolean FTBQuestLoaded = false;
 
-    public static void main(){
+    public static void init(){
         FTBQuestLoaded = true;
 
         try {

@@ -20,6 +20,9 @@ import net.sixik.sdmuilib.client.utils.misc.RGBA;
 
 public class ModernBuyerScreen extends AbstractBuyerScreen {
 
+    private static final RGBA BG_COLOR = RGBA.create(0, 0, 0, 127);
+    private static final int PADDING = 5;
+
     protected int offerSize = -1;
     protected int limitValue;
     protected ShopLimiterData limitData;
@@ -63,7 +66,7 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
 
             @Override
             public void drawTextBox(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-                RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics,x,y,w,h, 4);
+                BG_COLOR.drawRoundFill(graphics,x,y,w,h, 4);
             }
         });
         add(this.cancelButton = new CancelButton(this));
@@ -96,27 +99,22 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
 
     protected void updateLimitData() {
         this.limitData = getShopLimit();
-        this.limitValue = limitData.value(); // Тут может быть 10, 0 или MAX_VALUE
-
-        // Передаем limitValue как есть.
-        // Если getMaxEntryOfferSize внутри делает Math.min(moneyCanBuy, limit),
-        // то с MAX_VALUE это сработает идеально.
+        this.limitValue = limitData.value();
         this.offerSize = getMaxEntryOfferSize(limitValue);
     }
 
     public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, x, y, w, h, 10);
+        BG_COLOR.drawRoundFill(graphics, x, y, w, h, 10);
 
-        Vector2 pos = new Vector2(x + 5, y + 5);
+        Vector2 pos = new Vector2(x + PADDING, y + PADDING);
 
-        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, sizeIcon * 2, sizeIcon * 2, 8);
+        BG_COLOR.drawRoundFill(graphics, pos.x,pos.y, sizeIcon * 2, sizeIcon * 2, 8);
 
         AbstractShopEntryButton.getIconFromEntry(shopEntry).draw(graphics,pos.x + sizeIcon / 2,pos.y + sizeIcon / 2,sizeIcon,sizeIcon);
 
         pos.setX(pos.x + sizeIcon * 2 + 2);
 
-        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, lineHeight + 1, 4);
-
+        BG_COLOR.drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, lineHeight + 1, 4);
 
         BuyerRenderVariable variable = new BuyerRenderVariable(pos, sizeIcon);
 
@@ -127,21 +125,21 @@ public class ModernBuyerScreen extends AbstractBuyerScreen {
         int w2 = w1 / 2;
 
         pos.setY(pos.y + sizeIcon);
-        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, lineHeight + 1, 4);
+        BG_COLOR.drawRoundFill(graphics, pos.x,pos.y, this.width - 10 - 2 - sizeIcon * 2, lineHeight + 1, 4);
 
 
         shopEntry.getEntrySellerType().draw(graphics, theme, pos.x + w2, pos.y + 1, w, 16, shopEntry.getPrice(), this, 0);
 
-        pos.setPosition(x + 5, y + 5 + sizeIcon * 2 + 2);
+        pos.setPosition(x + PADDING, y + PADDING + sizeIcon * 2 + 2);
         Vector2 size = new Vector2(this.width - 10, this.height - (5 + sizeIcon * 2 + 2 + 24 + 2));
 
-        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x,pos.y, size.x / 2 - 2, lineHeight + 1, 4);
+        BG_COLOR.drawRoundFill(graphics, pos.x,pos.y, size.x / 2 - 2, lineHeight + 1, 4);
 
         GLHelper.pushScissor(graphics, pos.x,pos.y, size.x / 2 - 2, lineHeight + 1);
         theme.drawString(graphics, Component.translatable("sdm.shop.modern.ui.player_money"), pos.x + 2, pos.y + 1, Color4I.WHITE, 2);
         GLHelper.popScissor(graphics);
 
-        RGBA.create(0, 0, 0, 255 / 2).drawRoundFill(graphics, pos.x + size.x / 2,pos.y, size.x / 2, lineHeight + 1, 4);
+        BG_COLOR.drawRoundFill(graphics, pos.x + size.x / 2,pos.y, size.x / 2, lineHeight + 1, 4);
 
         String textMoney;
 

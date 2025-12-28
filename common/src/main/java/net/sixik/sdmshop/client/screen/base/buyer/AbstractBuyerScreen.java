@@ -57,23 +57,6 @@ public abstract class AbstractBuyerScreen extends BaseScreen implements RefreshS
         return ShopUtils.getMaxEntryOfferSize(shopEntry, Minecraft.getInstance().player, size);
     }
 
-    protected boolean parse(@Nullable Consumer<Integer> callback, String string, int min, int max) {
-        try {
-            int v = Long.decode(string).intValue();
-            if (v >= min && v <= max) {
-                if (callback != null) {
-                    callback.accept(v);
-                }
-
-                return true;
-            }
-        } catch (Exception var4) {
-
-        }
-
-        return false;
-    }
-
     protected static boolean isDigitsInRange(String s, int min, int max) {
         if (s == null || s.isEmpty()) return false;
 

@@ -46,7 +46,6 @@ public class AsyncServerTasks {
         }).thenAcceptAsync(response -> {
             boolean isDataCorrect = response.readBoolean();
             if(isDataCorrect) {
-                System.out.println("Player have cache");
                 return;
             }
 

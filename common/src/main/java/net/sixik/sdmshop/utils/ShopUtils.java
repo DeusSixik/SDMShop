@@ -168,7 +168,7 @@ public class ShopUtils {
     public static String moneyToString(double l, String moneyName) {
         for (BaseCurrency currency : EconomyAPI.getAllCurrency().value.currencies) {
             if(Objects.equals(currency.getName(), moneyName))
-                return (currency.symbol.type == CurrencySymbol.Type.CHAR ? currency.symbol.value : "") + " " + l;
+                return (currency.symbol.type == CurrencySymbol.Type.CHAR ? String.format("%s.2f", currency.symbol.value) : "") + " " + l;
         }
 
         return " " + l;

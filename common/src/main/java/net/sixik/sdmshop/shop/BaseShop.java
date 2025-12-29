@@ -190,7 +190,6 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
         }
         nbt.put(TABS_KEY, tags);
 
-
         nbt.put(PARAMS_KEY, shopParams.serialize());
 
         return nbt;

@@ -2,8 +2,10 @@ package net.sixik.sdmshop.utils;
 
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.simple.BaseS2CMessage;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.sixik.sdmshop.api.ShopBase;
 import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.shop.BaseShop;
 

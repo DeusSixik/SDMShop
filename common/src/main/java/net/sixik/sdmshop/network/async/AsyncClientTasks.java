@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmshop.SDMShop;
+import net.sixik.sdmshop.api.ShopBase;
 import net.sixik.sdmshop.cache.ShopClientCache;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.modern.ModernShopScreen;
@@ -18,44 +19,135 @@ import java.util.UUID;
 public class AsyncClientTasks {
 
     public static void init() {
-        AsyncBridge.registerHandler(AsyncServerTasks.OPEN_SHOP, buf -> {
-            final ResourceLocation shopID = buf.readResourceLocation();
+        AsyncBridge.registerHandler(AsyncServerTasks.SYNC_SHOP_NEW, buf -> {
             final UUID shopUId = buf.readUUID();
+            final ResourceLocation shopId = buf.readResourceLocation();
             final CompoundTag shopData = buf.readAnySizeNbt();
 
-            if (SDMShopClient.CurrentShop == null || !SDMShopClient.CurrentShop.getId().equals(shopUId)) {
-                SDMShopClient.CurrentShop = new BaseShop(shopID, shopUId);
+            boolean success = false;
+            if (shopData != null) {
+                SDMShopClient.CurrentShop = new BaseShop(shopData);
+                success = true;
             }
+            else
+                SDMShop.LOGGER.error("[Requests {}] Can't sync shop because 'shopData' is null", AsyncServerTasks.SYNC_SHOP_NEW);
 
-            SDMShopClient.CurrentShop.deserialize(shopData);
 
-            new ModernShopScreen().openGui();
-
-            return null; // No response to the server is required.
-        });
-
-        AsyncBridge.registerHandler(AsyncServerTasks.GET_SHOP_CACHE, buf -> {
-            final UUID shopId = buf.readUUID();
-            final String version = buf.readUtf();
-
-            ShopClientCache.loadCache();
-
-            final String cacheVersion = ShopClientCache.getCacheVersion(shopId);
             FriendlyByteBuf response = new FriendlyByteBuf(Unpooled.buffer());
-            response.writeBoolean(Objects.equals(cacheVersion, version));
+            response.writeBoolean(success);
             return response;
         });
 
-        AsyncBridge.registerHandler(AsyncServerTasks.SYNC_SHOP, buf -> {
-            final ResourceLocation shopId = buf.readResourceLocation();
+        AsyncBridge.registerHandler(AsyncServerTasks.SYNC_SHOP_CACHE_GET, buf -> {
             final UUID shopUId = buf.readUUID();
+            final ResourceLocation shopID = buf.readResourceLocation();
+            final String shopVersion = buf.readUtf();
+
+            ShopClientCache.loadCache();
+
+            boolean haveShop = false;
+            final ShopBase shopCache = ShopClientCache.getCache(shopID);
+            if (shopCache != null) {
+                final String cachedVersion = shopCache.getVersion();
+                if (!cachedVersion.equals(BaseShop.NULL_HASH) && cachedVersion.equals(shopVersion)) {
+                    haveShop = true;
+                }
+            }
+
+            FriendlyByteBuf response = new FriendlyByteBuf(Unpooled.buffer());
+            response.writeBoolean(haveShop);
+            return response;
+        });
+
+        AsyncBridge.registerHandler(AsyncServerTasks.SYNC_SHOP_CACHE_GET_OPEN, buf -> {
+            final UUID shopUId = buf.readUUID();
+            final ResourceLocation shopID = buf.readResourceLocation();
+            final String shopVersion = buf.readUtf();
+
+            boolean haveShop = false;
+
+            ShopClientCache.loadCache();
+
+            final ShopBase shopCache = ShopClientCache.getCache(shopID);
+            if (shopCache != null) {
+                final String cachedVersion = shopCache.getVersion();
+                if (!cachedVersion.equals(BaseShop.NULL_HASH) && cachedVersion.equals(shopVersion)) {
+                    SDMShopClient.CurrentShop = (BaseShop) shopCache;
+                    new ModernShopScreen().openGui();
+                    haveShop = true;
+                }
+            }
+
+            FriendlyByteBuf response = new FriendlyByteBuf(Unpooled.buffer());
+            response.writeBoolean(haveShop);
+            return response;
+        });
+
+        AsyncBridge.registerHandler(AsyncServerTasks.SYNC_SHOP_CACHE_SET, buf -> {
+            final UUID shopUId = buf.readUUID();
+            final ResourceLocation shopID = buf.readResourceLocation();
             final CompoundTag shopData = buf.readAnySizeNbt();
 
-            final BaseShop baseShop = new BaseShop(shopData);
-            ShopClientCache.saveCache(baseShop);
-            return null;
+            boolean success = false;
+            if (shopData != null) {
+                ShopClientCache.saveCache(new BaseShop(shopData));
+                success = true;
+            }
+            else
+                SDMShop.LOGGER.error("[Requests {}] Can't sync shop because 'shopData' is null", AsyncServerTasks.SYNC_SHOP_CACHE_SET);
+
+            FriendlyByteBuf response = new FriendlyByteBuf(Unpooled.buffer());
+            response.writeBoolean(success);
+            return response;
+        });
+
+        AsyncBridge.registerHandler(AsyncServerTasks.SYNC_SHOP_CACHE_SET_OPEN, buf -> {
+            final UUID shopUId = buf.readUUID();
+            final ResourceLocation shopID = buf.readResourceLocation();
+            final CompoundTag shopData = buf.readAnySizeNbt();
+
+            boolean success = false;
+            if (shopData != null) {
+                final BaseShop shop = new BaseShop(shopData);
+                SDMShopClient.CurrentShop = shop;
+                ShopClientCache.saveCache(shop);
+                new ModernShopScreen().openGui();
+                success = true;
+            }
+            else
+                SDMShop.LOGGER.error("[Requests {}] Can't sync and open shop because 'shopData' is null", AsyncServerTasks.SYNC_SHOP_CACHE_SET);
+
+            FriendlyByteBuf response = new FriendlyByteBuf(Unpooled.buffer());
+            response.writeBoolean(success);
+            return response;
+        });
+
+        AsyncBridge.registerHandler(AsyncServerTasks.OPEN_SHOP_NEW, buf -> {
+            final UUID shopUId = buf.readUUID();
+            final ResourceLocation shopID = buf.readResourceLocation();
+            final CompoundTag shopData = buf.readAnySizeNbt();
+
+            boolean success = false;
+
+            if (shopData != null) {
+                if (SDMShopClient.CurrentShop == null || !SDMShopClient.CurrentShop.getId().equals(shopUId)) {
+                    SDMShopClient.CurrentShop = new BaseShop(shopID, shopUId);
+                }
+
+                SDMShopClient.CurrentShop.deserialize(shopData);
+
+                new ModernShopScreen().openGui();
+                success = true;
+            } else
+                SDMShop.LOGGER.error("[Requests {}] Can't open shop because 'shopData' is null", AsyncServerTasks.OPEN_SHOP_NEW);
+
+            FriendlyByteBuf response = new FriendlyByteBuf(Unpooled.buffer());
+            response.writeBoolean(success);
+            return response;
         });
     }
+
+
 
     public static void openShop(ResourceLocation shopId) {
         AsyncBridge.askServer(AsyncServerTasks.GET_OPEN_SHOP, buf -> {

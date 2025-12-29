@@ -99,10 +99,10 @@ public class SDMShopCommands {
 
         if (profiles != null) {
             for(ServerPlayer profile : profiles) {
-                AsyncServerTasks.openShop(profile, SDMShopServer.parseLocation(shopId));
+                AsyncServerTasks.openShopOrCache(profile, SDMShopServer.parseLocation(shopId));
             }
         } else if (source.getPlayer() != null) {
-            AsyncServerTasks.openShop(source.getPlayer(), SDMShopServer.parseLocation(shopId));
+            AsyncServerTasks.openShopOrCache(source.getPlayer(), SDMShopServer.parseLocation(shopId));
         }
 
         return 1;

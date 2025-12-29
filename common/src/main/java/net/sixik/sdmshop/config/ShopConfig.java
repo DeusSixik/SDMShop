@@ -30,7 +30,7 @@ public class ShopConfig {
 
         DISABLE_KEYBIND = CONFIG.addBoolean("disable_key_bind", false);
         SEND_NOTIFY = CONFIG.addBoolean("send_notify", true);
-        DEFAULT_SHOP_ID = CONFIG.addString("default_shop_id", "default");
+        DEFAULT_SHOP_ID = CONFIG.addString("default_shop_id", "default").comment("The store ID that you specify when creating via /sdmshop create_shop <id>. After specifying the ID, clicking on the store button or the button in the menu will open the current store.");
         SHOW_ADMIN_MESSAGES = CONFIG.addBoolean("show_admin_messages", true);
 
         var group = CONFIG.addGroup("caching");

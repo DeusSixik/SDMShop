@@ -3,7 +3,9 @@ package net.sixik.sdmshop.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientLifecycleEvent;
+import dev.architectury.event.events.client.ClientPlayerEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
+import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
@@ -14,9 +16,13 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.SDMShopPaths;
+import net.sixik.sdmshop.cache.ShopClientCache;
+import net.sixik.sdmshop.config.ShopConfig;
 import net.sixik.sdmshop.network.async.AsyncBridge;
 import net.sixik.sdmshop.network.async.AsyncClientTasks;
 import net.sixik.sdmshop.network.async.BlobTransfer;
@@ -57,16 +63,19 @@ public class SDMShopClient {
         ClientLifecycleEvent.CLIENT_SETUP.register(SDMShopClient::onClientSetup);
         ClientTickEvent.CLIENT_PRE.register(SDMShopClient::keyInput);
         CustomClickEvent.EVENT.register(SDMShopClient::customClick);
-        KeyMappingRegistry.register(KEY_SHOP);
-//        if(!ConfigFile.CLIENT.disableKeyBind) {
-//            KeyMappingRegistry.register(KEY_SHOP);
-//        }
+        ClientPlayerEvent.CLIENT_PLAYER_JOIN.register(SDMShopClient::onClientPlayerConnect);
 
+        if(!ShopConfig.DISABLE_KEYBIND.get()) {
+            KeyMappingRegistry.register(KEY_SHOP);
+        }
+    }
+
+    public static void onClientPlayerConnect(Player player) {
+        ShopClientCache.loadCache();
     }
 
     public static EventResult customClick(CustomClickEvent event) {
-        if (event.id().equals(OPEN_GUI) /*&& !ConfigFile.CLIENT.disableKeyBind*/) {
-//            openGui(Config.STYLE.get(), false);
+        if (event.id().equals(OPEN_GUI) && !ShopConfig.DISABLE_KEYBIND.get()) {
             openGui(SDMShopConstants.DEFAULT_SHOP);
             return EventResult.interruptTrue();
         }
@@ -75,9 +84,8 @@ public class SDMShopClient {
     }
     public static void keyInput(Minecraft mc) {
         if (KEY_SHOP.consumeClick()) {
-//            if(!ConfigFile.CLIENT.disableKeyBind)
-//                SDMShopClient.openGui(Config.STYLE.get(), false);
-            openGui(SDMShopConstants.DEFAULT_SHOP);
+            if(!ShopConfig.DISABLE_KEYBIND.get())
+                openGui(ShopConfig.DEFAULT_SHOP_ID.get());
         }
     }
 

@@ -1,0 +1,12 @@
+{
+  "shop": {
+    "group": "ftblibrary:info",
+    "icon": "sdmshop:icons/money_bag",
+    "x": 100,
+    "click": "sdmshop:open_gui",
+    "required_server_mods": [
+      "sdmshop"
+    ],
+    "loading_screen": true
+  }
+}

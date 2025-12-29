@@ -176,12 +176,12 @@ public class ShopUtils {
 
     public static void sendOpenShop(MinecraftServer server, String shopId) {
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            AsyncServerTasks.openShop(player, SDMShopServer.parseLocation(shopId));
+            AsyncServerTasks.openShopNew(player, SDMShopServer.parseLocation(shopId));
         }
     }
 
     public static void sendOpenShop(ServerPlayer player, String shopId) {
-        AsyncServerTasks.openShop(player, SDMShopServer.parseLocation(shopId));
+        AsyncServerTasks.openShopOrCache(player, SDMShopServer.parseLocation(shopId));
     }
 
     public static void openShopClient(String shopId) {

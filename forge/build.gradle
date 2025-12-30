@@ -59,8 +59,6 @@ processResources {
     filesMatching('META-INF/mods.toml') {
         expand version: project.version
     }
-
-    from project(":common").sourceSets.main.resources
 }
 
 shadowJar {

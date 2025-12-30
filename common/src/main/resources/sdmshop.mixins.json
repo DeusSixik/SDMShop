@@ -6,6 +6,7 @@
   "client": [
   ],
   "mixins": [
+    "accessors.BaseScreenAccess",
     "accessors.ConfigGroupAccess",
     "accessors.EditConfigScreenAccessor"
   ],

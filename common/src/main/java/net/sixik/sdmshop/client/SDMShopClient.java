@@ -22,6 +22,8 @@ import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.SDMShopPaths;
 import net.sixik.sdmshop.cache.ShopClientCache;
+import net.sixik.sdmshop.client.screen.modern.ModernShopScreen;
+import net.sixik.sdmshop.client.screen_new.MainShopScreen;
 import net.sixik.sdmshop.config.ShopConfig;
 import net.sixik.sdmshop.network.async.AsyncBridge;
 import net.sixik.sdmshop.network.async.AsyncClientTasks;
@@ -93,6 +95,11 @@ public class SDMShopClient {
 
     public static void openGui(String shopId) {
         AsyncClientTasks.openShop(SDMShopServer.parseLocation(shopId));
+    }
+
+    public static void openGui() {
+        new MainShopScreen().openGui();
+//        new ModernShopScreen().openGui();
     }
 
 

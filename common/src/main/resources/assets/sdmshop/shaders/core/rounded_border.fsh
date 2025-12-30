@@ -14,6 +14,7 @@ uniform vec4 u_ColorBL;
 uniform vec4 u_ColorBR;
 
 uniform int u_GradientType; // 0 = 4-corner, 1 = Angle
+uniform bool u_UseBorder;   // true = use border, false = not used
 uniform float u_Angle;      // In radians
 
 in vec2 texCoord; // (0,0) - top left, (1,1) - bottom right
@@ -74,10 +75,17 @@ void main() {
     }
 
     /*
+        Optional border
+    */
+    vec4 finalColor = fillColor;
+
+    /*
         Mixing with the border
     */
-    float borderFactor = smoothstep(-u_BorderWidth - 1.0, -u_BorderWidth, dist);
-    vec4 finalColor = mix(fillColor, u_BorderColor, borderFactor);
+    if (u_UseBorder && u_BorderWidth > 0.0) {
+        float borderFactor = smoothstep(-u_BorderWidth - 1.0, -u_BorderWidth, dist);
+        finalColor = mix(fillColor, u_BorderColor, borderFactor);
+    }
 
     finalColor.a *= alpha;
     fragColor = finalColor * ColorModulator;

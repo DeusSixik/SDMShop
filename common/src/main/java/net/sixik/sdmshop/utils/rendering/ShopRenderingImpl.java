@@ -196,6 +196,7 @@ class ShopRenderingImpl {
         if ((borderColor & 0xFF000000) == 0) borderColor |= 0xFF000000;
 
         // Setup Uniforms
+        safeSetBoolUniform(shader, "u_UseBorder", true);
         safeSetUniform(shader, "u_Size", width, height);
         safeSetUniform(shader, "u_Radius", radius);
         safeSetUniform(shader, "u_BorderWidth", borderWidth);
@@ -279,6 +280,137 @@ class ShopRenderingImpl {
         RenderSystem.disableBlend();
     }
 
+    public static void drawRoundedRectNoBorder(
+            PoseStack poseStack, float x, float y, float width, float height,
+            float radius, int color
+    ) {
+        drawRoundedCornerRectNoBorder(poseStack, x, y, width, height, radius, color, color, color, color);
+    }
+
+    public static void drawRoundedGradientRectNoBorder(
+            PoseStack poseStack, float x, float y, float width, float height,
+            float radius, int colorTop, int colorBottom
+    ) {
+        drawRoundedCornerRectNoBorder(poseStack, x, y, width, height, radius, colorTop, colorTop, colorBottom, colorBottom);
+    }
+
+    public static void drawRoundedCornerRectNoBorder(
+            final PoseStack poseStack,
+            final float x,
+            final float y,
+            final float width,
+            final float height,
+            final float radius,
+            int cTL, int cTR, int cBL, int cBR
+    ) {
+        final ShaderInstance shader = ShopRenderingComponents.ROUNDED_BORDER_SHADER;
+        if (shader == null) return;
+
+        final Matrix4f matrix = poseStack.last().pose();
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+
+        RenderSystem.setShader(() -> shader);
+
+        // Fix Alphas
+        if ((cTL & 0xFF000000) == 0) cTL |= 0xFF000000;
+        if ((cTR & 0xFF000000) == 0) cTR |= 0xFF000000;
+        if ((cBL & 0xFF000000) == 0) cBL |= 0xFF000000;
+        if ((cBR & 0xFF000000) == 0) cBR |= 0xFF000000;
+
+        // Uniforms
+        safeSetUniform(shader, "u_Size", width, height);
+        safeSetUniform(shader, "u_Radius", radius);
+
+        // border OFF
+        safeSetBoolUniform(shader, "u_UseBorder", false);
+        safeSetUniform(shader, "u_BorderWidth", 0.0f); // на всякий случай
+
+        safeSetColorUniform(shader, "u_ColorTL", cTL);
+        safeSetColorUniform(shader, "u_ColorTR", cTR);
+        safeSetColorUniform(shader, "u_ColorBL", cBL);
+        safeSetColorUniform(shader, "u_ColorBR", cBR);
+
+        // если у тебя в shader есть u_GradientType/u_Angle — лучше сбрасывать
+        safeSetIntUniform(shader, "u_GradientType", 0);
+        safeSetUniform(shader, "u_Angle", 0.0f);
+
+        final Tesselator tesselator = Tesselator.getInstance();
+        final BufferBuilder buffer = tesselator.getBuilder();
+        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+
+        buffer.vertex(matrix, x, y + height, 0).uv(0, 1).endVertex();
+        buffer.vertex(matrix, x + width, y + height, 0).uv(1, 1).endVertex();
+        buffer.vertex(matrix, x + width, y, 0).uv(1, 0).endVertex();
+        buffer.vertex(matrix, x, y, 0).uv(0, 0).endVertex();
+
+        tesselator.end();
+
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
+        RenderSystem.disableBlend();
+    }
+
+    public static void drawDirectionalGradientRectNoBorder(
+            final PoseStack poseStack,
+            final float x,
+            final float y,
+            final float width,
+            final float height,
+            final float radius,
+            int colorStart,
+            int colorEnd,
+            final float angleDeg
+    ) {
+        final ShaderInstance shader = ShopRenderingComponents.ROUNDED_BORDER_SHADER;
+        if (shader == null) return;
+
+        final Matrix4f matrix = poseStack.last().pose();
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+
+        RenderSystem.setShader(() -> shader);
+
+        if ((colorStart & 0xFF000000) == 0) colorStart |= 0xFF000000;
+        if ((colorEnd & 0xFF000000) == 0) colorEnd |= 0xFF000000;
+
+        safeSetUniform(shader, "u_Size", width, height);
+        safeSetUniform(shader, "u_Radius", radius);
+
+        safeSetBoolUniform(shader, "u_UseBorder", false);
+        safeSetUniform(shader, "u_BorderWidth", 0.0f);
+
+        safeSetIntUniform(shader, "u_GradientType", 1);
+        safeSetUniform(shader, "u_Angle", (float) Math.toRadians(angleDeg));
+
+        safeSetColorUniform(shader, "u_ColorTL", colorStart);
+        safeSetColorUniform(shader, "u_ColorBR", colorEnd);
+
+        final Tesselator tesselator = Tesselator.getInstance();
+        final BufferBuilder buffer = tesselator.getBuilder();
+        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+
+        buffer.vertex(matrix, x, y + height, 0).uv(0, 1).endVertex();
+        buffer.vertex(matrix, x + width, y + height, 0).uv(1, 1).endVertex();
+        buffer.vertex(matrix, x + width, y, 0).uv(1, 0).endVertex();
+        buffer.vertex(matrix, x, y, 0).uv(0, 0).endVertex();
+
+        tesselator.end();
+
+        // если потом этим же shader рисуешь не-directional — сброс полезен
+        safeSetIntUniform(shader, "u_GradientType", 0);
+
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
+        RenderSystem.disableBlend();
+    }
+
     private static void safeSetUniform(
             final ShaderInstance shaderInstance,
             final String name,
@@ -310,5 +442,9 @@ class ShopRenderingImpl {
             float b = (color & 0xFF) / 255f;
             uniform.set(r, g, b, a);
         }
+    }
+
+    private static void safeSetBoolUniform(ShaderInstance shader, String name, boolean v) {
+        safeSetIntUniform(shader, name, v ? 1 : 0);
     }
 }

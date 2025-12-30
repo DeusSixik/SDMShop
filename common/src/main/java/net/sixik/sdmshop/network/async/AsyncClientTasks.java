@@ -73,7 +73,7 @@ public class AsyncClientTasks {
                 final String cachedVersion = shopCache.getVersion();
                 if (!cachedVersion.equals(BaseShop.NULL_HASH) && cachedVersion.equals(shopVersion)) {
                     SDMShopClient.CurrentShop = (BaseShop) shopCache;
-                    new ModernShopScreen().openGui();
+                    SDMShopClient.openGui();
                     haveShop = true;
                 }
             }
@@ -111,7 +111,7 @@ public class AsyncClientTasks {
                 final BaseShop shop = new BaseShop(shopData);
                 SDMShopClient.CurrentShop = shop;
                 ShopClientCache.saveCache(shop);
-                new ModernShopScreen().openGui();
+                SDMShopClient.openGui();
                 success = true;
             }
             else
@@ -136,7 +136,7 @@ public class AsyncClientTasks {
 
                 SDMShopClient.CurrentShop.deserialize(shopData);
 
-                new ModernShopScreen().openGui();
+                SDMShopClient.openGui();
                 success = true;
             } else
                 SDMShop.LOGGER.error("[Requests {}] Can't open shop because 'shopData' is null", AsyncServerTasks.OPEN_SHOP_NEW);
@@ -168,7 +168,7 @@ public class AsyncClientTasks {
 
             SDMShopClient.CurrentShop.deserialize(shopData);
 
-            new ModernShopScreen().openGui();
+            SDMShopClient.openGui();
         }, Minecraft.getInstance()).exceptionally(ex -> {
             SDMShop.LOGGER.error("Failed to load shop", ex);
             Minecraft.getInstance().player.displayClientMessage(Component.literal("Error loading shop!"), false);

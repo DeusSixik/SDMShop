@@ -168,7 +168,7 @@ public class ShopUtils {
     public static String moneyToString(double l, String moneyName) {
         for (BaseCurrency currency : EconomyAPI.getAllCurrency().value.currencies) {
             if(Objects.equals(currency.getName(), moneyName))
-                return (currency.symbol.type == CurrencySymbol.Type.CHAR ? String.format("%s.2f", currency.symbol.value) : "") + " " + l;
+                return (currency.symbol.type == CurrencySymbol.Type.CHAR ? currency.symbol.value : "") + " " + String.format("%.2f", l);
         }
 
         return " " + l;
@@ -317,4 +317,26 @@ public class ShopUtils {
         return n * (2 * a0 + (n - 1) * d) / 2;
     }
 
+    public static String normalize(String s) {
+        if (s == null) return "";
+        s = s.trim().toLowerCase(java.util.Locale.ROOT);
+        s = s.replaceAll("\\s+", " ");
+        return s;
+    }
+
+    public static boolean matchesQuery(String name, String query) {
+        String[] parts = query.split(" ");
+
+        for (String p : parts) {
+            if (p.isEmpty()) continue;
+
+            if (p.charAt(0) == '-') {
+                String neg = p.substring(1);
+                if (!neg.isEmpty() && name.contains(neg)) return false;
+            } else {
+                if (!name.contains(p)) return false;
+            }
+        }
+        return true;
+    }
 }

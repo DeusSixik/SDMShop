@@ -24,6 +24,7 @@
     { "name": "u_ColorBR", "type": "float", "count": 4, "values": [ 1.0, 1.0, 1.0, 1.0 ] },
 
     { "name": "u_GradientType", "type": "int", "count": 1, "values": [ 0 ] },
-    { "name": "u_Angle", "type": "float", "count": 1, "values": [ 0.0 ] }
+    { "name": "u_Angle", "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "u_UseBorder", "type": "int", "count": 1, "values": [ 1 ] }
   ]
 }

@@ -195,4 +195,44 @@ public class ShopRenderingWrapper {
     ) {
         ShopRenderingImpl.drawRoundedCornerRect(poseStack, x, y, width, height, radius, borderWidth, cTL, cTR, cBL, cBR, borderColor);
     }
+
+    public static void drawRoundedRectNoBorder(
+            PoseStack poseStack, float x, float y, float width, float height,
+            float radius, int color
+    ) {
+        drawRoundedCornerRectNoBorder(poseStack, x, y, width, height, radius, color, color, color, color);
+    }
+
+    public static void drawRoundedGradientRectNoBorder(
+            PoseStack poseStack, float x, float y, float width, float height,
+            float radius, int colorTop, int colorBottom
+    ) {
+        drawRoundedCornerRectNoBorder(poseStack, x, y, width, height, radius, colorTop, colorTop, colorBottom, colorBottom);
+    }
+
+    public static void drawRoundedCornerRectNoBorder(
+            final PoseStack poseStack,
+            final float x,
+            final float y,
+            final float width,
+            final float height,
+            final float radius,
+            int cTL, int cTR, int cBL, int cBR
+    ) {
+        ShopRenderingImpl.drawRoundedCornerRectNoBorder(poseStack, x, y, width, height, radius, cTL, cTR, cBL, cBR);
+    }
+
+    public static void drawDirectionalGradientRectNoBorder(
+            final PoseStack poseStack,
+            final float x,
+            final float y,
+            final float width,
+            final float height,
+            final float radius,
+            int colorStart,
+            int colorEnd,
+            final float angleDeg
+    ) {
+        ShopRenderingImpl.drawDirectionalGradientRectNoBorder(poseStack, x, y, width, height, radius, colorStart, colorEnd, angleDeg);
+    }
 }

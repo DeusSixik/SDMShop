@@ -55,7 +55,7 @@ public class SDMShopClient {
     public static KeyMapping KEY_SHOP = new KeyMapping(KEY_NAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, SHOP_CATEGORY);
 
-    public static void init() {
+    public static void init(Runnable onClient) {
         AsyncBridge.initClient();
         BlobTransfer.initClient();
 
@@ -68,6 +68,8 @@ public class SDMShopClient {
         if(!ShopConfig.DISABLE_KEYBIND.get()) {
             KeyMappingRegistry.register(KEY_SHOP);
         }
+
+        onClient.run();
     }
 
     public static void onClientPlayerConnect(Player player) {

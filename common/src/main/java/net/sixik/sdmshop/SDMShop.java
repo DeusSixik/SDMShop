@@ -18,13 +18,18 @@ import net.sixik.sdmshop.registers.ShopItemRegisters;
 import net.sixik.sdmshop.server.SDMShopEvents;
 import org.slf4j.Logger;
 
+import java.util.function.Consumer;
+
 public final class SDMShop {
     public static final String MODID = "sdmshop";
     public static final Logger LOGGER = LogUtils.getLogger();
 
 
-
     public static void init() {
+        init(() -> {}, () -> {});
+    }
+
+    public static void init(Runnable onCommon,  Runnable onClient) {
         CustomCurrencies.CURRENCIES.put(SDMCoin.getId(), SDMCoin::new);
 
         ShopConfig.loadConfig();
@@ -39,7 +44,7 @@ public final class SDMShop {
         AsyncBridge.initServer();
         BlobTransfer.initServer();
         AsyncServerTasks.init();
-
-        EnvExecutor.runInEnv(Env.CLIENT, () -> SDMShopClient::init);
+        onCommon.run();
+        EnvExecutor.runInEnv(Env.CLIENT, () -> () -> SDMShopClient.init(onClient));
     }
 }

@@ -26,9 +26,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class AbstractShopScreen extends BaseScreen implements EntryCreateScreenSupport, ShopBase.ShopChangeListener, BuyerScreenSupport, RefreshSupport, InfoButtonSupport {
+public abstract class AbstractShopScreen extends BaseScreen implements EntryCreateScreenSupport,
+        ShopBase.ShopChangeListener, BuyerScreenSupport, RefreshSupport, InfoButtonSupport {
 
-    @Override public boolean drawDefaultBackground(GuiGraphics graphics) { return false; }
+    @Override
+    public boolean drawDefaultBackground(GuiGraphics graphics) {
+        return false;
+    }
 
     protected double entryScrollPos = 0.0;
     protected double tabScrollPos = 0.0;
@@ -55,7 +59,7 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
     public final boolean onInit() {
         var value = super.onInit() && _init();
 
-        if(value)
+        if (value)
             currentShop.getShopChangeListeners().add(this);
 
         return value;
@@ -73,10 +77,10 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
     }
 
     protected void onConstruct() {
-        if(selectedTab != null) return;
+        if (selectedTab != null) return;
 
         for (ShopTab shopTab : currentShop.getTabs()) {
-            if(!shopTab.isLockedAll(shopTab) || ShopUtils.isEditModeClient()) {
+            if (!shopTab.isLockedAll(shopTab) || ShopUtils.isEditModeClient()) {
                 selectedTab = shopTab.getId();
                 break;
             }
@@ -109,8 +113,8 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
     }
 
     public void selectTab(UUID uuid, boolean recreate) {
-        if(Objects.equals(this.selectedTab, uuid)) {
-            if(scrollEntryPanel != null)
+        if (Objects.equals(this.selectedTab, uuid)) {
+            if (scrollEntryPanel != null)
                 this.entryScrollPos = Math.min(scrollEntryPanel.getValue(), scrollEntryPanel.getMaxValue());
         } else {
             this.entryScrollPos = 0.0;
@@ -119,11 +123,12 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
         this.selectedTab = uuid;
         this.selectedEntryId = null;
 
-        if(this.selectedTab != null && recreate)
+        if (this.selectedTab != null && recreate)
             addEntriesButtons();
     }
 
     public abstract void addEntriesButtons();
+
     public abstract void addTabsButtons();
 
     public static void wortInProgress() {
@@ -148,5 +153,6 @@ public abstract class AbstractShopScreen extends BaseScreen implements EntryCrea
     }
 
     @Override
-    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {}
+    public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+    }
 }

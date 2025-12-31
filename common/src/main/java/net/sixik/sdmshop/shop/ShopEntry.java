@@ -200,8 +200,6 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
         if(tag.contains("type"))
             this.type = ShopEntryType.values()[tag.getInt("type")];
 
-
-
         renderComponent.deserialize(tag.getCompound(RenderComponent.KEY));
         deserializeConditions(tag, ownerShop);
         deserializeLimiter(tag);

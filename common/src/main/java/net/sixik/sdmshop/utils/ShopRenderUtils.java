@@ -1,12 +1,16 @@
 package net.sixik.sdmshop.utils;
 
 import dev.ftb.mods.ftblibrary.icon.Color4I;
+import dev.ftb.mods.ftblibrary.icon.Icon;
+import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.Widget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.sixik.sdmshop.old_api.CustomIcon;
 import net.sixik.sdmshop.old_api.screen.ShopUIRenderComponent;
+import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmuilib.client.utils.GLHelper;
 import net.sixik.sdmuilib.client.utils.math.Vector2;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
@@ -100,4 +104,32 @@ public class ShopRenderUtils {
 ////        theme.drawString(graphics, right, pos.x + size.x / 2 + 2, pos.y + 1, Color4I.WHITE, 2);
 //        GLHelper.popScissor(graphics);
 //    }
+
+    public static Icon getIconFromEntry(ShopEntry entry) {
+        return getIconFromEntry(entry, ShopUtilsClient.getTick());
+    }
+
+    public static Icon getIconFromEntry(ShopEntry entry, int tick) {
+        if(entry == null) return Icon.empty();
+
+        Icon i1 = null;
+
+        if(entry.getRenderComponent().getIcon().isEmpty() || (entry.getRenderComponent().getIcon() instanceof ItemIcon itemIcon && itemIcon.isEmpty())) {
+
+            if(entry.getEntryType() instanceof CustomIcon customIcon)
+                i1 = customIcon.getCustomIcon(entry, tick);
+
+        }
+
+
+
+        if(i1 == null)
+            i1 = entry.getRenderComponent().getIcon();
+
+//        if(i1 instanceof ItemIcon itemIcon) {
+//            i1 = ItemIcon.getItemIcon(itemIcon.getStack().copyWithCount((int) entry.getCount()));
+//        }
+
+        return i1;
+    }
 }

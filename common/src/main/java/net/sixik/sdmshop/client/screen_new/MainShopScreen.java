@@ -26,11 +26,11 @@ public class MainShopScreen extends BaseScreen implements GUIShopMenu {
         SDMShopClient.shopFilters = GUIShopMenu.createFilters();
 
         getModalOpenListeners().add((s) -> {
-            entryPanel.renderWidgets = true;
+            entryPanel.renderWidgets = false;
         });
 
         getModalCloseListeners().add((s) -> {
-            entryPanel.renderWidgets = false;
+            entryPanel.renderWidgets = true;
         });
     }
 

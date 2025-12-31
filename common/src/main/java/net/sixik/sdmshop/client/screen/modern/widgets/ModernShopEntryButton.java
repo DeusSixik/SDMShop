@@ -44,8 +44,6 @@ public class ModernShopEntryButton extends AbstractShopEntryButton {
         if(shopEntry != null) {
             size = 16;
 
-
-
             getIconFromEntry(shopEntry).draw(graphics, x + size / 2, y + 2, w - size, h - size);
 
             RGBA.create(0,0,0,255 / 3).drawRoundFill(graphics, x + 2,y + w + 2, w - 4,8, 2);

@@ -1,6 +1,7 @@
 package net.sixik.sdmshop.registers;
 
 import dev.ftb.mods.ftblibrary.config.NameMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.old_api.Constructor;
 import net.sixik.sdmshop.old_api.shop.AbstractEntrySellerType;
@@ -12,6 +13,9 @@ import net.sixik.sdmshop.shop.entry_types.*;
 import net.sixik.sdmshop.shop.entry_types.integration.StageEntryType;
 import net.sixik.sdmshop.shop.seller_types.ItemSellerType;
 import net.sixik.sdmshop.shop.seller_types.MoneySellerType;
+import net.sixik.sdmshop.shop.sorts.AbstractEntryTypeFilter;
+import net.sixik.sdmshop.shop.sorts.ItemEntryTypeDurabilityFilter;
+import net.sixik.sdmshop.shop.sorts.ItemEntryTypeEnchantmentFilter;
 
 import java.util.*;
 import java.util.function.Function;
@@ -22,6 +26,7 @@ public class ShopContentRegister {
     protected static final Map<String, Constructor<? extends AbstractShopCondition>> CONDITIONS = new LinkedHashMap<>();
     protected static final Map<String, Supplier<AbstractEntrySellerType<?>>> SELLER_TYPES = new LinkedHashMap<>();
     protected static final Map<String, Function<ShopEntry, AbstractEntryType>> ENTRY_TYPES = new LinkedHashMap<>();
+    protected static final ObjectArrayList<Function<Class<? extends AbstractEntryType>, AbstractEntryTypeFilter<? extends AbstractEntryType>>> FILTERS = new ObjectArrayList<>();
 
     public static void registerCondition(String id, Constructor<? extends AbstractShopCondition> function) {
         if(CONDITIONS.containsKey(id))
@@ -45,6 +50,10 @@ public class ShopContentRegister {
 
         ENTRY_TYPES.put(id, func);
         SDMShop.LOGGER.info("Registered entry type [{}]", id);
+    }
+
+    public static void addFilter(final Function<Class<? extends AbstractEntryType>, AbstractEntryTypeFilter<? extends AbstractEntryType>> filter) {
+        FILTERS.add(filter);
     }
 
     public static Map<String, Constructor<? extends AbstractShopCondition>> getConditions() {
@@ -75,7 +84,15 @@ public class ShopContentRegister {
         return Optional.ofNullable(ENTRY_TYPES.getOrDefault(id, null));
     }
 
+    public static ObjectArrayList<Function<Class<? extends AbstractEntryType>, AbstractEntryTypeFilter<? extends AbstractEntryType>>> getFilters() {
+        return FILTERS;
+    }
+
     public static void init() {
+
+        addFilter(ItemEntryTypeDurabilityFilter::new);
+        addFilter(ItemEntryTypeEnchantmentFilter::new);
+
         registerSellerType("money_seller", MoneySellerType::new);
         registerSellerType("item_seller", ItemSellerType::new);
 

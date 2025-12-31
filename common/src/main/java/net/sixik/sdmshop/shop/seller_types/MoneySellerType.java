@@ -113,4 +113,12 @@ public class MoneySellerType extends AbstractEntrySellerType<Double> {
     public void draw(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count, @Nullable Widget widget, int additionSize) {
         theme.drawString(graphics, ShopUtils.moneyToString(count, money_id), x + 2, y + 1, theme.getContentColor(WidgetType.NORMAL), 2);
     }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void drawCentered(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
+        final String txt = ShopUtils.moneyToString(count, money_id);
+        final int tL = theme.getStringWidth(txt);
+        theme.drawString(graphics, txt, x + (width - tL) / 2, y);
+    }
 }

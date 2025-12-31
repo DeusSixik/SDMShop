@@ -6,6 +6,8 @@ import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.Widget;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -40,7 +42,7 @@ public class ItemSellerType extends AbstractEntrySellerType<ItemStack> {
     public boolean onBuy(Player player, ShopEntry shopEntry, long countSell) {
         int countItems = ShopItemHelper.countItem(player.getInventory(), objectType, !objectType.hasTag());
         int sellSize = (int) (shopEntry.getPrice() * countSell);
-        if(countItems >= sellSize) {
+        if (countItems >= sellSize) {
             return ShopItemHelper.shrinkItem(player.getInventory(), objectType.copy(), sellSize, !objectType.hasTag());
         }
 
@@ -126,12 +128,25 @@ public class ItemSellerType extends AbstractEntrySellerType<ItemStack> {
     }
 
     @Override
+    public void drawCentered(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
+        final int spacing = 2;
+        final int iconSize = width / 8;
+        final int roundCount = (int) Math.round(count);
+        final String countTxt = String.valueOf(roundCount);
+        final int txtL = theme.getStringWidth(countTxt);
+
+        final int fullSize = txtL + iconSize + spacing;
+        final int startPos = Math.max(0, (width - fullSize) / 2);
+
+        ItemIcon.getItemIcon(objectType).draw(graphics, x + startPos, y - 1, iconSize, iconSize);
+        graphics.drawString(Minecraft.getInstance().font, countTxt, x + startPos + iconSize + spacing, y, 0xFFFFFF);
+    }
+
+    @Override
     public int getRenderWight(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count, @Nullable Widget widget, int additionSize) {
         int s = height / 3;
         int size = height - s + additionSize;
         int textW = theme.getStringWidth(String.valueOf((int) count));
         return size + textW;
     }
-
-
 }

@@ -10,6 +10,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.sixik.sdmshop.client.SDMShopClient;
+import net.sixik.sdmshop.client.screen_new.MainShopScreen;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopWidgets;
 import net.sixik.sdmshop.shop.ShopTab;
@@ -72,25 +73,27 @@ public class ShopSelectCategoriesComponentModalPanel extends ModalPanel {
     ) {
         final BaseScreen gui = panel.getGui();
         final ShopSelectCategoriesComponentModalPanel modal =
-                new ShopSelectCategoriesComponentModalPanel(panel, categoryBox, button, false);
+                new ShopSelectCategoriesComponentModalPanel(panel, categoryBox, button);
         modal.setWidth(gui.width * 2 / 6);
         modal.setHeight(gui.height * 4 / 4);
         gui.pushModalPanel(modal);
+
+        if(MainShopScreen.Instance != null)
+            MainShopScreen.Instance.onModalOpen(modal);
+
         return modal;
     }
 
     protected ShopSelectCategoriesComponentModalPanel(
             Panel panel,
             GUIShopWidgets.CategoryBox categoryBox,
-            GUIShopWidgets.EditCategoryButton button,
-            boolean center
+            GUIShopWidgets.EditCategoryButton button
     ) {
         super(panel);
         this.gui = panel;
         this.categoryBox = categoryBox;
         this.button = button;
         this.selectedCategories = categoryBox.getSelectedCategories();
-        this.center = center;
     }
 
     @Override
@@ -213,6 +216,11 @@ public class ShopSelectCategoriesComponentModalPanel extends ModalPanel {
     @Override
     public void onClosed() {
         categoryBox.selectNewCategories(selectedCategories);
+
+        if(MainShopScreen.Instance != null)
+            MainShopScreen.Instance.onModalClose(this);
+
+
         super.onClosed();
     }
 

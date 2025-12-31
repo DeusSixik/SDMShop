@@ -1,5 +1,6 @@
 package net.sixik.sdmshop.utils;
 
+import com.google.common.collect.Maps;
 import dev.architectury.platform.Platform;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftblibrary.config.ConfigValue;
@@ -7,11 +8,16 @@ import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.sixik.sdmeconomy.CustomPlayerData;
 import net.sixik.sdmeconomy.SDMEconomy;
 import net.sixik.sdmeconomy.api.EconomyAPI;
@@ -32,13 +38,35 @@ import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.shop.limiter.ShopLimiterAttachType;
 import net.sixik.sdmshop.shop.limiter.ShopLimiterData;
 import net.sixik.sdmshop.utils.config.ConfigBuilder;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class ShopUtils {
+
+    public static final Predicate<String> DIGITS_0_100 = s -> {
+        if (s == null) return false;
+        if (s.isEmpty()) return true;
+        if (s.length() > 3) return false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c < '0' || c > '9') return false;
+        }
+        try {
+            int v = Integer.parseInt(s);
+            return v >= 0 && v <= 100;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    };
+
+    public static final Predicate<String> ONLY_DIGITS_MAX2 = s ->
+            s != null && (s.isEmpty() || (s.length() <= 2 && s.chars().allMatch(Character::isDigit)));
 
     public static final boolean isMarketLoaded = Platform.isModLoaded("sdm_market");
 
@@ -54,8 +82,8 @@ public class ShopUtils {
     public static boolean isEditMode(Player player) {
         CustomPlayerData.Data data;
 
-        if(player.isLocalPlayer()) data = EconomyAPI.getCustomClientData().data;
-        else                       data = EconomyAPI.getCustomServerData().getPlayerCustomData(player);
+        if (player.isLocalPlayer()) data = EconomyAPI.getCustomClientData().data;
+        else data = EconomyAPI.getCustomServerData().getPlayerCustomData(player);
 
         return data.nbt.contains("edit_mode") && data.nbt.getBoolean("edit_mode");
     }
@@ -66,7 +94,7 @@ public class ShopUtils {
     }
 
     public static void changeEditMode(Player player, boolean value) {
-        if(player.isLocalPlayer()) {
+        if (player.isLocalPlayer()) {
             new ChangeEditModeC2S(value).sendToServer();
             return;
         }
@@ -86,7 +114,7 @@ public class ShopUtils {
     }
 
     public static double getMoney(Player player, String moneyName) {
-        if(player.isLocalPlayer())
+        if (player.isLocalPlayer())
             return EconomyAPI.getPlayerCurrencyClientData().getBalance(moneyName);
 
         return EconomyAPI.getPlayerCurrencyServerData().getBalance(player, moneyName).value;
@@ -97,13 +125,13 @@ public class ShopUtils {
     }
 
     public static boolean addMoney(Player player, String moneyName, double value) {
-        if(player.isLocalPlayer()) {
+        if (player.isLocalPlayer()) {
             new ShopChangeMoneyC2S(moneyName, getMoney(player) + value).sendToServer();
             return CurrencyHelper.isAdmin(player);
         }
 
         ErrorCodes result = EconomyAPI.getPlayerCurrencyServerData().addCurrencyValue(player, moneyName, value);
-        if(result.isSuccess()) {
+        if (result.isSuccess()) {
             EconomyAPI.syncPlayer((ServerPlayer) player);
             return true;
         }
@@ -115,13 +143,13 @@ public class ShopUtils {
     }
 
     public static boolean setMoney(Player player, String moneyName, double value) {
-        if(player.isLocalPlayer()) {
+        if (player.isLocalPlayer()) {
             new ShopChangeMoneyC2S(moneyName, value).sendToServer();
             return CurrencyHelper.isAdmin(player);
         }
 
         ErrorCodes result = EconomyAPI.getPlayerCurrencyServerData().setCurrencyValue(player, moneyName, value);
-        if(result.isSuccess()) {
+        if (result.isSuccess()) {
             EconomyAPI.syncPlayer((ServerPlayer) player);
             return true;
         }
@@ -135,12 +163,12 @@ public class ShopUtils {
     public static String moneyToString(Player player, String moneyName) {
         StringBuilder builder = new StringBuilder();
 
-        if(player.isLocalPlayer()) {
+        if (player.isLocalPlayer()) {
             Optional<CurrencyPlayerData.PlayerCurrency> opt = EconomyAPI.getPlayerCurrencyClientData().getCurrency(moneyName);
-            if(opt.isPresent()) {
+            if (opt.isPresent()) {
                 var currency = opt.get();
 
-                if(currency.currency.symbol.type == CurrencySymbol.Type.CHAR)
+                if (currency.currency.symbol.type == CurrencySymbol.Type.CHAR)
                     builder.append(currency.currency.symbol.value).append(" ");
 
                 builder.append(currency.balance);
@@ -152,10 +180,10 @@ public class ShopUtils {
         }
 
         Optional<CurrencyPlayerData.PlayerCurrency> opt = EconomyAPI.getPlayerCurrencyServerData().getPlayerCurrency(player, moneyName);
-        if(opt.isPresent()) {
+        if (opt.isPresent()) {
             var currency = opt.get();
 
-            if(currency.currency.symbol.type == CurrencySymbol.Type.CHAR)
+            if (currency.currency.symbol.type == CurrencySymbol.Type.CHAR)
                 builder.append(currency.currency.symbol.value).append(" ");
 
             builder.append(currency.balance);
@@ -167,7 +195,7 @@ public class ShopUtils {
 
     public static String moneyToString(double l, String moneyName) {
         for (BaseCurrency currency : EconomyAPI.getAllCurrency().value.currencies) {
-            if(Objects.equals(currency.getName(), moneyName))
+            if (Objects.equals(currency.getName(), moneyName))
                 return (currency.symbol.type == CurrencySymbol.Type.CHAR ? currency.symbol.value : "") + " " + String.format("%.2f", l);
         }
 
@@ -278,13 +306,13 @@ public class ShopUtils {
     }
 
     public static int getPlayerXP(Player player) {
-        return (int)((float)getExperienceForLevel(player.experienceLevel) + player.experienceProgress * (float)player.getXpNeededForNextLevel());
+        return (int) ((float) getExperienceForLevel(player.experienceLevel) + player.experienceProgress * (float) player.getXpNeededForNextLevel());
     }
 
     public static int getLevelForExperience(int targetXp) {
         int level = 0;
 
-        while(true) {
+        while (true) {
             int xpToNextLevel = xpBarCap(level);
             if (targetXp < xpToNextLevel) {
                 return level;
@@ -338,5 +366,43 @@ public class ShopUtils {
             }
         }
         return true;
+    }
+
+    public static boolean isDigitsInRange(String s, int min, int max) {
+        if (s == null || s.isEmpty()) return false;
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c < '0' || c > '9') return false;
+        }
+
+        long v;
+        try {
+            v = Long.parseLong(s);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return v >= min && v <= max;
+    }
+
+    @Nullable
+    public static ResourceLocation getEnchantmentId(CompoundTag arg) {
+        return ResourceLocation.tryParse(arg.getString("id"));
+    }
+
+    public static Map<Enchantment, Integer> deserializeEnchantments(ListTag arg) {
+        final Map<Enchantment, Integer> map = Maps.newLinkedHashMap();
+
+        for (int i = 0; i < arg.size(); ++i) {
+            final CompoundTag compoundtag = arg.getCompound(i);
+            BuiltInRegistries.ENCHANTMENT.getOptional(getEnchantmentId(compoundtag)).ifPresent((arg2) -> map.put(arg2, getEnchantmentLevel(compoundtag)));
+        }
+
+        return map;
+    }
+
+    public static int getEnchantmentLevel(CompoundTag arg) {
+        return Mth.clamp(arg.getInt("lvl"), 0, 255);
     }
 }

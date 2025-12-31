@@ -84,6 +84,12 @@ public abstract class AbstractEntrySellerType<T> implements DataSerializerCompou
     @Environment(EnvType.CLIENT)
     public abstract void draw(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count, @Nullable Widget widget, int additionSize);
 
+    @Environment(EnvType.CLIENT)
+    public abstract void drawCentered(
+            GuiGraphics graphics,
+            Theme theme, int x, int y, int width, int height,
+            double count
+    );
 
     @Override
     public final ShopObjectTypes getShopType() {

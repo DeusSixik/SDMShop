@@ -58,20 +58,6 @@ public abstract class AbstractBuyerScreen extends BaseScreen implements RefreshS
     }
 
     protected static boolean isDigitsInRange(String s, int min, int max) {
-        if (s == null || s.isEmpty()) return false;
-
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c < '0' || c > '9') return false;
-        }
-
-        long v;
-        try {
-            v = Long.parseLong(s);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        return v >= min && v <= max;
+        return ShopUtils.isDigitsInRange(s, min, max);
     }
 }

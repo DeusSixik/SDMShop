@@ -29,10 +29,12 @@ import net.sixik.sdmshop.network.async.AsyncBridge;
 import net.sixik.sdmshop.network.async.AsyncClientTasks;
 import net.sixik.sdmshop.network.async.BlobTransfer;
 import net.sixik.sdmshop.old_api.ConfigSupport;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopParams;
 import net.sixik.sdmshop.shop.limiter.ShopLimiter;
+import net.sixik.sdmshop.shop.sorts.AbstractEntryTypeFilter;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
 import net.sixik.sdmshop.utils.ShopNBTUtils;
 import org.jetbrains.annotations.Nullable;
@@ -45,6 +47,8 @@ public class SDMShopClient {
 
     public static @Nullable BaseShop CurrentShop;
     public static ShopLimiter shopLimiter = new ShopLimiter();
+
+    public static Map<Class<? extends AbstractEntryType>, List<AbstractEntryTypeFilter<? extends AbstractEntryType>>> shopFilters;
 
     public static final Color4I someColor = Color4I.rgb(214,154,255);
 

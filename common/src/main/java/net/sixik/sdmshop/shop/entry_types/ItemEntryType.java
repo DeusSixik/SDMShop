@@ -64,6 +64,10 @@ public class ItemEntryType extends AbstractEntryType implements CustomIcon {
         return ShopItemHelper.giveItems(player, itemStack, totalCount);
     }
 
+    public ItemStack getItemStack() {
+        return itemStack;
+    }
+
     @Override
     public boolean onSell(Player player, ShopEntry entry, int countBuy) {
         if (countBuy <= 0) return false;

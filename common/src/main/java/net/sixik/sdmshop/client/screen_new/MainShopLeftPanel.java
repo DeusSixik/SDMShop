@@ -1,10 +1,14 @@
 package net.sixik.sdmshop.client.screen_new;
 
+import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
+import net.sixik.sdmshop.client.screen_new.components.filters.ShopFiltersComponentModalPanel;
+import net.sixik.sdmshop.utils.rendering.widgets.EnumDropdownWidget;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopWidgets.*;
@@ -24,9 +28,19 @@ public class MainShopLeftPanel extends Panel {
     protected TextField priceTitle;
     protected TextBox priceBoxFrom;
     protected TextBox priceBoxTo;
+    protected EnumDropdownWidget<CategorySort> sortDropdown;
+
+    protected Button moreFiltersButton;
 
     public MainShopLeftPanel(GUIShopMenu screen) {
         super(screen.self());
+    }
+
+    public enum CategorySort {
+        PRICE_ASC,
+        PRICE_DESC,
+        NAME_ASC,
+        NAME_DESC
     }
 
     @Override
@@ -34,13 +48,30 @@ public class MainShopLeftPanel extends Panel {
         add(field = new SearchBox(this, (s) -> {}));
         add(categoryBoxTitle = new TextField(this));
         add(categoryBox = new CategoryBox(this, 4, 2));
-        add(categoryBoxEditButton = new EditCategoryButton(this, Component.literal("Edit"), categoryBox));
+        add(categoryBoxEditButton = new EditCategoryButton(this, Component.translatable("sdm.shop.gui.box.categories.edit"), categoryBox));
         add(priceTitle = new TextField(this));
         add(priceBoxFrom = new TextBox(this));
         add(priceBoxTo = new TextBox(this));
+
+        add(moreFiltersButton = new SimpleTextButton(this, Component.translatable("sdm.shop.gui.box.categories.filters.title"), Icons.SETTINGS) {
+            @Override
+            public void onClicked(MouseButton button) {
+                ShopFiltersComponentModalPanel.openCentered(getGui());
+            }
+        });
+        add(sortDropdown = new EnumDropdownWidget<>(this, CategorySort.class, CategorySort.NAME_ASC)
+                .setLabel(v -> switch (v) {
+                    case NAME_ASC  -> Component.literal("Name: A → Z");
+                    case NAME_DESC -> Component.literal("Name: Z → A");
+                    case PRICE_ASC -> Component.literal("Price: Low → High");
+                    case PRICE_DESC -> Component.literal("Price: High → Low");
+                })
+                .onChange(this::applySort));
         priceBoxFrom.ghostText = "From";
         priceBoxTo.ghostText = "To";
     }
+
+    private void applySort(CategorySort mode) {}
 
     @Override
     public void alignWidgets() {
@@ -48,6 +79,9 @@ public class MainShopLeftPanel extends Panel {
         final int centerPosElements = (this.width - elementSize) / 2;
         final int maxCategoryH = this.height / 3;
         final int fontH = Minecraft.getInstance().font.lineHeight;
+        final int fontHD = fontH / 2;
+        final int xOffset = 6;
+        final int xOffsetM = xOffset * 2;
 
         field.setWidth(elementSize);
         field.setHeight(12);
@@ -56,7 +90,7 @@ public class MainShopLeftPanel extends Panel {
 
         categoryBoxTitle.setMaxWidth(elementSize);
         categoryBoxTitle.setText(Component.translatable("sdm.shop.gui.box.categories.title"));
-        categoryBoxTitle.posX = 6;
+        categoryBoxTitle.posX = xOffset;
         categoryBoxTitle.posY += field.posY + 4;
 
         categoryBoxEditButton.posX = this.width - categoryBoxEditButton.width - 4;
@@ -72,15 +106,16 @@ public class MainShopLeftPanel extends Panel {
         categoryBox.alignWidgets();
         categoryBox.height = maxCategoryH;
 
+        final int priceTitleOffset = 2;
         priceTitle.setWidth(elementSize);
-        priceTitle.setText("Price");
-        priceTitle.posX = 6;
-        priceTitle.posY = categoryBox.posY + categoryBox.height + fontH;
+        priceTitle.setText(Component.translatable("sdm.shop.entry.seller_type.price"));
+        priceTitle.posX = xOffset;
+        priceTitle.posY = categoryBox.posY + categoryBox.height + fontH + priceTitleOffset;
 
         final int priceBW = this.width / 4;
         priceBoxFrom.setWidth(priceBW);
         priceBoxFrom.setHeight(12);
-        priceBoxFrom.posY = priceTitle.posY;
+        priceBoxFrom.posY = priceTitle.posY - priceTitleOffset;
 
         priceBoxTo.setWidth(priceBoxFrom.width);
         priceBoxTo.setHeight(priceBoxFrom.height);
@@ -89,6 +124,17 @@ public class MainShopLeftPanel extends Panel {
         final int priceWW = priceBoxFrom.width + priceBoxTo.width + (this.width / 10);
         priceBoxFrom.posX = this.width - priceWW;
         priceBoxTo.posX = priceBoxFrom.posX + priceBoxFrom.width + 2;
+
+        sortDropdown.setHeight(12);
+        sortDropdown.setWidth(this.width - xOffsetM);
+
+        sortDropdown.posX = xOffset;
+        sortDropdown.posY = priceBoxTo.posY + priceBoxTo.height + fontHD;
+
+        moreFiltersButton.setWidth(this.width - xOffsetM);
+        moreFiltersButton.setHeight(12);
+        moreFiltersButton.posX = (this.width - moreFiltersButton.width) / 2;
+        moreFiltersButton.posY = sortDropdown.posY + sortDropdown.height + fontHD;
     }
 
     @Override

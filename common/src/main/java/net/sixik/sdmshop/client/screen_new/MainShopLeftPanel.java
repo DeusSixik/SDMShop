@@ -21,6 +21,10 @@ public class MainShopLeftPanel extends Panel {
     public EditCategoryButton categoryBoxEditButton;
     public CategoryBox categoryBox;
 
+    protected TextField priceTitle;
+    protected TextBox priceBoxFrom;
+    protected TextBox priceBoxTo;
+
     public MainShopLeftPanel(GUIShopMenu screen) {
         super(screen.self());
     }
@@ -31,6 +35,11 @@ public class MainShopLeftPanel extends Panel {
         add(categoryBoxTitle = new TextField(this));
         add(categoryBox = new CategoryBox(this, 4, 2));
         add(categoryBoxEditButton = new EditCategoryButton(this, Component.literal("Edit"), categoryBox));
+        add(priceTitle = new TextField(this));
+        add(priceBoxFrom = new TextBox(this));
+        add(priceBoxTo = new TextBox(this));
+        priceBoxFrom.ghostText = "From";
+        priceBoxTo.ghostText = "To";
     }
 
     @Override
@@ -38,6 +47,7 @@ public class MainShopLeftPanel extends Panel {
         final int elementSize = this.width - this.width / 6;
         final int centerPosElements = (this.width - elementSize) / 2;
         final int maxCategoryH = this.height / 3;
+        final int fontH = Minecraft.getInstance().font.lineHeight;
 
         field.setWidth(elementSize);
         field.setHeight(12);
@@ -60,8 +70,25 @@ public class MainShopLeftPanel extends Panel {
 
         categoryBox.addWidgets();
         categoryBox.alignWidgets();
-
         categoryBox.height = maxCategoryH;
+
+        priceTitle.setWidth(elementSize);
+        priceTitle.setText("Price");
+        priceTitle.posX = 6;
+        priceTitle.posY = categoryBox.posY + categoryBox.height + fontH;
+
+        final int priceBW = this.width / 4;
+        priceBoxFrom.setWidth(priceBW);
+        priceBoxFrom.setHeight(12);
+        priceBoxFrom.posY = priceTitle.posY;
+
+        priceBoxTo.setWidth(priceBoxFrom.width);
+        priceBoxTo.setHeight(priceBoxFrom.height);
+        priceBoxTo.posY = priceBoxFrom.posY;
+
+        final int priceWW = priceBoxFrom.width + priceBoxTo.width + (this.width / 10);
+        priceBoxFrom.posX = this.width - priceWW;
+        priceBoxTo.posX = priceBoxFrom.posX + priceBoxFrom.width + 2;
     }
 
     @Override

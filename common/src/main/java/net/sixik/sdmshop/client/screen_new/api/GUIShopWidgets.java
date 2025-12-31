@@ -15,6 +15,7 @@ import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen_new.components.categories.ShopSelectCategoriesComponentModalPanel;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -95,11 +96,28 @@ public class GUIShopWidgets {
             final int size = (this.width - borderOffest * 2) / 2 - spacing;
 
             final ObjectArrayList<ShopTab> list = selectedCategories;
-            for (int i = 0; i < list.size(); i++) {
+
+            if(!list.isEmpty()) {
+                for (int i = 0; i < list.size(); i++) {
+                    final Button button = new Button(
+                            this,
+                            list.get(i),
+                            (s) -> {
+                            }) {
+                        @Override
+                        public boolean checkMouseOver(int mouseX, int mouseY) {
+                            return false;
+                        }
+                    };
+                    add(button);
+                    button.width = Math.min(button.width, size);
+                }
+            } else {
                 final Button button = new Button(
                         this,
-                        list.get(i),
-                        (s) -> {}) {
+                        null,
+                        (s) -> {
+                        }) {
                     @Override
                     public boolean checkMouseOver(int mouseX, int mouseY) {
                         return false;
@@ -171,10 +189,10 @@ public class GUIShopWidgets {
 
             public Button(
                     Panel panel,
-                    ShopTab category,
+                    @Nullable ShopTab category,
                     Consumer<ShopTab> onClick
             ) {
-                super(panel, category.title, Icon.empty());
+                super(panel, category == null ? Component.translatable("sdm.shop.gui.box.categories.empty_element") : category.title, Icon.empty());
                 this.categoryBox = panel;
                 this.category = category;
                 this.onClick = onClick;

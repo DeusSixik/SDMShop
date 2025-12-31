@@ -138,6 +138,7 @@
   "sdm.shop.gui.box.categories.button.edit" : "Edit",
   "sdm.shop.gui.box.categories.edit.title" : "Select Categories",
   "sdm.shop.gui.box.categories.edit.selected_list.clear_button" : "Clear All",
+  "sdm.shop.gui.box.categories.empty_element" : "All",
   "sdm.shop.gui.box.categories.edit.selected_list.title" : "Selected Categories",
   "sdm.shop.gui.box.categories.edit.search" : "Search Categories..."
 }

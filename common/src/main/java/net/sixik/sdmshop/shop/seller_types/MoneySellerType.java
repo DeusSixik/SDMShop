@@ -116,6 +116,20 @@ public class MoneySellerType extends AbstractEntrySellerType<Double> {
 
     @Override
     @Environment(EnvType.CLIENT)
+    public int draw(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
+        final String txt = ShopUtils.moneyToString(count, money_id);
+        theme.drawString(graphics, txt, x + 2, y + 1, theme.getContentColor(WidgetType.NORMAL), 2);
+        return theme.getStringWidth(txt);
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public int getRenderSize(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
+        return theme.getStringWidth(ShopUtils.moneyToString(count, money_id));
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
     public void drawCentered(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
         final String txt = ShopUtils.moneyToString(count, money_id);
         final int tL = theme.getStringWidth(txt);

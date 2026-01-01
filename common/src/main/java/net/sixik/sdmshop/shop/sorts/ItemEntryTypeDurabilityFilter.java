@@ -82,11 +82,6 @@ public class ItemEntryTypeDurabilityFilter extends AbstractEntryTypeFilter<ItemE
                 public void onTextChanged() {
                     applyFromChanged();
                 }
-
-                @Override
-                public void setText(String string, boolean triggerChange) {
-                    super.setText(string, triggerChange);
-                }
             });
 
             add(toBox = new TextBox(this) {

@@ -29,10 +29,12 @@ public interface GUIShopMenu {
     int CORNER_SIZE = 4;
 
     RGBA BACKGROUND = RGBA.create(0, 0, 0, 85);
+    RGBA BACKGROUND_FILL = RGBA.create(0, 0, 0, 255);
     RGBA BORDER = RGBA.create(255, 255, 255, 28);
     RGBA BORDER_2 = RGBA.create(255, 255, 255, 128);
     RGBA BORDER_3 = RGBA.create(66, 170, 255, 255);
     int BACKGROUND_INT = BACKGROUND.toInt();
+    int BACKGROUND_FILL_INT = BACKGROUND_FILL.toInt();
     int BORDER_INT = BORDER.toInt();
     int BORDER_2_INT = BORDER_2.toInt();
     int BORDER_3_INT = BORDER_3.toInt();

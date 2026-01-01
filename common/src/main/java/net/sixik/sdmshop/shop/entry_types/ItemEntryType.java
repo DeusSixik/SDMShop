@@ -212,6 +212,11 @@ public class ItemEntryType extends AbstractEntryType implements CustomIcon {
     }
 
     @Override
+    public void drawTitleCentered(ShopEntry entry, GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+        drawComponentCentered(graphics, itemStack.getHoverName(), theme, x, y, w, h);
+    }
+
+    @Override
     public void addEntryTooltip(TooltipList list, ShopEntry entry) {
         List<Component> list1 = new ArrayList();
         GuiHelper.addStackTooltip(this.itemStack, list1);

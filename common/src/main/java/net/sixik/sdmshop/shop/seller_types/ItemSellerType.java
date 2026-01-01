@@ -121,6 +121,7 @@ public class ItemSellerType extends AbstractEntrySellerType<ItemStack> {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void draw(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count, @Nullable Widget widget, int additionSize) {
         int size = height - height / 3 + additionSize;
         ItemIcon.getItemIcon(objectType).draw(graphics, x, y - 1, size, size);
@@ -128,9 +129,31 @@ public class ItemSellerType extends AbstractEntrySellerType<ItemStack> {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
+    public int draw(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
+        final int iconSize = theme.getFontHeight();
+        final int roundCount = (int) Math.round(count);
+        final String countTxt = String.valueOf(roundCount);
+
+        ItemIcon.getItemIcon(objectType).draw(graphics, x, y - 1, iconSize, iconSize);
+        graphics.drawString(Minecraft.getInstance().font, countTxt, x + iconSize + 2, y + 1, 0xFFFFFF);
+        return iconSize + theme.getStringWidth(countTxt) + 2;
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public int getRenderSize(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
+        final int iconSize = theme.getFontHeight();
+        final int roundCount = (int) Math.round(count);
+        final String countTxt = String.valueOf(roundCount);
+        return iconSize + theme.getStringWidth(countTxt) + 2;
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
     public void drawCentered(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count) {
         final int spacing = 2;
-        final int iconSize = width / 8;
+        final int iconSize = Minecraft.getInstance().font.lineHeight;
         final int roundCount = (int) Math.round(count);
         final String countTxt = String.valueOf(roundCount);
         final int txtL = theme.getStringWidth(countTxt);
@@ -143,6 +166,7 @@ public class ItemSellerType extends AbstractEntrySellerType<ItemStack> {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public int getRenderWight(GuiGraphics graphics, Theme theme, int x, int y, int width, int height, double count, @Nullable Widget widget, int additionSize) {
         int s = height / 3;
         int size = height - s + additionSize;

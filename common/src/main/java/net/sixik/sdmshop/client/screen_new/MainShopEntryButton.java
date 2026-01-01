@@ -52,8 +52,8 @@ public class MainShopEntryButton extends SimpleTextButton {
     private boolean hasCount;
     private int countL;
 
-    protected static final Component FREE_COMPONENT = Component.translatable("sdm.shop.gui.panel.entry.price.empty");
-    protected static final int FREE_COMPONENT_L = Theme.DEFAULT.getStringWidth(FREE_COMPONENT);
+    public static final Component FREE_COMPONENT = Component.translatable("sdm.shop.gui.panel.entry.price.empty");
+    public static final int FREE_COMPONENT_L = Theme.DEFAULT.getStringWidth(FREE_COMPONENT);
 
     public MainShopEntryButton(MainShopEntryPanel panel, ShopEntry shopEntry) {
         super(panel, shopEntry.getTitle(), Icon.empty());

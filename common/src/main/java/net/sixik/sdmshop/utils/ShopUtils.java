@@ -49,6 +49,9 @@ import java.util.function.Predicate;
 
 public class ShopUtils {
 
+    public static final Predicate<String> ONLY_DIGITS = s ->
+            s != null && (s.isEmpty() || (s.chars().allMatch(Character::isDigit)));
+
     public static final Predicate<String> DIGITS_0_100 = s -> {
         if (s == null) return false;
         if (s.isEmpty()) return true;

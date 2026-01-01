@@ -93,6 +93,19 @@ public abstract class AbstractEntryType implements DataSerializerCompoundTag, Mo
         theme.drawString(graphics, title, pos.x + w2, pos.y + 1, Color4I.WHITE, 2);
     }
 
+    @Environment(EnvType.CLIENT)
+    public void drawTitleCentered(ShopEntry entry, GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+        drawComponentCentered(graphics, entry.getTitle(), theme, x, y, w, h);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void drawComponentCentered(GuiGraphics graphics, Component title, Theme theme, int x, int y, int w, int h) {
+        if(title.getString().isEmpty()) return;
+
+        final int titleL = theme.getStringWidth(title);
+        theme.drawString(graphics, title, x + (w - titleL) / 2, y);
+    }
+
     @Override
     public final ShopObjectTypes getShopType() {
         return ShopObjectTypes.ENTRY_TYPE;

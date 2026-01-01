@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.client.screen.base.AbstractShopScreen;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
+import net.sixik.sdmshop.client.screen_new.components.buyer.ShopBuyProductComponentModalPanel;
 import net.sixik.sdmshop.network.sync.server.SendResetLimiterC2S;
 import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
@@ -51,6 +52,9 @@ public class MainShopEntryButton extends SimpleTextButton {
     private boolean hasCount;
     private int countL;
 
+    protected static final Component FREE_COMPONENT = Component.translatable("sdm.shop.gui.panel.entry.price.empty");
+    protected static final int FREE_COMPONENT_L = Theme.DEFAULT.getStringWidth(FREE_COMPONENT);
+
     public MainShopEntryButton(MainShopEntryPanel panel, ShopEntry shopEntry) {
         super(panel, shopEntry.getTitle(), Icon.empty());
         this.entryPanel = panel;
@@ -85,7 +89,7 @@ public class MainShopEntryButton extends SimpleTextButton {
              */
             this.limitString = remaining + "/" + totalLimit;
             this.limitStingL = Theme.DEFAULT.getStringWidth(limitString);
-            
+
             if (remaining <= 0) {
                 this.limitColor = 0xFFFF5555; // Red (It's over)
                 this.component = Component.translatable("sdm.shop.entry.sold");
@@ -120,6 +124,11 @@ public class MainShopEntryButton extends SimpleTextButton {
         MainShopScreen screen = (MainShopScreen) entryPanel.screen;
         BaseShop shop = screen.getShop();
         boolean isClientEdit = ShopUtils.isEditModeClient();
+
+        if(mouseButton.isLeft()) {
+            ShopBuyProductComponentModalPanel.openCentered(screen, shopEntry);
+            return;
+        }
 
         if(mouseButton.isRight()) {
 
@@ -256,7 +265,12 @@ public class MainShopEntryButton extends SimpleTextButton {
         /*
             Rendering the Price
          */
-        shopEntry.getEntrySellerType().drawCentered(graphics, theme, x, endElementY ,w, h, shopEntry.getPrice());
+
+        if(shopEntry.getPrice() != 0) {
+            shopEntry.getEntrySellerType().drawCentered(graphics, theme, x, endElementY, w, h, shopEntry.getPrice());
+        } else {
+            theme.drawString(graphics, FREE_COMPONENT, x + (w - FREE_COMPONENT_L) / 2, endElementY);
+        }
     }
 
     private void drawLimitBadge(GuiGraphics graphics, Theme theme, int x, int y, int w) {

@@ -130,5 +130,6 @@
   "sdm.shop.entry.info.advancement": "Достижение: %s",
   "sdm.shop.entry.info.pressshift": "Нажмите Shift для подробностей",
   "sdm.shop.entry.info.tag.type": "Тег: %s",
-  "sdm.shop.entry.info.items": "Предметы: "
+  "sdm.shop.entry.info.items": "Предметы: ",
+  "sdm.shop.gui.panel.entry.price.empty" : "Бесплатно"
 }

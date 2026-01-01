@@ -142,5 +142,6 @@
   "sdm.shop.gui.box.categories.empty_element" : "All",
   "sdm.shop.gui.box.categories.edit.selected_list.title" : "Selected Categories",
   "sdm.shop.gui.box.categories.edit.search" : "Search Categories...",
-  "sdm.shop.gui.box.categories.filters.title" : "More Filters"
+  "sdm.shop.gui.box.categories.filters.title" : "More Filters",
+  "sdm.shop.gui.panel.entry.price.empty" : "Free"
 }

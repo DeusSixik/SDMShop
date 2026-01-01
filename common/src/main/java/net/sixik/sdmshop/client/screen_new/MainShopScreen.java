@@ -19,6 +19,7 @@ public class MainShopScreen extends BaseScreen implements GUIShopMenu {
 
     private double entryPanelScrollSafe = 0;
 
+    public boolean shouldRenderWidgets = true;
     public ObjectArrayList<ShopScreenEvents.OnModalOpen> modalOpenEventListeners = new ObjectArrayList<>();
     public ObjectArrayList<ShopScreenEvents.OnModalClose> modalCloseEventListeners = new ObjectArrayList<>();
 
@@ -26,11 +27,11 @@ public class MainShopScreen extends BaseScreen implements GUIShopMenu {
         SDMShopClient.shopFilters = GUIShopMenu.createFilters();
 
         getModalOpenListeners().add((s) -> {
-            entryPanel.renderWidgets = false;
+            shouldRenderWidgets = false;
         });
 
         getModalCloseListeners().add((s) -> {
-            entryPanel.renderWidgets = true;
+            shouldRenderWidgets = true;
         });
     }
 

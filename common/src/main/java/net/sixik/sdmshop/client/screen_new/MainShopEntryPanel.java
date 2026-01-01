@@ -1,13 +1,13 @@
 package net.sixik.sdmshop.client.screen_new;
 
-import dev.ftb.mods.ftblibrary.ui.Panel;
-import dev.ftb.mods.ftblibrary.ui.TextField;
-import dev.ftb.mods.ftblibrary.ui.Theme;
-import dev.ftb.mods.ftblibrary.ui.Widget;
+import dev.ftb.mods.ftblibrary.ui.*;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
+import net.sixik.sdmshop.mixin.accessors.PanelAccessor;
 import net.sixik.sdmshop.shop.ShopEntry;
+import net.sixik.sdmshop.utils.mixin.WidgetPath;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 
 import java.util.List;
@@ -29,11 +29,13 @@ public class MainShopEntryPanel extends Panel {
 
     protected final GUIShopMenu screen;
 
-    public boolean renderWidgets = true;
+    protected final PanelAccessor panelAccessor;
+    protected ObjectArrayList<MainShopEntryButton> entryButtons;
 
     public MainShopEntryPanel(GUIShopMenu screen) {
         super(screen.self());
         this.screen = screen;
+        this.panelAccessor = (PanelAccessor) this;
     }
 
     @Override
@@ -53,30 +55,6 @@ public class MainShopEntryPanel extends Panel {
 
     protected boolean shouldShowEntry(final ShopEntry entry) {
         return true;
-    }
-
-    @Override
-    public void drawOffsetBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-        if(!renderWidgets) return;
-
-        ShopRenderingWrapper.beginBatch(MIN_ITEM_W, FIXED_ITEM_H, CORNER_SIZE, BORDER_WIDTH);
-
-        for (int i = 0; i < widgets.size(); i++) {
-            final Widget widget = widgets.get(i);
-            if(!widget.shouldDraw() || !(widget instanceof MainShopEntryButton button)) continue;
-            button.drawingBatch = true;
-            drawWidget(graphics, theme, widget, x, y, w, h);
-            button.drawingBatch = false;
-        }
-        ShopRenderingWrapper.endBatch();
-
-        for (int i = 0; i < widgets.size(); i++) {
-            final Widget widget = widgets.get(i);
-            if(!widget.shouldDraw() || !(widget instanceof MainShopEntryButton button)) continue;
-            button.endBatch = true;
-            drawWidget(graphics, theme, widget, x, y, w, h);
-            button.endBatch = false;
-        }
     }
 
     @Override
@@ -150,5 +128,48 @@ public class MainShopEntryPanel extends Panel {
         ShopRenderingWrapper.addBatchRect(graphics, x, y, w ,h, BACKGROUND_INT, BORDER_INT);
 
         ShopRenderingWrapper.endBatch();
+    }
+
+    @Override
+    public void draw(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+        final var renderInside = getOnlyRenderWidgetsInside();
+
+        drawBackground(graphics, theme, x, y, w, h);
+
+        if (renderInside) {
+            GuiHelper.pushScissor(getScreen(), x, y, w, h);
+        }
+
+        setOffset(true);
+
+        final var offsetX = panelAccessor.offsetX();
+        final var offsetY = panelAccessor.offsetY();
+
+        widgets.stream()
+                .filter(widget -> ((WidgetPath)widget).sdm$shouldRenderInLayer(DrawLayer.BACKGROUND, x, y, w, h))
+                .forEach(widget -> drawWidget(graphics, theme, widget, x + offsetX, y + offsetY, w, h));
+
+        drawOffsetBackground(graphics, theme, x + offsetX, y + offsetY, w, h);
+
+        if(MainShopScreen.Instance.shouldRenderWidgets) {
+            ShopRenderingWrapper.beginBatch(MIN_ITEM_W, FIXED_ITEM_H, CORNER_SIZE, BORDER_WIDTH);
+            for (int i = 0; i < widgets.size(); i++) {
+                final var widget = widgets.get(i);
+                if (!(widget instanceof MainShopEntryButton button)) continue;
+                if (!((WidgetPath) widget).sdm$shouldRenderInLayer(DrawLayer.FOREGROUND, x, y, w, h)) continue;
+                button.drawBatch(graphics, theme, widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight());
+            }
+            ShopRenderingWrapper.endBatch();
+        }
+
+        widgets.stream()
+                .filter(widget -> ((WidgetPath)widget).sdm$shouldRenderInLayer(DrawLayer.FOREGROUND, x, y, w, h))
+                .forEach(widget -> drawWidget(graphics, theme, widget, x + offsetX, y + offsetY, w, h));
+
+        setOffset(false);
+
+        if (renderInside) {
+            GuiHelper.popScissor(getScreen());
+        }
     }
 }

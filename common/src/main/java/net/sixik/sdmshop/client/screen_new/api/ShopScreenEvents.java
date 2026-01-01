@@ -21,4 +21,9 @@ public interface ShopScreenEvents {
     interface OnModalClose {
         void handle(final ModalPanel panel);
     }
+
+    @FunctionalInterface
+    interface OnFilterChanged {
+        void handle();
+    }
 }

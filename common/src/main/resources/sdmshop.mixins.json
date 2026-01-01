@@ -8,7 +8,9 @@
   "mixins": [
     "accessors.BaseScreenAccess",
     "accessors.ConfigGroupAccess",
-    "accessors.EditConfigScreenAccessor"
+    "accessors.EditConfigScreenAccessor",
+    "accessors.MixinWidget$access",
+    "accessors.PanelAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

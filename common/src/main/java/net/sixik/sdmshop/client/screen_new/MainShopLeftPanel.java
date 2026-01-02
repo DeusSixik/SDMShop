@@ -6,10 +6,12 @@ import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
 import net.sixik.sdmshop.client.screen_new.components.filters.ShopFiltersComponentModalPanel;
 import net.sixik.sdmshop.utils.rendering.widgets.EnumDropdownWidget;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
+import net.sixik.sdmuilib.client.utils.misc.RGBA;
 
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopWidgets.*;
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.*;
@@ -29,6 +31,8 @@ public class MainShopLeftPanel extends Panel {
     protected TextBox priceBoxFrom;
     protected TextBox priceBoxTo;
     protected EnumDropdownWidget<CategorySort> sortDropdown;
+    protected MainShopToolPanel toolPanel;
+    protected PanelScrollBar toolPanelScroll;
 
     protected Button moreFiltersButton;
 
@@ -59,6 +63,20 @@ public class MainShopLeftPanel extends Panel {
                 ShopFiltersComponentModalPanel.openCentered(getGui());
             }
         });
+
+        add(toolPanel = new MainShopToolPanel(this));
+        add(toolPanelScroll = new PanelScrollBar(this, toolPanel) {
+            @Override
+            public void drawScrollBar(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+                SDMShopClient.someColor.draw(graphics, x, y, w, h   );
+            }
+
+            @Override
+            public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
+                RGBA.create(0,0,0, 255/2).draw(graphics,x,y,w,h,0);
+            }
+        });
+
         add(sortDropdown = new EnumDropdownWidget<>(this, CategorySort.class, CategorySort.NAME_ASC)
                 .setLabel(v -> switch (v) {
                     case NAME_ASC  -> Component.literal("Name: A → Z");
@@ -135,6 +153,22 @@ public class MainShopLeftPanel extends Panel {
         moreFiltersButton.setHeight(12);
         moreFiltersButton.posX = (this.width - moreFiltersButton.width) / 2;
         moreFiltersButton.posY = sortDropdown.posY + sortDropdown.height + fontHD;
+
+        toolPanel.width = categoryBox.width;
+        toolPanel.height = categoryBox.height - categoryBox.height / 4;
+        toolPanel.posX = categoryBox.posX;
+        toolPanel.posY = moreFiltersButton.posY + moreFiltersButton.height + fontH;
+
+        toolPanelScroll.setPosAndSize(
+                toolPanel.getPosX() + toolPanel.getWidth() - 2,
+                toolPanel.getPosY(),
+                2,
+                toolPanel.getHeight()
+        );
+
+        toolPanel.clearWidgets();
+        toolPanel.addWidgets();
+        toolPanel.alignWidgets();
     }
 
     @Override

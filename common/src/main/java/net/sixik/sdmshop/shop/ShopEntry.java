@@ -25,6 +25,8 @@ import java.util.function.Supplier;
 
 public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport, ConfigSupport, RenderSupport, LimiterSupport, TooltipSupport, ShopObject {
 
+    public static final UUID NULL_TAB = UUID.fromString("8de430d5-b1f0-45c7-b0ac-02772623c95e");
+
     protected final BaseShop ownerShop;
     protected UUID uuid;
     protected UUID ownerTab;
@@ -48,7 +50,7 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
     public ShopEntryType type = ShopEntryType.Buy;
 
     public ShopEntry(BaseShop ownerShop) {
-        this(ownerShop, UUID.randomUUID(), UUID.randomUUID(), new MoneySellerType(0D));
+        this(ownerShop, UUID.randomUUID(), NULL_TAB, new MoneySellerType(0D));
     }
 
     public ShopEntry(BaseShop ownerShop, UUID ownerTab) {
@@ -226,6 +228,10 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
     public UUID getTab() {
         return ownerTab;
+    }
+
+    public void setTab(final UUID ownerTab) {
+        this.ownerTab = ownerTab;
     }
 
     public AbstractEntryType getEntryType() {

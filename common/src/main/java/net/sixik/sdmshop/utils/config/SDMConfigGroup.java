@@ -12,6 +12,11 @@ public class SDMConfigGroup extends ConfigGroup {
         super(id);
     }
 
+    public SDMConfigGroup() {
+        this("sdm");
+        setNameKey("sidebar_button.sdm.shop");
+    }
+
     public SDMConfigGroup(String id, ConfigCallback savedCallback) {
         super(id, savedCallback);
     }

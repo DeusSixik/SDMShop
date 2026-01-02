@@ -33,11 +33,13 @@ public interface GUIShopMenu {
     RGBA BORDER = RGBA.create(255, 255, 255, 28);
     RGBA BORDER_2 = RGBA.create(255, 255, 255, 128);
     RGBA BORDER_3 = RGBA.create(66, 170, 255, 255);
+    RGBA BORDER_4 = RGBA.create(144,238,144, 255);
     int BACKGROUND_INT = BACKGROUND.toInt();
     int BACKGROUND_FILL_INT = BACKGROUND_FILL.toInt();
     int BORDER_INT = BORDER.toInt();
     int BORDER_2_INT = BORDER_2.toInt();
     int BORDER_3_INT = BORDER_3.toInt();
+    int BORDER_4_INT = BORDER_4.toInt();
 
     int INPUT_BOX_INT = 0xFF1F1F1F;
     int INPUT_BOX_BORDER_INT = 0xFF333333;

@@ -1,6 +1,10 @@
 package net.sixik.sdmshop.api;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.server.level.ServerPlayer;
+import net.sixik.sdmshop.client.SDMShopClient;
+import net.sixik.sdmshop.network.server.SendBuyEntryC2S;
 import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
 import net.sixik.sdmshop.server.SDMShopServer;
 import net.sixik.sdmshop.shop.ShopEntry;
@@ -33,5 +37,10 @@ public class ShopApi {
 
     public static void resetLimit(final ServerPlayer player, final ShopTab entry) {
         getLimiter().resetTabData(entry.getId(), player);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void sendBuyEntry(final ShopEntry entry, final int count) {
+        new SendBuyEntryC2S(entry.getOwnerShop().getId(), entry.getId(), count).sendToServer();
     }
 }

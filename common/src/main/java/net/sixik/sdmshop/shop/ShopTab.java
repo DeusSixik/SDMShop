@@ -72,7 +72,7 @@ public class ShopTab implements DataSerializerCompoundTag, ConditionSupport, Con
         this.uuid = tag.getUUID("uuid");
 
         if(tag.contains("title"))
-            title = Component.translatable(tag.getString("title"));
+            title = Component.literal(tag.getString("title"));
 
         renderComponent.deserialize(tag.getCompound(RenderComponent.KEY));
 

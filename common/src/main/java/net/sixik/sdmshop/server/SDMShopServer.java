@@ -1,6 +1,7 @@
 package net.sixik.sdmshop.server;
 
 import dev.architectury.platform.Platform;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +15,7 @@ import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.shop.limiter.ShopLimiter;
+import net.sixik.sdmshop.utils.ShopSerializerUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -28,15 +30,20 @@ public class SDMShopServer implements DataSaver {
 
     private static SDMShopServer _instance;
 
-    protected final Map<UUID, BaseShop> shopsByUUID = new HashMap<>();
-    protected final Map<ResourceLocation, BaseShop> shopsByRes = new HashMap<>();
+    protected final Map<UUID, BaseShop> shopsByUUID = new Object2ObjectOpenHashMap<>();
+    protected final Map<ResourceLocation, BaseShop> shopsByRes = new Object2ObjectOpenHashMap<>();
 
     protected MinecraftServer server;
     protected ShopLimiter shopLimiter;
     protected @Nullable BaseShop defaultShop;
 
-    public static SDMShopServer Instance() { return _instance; }
-    public static Optional<SDMShopServer> InstanceOptional() { return Optional.ofNullable(_instance); }
+    public static SDMShopServer Instance() {
+        return _instance;
+    }
+
+    public static Optional<SDMShopServer> InstanceOptional() {
+        return Optional.ofNullable(_instance);
+    }
 
     public SDMShopServer(MinecraftServer server) {
         this.server = server;
@@ -188,6 +195,7 @@ public class SDMShopServer implements DataSaver {
                     UUID uuid = nbt.getUUID("uuid");
                     BaseShop shop = new BaseShop(registryId, uuid);
                     shop.deserialize(nbt);
+                    ShopSerializerUtils.deleteEntriesWithNonexistentTabs(shop);
                     registerInternal(shop);
                 }
             } catch (Exception e) {

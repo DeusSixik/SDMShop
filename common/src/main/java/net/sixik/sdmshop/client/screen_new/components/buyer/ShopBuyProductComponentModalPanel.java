@@ -7,12 +7,15 @@ import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.sixik.sdmshop.api.ShopApi;
 import net.sixik.sdmshop.client.screen_new.MainShopEntryButton;
 import net.sixik.sdmshop.client.screen_new.MainShopScreen;
+import net.sixik.sdmshop.old_api.ShopEntryType;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.utils.ShopRenderUtils;
 import net.sixik.sdmshop.utils.ShopUtils;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
+import net.sixik.sdmshop.utils.rendering.widgets.IconTooltipWidget;
 
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.*;
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.BORDER_INT;
@@ -56,6 +59,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
     protected final String remainingTxt;
     protected final int remainingTxtL;
     protected final int totalLimit;
+    protected final ShopEntryType shopEntryType;
 
     protected final ShopEntry shopEntry;
     protected final String moneyText;
@@ -78,9 +82,9 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
 
     protected final int maxOfferSize;
     protected final String maxOfferSizeTxt;
-    protected final int  maxOfferSizeTxtL;
+    protected final int maxOfferSizeTxtL;
 
-
+    protected IconTooltipWidget iconTooltipWidget;
     protected TextBox inputCountBox;
     protected Button minusButton;
     protected Button plusButton;
@@ -100,6 +104,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
         super(panel);
         this.shopEntry = shopEntry;
 
+        this.shopEntryType = shopEntry.getType();
         this.title = shopEntry.getTitle();
         this.titleL = Theme.DEFAULT.getStringWidth(title);
         this.moneyText = this.shopEntry.getEntrySellerType().moneyToString(this.shopEntry);
@@ -122,6 +127,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
     public void addWidgets() {
         leftPanelWidgetsSet = false;
         rightPanelWidgetsSet = false;
+        add(iconTooltipWidget = new IconTooltipWidget(this, icon, s -> shopEntry.getEntryType().addEntryTooltip(s ,shopEntry)));
 
         add(inputCountBox = new TextBox(this) {
             @Override
@@ -132,7 +138,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
             @Override
             public void onTextChanged() {
                 final String txt = getText();
-                if(txt.isEmpty()) return;
+                if (txt.isEmpty()) return;
                 currentPlayerOffer = Integer.parseInt(txt);
             }
         });
@@ -142,7 +148,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
         add(minusButton = new SimpleTextButton(this, Component.literal("-"), Icon.empty()) {
             @Override
             public void onClicked(MouseButton button) {
-                setUserCount(Math.max(0, currentPlayerOffer-1));
+                setUserCount(Math.max(0, currentPlayerOffer - 1));
             }
         });
         add(plusButton = new SimpleTextButton(this, Component.literal("+"), Icon.empty()) {
@@ -161,7 +167,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
         add(cancelButton = new SimpleTextButton(this, Component.literal("Cancel"), Icon.empty()) {
             @Override
             public void onClicked(MouseButton button) {
-
+                getGui().popModalPanel();
             }
         });
 
@@ -174,7 +180,8 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
 
             @Override
             public void onClicked(MouseButton button) {
-
+                ShopApi.sendBuyEntry(shopEntry, currentPlayerOffer);
+                getGui().popModalPanel();
             }
         });
     }
@@ -188,13 +195,13 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
         super.setWidth(v);
 
         rightPanelW = this.width / 3 - space;
-        leftPanelW  = this.width / 2 + rightPanelW / 2;
+        leftPanelW = this.width / 2 + rightPanelW / 2;
 
         final int shift = leftPanelW / 7;
-        leftPanelW  -= shift;
+        leftPanelW -= shift;
         rightPanelW += shift;
 
-        this.iconSize  = v / 8;
+        this.iconSize = v / 8;
         this.iconSize3 = iconSize / 3;
     }
 
@@ -242,7 +249,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
         shopEntry.getEntrySellerType().drawCentered(graphics, theme, x, posY, w, h, playerMoney);
 
         posY += fontH + fontHD2;
-        final Component ysTxt = Component.translatable("sdm.shop.gui.buyer.text.player_spend");
+        final Component ysTxt = Component.translatable(shopEntryType.isBuy() ? "sdm.shop.gui.buyer.text.player_spend" : "sdm.shop.gui.buyer.text.player_receive");
         final int ysTxtL = theme.getStringWidth(ysTxt);
         theme.drawString(graphics, ysTxt, x + (w - ysTxtL) / 2, posY, Color4I.rgb(0xA8BFDC), 0);
         posY += fontH + 2;
@@ -261,7 +268,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
                 posY,
                 w,
                 h,
-                playerMoney + (currentPlayerOffer * shopEntry.getPrice())
+                shopEntryType.isSell() ? playerMoney + (currentPlayerOffer * shopEntry.getPrice()) : playerMoney - (currentPlayerOffer * shopEntry.getPrice())
         );
 
         if (!rightPanelWidgetsSet) {
@@ -269,7 +276,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
             final int gap = 4;
 
             final int buttonH = fontH + fontHD2;
-            
+
             final int buttonW = Math.max(20, (rightPanelW - pad * 2 - gap) / 2);
 
             cancelButton.setSize(buttonW, buttonH);
@@ -289,8 +296,12 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
     public void drawLeftPanel(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
         int posY = y + iconSize3;
 
-        if (!icon.isEmpty())
-            icon.draw(graphics, x + (w - iconSize) / 2, posY, iconSize, iconSize);
+        if(!leftPanelWidgetsSet) {
+            iconTooltipWidget.setSize(iconSize, iconSize);
+            iconTooltipWidget.setPos((w - iconSize) / 2, iconSize3);
+        }
+//        if (!icon.isEmpty())
+//            icon.draw(graphics, x + (w - iconSize) / 2, posY, iconSize, iconSize);
 
         posY += iconSize + fontHD2;
         shopEntry.getEntryType().drawTitleCentered(shopEntry, graphics, theme, x, posY, w, h);
@@ -298,7 +309,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
         posY += fontH * 2;
         theme.drawString(graphics, priceBy, x + 2, posY, Color4I.rgb(0xA8BFDC), 0);
 
-        if(shopEntry.getPrice() > 0) {
+        if (shopEntry.getPrice() > 0) {
             int size = shopEntry.getEntrySellerType().getRenderSize(graphics, theme, x, posY, w, h, shopEntry.getPrice());
             shopEntry.getEntrySellerType().draw(graphics, theme, x + (w - size) - 4, posY, w, h, shopEntry.getPrice());
         } else {
@@ -344,7 +355,7 @@ public class ShopBuyProductComponentModalPanel extends ModalPanel {
             // X: минус слева, макс справа, плюс перед максом, инпут между минусом и плюсом
             final int minusX = pad;
 
-            final int maxX  = w - pad - xw;
+            final int maxX = w - pad - xw;
             final int plusX = maxX - gap - pw;
 
             final int inputX = minusX + mw + gap;

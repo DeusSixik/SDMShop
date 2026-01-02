@@ -47,9 +47,13 @@ public class SendChangeTabC2S extends BaseC2SMessage {
 
     @Override
     public void handle(NetworkManager.PacketContext packetContext) {
-        if(!ShopUtils.isEditMode(packetContext.getPlayer())) return;
+        if (!ShopUtils.isEditMode(packetContext.getPlayer())) {
+            return;
+        }
         Optional<BaseShop> optShop = SDMShopServer.Instance().getShop(shopId);
-        if(optShop.isEmpty()) return;
+        if (optShop.isEmpty()) {
+            return;
+        }
         BaseShop shop = optShop.get();
 
         shop.getTabOptional(tabId).ifPresent(shopTab -> {

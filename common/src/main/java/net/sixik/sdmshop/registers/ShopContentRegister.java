@@ -1,8 +1,10 @@
 package net.sixik.sdmshop.registers;
 
 import dev.ftb.mods.ftblibrary.config.NameMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.sixik.sdmshop.SDMShop;
+import net.sixik.sdmshop.client.screen_new.components.creator.custom.CustomEntryConfig;
 import net.sixik.sdmshop.old_api.Constructor;
 import net.sixik.sdmshop.old_api.shop.AbstractEntrySellerType;
 import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
@@ -10,12 +12,14 @@ import net.sixik.sdmshop.old_api.shop.AbstractShopCondition;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.conditions.integration.StageCondition;
 import net.sixik.sdmshop.shop.entry_types.*;
+import net.sixik.sdmshop.shop.entry_types.configs.ItemEntryTypeConfig;
 import net.sixik.sdmshop.shop.entry_types.integration.StageEntryType;
 import net.sixik.sdmshop.shop.seller_types.ItemSellerType;
 import net.sixik.sdmshop.shop.seller_types.MoneySellerType;
 import net.sixik.sdmshop.shop.sorts.AbstractEntryTypeFilter;
 import net.sixik.sdmshop.shop.sorts.ItemEntryTypeDurabilityFilter;
 import net.sixik.sdmshop.shop.sorts.ItemEntryTypeEnchantmentFilter;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
@@ -27,6 +31,7 @@ public class ShopContentRegister {
     protected static final Map<String, Supplier<AbstractEntrySellerType<?>>> SELLER_TYPES = new LinkedHashMap<>();
     protected static final Map<String, Function<ShopEntry, AbstractEntryType>> ENTRY_TYPES = new LinkedHashMap<>();
     protected static final ObjectArrayList<Function<Class<? extends AbstractEntryType>, AbstractEntryTypeFilter<? extends AbstractEntryType>>> FILTERS = new ObjectArrayList<>();
+    protected static final Map<Class<? extends AbstractEntryType>, Supplier<CustomEntryConfig>> CUSTOM_ENTRY_CONFIG = new Object2ObjectOpenHashMap<>();
 
     public static void registerCondition(String id, Constructor<? extends AbstractShopCondition> function) {
         if(CONDITIONS.containsKey(id))
@@ -54,6 +59,17 @@ public class ShopContentRegister {
 
     public static void addFilter(final Function<Class<? extends AbstractEntryType>, AbstractEntryTypeFilter<? extends AbstractEntryType>> filter) {
         FILTERS.add(filter);
+    }
+
+    public static void registerCustomEntryConfig(final Class<? extends AbstractEntryType> entryType, Supplier<CustomEntryConfig> supplier) {
+        if(CUSTOM_ENTRY_CONFIG.containsKey(entryType))
+            throw new RuntimeException("Entry Type config for " + entryType.getName() + " class already registered!");
+        CUSTOM_ENTRY_CONFIG.put(entryType, supplier);
+    }
+
+    @Nullable
+    public static Supplier<CustomEntryConfig> getCustomEntryConfig(final Class<? extends AbstractEntryType> entryType) {
+        return CUSTOM_ENTRY_CONFIG.get(entryType);
     }
 
     public static Map<String, Constructor<? extends AbstractShopCondition>> getConditions() {
@@ -105,6 +121,8 @@ public class ShopContentRegister {
         registerEntryType("stageType", StageEntryType::new);
 
         registerCondition("stageCondition", StageCondition::new);
+
+        registerCustomEntryConfig(ItemEntryType.class, ItemEntryTypeConfig::new);
     }
 
     public static NameMap<String> getSellerTypesForConfig() {

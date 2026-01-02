@@ -2,6 +2,7 @@ package net.sixik.sdmshop;
 
 import com.mojang.logging.LogUtils;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
+import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
 import net.sixik.sdmeconomy.currencies.CustomCurrencies;
@@ -46,5 +47,9 @@ public final class SDMShop {
         AsyncServerTasks.init();
         onCommon.run();
         EnvExecutor.runInEnv(Env.CLIENT, () -> () -> SDMShopClient.init(onClient));
+    }
+
+    public static boolean isDeveloper() {
+        return Platform.isDevelopmentEnvironment();
     }
 }

@@ -18,6 +18,7 @@ import net.sixik.sdmshop.old_api.ConfigSupport;
 import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
 import net.sixik.sdmshop.utils.HashUtils;
+import net.sixik.sdmshop.utils.ShopSerializerUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

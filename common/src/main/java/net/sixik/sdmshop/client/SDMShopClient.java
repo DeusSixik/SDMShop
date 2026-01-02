@@ -102,8 +102,10 @@ public class SDMShopClient {
     }
 
     public static void openGui() {
-        new MainShopScreen().openGui();
-//        new ModernShopScreen().openGui();
+        switch (ShopConfig.GUI_STYLE.get()) {
+            case Modern -> new ModernShopScreen().openGui();
+            case BlockyModern -> new MainShopScreen().openGui();
+        }
     }
 
 

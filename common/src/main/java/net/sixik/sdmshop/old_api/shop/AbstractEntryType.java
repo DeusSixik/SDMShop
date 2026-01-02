@@ -110,4 +110,6 @@ public abstract class AbstractEntryType implements DataSerializerCompoundTag, Mo
     public final ShopObjectTypes getShopType() {
         return ShopObjectTypes.ENTRY_TYPE;
     }
+
+
 }

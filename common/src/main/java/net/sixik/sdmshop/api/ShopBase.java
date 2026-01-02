@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public interface ShopBase {
 
@@ -234,6 +235,22 @@ public interface ShopBase {
         onEntryAdd(entry, resolvedTab);
         setDirty(true);
         return true;
+    }
+
+    default RemoveResult removeEntriesUnSafe(final ShopTab shopTab) {
+        return removeEntriesUnSafe(shopTab.getId());
+    }
+
+    default RemoveResult removeEntriesUnSafe(final UUID tabId) {
+        if (tabId == null) return RemoveResult.FAIL;
+        getEntries().removeIf(s -> s.getTab().equals(tabId));
+        return RemoveResult.SUCCESS;
+    }
+
+    default RemoveResult removeEntriesUnSafe(final Predicate<ShopEntry> entry) {
+        if (entry == null) return RemoveResult.FAIL;
+        getEntries().removeIf(entry);
+        return RemoveResult.SUCCESS;
     }
 
     default RemoveResult removeEntry(final ShopEntry entryBase) {

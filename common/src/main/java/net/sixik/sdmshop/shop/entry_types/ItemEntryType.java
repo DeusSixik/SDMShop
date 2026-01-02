@@ -73,7 +73,7 @@ public class ItemEntryType extends AbstractEntryType implements CustomIcon {
         if (countBuy <= 0) return false;
 
         long totalNeeded = (long) entry.getCount() * countBuy;
-        if (totalNeeded > Integer.MAX_VALUE) return false; // Защита
+        if (totalNeeded > Integer.MAX_VALUE) return false;
 
         // ВАЖНО: Используем strictNbt = true.
         // Это решает проблему "Осколков души" и "Зачарованных органов".

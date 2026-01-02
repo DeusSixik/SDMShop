@@ -329,8 +329,8 @@ public class ShopSelectCategoriesComponentModalPanel extends ModalPanel {
 
         @Override
         public void drawBackground(GuiGraphics graphics, Theme theme, int x, int y, int w, int h) {
-            if(selected)
-                ShopRenderingWrapper.drawRoundedRect(graphics.pose(), x, y, w, h, 5, 1, INPUT_BOX_INT, BORDER_3_INT);
+            if(isMouseOver) ShopRenderingWrapper.drawRoundedRect(graphics.pose(), x, y, w, h, 5, 1, INPUT_BOX_INT, BORDER_4_INT);
+            else if(selected) ShopRenderingWrapper.drawRoundedRect(graphics.pose(), x, y, w, h, 5, 1, INPUT_BOX_INT, BORDER_3_INT);
             else super.drawBackground(graphics, theme, x, y, w, h);
         }
     }

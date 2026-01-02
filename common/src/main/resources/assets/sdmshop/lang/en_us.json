@@ -149,5 +149,6 @@
   "sdm.shop.gui.buyer.text.max_buy" : "Max buy",
   "sdm.shop.gui.buyer.text.player_money" : "You money",
   "sdm.shop.gui.buyer.text.player_spend" : "You will spend",
+  "sdm.shop.gui.buyer.text.player_receive" : "You will receive",
   "sdm.shop.gui.buyer.text.player_money_left" : "You will have"
 }

@@ -62,10 +62,24 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
         }
 
         final ShopEntry entry = shop.getEntryOptional(entryId).orElse(null);
-        if (entry == null) return;
+        if (entry == null) {
+            SDMShop.LOGGER.warn("Player {} tried to buy but entry {} not found on server !", player.getName().getString(), entryId);
+            return;
+        }
 
         final ShopTab tab = shop.getTabOptional(entry).orElse(null);
-        if (tab == null) return;
+        if (tab == null) {
+            SDMShop.LOGGER.warn("Player {} tried to buy but tab {} not found on server !", player.getName().getString(), entry.getTab());
+
+            if(SDMShop.isDeveloper()) {
+                System.out.println("Need Tab: " + entry.getTab());
+                for (ShopTab shopTab : shop.getTabs()) {
+                    System.out.println(shopTab.getId());
+                }
+            }
+
+            return;
+        }
 
         context.queue(() -> processPurchase(player, shop, tab, entry));
     }
@@ -93,6 +107,7 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
             /*
                 TODO: You can send the "Error: Limit reached" package to update the GUI.
              */
+            SDMShop.LOGGER.warn("Player {} tried to buy but limit is left", player.getName().getString());
             return;
         }
 
@@ -104,12 +119,16 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
         if (tab.isLimiterActive()) safeCount = Math.min(safeCount, limitTab);
         if (entry.isLimiterActive()) safeCount = Math.min(safeCount, limitEntry);
 
-        if (safeCount <= 0) return;
+        if (safeCount <= 0) {
+            SDMShop.LOGGER.warn("Player {} tried to buy but count <= 0", player.getName().getString());
+            return;
+        }
 
         /*
             Verification of conditions (money, permissions, etc.)
          */
         if (!entry.getEntryType().canExecute(player, entry, safeCount)) {
+            SDMShop.LOGGER.warn("Player {} tried to buy but can't execute", player.getName().getString());
             return;
         }
 

@@ -121,14 +121,8 @@ public class ShopRenderUtils {
 
         }
 
-
-
         if(i1 == null)
             i1 = entry.getRenderComponent().getIcon();
-
-//        if(i1 instanceof ItemIcon itemIcon) {
-//            i1 = ItemIcon.getItemIcon(itemIcon.getStack().copyWithCount((int) entry.getCount()));
-//        }
 
         return i1;
     }

@@ -56,6 +56,11 @@ public class ShopCreatorEntryPanel extends Panel {
                 configScreen = new SDMEditConfigScreen(group);
                 configScreen.openGui();
             }
+
+            @Override
+            public boolean shouldDraw() {
+                return ShopCreatorComponentModalPanel.Data.Entry.selectedType != null;
+            }
         });
 
     }

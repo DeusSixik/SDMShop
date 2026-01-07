@@ -18,6 +18,7 @@ import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class GUIShopWidgets {
@@ -102,7 +103,7 @@ public class GUIShopWidgets {
                     final Button button = new Button(
                             this,
                             list.get(i),
-                            (s) -> {
+                            (s, b) -> {
                             }) {
                         @Override
                         public boolean checkMouseOver(int mouseX, int mouseY) {
@@ -116,7 +117,7 @@ public class GUIShopWidgets {
                 final Button button = new Button(
                         this,
                         null,
-                        (s) -> {
+                        (s, b) -> {
                         }) {
                     @Override
                     public boolean checkMouseOver(int mouseX, int mouseY) {
@@ -184,13 +185,13 @@ public class GUIShopWidgets {
         public static class Button extends SimpleTextButton {
 
             protected final Panel categoryBox;
-            public final Consumer<ShopTab> onClick;
+            public final BiConsumer<MouseButton, ShopTab> onClick;
             public final ShopTab category;
 
             public Button(
                     Panel panel,
                     @Nullable ShopTab category,
-                    Consumer<ShopTab> onClick
+                    BiConsumer<MouseButton, ShopTab> onClick
             ) {
                 super(panel, category == null ? Component.translatable("sdm.shop.gui.box.categories.empty_element") : category.title, Icon.empty());
                 this.categoryBox = panel;
@@ -200,7 +201,7 @@ public class GUIShopWidgets {
 
             @Override
             public void onClicked(MouseButton button) {
-                onClick.accept(category);
+                onClick.accept(button, category);
             }
 
             @Override

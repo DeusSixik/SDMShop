@@ -1,17 +1,14 @@
 package net.sixik.sdmshop.client.screen_new.components.categories;
 
-import dev.ftb.mods.ftblibrary.ui.Button;
-import dev.ftb.mods.ftblibrary.ui.Panel;
-import dev.ftb.mods.ftblibrary.ui.Theme;
-import dev.ftb.mods.ftblibrary.ui.Widget;
+import dev.ftb.mods.ftblibrary.ui.*;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.client.SDMShopClient;
-import net.sixik.sdmshop.client.screen_new.api.GUIShopWidgets;
 import net.sixik.sdmshop.client.screen_new.components.categories.ShopSelectCategoriesComponentModalPanel.SelectCategoriesButton;
 import net.sixik.sdmshop.shop.ShopTab;
+import net.sixik.sdmshop.utils.ShopContextMenuUtils;
 import net.sixik.sdmshop.utils.ShopUtils;
+import net.sixik.sdmshop.utils.config.SDMEditConfigScreen;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 
 import java.util.Iterator;
@@ -22,6 +19,8 @@ import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.*;
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.BORDER_INT;
 
 public class ShopSelectCategoryListBox extends Panel {
+
+    protected SDMEditConfigScreen editConfigScreen;
 
     /**
      * TODO: It makes sense to switch to Hash Map if there are 20+ categories on average.
@@ -56,23 +55,39 @@ public class ShopSelectCategoryListBox extends Panel {
         for (int i = 0; i < list.size(); i++) {
             final ShopTab category = list.get(i);
 
-            final var button = new SelectCategoriesButton(this, category, (s) -> {
-                final Iterator<ShopTab> iterator = selectedCategories.iterator();
-                boolean find = false;
+            final var button = new SelectCategoriesButton(this, category, (b, tab) -> {
+                if(b.isLeft()) {
+                    final Iterator<ShopTab> iterator = selectedCategories.iterator();
+                    boolean find = false;
 
-                while (iterator.hasNext()) {
-                    ShopTab element = iterator.next();
-                    if (element == null) continue;
-                    if (element.getId().equals(s.getId())) {
-                        iterator.remove();
-                        find = true;
-                        break;
+                    while (iterator.hasNext()) {
+                        ShopTab element = iterator.next();
+                        if (element == null) continue;
+                        if (element.getId().equals(tab.getId())) {
+                            iterator.remove();
+                            find = true;
+                            break;
+                        }
                     }
+
+                    if (!find) selectedCategories.add(tab);
+
+                    modalPanel.updateSelectedList();
+                    return;
                 }
 
-                if (!find) selectedCategories.add(s);
+                final List<ContextMenuItem> contextMenu = ShopContextMenuUtils.getContextMenu(tab, (deleted) -> {
+                    selectedCategories.removeIf(find -> find.getId().equals(deleted.getId()));
+                    getParent().refreshWidgets();
+                }, s -> editConfigScreen = s,  () -> {
+                    if(editConfigScreen != null) {
+                        getParent().refreshWidgets();
+                        editConfigScreen.closeGui();
+                    }
+                }, ShopContextMenuUtils.ShowBasic);
 
-                modalPanel.updateSelectedList();
+                if(!contextMenu.isEmpty())
+                    getGui().openContextMenu(contextMenu);
             });
 
             add(button);

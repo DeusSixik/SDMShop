@@ -18,6 +18,7 @@ import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.*;
@@ -311,7 +312,7 @@ public class ShopSelectCategoriesComponentModalPanel extends ModalPanel {
         public SelectCategoriesButton(
                final Panel panel,
                final ShopTab category,
-               final Consumer<ShopTab> onClick
+               final BiConsumer<MouseButton, ShopTab> onClick
         ) {
             super(panel, category, onClick);
         }

@@ -1,13 +1,21 @@
 package net.sixik.sdmshop.client.screen_new.components.categories;
 
+import dev.ftb.mods.ftblibrary.config.ConfigGroup;
+import dev.ftb.mods.ftblibrary.ui.ContextMenuItem;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.gui.GuiGraphics;
 import net.sixik.sdmshop.shop.ShopTab;
+import net.sixik.sdmshop.utils.ShopContextMenuUtils;
+import net.sixik.sdmshop.utils.ShopUtils;
+import net.sixik.sdmshop.utils.ShopUtilsClient;
+import net.sixik.sdmshop.utils.config.SDMConfigGroup;
+import net.sixik.sdmshop.utils.config.SDMEditConfigScreen;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,21 +60,25 @@ public class ShopSelectCategorySelectedListBox extends Panel {
             final var button = new ShopSelectCategoriesComponentModalPanel.AddedCategoriesButton(this, category) {
                 @Override
                 public void onClicked(MouseButton button) {
-                    final Iterator<ShopTab> iterator = selectedCategories.iterator();
-                    boolean find = false;
 
-                    while (iterator.hasNext()) {
-                        ShopTab element = iterator.next();
-                        if (element == null) continue;
-                        if (element.getId().equals(tab.getId())) {
-                            iterator.remove();
-                            find = true;
-                            break;
+                    if(button.isLeft()) {
+                        final Iterator<ShopTab> iterator = selectedCategories.iterator();
+                        boolean find = false;
+
+                        while (iterator.hasNext()) {
+                            ShopTab element = iterator.next();
+                            if (element == null) continue;
+                            if (element.getId().equals(tab.getId())) {
+                                iterator.remove();
+                                find = true;
+                                break;
+                            }
                         }
-                    }
 
-                    if (!find) selectedCategories.add(tab);
-                    modalPanel.updateSelectedList();
+                        if (!find) selectedCategories.add(tab);
+                        modalPanel.updateSelectedList();
+                        return;
+                    }
                 }
             };
 

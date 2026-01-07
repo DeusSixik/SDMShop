@@ -258,6 +258,12 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
     public void getConfig(ConfigGroup group) {
         group.addLong("count", count, v -> count = v, 1, 1, Long.MAX_VALUE);
 
+        if (this.getEntryType().getProperty().sellType.isBoth()) {
+            group.addBool("sell", this.getType().isSell(), (v) -> this.type = v ? ShopEntryType.Sell : ShopEntryType.Buy, this.getEntryType().getProperty().sellType.isSell());
+        }
+
+
+
         entryType.getConfig(group);
 
         ConfigGroup sellerGroup = group.getOrCreateSubgroup("seller_type");

@@ -21,6 +21,7 @@ import net.sixik.sdmshop.old_api.MoveType;
 import net.sixik.sdmshop.old_api.shop.ShopObjectTypes;
 import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
+import net.sixik.sdmshop.utils.ShopContextMenuUtils;
 import net.sixik.sdmshop.utils.ShopRenderUtils;
 import net.sixik.sdmshop.utils.ShopUtils;
 import net.sixik.sdmshop.utils.ShopUtilsClient;
@@ -34,6 +35,7 @@ import java.util.List;
 public class MainShopEntryButton extends SimpleTextButton {
 
     protected static final int fontH = Theme.DEFAULT.getFontHeight();
+    protected SDMEditConfigScreen editConfigScreen;
 
     protected final MainShopEntryPanel entryPanel;
     protected final ShopEntry shopEntry;
@@ -122,8 +124,6 @@ public class MainShopEntryButton extends SimpleTextButton {
     public void onClicked(MouseButton mouseButton) {
 
         MainShopScreen screen = (MainShopScreen) entryPanel.screen;
-        BaseShop shop = screen.getShop();
-        boolean isClientEdit = ShopUtils.isEditModeClient();
 
         if(mouseButton.isLeft()) {
             ShopBuyProductComponentModalPanel.openCentered(screen, shopEntry);
@@ -132,51 +132,18 @@ public class MainShopEntryButton extends SimpleTextButton {
 
         if(mouseButton.isRight()) {
 
-            List<ContextMenuItem> contextMenu = new ArrayList<>();
+            List<ContextMenuItem> contextMenu = ShopContextMenuUtils.getContextMenu(
+                shopEntry, entry -> entryPanel.refreshWidgets(),
+                s -> editConfigScreen = s, () -> {
+                    if(editConfigScreen != null) {
+                        getParent().refreshWidgets();
+                        editConfigScreen.closeGui();
+                    }
+                }, s -> getGui().refreshWidgets(), ShopContextMenuUtils.ShowBasic
+            );
 
-            if(isClientEdit && !isEdit()) {
-
-                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.EDIT_KEY), Icons.SETTINGS, (button) -> {
-                    ConfigGroup group = new SDMConfigGroup("sdm", accept -> {
-                        if (accept)
-                            ShopUtilsClient.syncEntry(shop, shopEntry);
-                        screen.openGui();
-                    }).setNameKey("sidebar_button.sdm.shop");
-
-                    ConfigGroup g = group.getOrCreateSubgroup("shop").getOrCreateSubgroup("entry");
-                    shopEntry.getConfig(g);
-                    new SDMEditConfigScreen(group).openGui();
-                }));
-
-                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.DUPLICATE_KEY), Icons.ADD, (b) -> {
-                    ShopUtilsClient.addEntry(shop, shopEntry.copy());
-                }));
-
-                TooltipList d1List = new TooltipList();
-                d1List.add(Component.literal("Copy " + shopEntry.getId()));
-                ContextMenuItem cont = new ContextMenuItem(Component.translatable(SDMShopConstants.COPY_ID_KEY), Icons.INFO, (b) -> {
-                    Minecraft.getInstance().keyboardHandler.setClipboard(shopEntry.getId().toString());
-                    Minecraft.getInstance().player.sendSystemMessage(Component.literal("Copy Shop Entry " + shopEntry.getId()));
-                });
-                cont.addMouseOverText(d1List);
-                contextMenu.add(cont);
-
-                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.DELETE_KEY), Icons.REMOVE, (b) -> {
-                    ShopUtilsClient.removeEntry(shop, shopEntry);
-                }));
-
-                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.RESET_LIMITER_KEY), Icons.BOOK_RED, (b) -> {
-                    new SendResetLimiterC2S(shopEntry.getId(), ShopObjectTypes.SHOP_ENTRY).sendToServer();
-                }));
-
-                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_UP_KEY), Icons.UP, (b) -> {
-                    ShopUtilsClient.moveShopEntry(shop, shopEntry.getId(), MoveType.Up);
-                }));
-                contextMenu.add(new ContextMenuItem(Component.translatable(SDMShopConstants.MOVE_DOWN_KEY), Icons.DOWN, (b) -> {
-                    ShopUtilsClient.moveShopEntry(shop, shopEntry.getId(), MoveType.Down);
-                }));
-
-            }
+            if(!contextMenu.isEmpty())
+                getGui().openContextMenu(contextMenu);
 
 //            if(!isEdit()) {
 //                if (isFavorite()) {

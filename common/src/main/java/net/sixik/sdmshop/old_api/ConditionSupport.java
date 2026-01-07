@@ -22,95 +22,90 @@ public interface ConditionSupport {
 
     default boolean addCondition(AbstractShopCondition condition) {
         if (condition == null) return false;
-        synchronized (this) {
-            return getConditions().add(condition);
-        }
+
+        return getConditions().add(condition);
+
     }
 
     default boolean removeCondition(AbstractShopCondition condition) {
         boolean result;
-        synchronized (this) {
-            result = getConditions().removeIf(s -> s.equals(condition));
-            if(!result)
-                result = getConditions().removeIf(s -> s.getId().equals(condition.getId()));
-        }
+
+        result = getConditions().removeIf(s -> s.equals(condition));
+        if (!result)
+            result = getConditions().removeIf(s -> s.getId().equals(condition.getId()));
+
 
         return result;
     }
 
     default Optional<AbstractShopCondition> getCondition(int index) {
-        synchronized (this) {
-            int size = getConditions().size();
-            if (index < 0 || index >= size) return Optional.empty();
-            return Optional.ofNullable(getConditions().get(index));
-        }
+
+        int size = getConditions().size();
+        if (index < 0 || index >= size) return Optional.empty();
+        return Optional.ofNullable(getConditions().get(index));
+
     }
 
     default boolean isLockedAny(ShopObject shopObject) {
-        synchronized (this) {
-            return !getConditions().isEmpty() && getConditions().stream().anyMatch(s -> s.isLocked(shopObject));
-        }
+
+        return !getConditions().isEmpty() && getConditions().stream().anyMatch(s -> s.isLocked(shopObject));
+
     }
 
     default boolean isLockedAll(ShopObject shopObject) {
-        synchronized (this) {
-            return !getConditions().isEmpty() && getConditions().stream().allMatch(s -> s.isLocked(shopObject));
-        }
+
+        return !getConditions().isEmpty() && getConditions().stream().allMatch(s -> s.isLocked(shopObject));
+
     }
 
     default void serializeConditions(CompoundTag nbt) {
-        synchronized (this) {
-            ListTag listTag = new ListTag();
-            for (AbstractShopCondition condition : getConditions()) {
-                CompoundTag conditionNbt = new CompoundTag();
-                conditionNbt.putString("id", condition.getId());
-                conditionNbt.put("data", condition.serialize());
-                listTag.add(conditionNbt);
-            }
-
-            nbt.put(CONDITION_KEY, listTag);
+        ListTag listTag = new ListTag();
+        for (AbstractShopCondition condition : getConditions()) {
+            CompoundTag conditionNbt = new CompoundTag();
+            conditionNbt.putString("id", condition.getId());
+            conditionNbt.put("data", condition.serialize());
+            listTag.add(conditionNbt);
         }
+
+        nbt.put(CONDITION_KEY, listTag);
     }
 
     default void deserializeConditions(CompoundTag tag, BaseShop shopBase) {
-        synchronized (this) {
+        getConditions().clear();
+        List<String> conditionsIds = new ArrayList<>();
 
+        if (tag.contains(CONDITION_KEY)) {
+            ListTag listTag = (ListTag) tag.get(CONDITION_KEY);
 
-            getConditions().clear();
-            List<String> conditionsIds = new ArrayList<>();
+            for (Tag tag1 : listTag) {
+                CompoundTag conditionNbt = (CompoundTag) tag1;
 
-            if(tag.contains(CONDITION_KEY)){
-                ListTag listTag = (ListTag) tag.get(CONDITION_KEY);
+                String id = conditionNbt.getString("id");
 
-                for (Tag tag1 : listTag) {
-                    CompoundTag conditionNbt = (CompoundTag) tag1;
+                Optional<Constructor<? extends AbstractShopCondition>> find =
+                        ShopContentRegister.getCondition(id);
 
-                    String id = conditionNbt.getString("id");
+                if (find.isEmpty()) continue;
 
-                    Optional<Constructor<? extends AbstractShopCondition>> find =
-                            ShopContentRegister.getCondition(id);
+                AbstractShopCondition condition = find.get().createDefaultInstance();
 
-                    if (find.isEmpty()) continue;
+                conditionsIds.add(id);
 
-                    AbstractShopCondition condition = find.get().createDefaultInstance();
-
-                    conditionsIds.add(id);
-
-                    condition.deserialize(conditionNbt.getCompound("data"));
-                    condition.setShop(shopBase);
-                    addCondition(condition);
-                }
-            }
-
-
-            for (Map.Entry<String, Constructor<? extends AbstractShopCondition>> entry : ShopContentRegister.getConditions().entrySet()) {
-                if(conditionsIds.contains(entry.getKey())) continue;
-
-                AbstractShopCondition value = entry.getValue().createDefaultInstance();
-                value.setShop(shopBase);
-                addCondition(value);
+                condition.deserialize(conditionNbt.getCompound("data"));
+                condition.setShop(shopBase);
+                addCondition(condition);
             }
         }
+
+
+        for (Map.Entry<String, Constructor<? extends AbstractShopCondition>> entry : ShopContentRegister.getConditions().entrySet()) {
+            if (conditionsIds.contains(entry.getKey())) continue;
+
+            AbstractShopCondition value = entry.getValue().createDefaultInstance();
+            value.setShop(shopBase);
+            addCondition(value);
+        }
+
     }
 
     default void getConditionConfig(ConfigGroup group) {

@@ -93,6 +93,11 @@ public class ShopCreatorComponentModalPanel extends ModalPanel {
                     onCreateEntry();
                 else onCreateCategory();
             }
+
+            @Override
+            public boolean shouldDraw() {
+                return (Data.SelectedCreator == SelectedCreatorEnum.Entry && ShopCreatorComponentModalPanel.Data.Entry.selectedType != null) || (Data.SelectedCreator == SelectedCreatorEnum.Category);
+            }
         });
 
         add(cancelButton = new Button(this, Component.literal("Cancel")) {

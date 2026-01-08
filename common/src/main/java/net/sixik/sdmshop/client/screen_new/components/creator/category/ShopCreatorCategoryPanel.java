@@ -35,6 +35,7 @@ public class ShopCreatorCategoryPanel extends Panel {
             @Override
             public void onTextChanged() {
                 ShopCreatorComponentModalPanel.Data.Category.name = getText();
+                shopTab.title = Component.translatable(ShopCreatorComponentModalPanel.Data.Category.name);
             }
         });
         categoryNameBox.ghostText = "Enter Name...";
@@ -71,6 +72,7 @@ public class ShopCreatorCategoryPanel extends Panel {
         categoryNameBox.setY(2);
 
         editCategoryButton.setX(8);
+        editCategoryButton.setWidth(categoryNameBox.width);
         editCategoryButton.posY = categoryNameBox.posY + categoryNameBox.height + 2;
         editCategoryButton.setHeight(20);
     }

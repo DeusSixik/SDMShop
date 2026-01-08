@@ -20,6 +20,7 @@ public class ShopCreatorEntryPanel extends Panel {
 
     protected ShopCreatorEntryTypesPanel entryTypesPanel;
     protected SimpleTextButton editButton;
+    protected ShopCreatorEntrySelectedCategory entrySelectedCategoryPanel;
 
     public static ShopEntry shopEntry;
 
@@ -33,6 +34,7 @@ public class ShopCreatorEntryPanel extends Panel {
     @Override
     public void addWidgets() {
         add(entryTypesPanel = new ShopCreatorEntryTypesPanel(this));
+        add(entrySelectedCategoryPanel = new ShopCreatorEntrySelectedCategory(this));
         add(editButton = new SimpleTextButton(this, Component.literal("Edit Entry"), Icons.SETTINGS) {
             @Override
             public void onClicked(MouseButton button) {
@@ -59,7 +61,7 @@ public class ShopCreatorEntryPanel extends Panel {
 
             @Override
             public boolean shouldDraw() {
-                return ShopCreatorComponentModalPanel.Data.Entry.selectedType != null;
+                return ShopCreatorEntrySelectedCategory.isTabSelected();
             }
         });
 
@@ -71,23 +73,21 @@ public class ShopCreatorEntryPanel extends Panel {
         entryTypesPanel.clearWidgets();
         entryTypesPanel.addWidgets();
         entryTypesPanel.alignWidgets();
+        alignWidgetsWithoutEntryTypes();
+    }
+
+    public void alignWidgetsWithoutEntryTypes() {
+        entrySelectedCategoryPanel.posX = 4;
+        entrySelectedCategoryPanel.width = this.width - 8;
+        entrySelectedCategoryPanel.posY = entryTypesPanel.posY + entryTypesPanel.height + 2;
+
+        entrySelectedCategoryPanel.clearWidgets();
+        entrySelectedCategoryPanel.addWidgets();
+        entrySelectedCategoryPanel.alignWidgets();
 
         editButton.posX = 4;
-        editButton.width = this.width - 8;
+        editButton.width = entrySelectedCategoryPanel.width;
         editButton.height = 20;
-        editButton.posY = entryTypesPanel.posY + entryTypesPanel.height + 2;
-
-//        final var data = ShopCreatorComponentModalPanel.Data;
-//
-//        final AbstractEntryType selectedType = data.Entry.selectedType;
-//        if (selectedType != null) {
-//            final Supplier<CustomEntryConfig> customEntry = ShopContentRegister.getCustomEntryConfig(selectedType.getClass());
-//            if(customEntry != null) {
-//                final CustomEntryConfig custom = customEntry.get();
-//
-//                custom.addWidgets(this, () -> data.Entry.selectedType.equals(selectedType), data);
-//                custom.alignWidgets(this, entryTypesPanel, data);
-//            }
-//        }
+        editButton.posY = entrySelectedCategoryPanel.posY + entrySelectedCategoryPanel.height + 2;
     }
 }

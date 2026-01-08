@@ -160,12 +160,6 @@ public class MainShopEntryButton extends SimpleTextButton {
 //                    }));
 //                }
 //            }
-
-
-            if(!contextMenu.isEmpty()) {
-                screen.openContextMenu(contextMenu);
-                return;
-            }
         }
     }
 

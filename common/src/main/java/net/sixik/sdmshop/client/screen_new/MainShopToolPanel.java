@@ -12,6 +12,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
+import net.sixik.sdmshop.client.screen.modern.wallet.PlayerWallet;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
 import net.sixik.sdmshop.client.screen_new.components.creator.ShopCreatorComponentModalPanel;
 import net.sixik.sdmshop.utils.ShopUtils;
@@ -36,21 +37,19 @@ public class MainShopToolPanel extends Panel {
             add(new ToolButton(this, Icons.ADD, () -> {
                 ShopCreatorComponentModalPanel.openCentered(getGui());
             }, (tooltipList -> {
-                tooltipList.add(Component.literal("Create"));
+                tooltipList.add(Component.literal("Create WIP"));
             })));
         }
 
-        add(new ToolButton(this, Icons.MONEY, () -> {
-
-        }, tooltipList -> {
+        add(new ToolButton(this, Icons.MONEY, new PlayerWallet()::openGui, tooltipList -> {
             tooltipList.add(Component.literal("Money"));
         }));
 
-        add(new ToolButton(this, Icons.STAR, () -> {
-
-        }, tooltipList -> {
-            tooltipList.add(Component.literal("Favorite"));
-        }));
+//        add(new ToolButton(this, Icons.STAR, () -> {
+//
+//        }, tooltipList -> {
+//            tooltipList.add(Component.literal("Favorite"));
+//        }));
     }
 
     @Override

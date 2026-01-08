@@ -103,8 +103,9 @@ public class MainShopScreen extends BaseScreen implements GUIShopMenu {
         entryPanelScroll.setValue(entryPanelScrollSafe);
 
         for (Widget widget : getWidgets()) {
-            if(widget instanceof Panel panel)
+            if(widget instanceof Panel panel) {
                 panel.alignWidgets();
+            }
         }
     }
 

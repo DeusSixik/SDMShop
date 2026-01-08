@@ -150,5 +150,8 @@
   "sdm.shop.gui.buyer.text.player_money" : "You money",
   "sdm.shop.gui.buyer.text.player_spend" : "You will spend",
   "sdm.shop.gui.buyer.text.player_receive" : "You will receive",
-  "sdm.shop.gui.buyer.text.player_money_left" : "You will have"
+  "sdm.shop.gui.buyer.text.player_money_left" : "You will have",
+  "sdm.shop.gui.creator.text.select_category" : "Select Category",
+  "sdm.shop.gui.creator.button.select_category.tooltip" : "Click to select category",
+  "sdm.shop.gui.creator.text.selected_category" : "Selected Category"
 }

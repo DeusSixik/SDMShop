@@ -8,20 +8,15 @@ import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen_new.MainShopScreen;
 import net.sixik.sdmshop.client.screen_new.components.creator.category.ShopCreatorCategoryPanel;
-import net.sixik.sdmshop.client.screen_new.components.creator.custom.CustomEntryConfig;
 import net.sixik.sdmshop.client.screen_new.components.creator.data.SelectedCreatorEnum;
 import net.sixik.sdmshop.client.screen_new.components.creator.data.ShopCreatorComponentData;
 import net.sixik.sdmshop.client.screen_new.components.creator.entry.ShopCreatorEntryPanel;
-import net.sixik.sdmshop.client.screen_new.components.creator.entry.ShopCreatorEntryTypesPanel;
-import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
-import net.sixik.sdmshop.registers.ShopContentRegister;
+import net.sixik.sdmshop.client.screen_new.components.creator.entry.ShopCreatorEntrySelectedCategory;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;
 import net.sixik.sdmshop.utils.ShopUtilsClient;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
-
-import java.util.function.Supplier;
 
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.*;
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.BORDER_INT;
@@ -96,7 +91,7 @@ public class ShopCreatorComponentModalPanel extends ModalPanel {
 
             @Override
             public boolean shouldDraw() {
-                return (Data.SelectedCreator == SelectedCreatorEnum.Entry && ShopCreatorComponentModalPanel.Data.Entry.selectedType != null) || (Data.SelectedCreator == SelectedCreatorEnum.Category);
+                return (Data.SelectedCreator == SelectedCreatorEnum.Entry && ShopCreatorEntrySelectedCategory.isTabSelected() && ShopCreatorComponentModalPanel.Data.Entry.selectedType != null) || (Data.SelectedCreator == SelectedCreatorEnum.Category);
             }
         });
 
@@ -228,8 +223,10 @@ public class ShopCreatorComponentModalPanel extends ModalPanel {
     public void onCreateEntry() {
         final ShopEntry entry = ShopCreatorEntryPanel.shopEntry;
         if(entry == null) return;
+        entry.setTab(Data.Entry.selectedTab.getId());
         ShopUtilsClient.addEntry(entry.getOwnerShop(), entry);
         getGui().popModalPanel();
+        refreshAll();
     }
 
     public void onCreateCategory() {
@@ -237,6 +234,12 @@ public class ShopCreatorComponentModalPanel extends ModalPanel {
         if(tab == null) return;
         ShopUtilsClient.addTab(tab.getOwnerShop(), tab);
         getGui().popModalPanel();
+        refreshAll();
+    }
+
+    public void refreshAll() {
+        final var gui = getGui();
+        gui.refreshWidgets();
     }
 
     public static ShopCreatorComponentModalPanel openCentered(

@@ -5,11 +5,11 @@ import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
+import net.sixik.sdmshop.client.screen_new.MainShopScreen;
 import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.ShopTab;
 
-import javax.swing.*;
 import java.util.Objects;
 
 public abstract class AbstractEntryTypeFilter<T extends AbstractEntryType> {
@@ -57,4 +57,8 @@ public abstract class AbstractEntryTypeFilter<T extends AbstractEntryType> {
 
     @Environment(EnvType.CLIENT)
     public abstract void addWidget(final Panel panel);
+
+    public final void applyChange() {
+        MainShopScreen.Instance.onFilterApply();
+    }
 }

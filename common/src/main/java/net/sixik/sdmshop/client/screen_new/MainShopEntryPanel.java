@@ -53,7 +53,17 @@ public class MainShopEntryPanel extends Panel {
         }
     }
 
+    public void sort() {
+        if(screen instanceof MainShopScreen mainShopScreen) {
+            mainShopScreen.leftPanel.sortEntries(getWidgets());
+        }
+    }
+
     protected boolean shouldShowEntry(final ShopEntry entry) {
+        if(screen instanceof MainShopScreen mainShopScreen) {
+           return mainShopScreen.leftPanel.isSearched(entry);
+        }
+
         return true;
     }
 

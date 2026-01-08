@@ -2,7 +2,6 @@ package net.sixik.sdmshop.shop.sorts;
 
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.TextBox;
-import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
@@ -55,7 +54,13 @@ public class ItemEntryTypeDurabilityFilter extends AbstractEntryTypeFilter<ItemE
     @Override
     @Environment(EnvType.CLIENT)
     public void addWidget(Panel panel) {
-        panel.add(new InputPanel(panel, s -> damageFromPercent = s, s -> damageToPercent = s));
+        panel.add(new InputPanel(panel, s -> {
+            damageFromPercent = s;
+            applyChange();
+        }, s -> {
+            damageToPercent = s;
+            applyChange();
+        }));
     }
 
     @Environment(EnvType.CLIENT)

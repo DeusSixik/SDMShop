@@ -329,6 +329,8 @@ public class ItemEntryTypeEnchantmentFilter extends AbstractEntryTypeFilter<Item
                 if(list.get(i) instanceof Button button)
                     button.updateSelected();
             }
+
+            filter.applyChange();
         }
     }
 

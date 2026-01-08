@@ -28,6 +28,7 @@
   "sdm.shop.entry" : "Entry",
   "sdm.shop.entry.buy" : "Buy",
   "sdm.shop.entry.sell" : "Sell",
+  "sdm.shop.entry.sold": "Sold",
   "sdm.shop.entry.count" : "Count",
   "sdm.shop.entry.item" : "Item",
   "sdm.shop.entry.tags" : "Tag",

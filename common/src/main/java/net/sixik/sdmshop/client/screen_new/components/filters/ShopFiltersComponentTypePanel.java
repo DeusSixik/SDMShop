@@ -1,18 +1,14 @@
 package net.sixik.sdmshop.client.screen_new.components.filters;
 
-import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.ui.Panel;
 import dev.ftb.mods.ftblibrary.ui.SimpleTextButton;
 import dev.ftb.mods.ftblibrary.ui.Theme;
 import dev.ftb.mods.ftblibrary.ui.Widget;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.client.SDMShopClient;
-import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
 import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.registers.ShopContentRegister;
-import net.sixik.sdmshop.shop.BaseShop;
 import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmshop.shop.sorts.AbstractEntryTypeFilter;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
@@ -25,10 +21,10 @@ import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.BORDER_INT;
 
 public class ShopFiltersComponentTypePanel extends Panel {
 
-    private static final List<AbstractEntryTypeFilter<? extends AbstractEntryType>> NULL = List.of();
+    public static final List<AbstractEntryTypeFilter<? extends AbstractEntryType>> NULL = List.of();
 
     protected final ShopFiltersComponentModalPanel modalPanel;
-    public Button selectedButton;
+    public Button selectedTypeButton;
 
     public ShopFiltersComponentTypePanel(ShopFiltersComponentModalPanel panel) {
         super(panel);
@@ -85,8 +81,8 @@ public class ShopFiltersComponentTypePanel extends Panel {
             if(widget instanceof Button b && widget == button) {
                 if(!b.selected) {
                     b.selected = true;
-                    selectedButton = b;
-                    modalPanel.onSelected(selectedButton);
+                    selectedTypeButton = b;
+                    modalPanel.onSelected(selectedTypeButton);
                 }
                 continue;
             }
@@ -97,8 +93,8 @@ public class ShopFiltersComponentTypePanel extends Panel {
         }
     }
 
-    public Button getSelectedButton() {
-        return selectedButton;
+    public Button getSelectedTypeButton() {
+        return selectedTypeButton;
     }
 
     public static class Button extends SimpleTextButton {

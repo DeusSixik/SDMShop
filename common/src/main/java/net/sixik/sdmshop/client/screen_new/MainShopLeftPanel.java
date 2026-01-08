@@ -9,9 +9,19 @@ import net.minecraft.network.chat.Component;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
 import net.sixik.sdmshop.client.screen_new.components.filters.ShopFiltersComponentModalPanel;
+import net.sixik.sdmshop.client.screen_new.components.filters.ShopFiltersComponentTypePanel;
+import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
+import net.sixik.sdmshop.registers.ShopContentRegister;
+import net.sixik.sdmshop.shop.ShopEntry;
+import net.sixik.sdmshop.shop.ShopTab;
+import net.sixik.sdmshop.shop.sorts.AbstractEntryTypeFilter;
+import net.sixik.sdmshop.utils.ShopUtils;
 import net.sixik.sdmshop.utils.rendering.widgets.EnumDropdownWidget;
 import net.sixik.sdmshop.utils.rendering.ShopRenderingWrapper;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
+
+import java.util.Collection;
+import java.util.List;
 
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopWidgets.*;
 import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.*;
@@ -21,11 +31,14 @@ import static net.sixik.sdmshop.client.screen_new.api.GUIShopMenu.*;
  */
 public class MainShopLeftPanel extends Panel {
 
-    public TextBox field;
+    public TextBox searchField;
 
     public TextField categoryBoxTitle;
     public EditCategoryButton categoryBoxEditButton;
     public CategoryBox categoryBox;
+
+    protected double priceFrom = 0;
+    protected double priceTo = 0;
 
     protected TextField priceTitle;
     protected TextBox priceBoxFrom;
@@ -41,6 +54,7 @@ public class MainShopLeftPanel extends Panel {
     }
 
     public enum CategorySort {
+        NONE,
         PRICE_ASC,
         PRICE_DESC,
         NAME_ASC,
@@ -49,13 +63,29 @@ public class MainShopLeftPanel extends Panel {
 
     @Override
     public void addWidgets() {
-        add(field = new SearchBox(this, (s) -> {}));
+        add(searchField = new SearchBox(this, (s) -> {
+            MainShopScreen.Instance.onFilterApply();
+        }));
         add(categoryBoxTitle = new TextField(this));
         add(categoryBox = new CategoryBox(this, 4, 2));
         add(categoryBoxEditButton = new EditCategoryButton(this, Component.translatable("sdm.shop.gui.box.categories.edit"), categoryBox));
         add(priceTitle = new TextField(this));
-        add(priceBoxFrom = new TextBox(this));
-        add(priceBoxTo = new TextBox(this));
+        add(priceBoxFrom = new TextBox(this) {
+            @Override
+            public void onTextChanged() {
+                final String str = getText();
+                priceFrom = str.isEmpty() ? 0 : Double.parseDouble(str);
+                MainShopScreen.Instance.onFilterApply();
+            }
+        });
+        add(priceBoxTo = new TextBox(this) {
+            @Override
+            public void onTextChanged() {
+                final String str = getText();
+                priceTo = str.isEmpty() ? 0 : Double.parseDouble(str);
+                MainShopScreen.Instance.onFilterApply();
+            }
+        });
 
         add(moreFiltersButton = new SimpleTextButton(this, Component.translatable("sdm.shop.gui.box.categories.filters.title"), Icons.SETTINGS) {
             @Override
@@ -77,19 +107,25 @@ public class MainShopLeftPanel extends Panel {
             }
         });
 
-        add(sortDropdown = new EnumDropdownWidget<>(this, CategorySort.class, CategorySort.NAME_ASC)
-                .setLabel(v -> switch (v) {
-                    case NAME_ASC  -> Component.literal("Name: A → Z");
-                    case NAME_DESC -> Component.literal("Name: Z → A");
-                    case PRICE_ASC -> Component.literal("Price: Low → High");
-                    case PRICE_DESC -> Component.literal("Price: High → Low");
-                })
-                .onChange(this::applySort));
+        //  TODO: Add sort
+//        add(sortDropdown = new EnumDropdownWidget<>(this, CategorySort.class, CategorySort.NAME_ASC)
+//                .setLabel(v -> switch (v) {
+//                    case NONE -> Component.literal("None");
+//                    case NAME_ASC  -> Component.literal("Name: A → Z");
+//                    case NAME_DESC -> Component.literal("Name: Z → A");
+//                    case PRICE_ASC -> Component.literal("Price: Low → High");
+//                    case PRICE_DESC -> Component.literal("Price: High → Low");
+//                })
+//                .onChange(this::applySort));
+        priceBoxFrom.setFilter(ShopUtils.ONLY_DIGITS);
         priceBoxFrom.ghostText = "From";
+        priceBoxTo.setFilter(ShopUtils.ONLY_DIGITS);
         priceBoxTo.ghostText = "To";
     }
 
-    private void applySort(CategorySort mode) {}
+    private void applySort(CategorySort mode) {
+
+    }
 
     @Override
     public void alignWidgets() {
@@ -101,15 +137,15 @@ public class MainShopLeftPanel extends Panel {
         final int xOffset = 6;
         final int xOffsetM = xOffset * 2;
 
-        field.setWidth(elementSize);
-        field.setHeight(12);
-        field.posX = centerPosElements;
-        field.posY += field.height / 6;
+        searchField.setWidth(elementSize);
+        searchField.setHeight(12);
+        searchField.posX = centerPosElements;
+        searchField.posY += searchField.height / 6;
 
         categoryBoxTitle.setMaxWidth(elementSize);
         categoryBoxTitle.setText(Component.translatable("sdm.shop.gui.box.categories.title"));
         categoryBoxTitle.posX = xOffset;
-        categoryBoxTitle.posY += field.posY + 4;
+        categoryBoxTitle.posY += searchField.posY + 4;
 
         categoryBoxEditButton.posX = this.width - categoryBoxEditButton.width - 4;
         categoryBoxEditButton.posY = categoryBoxTitle.posY;
@@ -143,16 +179,16 @@ public class MainShopLeftPanel extends Panel {
         priceBoxFrom.posX = this.width - priceWW;
         priceBoxTo.posX = priceBoxFrom.posX + priceBoxFrom.width + 2;
 
-        sortDropdown.setHeight(12);
-        sortDropdown.setWidth(this.width - xOffsetM);
-
-        sortDropdown.posX = xOffset;
-        sortDropdown.posY = priceBoxTo.posY + priceBoxTo.height + fontHD;
+//        sortDropdown.setHeight(12);
+//        sortDropdown.setWidth(this.width - xOffsetM);
+//
+//        sortDropdown.posX = xOffset;
+//        sortDropdown.posY = priceBoxTo.posY + priceBoxTo.height + fontHD;
 
         moreFiltersButton.setWidth(this.width - xOffsetM);
         moreFiltersButton.setHeight(12);
         moreFiltersButton.posX = (this.width - moreFiltersButton.width) / 2;
-        moreFiltersButton.posY = sortDropdown.posY + sortDropdown.height + fontHD;
+        moreFiltersButton.posY = priceBoxTo.posY + priceBoxTo.height + fontHD;
 
         toolPanel.width = categoryBox.width;
         toolPanel.height = categoryBox.height - categoryBox.height / 4;
@@ -178,5 +214,48 @@ public class MainShopLeftPanel extends Panel {
         ShopRenderingWrapper.addBatchRect(graphics, x, y, w ,h, BACKGROUND_INT, BORDER_INT);
 
         ShopRenderingWrapper.endBatch();
+    }
+
+    public boolean isSearched(ShopEntry entry) {
+
+        final List<ShopTab> selectedCategory = categoryBox.getSelectedCategories();
+        if(!selectedCategory.isEmpty()) {
+            boolean find = false;
+            for (int i = 0; i < selectedCategory.size(); i++) {
+                if(selectedCategory.get(i).getId().equals(entry.getTab())) {
+                    find = true;
+                    break;
+                }
+            }
+
+            if(!find) return false;
+        }
+
+
+        if(entry.getPrice() < priceFrom)
+            return false;
+
+        if(priceTo != 0 && entry.getPrice() > priceTo)
+            return false;
+
+        final String searchTxt = searchField.getText();
+        if(!searchTxt.isEmpty() && !entry.getEntryType().isSearch(searchField.getText()))
+            return false;
+
+        final ShopTab shopTab = SDMShopClient.CurrentShop.getTab(entry.getTab());
+
+        final List<AbstractEntryTypeFilter<? extends AbstractEntryType>> filters =
+                SDMShopClient.shopFilters.getOrDefault(entry.getEntryType().getClass(), ShopFiltersComponentTypePanel.NULL);
+        if(!filters.isEmpty()) {
+            for (int i = 0; i < filters.size(); i++) {
+                if(!filters.get(i).sorting(entry, shopTab, entry.getEntryType())) return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void sortEntries(Collection<Widget> shopEntryButtons) {
+
     }
 }

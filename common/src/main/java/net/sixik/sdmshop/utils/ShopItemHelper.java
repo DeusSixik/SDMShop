@@ -1,7 +1,9 @@
 package net.sixik.sdmshop.utils;
 
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.locale.Language;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
@@ -142,7 +144,13 @@ public class ShopItemHelper {
     }
 
     public static boolean isSearch(final String search, final ItemStack itemStack) {
-        return itemStack.getDisplayName().getString().contains(search) || BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString().contains(search);
+        final String _search = search.toLowerCase();
+        final String display = itemStack.getDisplayName().getString().toLowerCase();
+        if(display.contains(_search)) return true;
+
+        final String registry = BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString().toLowerCase();
+        final String _search_filtered = _search.replace(" ", "_");
+        return registry.contains(_search_filtered);
     }
 
     public static boolean isSearch(String search, HolderSet.Named<Item> tag) {

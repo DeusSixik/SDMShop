@@ -50,7 +50,7 @@ public class ShopCreatorEntryTypesPanel extends Panel {
             for (Map.Entry<String, Function<ShopEntry, AbstractEntryType>> entrySet :
                     ShopContentRegister.getEntryTypes().entrySet()) {
                 final AbstractEntryType entryType = entrySet.getValue().apply(EMPTY);
-                if(entryType == null) continue;
+                if(entryType == null || !entryType.isModLoaded()) continue;
                 Cached.add(entryType);
             }
 

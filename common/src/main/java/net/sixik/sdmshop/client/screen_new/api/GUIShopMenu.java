@@ -16,6 +16,7 @@ import net.sixik.sdmshop.shop.sorts.AbstractEntryTypeFilter;
 import net.sixik.v2.color.RGB;
 import net.sixik.v2.color.RGBA;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -98,7 +99,8 @@ public interface GUIShopMenu {
                     new ObjectArrayList<>();
 
             for (int f = 0; f < factories.size(); f++) {
-                final AbstractEntryTypeFilter<? extends AbstractEntryType> filter = factories.get(f).apply(cls);
+                final AbstractEntryTypeFilter<? extends AbstractEntryType> filter =
+                        factories.get(f).apply(cls);
                 if (filter != null) {
                     filtersForClass.add(filter);
                 }
@@ -109,12 +111,16 @@ public interface GUIShopMenu {
             }
         }
 
+
+
         for (int i = 0; i < entries.size(); i++) {
             final AbstractEntryType type = entries.get(i).getEntryType();
             final Class<? extends AbstractEntryType> cls = type.getClass();
 
-            final List<AbstractEntryTypeFilter<? extends AbstractEntryType>> filters = map.get(cls);
+            final List<AbstractEntryTypeFilter<? extends AbstractEntryType>> filters = map.getOrDefault(cls, null);
             if (filters == null) continue;
+
+            System.out.println(Arrays.toString(filters.toArray()) + " | " + cls);
 
             for (int j = 0; j < filters.size(); j++) {
                 filters.get(j).collectFromImpl(type);

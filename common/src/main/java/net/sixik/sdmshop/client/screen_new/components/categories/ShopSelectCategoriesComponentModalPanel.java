@@ -218,8 +218,10 @@ public class ShopSelectCategoriesComponentModalPanel extends ModalPanel {
     public void onClosed() {
         categoryBox.selectNewCategories(selectedCategories);
 
-        if(MainShopScreen.Instance != null)
+        if(MainShopScreen.Instance != null) {
             MainShopScreen.Instance.onModalClose(this);
+            MainShopScreen.Instance.onFilterApply();
+        }
 
 
         super.onClosed();

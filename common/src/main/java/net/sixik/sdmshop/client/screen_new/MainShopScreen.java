@@ -7,17 +7,18 @@ import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
 import net.sixik.sdmshop.client.screen_new.api.ShopScreenEvents;
 import net.sixik.sdmshop.shop.BaseShop;
+import net.sixik.sdmshop.shop.ShopEntry;
 import net.sixik.sdmuilib.client.utils.misc.RGBA;
 
 public class MainShopScreen extends BaseScreen implements GUIShopMenu {
 
     public static MainShopScreen Instance;
 
-    private MainShopLeftPanel leftPanel;
-    private MainShopEntryPanel entryPanel;
-    private PanelScrollBar entryPanelScroll;
+    protected MainShopLeftPanel leftPanel;
+    protected MainShopEntryPanel entryPanel;
+    protected PanelScrollBar entryPanelScroll;
 
-    private double entryPanelScrollSafe = 0;
+    protected double entryPanelScrollSafe = 0;
 
     public boolean shouldRenderWidgets = true;
     public ObjectArrayList<ShopScreenEvents.OnModalOpen> modalOpenEventListeners = new ObjectArrayList<>();
@@ -33,6 +34,12 @@ public class MainShopScreen extends BaseScreen implements GUIShopMenu {
         getModalCloseListeners().add((s) -> {
             shouldRenderWidgets = true;
         });
+    }
+
+    public void onFilterApply() {
+        entryPanel.clearWidgets();
+        entryPanel.addWidgets();
+        entryPanel.alignWidgets();
     }
 
     @Override
@@ -144,4 +151,5 @@ public class MainShopScreen extends BaseScreen implements GUIShopMenu {
     public static BaseShop getShop() {
         return SDMShopClient.CurrentShop;
     }
+
 }

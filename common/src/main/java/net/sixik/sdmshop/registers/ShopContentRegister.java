@@ -106,8 +106,19 @@ public class ShopContentRegister {
 
     public static void init() {
 
-        addFilter(ItemEntryTypeDurabilityFilter::new);
-        addFilter(ItemEntryTypeEnchantmentFilter::new);
+        addFilter((clazz) -> {
+            if (ItemEntryType.class.isAssignableFrom(clazz)) {
+                return new ItemEntryTypeDurabilityFilter(clazz);
+            }
+            return null;
+        });
+
+        addFilter((clazz) -> {
+            if (ItemEntryType.class.isAssignableFrom(clazz)) {
+                return new ItemEntryTypeEnchantmentFilter(clazz);
+            }
+            return null;
+        });
 
         registerSellerType("money_seller", MoneySellerType::new);
         registerSellerType("item_seller", ItemSellerType::new);

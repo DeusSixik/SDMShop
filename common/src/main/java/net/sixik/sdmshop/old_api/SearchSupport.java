@@ -6,7 +6,6 @@ public interface SearchSupport {
 
     boolean isSearch(String search);
 
-
     interface ByTag {
         boolean search(TagKey<?> tagKey);
     }

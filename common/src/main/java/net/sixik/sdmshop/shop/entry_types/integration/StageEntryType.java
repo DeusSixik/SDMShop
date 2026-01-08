@@ -80,7 +80,7 @@ public class StageEntryType extends AbstractEntryType {
 
     @Override
     public void getConfig(ConfigGroup group) {
-
+        group.addString("stage", stage, s -> stage = s, "");
     }
 
     @Override

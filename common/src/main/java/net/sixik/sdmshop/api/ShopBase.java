@@ -114,20 +114,23 @@ public interface ShopBase {
      * Calculates the Hash for the data so that its validity can be verified
      */
     default String calculateVersion() {
-        if (!isDirty()) {
-            final Tag nbt = getCachedNbt();
-            if (nbt != null) {
-                if (getVersion().isEmpty() && nbt instanceof CompoundTag compoundTag) {
-                    return HashUtils.calculateHash(compoundTag);
-                }
-                return NULL_HASH;
-            }
+        if (!isDirty() && !getVersion().equals(NULL_HASH) && !getVersion().isEmpty()) {
+            return getVersion();
+        }
+
+        final Tag cached = getCachedNbt();
+        if (cached instanceof CompoundTag compoundTag) {
+            final String hash = HashUtils.calculateHash(compoundTag);
+            setVersion(hash);
+            return hash;
         }
 
         final DataResult<Tag> result = codecNetwork().encodeStart(NbtOps.INSTANCE, this);
-        final Tag nbt = result.getOrThrow(false, SDMShop.LOGGER::error);
+        final Tag nbt = result.result().orElse(null);
         if (!(nbt instanceof CompoundTag compoundTag)) return NULL_HASH;
-        return HashUtils.calculateHash(compoundTag);
+        final String hash = HashUtils.calculateHash(compoundTag);
+        setVersion(hash);
+        return hash;
     }
 
     /**
@@ -238,19 +241,27 @@ public interface ShopBase {
     }
 
     default RemoveResult removeEntriesUnSafe(final ShopTab shopTab) {
-        return removeEntriesUnSafe(shopTab.getId());
+        final RemoveResult result = removeEntriesUnSafe(shopTab.getId());
+        if (result.success()) setDirty(true);
+        return result;
     }
 
     default RemoveResult removeEntriesUnSafe(final UUID tabId) {
         if (tabId == null) return RemoveResult.FAIL;
-        getEntries().removeIf(s -> s.getTab().equals(tabId));
-        return RemoveResult.SUCCESS;
+        if (getEntries().removeIf(s -> s.getTab().equals(tabId))) {
+            setDirty(true);
+            return RemoveResult.SUCCESS;
+        }
+        return RemoveResult.FAIL;
     }
 
     default RemoveResult removeEntriesUnSafe(final Predicate<ShopEntry> entry) {
         if (entry == null) return RemoveResult.FAIL;
-        getEntries().removeIf(entry);
-        return RemoveResult.SUCCESS;
+        if (getEntries().removeIf(entry)) {
+            setDirty(true);
+            return RemoveResult.SUCCESS;
+        }
+        return RemoveResult.FAIL;
     }
 
     default RemoveResult removeEntry(final ShopEntry entryBase) {
@@ -631,6 +642,10 @@ public interface ShopBase {
     }
 
     CompoundTag serializeOrCache();
+
+    default boolean isClient() {
+        return false;
+    }
 
     static boolean isVersionNull(final String version) {
         return Objects.equals(version, NULL_HASH);

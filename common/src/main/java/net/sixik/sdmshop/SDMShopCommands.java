@@ -14,6 +14,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.sixik.sdmshop.config.ShopConfig;
 import net.sixik.sdmshop.currencies.SDMCoin;
 import net.sixik.sdmshop.network.async.AsyncServerTasks;
 import net.sixik.sdmshop.server.SDMShopServer;
@@ -39,7 +40,15 @@ public class SDMShopCommands {
                         )
                     )
                 )
-                .then(Commands.literal("set")
+                .then(Commands.literal("set") // old command
+                        .requires(source -> source.hasPermission(2))
+                        .then(Commands.argument("player", EntityArgument.players())
+                                .then(Commands.argument("money", DoubleArgumentType.doubleArg(0L))
+                                        .executes(context -> set(context.getSource(), EntityArgument.getPlayers(context, "player"), DoubleArgumentType.getDouble(context, "money")))
+                                )
+                        )
+                )
+                .then(Commands.literal("set_balance")
                     .requires(source -> source.hasPermission(2))
                     .then(Commands.argument("player", EntityArgument.players())
                         .then(Commands.argument("money", DoubleArgumentType.doubleArg(0L))
@@ -47,7 +56,15 @@ public class SDMShopCommands {
                         )
                     )
                 )
-                .then(Commands.literal("add")
+                .then(Commands.literal("add") // old command
+                        .requires(source -> source.hasPermission(2))
+                        .then(Commands.argument("player", EntityArgument.players())
+                                .then(Commands.argument("money", DoubleArgumentType.doubleArg())
+                                        .executes(context -> add(context.getSource(), EntityArgument.getPlayers(context, "player"), DoubleArgumentType.getDouble(context, "money")))
+                                )
+                        )
+                )
+                .then(Commands.literal("add_balance")
                         .requires(source -> source.hasPermission(2))
                         .then(Commands.argument("player", EntityArgument.players())
                             .then(Commands.argument("money", DoubleArgumentType.doubleArg())
@@ -72,6 +89,10 @@ public class SDMShopCommands {
                     )
                 )
 
+                .then(Commands.literal("reload_config_server")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(context -> reloadServerConfig(context.getSource()))
+                )
 //                .then(Commands.literal("reloadConfig")
 //                        .requires(source -> source.hasPermission(2))
 //                        .executes(context -> reloadClient(context.getSource()))
@@ -85,7 +106,16 @@ public class SDMShopCommands {
                                 )
                         )
                     )
+                        .then(Commands.literal("help")
+                                .executes(context -> printHelpInformation(context.getSource()))
+                        )
         );
+    }
+
+    private static int reloadServerConfig(CommandSourceStack source) {
+        ShopConfig.reload();
+        source.sendSuccess(() -> Component.literal("Config reloaded!").withStyle(ChatFormatting.GREEN), false);
+        return 1;
     }
 
 
@@ -197,5 +227,45 @@ public class SDMShopCommands {
 
     public static void registerCommands(CommandDispatcher<CommandSourceStack> commandSourceStackCommandDispatcher, CommandBuildContext commandBuildContext, Commands.CommandSelection commandSelection) {
         registerCommands(commandSourceStackCommandDispatcher);
+    }
+
+
+    private static int printHelpInformation(CommandSourceStack source) {
+        boolean isAdmin = source.hasPermission(2);
+
+        source.sendSuccess(() -> Component.literal("=== ")
+                .append(Component.literal("SDM Shop | Help").withStyle(ChatFormatting.GOLD))
+                .append(" ===").withStyle(ChatFormatting.YELLOW), false);
+
+        sendHelpLine(source, "/sdmshop help", "Shows this help message");
+        sendHelpLine(source, "/sdmshop balance", "Check your balance");
+        sendHelpLine(source, "/sdmshop pay <player> <amount>", "Send money to another player");
+
+        if (isAdmin) {
+            source.sendSuccess(() -> Component.literal("\n=== ")
+                    .append(Component.literal("Administration").withStyle(ChatFormatting.RED))
+                    .append(" ===").withStyle(ChatFormatting.DARK_RED), false);
+
+            sendHelpLine(source, "/sdmshop balance <player>", "Check the balance of a specific player");
+            sendHelpLine(source, "/sdmshop set_balance | set <player> <amount>", "Set the exact balance of a player");
+            sendHelpLine(source, "/sdmshop add_balance | add <player> <amount>", "Add or remove (negative value) money");
+            sendHelpLine(source, "/sdmshop edit_mode", "Toggle edit mode");
+            sendHelpLine(source, "/sdmshop create_shop <id>", "Create a new shop");
+            sendHelpLine(source, "/sdmshop delete_shop <id>", "Delete an existing shop");
+            sendHelpLine(source, "/sdmshop open_shop <player> <id>", "Force open a shop for a player");
+            sendHelpLine(source, "/sdmshop reload_config_server", "Reload the server configuration");
+        }
+
+        source.sendSuccess(() -> Component.literal("=========================").withStyle(ChatFormatting.YELLOW), false);
+
+        return 1;
+    }
+
+    private static void sendHelpLine(CommandSourceStack source, String command, String description) {
+        source.sendSuccess(() -> Component.empty()
+                        .append(Component.literal(command).withStyle(ChatFormatting.AQUA))
+                        .append(Component.literal(" - ").withStyle(ChatFormatting.DARK_GRAY))
+                        .append(Component.literal(description).withStyle(ChatFormatting.GRAY)),
+                false);
     }
 }

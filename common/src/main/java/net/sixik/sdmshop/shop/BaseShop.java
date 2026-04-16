@@ -11,9 +11,9 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmeconomy.SDMEconomy;
+import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.api.ShopBase;
-import net.sixik.sdmshop.client.SDMShopClient;
-import net.sixik.sdmshop.client.screen_new.api.GUIShopMenu;
+import net.sixik.sdmshop.api.ShopEvents;
 import net.sixik.sdmshop.old_api.ConfigSupport;
 import net.sixik.sdmshop.old_api.shop.AbstractEntryType;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
@@ -67,6 +67,15 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
     public void onChangeMethod() {
         cachedNBT = serialize();
         version = calculateVersion();
+
+        final List<ShopBase.ShopChangeListener> listeners = getShopChangeListeners();
+        for (int i = 0; i < listeners.size(); i++) {
+            listeners.get(i).handle(this);
+        }
+        ShopEvents.SHOP_CHANGE_EVENT.invoker().handle(this);
+        onChangeEvent();
+
+        setDirty(false);
     }
 
     @Override
@@ -117,6 +126,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
     @Override
     public void setCachedNbt(Tag nbt) {
         this.cachedNBT = nbt;
+        this.version = calculateVersion();
     }
 
     @Override
@@ -215,7 +225,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
                     entry.deserialize((CompoundTag) tag1);
                     getEntries().add(entry);
                 } catch (Exception e) {
-                    SDMEconomy.printStackTrace("Error when read ShopEntry", e);
+                    SDMShop.LOGGER.error("Error when read ShopEntry", e);
                 }
             }
         }
@@ -229,7 +239,7 @@ public class BaseShop implements DataSerializerCompoundTag, ConfigSupport, ShopB
                     entry.deserialize((CompoundTag) tag1);
                     getTabs().add(entry);
                 } catch (Exception e) {
-                    SDMEconomy.printStackTrace("Error when read ShopTab", e);
+                    SDMShop.LOGGER.error("Error when read ShopTab", e);
                 }
             }
         }

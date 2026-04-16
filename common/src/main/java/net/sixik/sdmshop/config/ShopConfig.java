@@ -29,14 +29,20 @@ public class ShopConfig {
     static {
         CONFIG = SNBTConfig.create("sdmshop-common");
 
-        DISABLE_KEYBIND = CONFIG.addBoolean("disable_key_bind", false);
-        SEND_NOTIFY = CONFIG.addBoolean("send_notify", true);
-        DEFAULT_SHOP_ID = CONFIG.addString("default_shop_id", "default").comment("The store ID that you specify when creating via /sdmshop create_shop <id>. After specifying the ID, clicking on the store button or the button in the menu will open the current store.");
-        SHOW_ADMIN_MESSAGES = CONFIG.addBoolean("show_admin_messages", true);
+        var group = CONFIG.addGroup("server");
+        DISABLE_KEYBIND = group.addBoolean("disable_key_bind", false)
+                .comment("Determines if the client is allowed to request opening a shop (e.g., via keybindings). If enabled, shops can only be opened by the server using the /sdmshop open_shop <player> <shopId> command. Useful for custom shop implementations.");
+        SEND_NOTIFY = group.addBoolean("send_notify", true)
+                .comment("Whether to display a notification in chat about purchasing an item.");
+        DEFAULT_SHOP_ID = group.addString("default_shop_id", "default")
+                .comment("The store ID that you specify when creating via /sdmshop create_shop <id>. After specifying the ID, clicking on the store button or the button in the menu will open the current store.");
+        SHOW_ADMIN_MESSAGES = group.addBoolean("show_admin_messages", true)
+                .comment("Debugging messages when editing, purchasing, etc. It is recommended to enable them when editing.");
 
-        GUI_STYLE = CONFIG.addEnum("ui_style", NameMap.of(UIStyle.BlockyModern, UIStyle.values()).create());
+        group = CONFIG.addGroup("client");
+        GUI_STYLE = group.addEnum("ui_style", NameMap.of(UIStyle.BlockyModern, UIStyle.values()).create());
 
-        var group = CONFIG.addGroup("caching");
+        group = group.addGroup("caching");
         USE_CACHED_SHOP_DATA = group.addBoolean("use_cached_shop_data", true).comment("Allows you to reduce the load on the network by caching store data on the player's client. In this case, the player will be able to copy your store data without any obstacles.");
     }
 }

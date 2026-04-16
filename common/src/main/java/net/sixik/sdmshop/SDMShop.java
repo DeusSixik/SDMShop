@@ -25,7 +25,6 @@ public final class SDMShop {
     public static final String MODID = "sdmshop";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-
     public static void init() {
         init(() -> {}, () -> {});
     }

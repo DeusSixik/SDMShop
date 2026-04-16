@@ -5,6 +5,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.sixik.sdmshop.SDMShop;
+import net.sixik.sdmshop.SDMShopConstants;
 import net.sixik.sdmshop.api.ShopBase;
 import net.sixik.sdmshop.config.ShopConfig;
 import net.sixik.sdmshop.server.SDMShopServer;
@@ -27,17 +28,32 @@ public class AsyncServerTasks {
 
     public static void init() {
         AsyncBridge.registerHandler(GET_OPEN_SHOP, buf -> {
-            final ResourceLocation shopId = buf.readResourceLocation();
+            final ResourceLocation readId = buf.readResourceLocation();
+
+            final FriendlyByteBuf hugeData = new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+            if(ShopConfig.DISABLE_KEYBIND.get()) {
+                hugeData.writeBoolean(false);
+                return hugeData;
+            }
+            hugeData.writeBoolean(true);
+
+            final ResourceLocation shopId = readId.equals(SDMShopConstants.AUTO_SHOP_OPEN)
+                    ? SDMShopServer.parseLocation(ShopConfig.DEFAULT_SHOP_ID.get())
+                    : readId;
+
             final Optional<BaseShop> optionalShop = SDMShopServer.Instance().getShop(shopId);
+
             if (optionalShop.isEmpty()) {
+                hugeData.writeBoolean(false);
+                hugeData.writeResourceLocation(shopId);
                 SDMShop.LOGGER.error("Can't find shop with id [{}]", shopId);
-                return null;
+                return hugeData;
             }
             final BaseShop shop = optionalShop.get();
             final CompoundTag fullShopData = shop.serialize();
 
-            final FriendlyByteBuf hugeData = new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
             hugeData.writeBoolean(true);
+            hugeData.writeResourceLocation(shopId);
             hugeData.writeUUID(shop.getId());
             hugeData.writeNbt(fullShopData);
             return hugeData;

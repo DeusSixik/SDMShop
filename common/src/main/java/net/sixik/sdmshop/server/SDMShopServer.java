@@ -119,6 +119,9 @@ public class SDMShopServer implements DataSaver {
     }
 
     public static ResourceLocation parseLocation(String id) {
+        if(id.isEmpty())
+            id = SDMShopConstants.DEFAULT_SHOP;
+
         ResourceLocation res = ResourceLocation.tryParse(id);
         if (res == null) return new ResourceLocation(SDMShop.MODID, id);
         return "minecraft".equals(res.getNamespace()) ? new ResourceLocation(SDMShop.MODID, res.getPath()) : res;

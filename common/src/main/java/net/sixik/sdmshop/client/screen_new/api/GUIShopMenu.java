@@ -120,8 +120,6 @@ public interface GUIShopMenu {
             final List<AbstractEntryTypeFilter<? extends AbstractEntryType>> filters = map.getOrDefault(cls, null);
             if (filters == null) continue;
 
-            System.out.println(Arrays.toString(filters.toArray()) + " | " + cls);
-
             for (int j = 0; j < filters.size(); j++) {
                 filters.get(j).collectFromImpl(type);
             }

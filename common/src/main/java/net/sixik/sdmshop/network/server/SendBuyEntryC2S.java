@@ -72,9 +72,8 @@ public class SendBuyEntryC2S extends BaseC2SMessage {
             SDMShop.LOGGER.warn("Player {} tried to buy but tab {} not found on server !", player.getName().getString(), entry.getTab());
 
             if(SDMShop.isDeveloper()) {
-                System.out.println("Need Tab: " + entry.getTab());
                 for (ShopTab shopTab : shop.getTabs()) {
-                    System.out.println(shopTab.getId());
+                    SDMShop.LOGGER.debug("Available tab ID: {}", shopTab.getId());
                 }
             }
 

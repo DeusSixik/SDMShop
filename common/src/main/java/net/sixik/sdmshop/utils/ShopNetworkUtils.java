@@ -15,7 +15,7 @@ import java.util.UUID;
 public class ShopNetworkUtils {
 
     public static void changeShop(BaseShop shop, BaseS2CMessage message, NetworkManager.PacketContext context) {
-        shop.onChange();
+        shop.onChangeForce();
         sendToAllExcept(message, context);
         SDMShopServer.Instance().saveShop(context.getPlayer().getServer(), shop.getId());
     }

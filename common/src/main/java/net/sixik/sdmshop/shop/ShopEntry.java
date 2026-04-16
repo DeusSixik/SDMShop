@@ -2,6 +2,7 @@ package net.sixik.sdmshop.shop;
 
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -37,6 +38,7 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
     protected LimiterType limiterType = LimiterType.LocalPlayer;
 
     protected EntryAdditionalProperty scriptData = new EntryAdditionalProperty();
+//    protected EntryAdditionalProperty scriptDataSaved = new EntryAdditionalProperty();
 
     protected Component title = Component.empty();
     protected List<String> descriptions = new ArrayList<>();
@@ -156,6 +158,12 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
 
         if(limitValue > 0)
             nbt.putInt("limiter", limitValue);
+
+//        if(!scriptDataSaved.isEmpty()) {
+//            CompoundTag data = new CompoundTag();
+//            EntryAdditionalProperty.CODEC.encode(scriptDataSaved, NbtOps.INSTANCE, data);
+//            nbt.put("script_data", data);
+//        }
 
         serializeConditions(nbt);
         serializeLimiter(nbt);
@@ -405,4 +413,8 @@ public class ShopEntry implements DataSerializer<CompoundTag>, ConditionSupport,
     public EntryAdditionalProperty getScriptData() {
         return scriptData;
     }
+
+//    public EntryAdditionalProperty getScriptDataSaved() {
+//        return scriptDataSaved;
+//    }
 }

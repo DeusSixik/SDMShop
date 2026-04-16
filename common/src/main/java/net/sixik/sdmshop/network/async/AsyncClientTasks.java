@@ -1,10 +1,12 @@
 package net.sixik.sdmshop.network.async;
 
 import io.netty.buffer.Unpooled;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.sixik.sdmshop.SDMShop;
 import net.sixik.sdmshop.api.ShopBase;
@@ -12,8 +14,11 @@ import net.sixik.sdmshop.cache.ShopClientCache;
 import net.sixik.sdmshop.client.SDMShopClient;
 import net.sixik.sdmshop.client.screen.modern.ModernShopScreen;
 import net.sixik.sdmshop.shop.BaseShop;
+import net.sixik.sdmshop.utils.ShopUtils;
+import net.sixik.sdmshop.utils.ShopUtilsClient;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 public class AsyncClientTasks {
@@ -154,16 +159,38 @@ public class AsyncClientTasks {
             buf.writeResourceLocation(shopId);
             return buf;
         }).thenAcceptAsync(response -> {
+            final boolean allowed = response.readBoolean();
+            if(!allowed) return;
+
             final boolean found = response.readBoolean();
+            final ResourceLocation shopId_from_server = response.readResourceLocation();
             if (!found) {
-                Minecraft.getInstance().player.displayClientMessage(Component.literal("Shop not found!"), false);
+                MutableComponent outMessage = Component.literal("Shop with id '").withStyle(ChatFormatting.RED)
+                        .append(Component.literal(shopId_from_server.toString()).withStyle(ChatFormatting.GOLD))
+                        .append(Component.literal("' not found!").withStyle(ChatFormatting.RED));
+
+                if (ShopUtils.isEditModeClient()) {
+
+                    String shopIdString = shopId_from_server.getNamespace().equals(SDMShop.MODID)
+                            ? shopId_from_server.getPath()
+                            : shopId_from_server.toString();
+
+                    outMessage.append(Component.literal("\n" +
+                            "§fPossible solutions:\n" +
+                            " §7- Use command: §b/sdmshop create_shop " + shopIdString + "\n" +
+                            " §7- Change shop ID in the button config\n" +
+                            " §7- Disable this button in the config if not needed"
+                    ).withStyle(ChatFormatting.GRAY));
+                }
+
+                Minecraft.getInstance().player.displayClientMessage(outMessage, false);
                 return;
             }
             final UUID shopUID = response.readUUID();
             final CompoundTag shopData = response.readAnySizeNbt();
 
             if (SDMShopClient.CurrentShop == null || !SDMShopClient.CurrentShop.getId().equals(shopUID)) {
-                SDMShopClient.CurrentShop = new BaseShop(shopId, shopUID);
+                SDMShopClient.CurrentShop = new BaseShop(shopId_from_server, shopUID);
             }
 
             SDMShopClient.CurrentShop.deserialize(shopData);

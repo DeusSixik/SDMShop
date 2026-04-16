@@ -37,6 +37,8 @@ import net.sixik.sdmshop.shop.limiter.ShopLimiter;
 import net.sixik.sdmshop.shop.sorts.AbstractEntryTypeFilter;
 import net.sixik.sdmshop.utils.DataSerializerCompoundTag;
 import net.sixik.sdmshop.utils.ShopNBTUtils;
+import net.sixik.sdmshop.api.ShopEvents;
+import net.sixik.sdmshop.api.ShopBase;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -71,6 +73,12 @@ public class SDMShopClient {
         CustomClickEvent.EVENT.register(SDMShopClient::customClick);
         ClientPlayerEvent.CLIENT_PLAYER_JOIN.register(SDMShopClient::onClientPlayerConnect);
 
+        ShopEvents.SHOP_CHANGE_EVENT.register(shop -> {
+            if (shop instanceof BaseShop baseShop) {
+                ShopClientCache.saveCache(baseShop);
+            }
+        });
+
         if(!ShopConfig.DISABLE_KEYBIND.get()) {
             KeyMappingRegistry.register(KEY_SHOP);
         }
@@ -84,7 +92,7 @@ public class SDMShopClient {
 
     public static EventResult customClick(CustomClickEvent event) {
         if (event.id().equals(OPEN_GUI) && !ShopConfig.DISABLE_KEYBIND.get()) {
-            openGui(SDMShopConstants.DEFAULT_SHOP);
+            openGui(SDMShopConstants.AUTO_SHOP_OPEN);
             return EventResult.interruptTrue();
         }
 
@@ -93,12 +101,16 @@ public class SDMShopClient {
     public static void keyInput(Minecraft mc) {
         if (KEY_SHOP.consumeClick()) {
             if(!ShopConfig.DISABLE_KEYBIND.get())
-                openGui(ShopConfig.DEFAULT_SHOP_ID.get());
+                openGui(SDMShopConstants.AUTO_SHOP_OPEN);
         }
     }
 
     public static void openGui(String shopId) {
         AsyncClientTasks.openShop(SDMShopServer.parseLocation(shopId));
+    }
+
+    public static void openGui(ResourceLocation shopId) {
+        AsyncClientTasks.openShop(shopId);
     }
 
     public static void openGui() {

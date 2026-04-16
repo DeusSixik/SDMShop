@@ -1,6 +1,10 @@
 package net.sixik.sdmshop;
 
+import net.minecraft.resources.ResourceLocation;
+
 public class SDMShopConstants {
+
+    public static final ResourceLocation AUTO_SHOP_OPEN = new ResourceLocation("server", "auto_shop_open");
 
     public static final String EDIT_KEY = "sdm.shop.context.edit";
     public static final String SETTINGS_KEY = "sdm.shop.context.setting";
